@@ -1,0 +1,431 @@
+.fyll {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.knapperad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rom-4) var(--rom-6);
+  margin-block-start: var(--rom-3);
+}
+
+/* --- Nisjeduft --- */
+
+.nisje {
+  background: var(--sand-dyp);
+}
+
+.nisjeHode {
+  display: grid;
+  gap: var(--rom-5);
+  margin-block-end: var(--rom-7);
+}
+
+.nisjeTekst {
+  display: grid;
+  gap: var(--rom-4);
+  max-inline-size: 44rem;
+}
+
+.nisjeLenker {
+  align-self: end;
+}
+
+@media (min-width: 64rem) {
+  .nisjeHode {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+/* --- Duftnoter (mørk flate) --- */
+
+.noter {
+  background: var(--plomme);
+  color: var(--paa-mork);
+}
+
+.noterHode {
+  display: grid;
+  gap: var(--rom-4);
+  margin-block-end: var(--rom-6);
+}
+
+.noterIntro {
+  display: grid;
+  gap: var(--rom-4);
+}
+
+.noterForklaring {
+  max-inline-size: 28rem;
+  color: var(--paa-mork-dempet);
+  font-size: var(--t-liten);
+}
+
+@media (min-width: 64rem) {
+  .noterHode {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+.faner {
+  display: flex;
+  gap: var(--rom-2);
+  margin-inline: calc(var(--kant) * -1);
+  padding: var(--rom-1) var(--kant) var(--rom-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.fane {
+  flex: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--rom-2);
+  min-block-size: 2.75rem;
+  padding: 0.55rem var(--rom-4);
+  border: 1px solid var(--plomme-linje);
+  border-radius: var(--radius-pille);
+  background: transparent;
+  color: var(--paa-mork);
+  font-size: var(--t-liten);
+  font-weight: 600;
+  transition:
+    background-color var(--tid-kort) var(--ease-ut),
+    border-color var(--tid-kort) var(--ease-ut),
+    color var(--tid-kort) var(--ease-ut);
+}
+
+.fane span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--paa-mork-dempet);
+}
+
+.fane:hover {
+  border-color: var(--paa-mork-dempet);
+}
+
+.fane[aria-selected='true'] {
+  background: var(--paa-mork);
+  border-color: var(--paa-mork);
+  color: var(--plomme);
+}
+
+.fane[aria-selected='true'] span {
+  color: var(--blekk-dempet);
+}
+
+.notepanel {
+  display: grid;
+  gap: var(--rom-6);
+  padding-block-start: var(--rom-4);
+}
+
+.notegrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--rom-6) var(--rom-4);
+}
+
+.notegrid li:nth-child(n + 5) {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .notegrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--rom-6) var(--rom-5);
+  }
+}
+
+/* Kortene på mørk flate. */
+.noter article p,
+.noter article h3 {
+  color: var(--paa-mork);
+}
+
+.noter article p:first-child {
+  color: var(--paa-mork-dempet);
+}
+
+.noter article [data-produktbilde] {
+  outline: 1px solid var(--plomme-linje);
+}
+
+.noter :global(.tekstlenke) {
+  justify-self: start;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .notepanel {
+    animation: inn var(--tid-lang) var(--ease-ut);
+  }
+}
+
+@keyframes inn {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+/* --- Personlig veiledning --- */
+
+.veiledningRutenett {
+  display: grid;
+  gap: var(--rom-7);
+  align-items: center;
+}
+
+.veiledningBilde {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+.veiledningBilde::after {
+  content: '';
+  position: absolute;
+  inset-block: var(--rom-6);
+  inset-inline-end: 0;
+  inline-size: var(--loper);
+  background: var(--rosa);
+}
+
+.veiledningTekst {
+  display: grid;
+  gap: var(--rom-4);
+  max-inline-size: 36rem;
+}
+
+.avsnitt {
+  text-wrap: pretty;
+}
+
+.tidslinje {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--rom-4);
+  margin-block: var(--rom-3);
+  padding-block-start: var(--rom-4);
+  border-block-start: 1px solid var(--linje);
+}
+
+.tidslinje dt {
+  font-family: var(--skrift-display);
+  font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+  line-height: 1.1;
+  color: var(--rosa-tekst);
+}
+
+.tidslinje dd {
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+  line-height: 1.45;
+}
+
+@media (min-width: 64rem) {
+  .veiledningRutenett {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--rom-9);
+  }
+
+  .veiledningBilde {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+/* --- Hudpleie --- */
+
+.hudpleie {
+  padding-block-end: var(--seksjon);
+}
+
+.hudpleieRutenett {
+  display: grid;
+  gap: var(--rom-6);
+}
+
+.hudpleieTekst {
+  display: grid;
+  gap: var(--rom-4);
+  align-content: center;
+  justify-items: start;
+  padding: var(--rom-6);
+  border-radius: var(--radius-l);
+  background: var(--rosa-lys);
+}
+
+.hudpleieBilde {
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+@media (min-width: 64rem) {
+  .hudpleieRutenett {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--rom-5);
+  }
+
+  .hudpleieTekst {
+    padding: var(--rom-7);
+  }
+}
+
+/* --- Merker --- */
+
+.merkeRutenett {
+  display: grid;
+  gap: var(--rom-6);
+}
+
+.merkeHode {
+  display: grid;
+  gap: var(--rom-3);
+}
+
+.merkevegg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  font-family: var(--skrift-display);
+  font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+
+.alleMerker {
+  justify-self: start;
+}
+
+@media (max-width: 47.99rem) {
+  .merkevegg li:nth-child(n + 17) {
+    display: none;
+  }
+
+  .merkevegg li:nth-child(16)::after {
+    content: none;
+  }
+}
+
+.merkevegg li:not(:last-child)::after {
+  content: '/';
+  margin-inline: 0.45em;
+  color: var(--linje-sterk);
+  font-weight: 300;
+}
+
+.merkevegg a {
+  text-decoration: none;
+  transition: color var(--tid-kort) var(--ease-ut);
+}
+
+.merkevegg a:hover {
+  color: var(--rosa-tekst);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.merkevegg sup {
+  margin-inline-start: 0.15em;
+  font-family: var(--skrift-tekst);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--blekk-dempet);
+  vertical-align: super;
+}
+
+.butikkmerker {
+  display: grid;
+  gap: var(--rom-5);
+  margin-block-start: var(--rom-6);
+  padding-block-start: var(--rom-6);
+  border-block-start: 1px solid var(--linje);
+}
+
+.butikkmerkerBilde {
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+}
+
+.butikkmerkerTekst {
+  display: grid;
+  gap: var(--rom-3);
+  align-content: center;
+  justify-items: start;
+  max-inline-size: 34rem;
+}
+
+@media (min-width: 64rem) {
+  .butikkmerker {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--rom-8);
+  }
+}
+
+/* --- Besøk --- */
+
+.besok {
+  background: var(--sand-dyp);
+}
+
+.besokRutenett {
+  display: grid;
+  gap: var(--rom-7);
+  align-items: center;
+}
+
+.besokBilde {
+  inline-size: min(100%, 24rem);
+  aspect-ratio: 2 / 3;
+  border-radius: var(--bue);
+  overflow: hidden;
+  justify-self: center;
+}
+
+.besokTekst {
+  display: grid;
+  gap: var(--rom-4);
+  max-inline-size: 36rem;
+}
+
+.kontakt {
+  display: grid;
+  gap: var(--rom-3);
+  margin-block-start: var(--rom-2);
+}
+
+.kontakt li {
+  display: flex;
+  align-items: center;
+  gap: var(--rom-3);
+}
+
+.kontakt svg {
+  color: var(--rosa-tekst);
+  flex: none;
+}
+
+.kontakt a {
+  font-weight: 500;
+  text-decoration-color: var(--rosa);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 64rem) {
+  .besokRutenett {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--rom-9);
+  }
+}

@@ -1,0 +1,127 @@
+.hode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rom-3) var(--rom-4) var(--rom-3) var(--rom-4);
+  border-block-end: 1px solid var(--linje);
+}
+
+.kropp {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--rom-4) var(--rom-5) var(--rom-6);
+}
+
+.niva {
+  display: grid;
+  gap: var(--rom-4);
+  animation: glid var(--tid-middels) var(--ease-ut);
+}
+
+@keyframes glid {
+  from {
+    opacity: 0;
+    transform: translateX(0.75rem);
+  }
+}
+
+.hovedliste {
+  display: grid;
+}
+
+.hovedpunkt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: 100%;
+  min-block-size: 3.5rem;
+  padding: 0;
+  border: 0;
+  border-block-end: 1px solid var(--linje);
+  background: none;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: start;
+  text-decoration: none;
+}
+
+.sekundar {
+  display: grid;
+  gap: var(--rom-3);
+  padding-block-start: var(--rom-3);
+}
+
+.sekundar a {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.tilbake {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  justify-self: start;
+  min-block-size: 2.75rem;
+  padding: 0 var(--rom-3) 0 var(--rom-1);
+  border: 0;
+  border-radius: var(--radius-pille);
+  background: none;
+  font-weight: 600;
+  font-size: var(--t-liten);
+}
+
+.tilbake:hover {
+  background: var(--sand-dyp);
+}
+
+.alle {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--rosa);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+
+.grupper {
+  display: grid;
+  gap: var(--rom-4);
+}
+
+.gruppe {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rom-2);
+  font-weight: 600;
+  text-decoration: none;
+  min-block-size: 2.25rem;
+}
+
+.barn {
+  display: grid;
+  gap: 0.1rem;
+  padding-inline-start: var(--rom-3);
+  border-inline-start: 1px solid var(--linje);
+}
+
+.barn a,
+.merker a {
+  display: block;
+  padding-block: 0.4rem;
+  color: var(--blekk-dempet);
+  text-decoration: none;
+}
+
+.merker {
+  columns: 2;
+  column-gap: var(--rom-4);
+}
+
+.fot {
+  display: grid;
+  gap: var(--rom-1);
+  padding: var(--rom-4) var(--rom-5) var(--rom-5);
+  border-block-start: 1px solid var(--linje);
+  font-size: var(--t-liten);
+}

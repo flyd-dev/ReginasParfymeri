@@ -1,0 +1,10 @@
+/*
+ * Skriftene ligger i prosjektet (Fontsource, SIL Open Font License) – ingen Google Fonts-kall.
+ * Cormorant Garamond (500–600) brukes selektivt: hero og store, redaksjonelle overskrifter.
+ * Manrope (400–600) til alt man skal lese og handle med: navigasjon, produktnavn, priser,
+ * knapper, brødtekst og mindre overskrifter. Nettleseren laster bare delsettene siden bruker
+ * (unicode-range), inkludert æ, ø og å.
+ */
+@import '@fontsource-variable/cormorant-garamond/wght.css';
+@import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+@import '@fontsource-variable/manrope/wght.css';

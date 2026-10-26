@@ -1,0 +1,411 @@
+.side {
+  padding-block: var(--rom-5) var(--seksjon);
+}
+
+.hode {
+  display: grid;
+  /* minmax(0, 1fr): de vannrette rullelistene skal ikke kunne gjøre siden bredere. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--rom-4);
+  padding-block-end: var(--rom-6);
+}
+
+.tittelrad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--rom-3) var(--rom-6);
+  margin-block-start: var(--rom-4);
+}
+
+.tittelblokk {
+  display: grid;
+  gap: var(--rom-3);
+}
+
+.totalt {
+  font-size: var(--t-liten);
+  color: var(--blekk-dempet);
+  padding-block-end: 0.6rem;
+}
+
+.ingress {
+  color: var(--blekk);
+}
+
+.snarveier ul {
+  display: flex;
+  gap: var(--rom-2);
+  margin-inline: calc(var(--kant) * -1);
+  padding: var(--rom-1) var(--kant);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.snarvei {
+  flex: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--rom-2);
+  min-block-size: 2.5rem;
+  padding: 0.5rem var(--rom-4);
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-pille);
+  font-size: var(--t-liten);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--tid-kort) var(--ease-ut),
+    border-color var(--tid-kort) var(--ease-ut);
+}
+
+.snarvei span {
+  font-size: 0.75rem;
+  color: var(--blekk-dempet);
+}
+
+.snarvei:hover {
+  background: var(--sand-lys);
+  border-color: var(--blekk);
+}
+
+.snarvei[aria-current='page'] {
+  background: var(--blekk);
+  border-color: var(--blekk);
+  color: var(--sand);
+}
+
+.snarvei[aria-current='page'] span {
+  color: var(--sand-mork);
+}
+
+.oppsett {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--rom-6);
+  border-block-start: 1px solid var(--linje);
+  padding-block-start: var(--rom-5);
+}
+
+.sidepanel {
+  display: none;
+}
+
+.hovedkolonne {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-5);
+  min-inline-size: 0;
+}
+
+.verktoy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rom-3);
+}
+
+.filterknapp {
+  min-block-size: 2.75rem;
+  padding-inline: var(--rom-4);
+}
+
+.aktivteller {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.25rem;
+  block-size: 1.25rem;
+  border-radius: var(--radius-pille);
+  background: var(--rosa-knapp);
+  color: var(--paa-rosa);
+  font-size: 0.6875rem;
+}
+
+.sortering {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--rom-2);
+  min-inline-size: 0;
+  margin-inline-start: auto;
+  font-size: var(--t-liten);
+}
+
+@media (max-width: 47.99rem) {
+  .sortering label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+.sortering label {
+  color: var(--blekk-dempet);
+}
+
+.velger {
+  appearance: none;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  text-overflow: ellipsis;
+  min-block-size: 2.75rem;
+  padding: 0 2.5rem 0 var(--rom-4);
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-pille);
+  background: var(--sand-lys);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.velgerpil {
+  position: absolute;
+  inset-inline-end: var(--rom-4);
+  pointer-events: none;
+}
+
+.aktive {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rom-2) var(--rom-4);
+}
+
+.aktive ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rom-2);
+}
+
+.brikke {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  min-block-size: 2.25rem;
+  padding: 0 var(--rom-3) 0 var(--rom-4);
+  border-radius: var(--radius-pille);
+  background: var(--rosa-lys);
+  color: var(--blekk);
+  font-size: var(--t-mini);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--tid-kort) var(--ease-ut);
+}
+
+.brikke:hover {
+  background: var(--rosa-dus);
+  box-shadow: inset 0 0 0 1px var(--rosa-tekst);
+}
+
+.nullstill {
+  font-size: var(--t-mini);
+  font-weight: 600;
+  color: var(--rosa-tekst);
+}
+
+.flate {
+  transition: opacity var(--tid-middels) var(--ease-ut);
+}
+
+.flate[data-laster] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.rutenett {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--rom-7) var(--rom-4);
+}
+
+.tom {
+  display: grid;
+  justify-items: start;
+  gap: var(--rom-3);
+  padding: var(--rom-7) var(--rom-6);
+  border-radius: var(--radius-l);
+  background: var(--sand-lys);
+}
+
+.mer {
+  display: grid;
+  justify-items: center;
+  gap: var(--rom-3);
+  margin-block-start: var(--rom-6);
+}
+
+.fremdrift {
+  inline-size: 12rem;
+  block-size: 2px;
+  background: var(--linje);
+}
+
+.fremdrift span {
+  display: block;
+  block-size: 100%;
+  background: var(--rosa);
+}
+
+/* --- Filterskjema --- */
+
+.skjema {
+  display: grid;
+  gap: var(--rom-5);
+}
+
+.gruppe {
+  margin: 0;
+  padding: 0 0 var(--rom-5);
+  border: 0;
+  border-block-end: 1px solid var(--linje);
+}
+
+.gruppe legend {
+  padding: 0;
+  margin-block-end: var(--rom-3);
+  font-size: var(--t-mini);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gruppe ul {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.valg {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.valg input {
+  position: absolute;
+  opacity: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin: 0;
+}
+
+.valg label {
+  display: flex;
+  align-items: center;
+  gap: var(--rom-3);
+  inline-size: 100%;
+  min-block-size: 2.5rem;
+  font-size: var(--t-liten);
+  cursor: pointer;
+}
+
+.valg label::before {
+  content: '';
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-s);
+  background: var(--sand-lys) center / 0.85rem no-repeat;
+  transition:
+    background-color var(--tid-kort) var(--ease-ut),
+    border-color var(--tid-kort) var(--ease-ut);
+}
+
+.valg input:checked + label::before {
+  border-color: var(--rosa-knapp);
+  background-color: var(--rosa-knapp);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+
+.valg input:focus-visible + label::before {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 2px;
+}
+
+.valg input:disabled + label {
+  color: var(--blekk-dempet);
+  cursor: default;
+}
+
+.valg label span:first-child {
+  flex: 1;
+}
+
+.valgantall {
+  font-size: 0.75rem;
+  color: var(--blekk-dempet);
+}
+
+.flere {
+  margin-block-start: var(--rom-2);
+  padding: var(--rom-1) 0;
+  border: 0;
+  background: none;
+  font-size: var(--t-mini);
+  font-weight: 600;
+  color: var(--rosa-tekst);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.skuffhode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--rom-4) var(--rom-4) var(--rom-3) var(--rom-5);
+  border-block-end: 1px solid var(--linje);
+}
+
+.skuffkropp {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--rom-5);
+}
+
+.skufffot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rom-4);
+  padding: var(--rom-4) var(--rom-5);
+  border-block-start: 1px solid var(--linje);
+}
+
+@media (min-width: 48rem) {
+  .rutenett {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--rom-7) var(--rom-5);
+  }
+}
+
+@media (min-width: 64rem) {
+  .oppsett {
+    grid-template-columns: 15.5rem minmax(0, 1fr);
+    gap: var(--rom-8);
+  }
+
+  .sidepanel {
+    display: block;
+    position: sticky;
+    inset-block-start: calc(var(--header-hoyde) + var(--rom-4));
+    align-self: start;
+    max-block-size: calc(100dvh - var(--header-hoyde) - var(--rom-6));
+    overflow-y: auto;
+    padding-inline-end: var(--rom-2);
+    scrollbar-width: thin;
+  }
+
+  .filterknapp {
+    display: none;
+  }
+}
+
+@media (min-width: 80rem) {
+  .rutenett {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

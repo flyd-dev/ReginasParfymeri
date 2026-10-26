@@ -1,0 +1,44 @@
+.stripe {
+  background: var(--rosa-knapp);
+  color: var(--paa-rosa);
+  font-size: var(--t-mini);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.liste {
+  display: flex;
+  justify-content: center;
+  gap: var(--rom-5);
+  max-inline-size: var(--bredde);
+  margin: 0 auto;
+  padding: 0.45rem var(--kant);
+  text-align: center;
+}
+
+.liste li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-5);
+}
+
+.liste li + li::before {
+  content: '';
+  inline-size: 4px;
+  block-size: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+@media (max-width: 47.99rem) {
+  .liste li:not(:first-child) {
+    display: none;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .liste li:nth-child(3) {
+    display: none;
+  }
+}

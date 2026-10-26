@@ -1,0 +1,276 @@
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  background: var(--sand);
+  box-shadow: 0 1px 0 transparent;
+  transition: box-shadow var(--tid-middels) var(--ease-ut);
+}
+
+.header[data-scrollet],
+.header[data-meny-apen] {
+  box-shadow: 0 1px 0 var(--linje);
+}
+
+.rad {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--rom-4);
+  min-block-size: 4.25rem;
+}
+
+.venstre,
+.hoyre {
+  display: flex;
+  align-items: center;
+  gap: var(--rom-2);
+}
+
+.hoyre {
+  justify-content: flex-end;
+}
+
+.logo {
+  display: inline-flex;
+  padding: var(--rom-2) var(--rom-3);
+  border-radius: var(--radius-m);
+  text-decoration: none;
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.sokefelt {
+  display: none;
+  align-items: center;
+  gap: var(--rom-3);
+  inline-size: min(100%, 22rem);
+  min-block-size: 2.75rem;
+  padding: 0 var(--rom-4);
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-pille);
+  background: var(--sand-lys);
+  color: var(--blekk-dempet);
+  font-size: var(--t-liten);
+  text-align: start;
+  transition:
+    border-color var(--tid-kort) var(--ease-ut),
+    background-color var(--tid-kort) var(--ease-ut);
+}
+
+.sokefelt:hover {
+  border-color: var(--blekk);
+  color: var(--blekk);
+}
+
+.sokeplassholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.butikklenke {
+  display: none;
+  align-items: center;
+  gap: var(--rom-2);
+  padding: var(--rom-2) var(--rom-3);
+  border-radius: var(--radius-pille);
+  font-size: var(--t-mini);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color var(--tid-kort) var(--ease-ut);
+}
+
+.butikklenke:hover {
+  background: var(--sand-dyp);
+}
+
+.kurvknapp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  min-block-size: 2.75rem;
+  min-inline-size: 2.75rem;
+  padding: 0 var(--rom-3);
+  border: 0;
+  border-radius: var(--radius-pille);
+  background: transparent;
+  font-size: var(--t-mini);
+  font-weight: 600;
+  transition: background-color var(--tid-kort) var(--ease-ut);
+}
+
+.kurvknapp:hover {
+  background: var(--sand-dyp);
+}
+
+.kurvtekst {
+  display: none;
+}
+
+.teller {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.25rem;
+  block-size: 1.25rem;
+  padding-inline: 0.3rem;
+  border-radius: var(--radius-pille);
+  background: var(--rosa-knapp);
+  color: var(--paa-rosa);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  animation: dunk var(--tid-lang) var(--ease-fjaer);
+}
+
+@media (max-width: 63.99rem) {
+  .teller {
+    position: absolute;
+    inset-block-start: 0.15rem;
+    inset-inline-end: 0.05rem;
+  }
+}
+
+@keyframes dunk {
+  from {
+    transform: scale(0.4);
+  }
+}
+
+/* --- Hovedmeny (stor skjerm) --- */
+
+.nav {
+  display: none;
+}
+
+.navliste {
+  display: flex;
+  justify-content: center;
+  gap: var(--rom-1);
+  max-inline-size: var(--bredde);
+  margin: 0 auto;
+  padding-inline: var(--kant);
+}
+
+.navpunkt {
+  position: static;
+}
+
+.skilt {
+  margin-inline-start: var(--rom-4);
+  padding-inline-start: var(--rom-4);
+  border-inline-start: 1px solid var(--linje);
+}
+
+.navknapp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-block-size: 3rem;
+  padding: 0 var(--rom-3);
+  border: 0;
+  background: none;
+  font-size: var(--t-liten);
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--blekk);
+}
+
+/* Løperen: en rosa strek som rulles ut under valgt punkt. */
+.navknapp::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--rom-3);
+  inset-block-end: 0.55rem;
+  block-size: 2px;
+  background: var(--rosa);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.navknapp:hover::after,
+.navknapp[aria-expanded='true']::after,
+.navknapp[aria-current='page']::after {
+  transform: scaleX(1);
+}
+
+.chevron {
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.navknapp[aria-expanded='true'] .chevron {
+  transform: rotate(180deg);
+}
+
+.panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  background: var(--sand-lys);
+  box-shadow:
+    0 1px 0 var(--linje) inset,
+    0 1px 0 var(--linje);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.5rem);
+  transition:
+    opacity var(--tid-middels) var(--ease-ut),
+    transform var(--tid-middels) var(--ease-ut),
+    visibility 0s linear var(--tid-middels);
+  max-block-size: calc(100dvh - var(--header-hoyde) - 2rem);
+  overflow-y: auto;
+}
+
+.panel[data-apen] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--tid-middels) var(--ease-ut),
+    transform var(--tid-middels) var(--ease-ut),
+    visibility 0s;
+}
+
+.slor {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgb(43 26 33 / 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--tid-middels) var(--ease-ut);
+}
+
+.slor[data-synlig] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bareMobil {
+  display: inline-grid;
+}
+
+@media (min-width: 64rem) {
+  .rad {
+    min-block-size: 4.75rem;
+    padding-block-start: var(--rom-2);
+  }
+
+  .bareMobil {
+    display: none;
+  }
+
+  .sokefelt,
+  .butikklenke {
+    display: inline-flex;
+  }
+
+  .kurvtekst {
+    display: inline;
+  }
+
+  .nav {
+    display: block;
+  }
+}

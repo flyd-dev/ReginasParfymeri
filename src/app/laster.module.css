@@ -1,0 +1,23 @@
+.laster {
+  display: grid;
+  gap: var(--rom-5);
+  padding-block: var(--rom-7) var(--seksjon);
+}
+
+.rutenett {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--rom-6) var(--rom-4);
+  margin-block-start: var(--rom-6);
+}
+
+.kort {
+  display: grid;
+  gap: var(--rom-2);
+}
+
+@media (min-width: 64rem) {
+  .rutenett {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

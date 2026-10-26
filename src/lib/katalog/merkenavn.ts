@@ -1,0 +1,65 @@
+// Merkenavn slik merkene selv skriver dem. WooCommerce har de fleste i versaler («PARFUMS DE MARLY»);
+// i overskrifter bruker vi merkets egen skrivemåte. Nøkkelen er slugen i Perfect WooCommerce Brands.
+// Ukjente merker får rolig versalbruk automatisk.
+
+import { roligeVersaler } from './tekst'
+
+const SKRIVEMAATE: Record<string, string> = {
+  ahava: 'AHAVA',
+  'anastasia-beverly-hills': 'Anastasia Beverly Hills',
+  'bdk-parfums': 'BDK Parfums',
+  'bell-cosmetics': 'Bell Cosmetics',
+  'beter-elite': 'Beter Elite',
+  'bjorn-axen': 'Björn Axén',
+  boucheron: 'Boucheron',
+  creed: 'Creed',
+  davidoff: 'Davidoff',
+  'dolce-gabbana': 'Dolce & Gabbana',
+  dresdner: 'Dresdner',
+  'elizabeth-arden': 'Elizabeth Arden',
+  engelsrufer: 'Engelsrufer',
+  'essential-parfums': 'Essential Parfums',
+  fugazzi: 'Fugazzi',
+  'gc-homme': 'GC Homme',
+  'grande-cosmetics': 'Grande Cosmetics',
+  guerlain: 'Guerlain',
+  guinot: 'Guinot',
+  haan: 'HAAN',
+  'hanne-bang': 'Hanne Bang',
+  haugescent: 'Haugescent',
+  'helene-fischer': 'Helene Fischer',
+  'hermes-paris': 'Hermès',
+  'ida-warg': 'Ida Warg',
+  'idc-institute': 'IDC Institute',
+  initio: 'Initio Parfums Privés',
+  jjdk: 'JJDK',
+  'jobski-cosmetic': 'Jobski Cosmetic',
+  kent: 'Kent',
+  lowengrip: 'Löwengrip',
+  maginista: 'Maginista',
+  martinelia: 'Martinelia',
+  mavala: 'Mavala',
+  medicube: 'Medicube',
+  memo: 'Memo',
+  mii: 'MII',
+  molecules: 'Escentric Molecules',
+  montblanc: 'Montblanc',
+  'old-spice': 'Old Spice',
+  'optima-natura': 'Optima Natura',
+  'ormonde-jayne': 'Ormonde Jayne',
+  'paco-rabanne': 'Paco Rabanne',
+  'parfums-de-marly': 'Parfums de Marly',
+  perlier: 'Perlier',
+  'rudolph-care': 'Rudolph Care',
+  sisley: 'Sisley',
+  suavina: 'Suavina',
+  'susanne-kaufmann': 'Susanne Kaufmann',
+  titania: 'Titania',
+  tweezerman: 'Tweezerman',
+  'van-cleef-arpels': 'Van Cleef & Arpels',
+  versace: 'Versace',
+}
+
+export function merkenavn(slug: string, navnFraButikken: string): string {
+  return SKRIVEMAATE[slug] ?? roligeVersaler(navnFraButikken)
+}

@@ -1,0 +1,124 @@
+.panel {
+  display: grid;
+  grid-template-columns: 1fr 17rem;
+  gap: var(--rom-8);
+  padding-block: var(--rom-6) var(--rom-7);
+}
+
+.hoved {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-6);
+}
+
+.flat {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--rom-2) var(--rom-6);
+}
+
+.storlenke {
+  display: flex;
+  align-items: baseline;
+  gap: var(--rom-3);
+  padding-block: var(--rom-2);
+  font-size: var(--t-4);
+  font-weight: 500;
+  text-decoration: none;
+  border-block-end: 1px solid var(--linje);
+  transition: color var(--tid-kort) var(--ease-ut);
+}
+
+.storlenke:hover {
+  color: var(--rosa-tekst);
+}
+
+.antall {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--blekk-dempet);
+}
+
+.grupper {
+  columns: 4 11rem;
+  column-gap: var(--rom-6);
+}
+
+.gruppe {
+  break-inside: avoid;
+  padding-block-end: var(--rom-5);
+}
+
+.gruppetittel {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--rom-2);
+  margin-block-end: var(--rom-2);
+  font-weight: 600;
+  font-size: var(--t-liten);
+  text-decoration: none;
+}
+
+.gruppetittel:hover {
+  color: var(--rosa-tekst);
+}
+
+.barn {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.lenke {
+  display: inline-block;
+  padding-block: 0.2rem;
+  font-size: var(--t-liten);
+  color: var(--blekk-dempet);
+  text-decoration: none;
+  transition: color var(--tid-kort) var(--ease-ut);
+}
+
+.lenke:hover {
+  color: var(--blekk);
+  text-decoration: underline;
+  text-decoration-color: var(--rosa);
+}
+
+.alle {
+  justify-self: start;
+}
+
+.side {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-3);
+  padding-inline-start: var(--rom-6);
+  border-inline-start: 1px solid var(--linje);
+}
+
+.merkeliste {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.merkekolonner {
+  columns: 4 10rem;
+  column-gap: var(--rom-6);
+}
+
+.merkekolonner li {
+  break-inside: avoid;
+}
+
+.forklaring {
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+  line-height: 1.5;
+}
+
+.butikkmerker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.15rem var(--rom-3);
+  font-size: var(--t-liten);
+  font-weight: 500;
+}

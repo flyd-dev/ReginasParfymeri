@@ -1,0 +1,112 @@
+.skuff {
+  position: fixed;
+  inset: 0;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  block-size: 100dvh;
+  max-block-size: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blekk);
+  overflow: hidden;
+  transition: opacity var(--tid-middels) var(--ease-ut);
+}
+
+.skuff::backdrop {
+  background: color-mix(in srgb, var(--blekk) 36%, transparent);
+  opacity: 0;
+  transition: opacity var(--tid-middels) var(--ease-ut);
+}
+
+.skuff[data-tilstand='apen']::backdrop {
+  opacity: 1;
+}
+
+.innhold {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  inline-size: min(100%, 28rem);
+  background: var(--sand-lys);
+  box-shadow: 0 0 0 1px var(--linje);
+  transition: transform var(--tid-lang) var(--ease-ut);
+  overflow: hidden;
+}
+
+/* Den rosa løperen langs kanten av skuffen. */
+.innhold::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--loper);
+  background: var(--rosa);
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform var(--tid-inngang) var(--ease-ut) 120ms;
+}
+
+.skuff[data-tilstand='apen'] .innhold::before {
+  transform: scaleY(1);
+}
+
+.hoyre .innhold {
+  inset-inline-end: 0;
+  transform: translateX(100%);
+}
+
+.hoyre .innhold::before {
+  inset-inline-start: 0;
+}
+
+.venstre .innhold {
+  inset-inline-start: 0;
+  transform: translateX(-100%);
+}
+
+.venstre .innhold::before {
+  inset-inline-end: 0;
+}
+
+.topp .innhold {
+  inset-block: 0 auto;
+  inset-inline: 0;
+  inline-size: 100%;
+  max-block-size: min(100dvh, 46rem);
+  transform: translateY(-100%);
+}
+
+.topp .innhold::before {
+  inset-block: auto 0;
+  inset-inline: 0;
+  inline-size: auto;
+  block-size: var(--loper);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.skuff[data-tilstand='apen'].topp .innhold::before {
+  transform: scaleX(1);
+}
+
+.skuff[data-tilstand='apen'] .innhold {
+  transform: none;
+}
+
+.skuff[data-tilstand='lukker'] .innhold {
+  transition-duration: var(--tid-middels);
+}
+
+@media (max-width: 40rem) {
+  .hoyre .innhold,
+  .venstre .innhold {
+    inline-size: min(100%, 26rem);
+  }
+
+  .topp .innhold {
+    max-block-size: 100dvh;
+    block-size: 100dvh;
+  }
+}

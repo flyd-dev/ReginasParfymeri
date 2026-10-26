@@ -1,0 +1,504 @@
+/* Grunnstil: nullstilling, typografi, knapper, skjema og bevegelse. Bare tokens fra tokens.css. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-hoyde) + var(--rom-4));
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--sand);
+  color: var(--blekk);
+  font-family: var(--skrift-tekst);
+  font-size: var(--t-brod);
+  line-height: var(--linjehoyde-tekst);
+  font-feature-settings: 'kern', 'liga';
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Lav spesifisitet, så komponentene kan sette egen luft. */
+:where(ul[role='list'], ol[role='list']) {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+[data-flate='mork'] :focus-visible {
+  outline-color: var(--rosa-paa-mork);
+}
+
+::selection {
+  background: var(--rosa-lys);
+  color: var(--blekk);
+}
+
+/* --- Typografi --- */
+
+/* Cormorant Garamond: bare hero og store, redaksjonelle overskrifter – aldri tynnere enn 500. */
+.t-mega,
+.t-1,
+.t-2 {
+  font-family: var(--skrift-display);
+  font-weight: 500;
+  line-height: var(--linjehoyde-tittel);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  font-variant-numeric: lining-nums;
+}
+
+.t-mega {
+  font-size: var(--t-mega);
+  line-height: var(--linjehoyde-tett);
+  letter-spacing: -0.015em;
+}
+
+.t-1 {
+  font-size: var(--t-1);
+  line-height: 1.04;
+}
+
+/* Mellomstørrelsen får 600, så den ikke blir spinkel. */
+.t-2 {
+  font-size: var(--t-2);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Manrope: mindre overskrifter. */
+.t-3 {
+  font-family: var(--skrift-tekst);
+  font-size: var(--t-3);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.t-4 {
+  font-size: var(--t-4);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Et fremhevet ord i rosa – sparsomt. Kursiv bare i heroen. */
+.t-mega em,
+.t-1 em,
+.t-2 em {
+  font-style: normal;
+  color: var(--rosa);
+}
+
+.t-mega em {
+  font-style: italic;
+}
+
+[data-flate='mork'] .t-mega em,
+[data-flate='mork'] .t-1 em,
+[data-flate='mork'] .t-2 em {
+  color: var(--rosa-paa-mork);
+}
+
+.ingress {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.55;
+  max-width: var(--bredde-tekst);
+  text-wrap: pretty;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-3);
+  font-size: var(--t-mini);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rosa-tekst);
+}
+
+.kicker::before {
+  content: '';
+  inline-size: var(--loper);
+  block-size: 1.1em;
+  background: var(--rosa);
+  border-radius: 1px;
+}
+
+[data-flate='mork'] .kicker {
+  color: var(--rosa-paa-mork);
+}
+
+.dempet {
+  color: var(--blekk-dempet);
+}
+
+.liten {
+  font-size: var(--t-liten);
+}
+
+.mini {
+  font-size: var(--t-mini);
+}
+
+.tall {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.skjult {
+  position: absolute !important;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Oppsett --- */
+
+.ramme {
+  inline-size: 100%;
+  max-inline-size: var(--bredde);
+  margin-inline: auto;
+  padding-inline: var(--kant);
+}
+
+.seksjon {
+  padding-block: var(--seksjon);
+}
+
+/* --- Knapper --- */
+
+.knapp {
+  --knapp-bg: transparent;
+  --knapp-farge: var(--blekk);
+  --knapp-kant: var(--linje-sterk);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rom-2);
+  min-block-size: 3rem;
+  padding: 0 var(--rom-5);
+  border: 1px solid var(--knapp-kant);
+  border-radius: var(--radius-pille);
+  background: var(--knapp-bg);
+  color: var(--knapp-farge);
+  font-size: var(--t-liten);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  text-wrap: balance;
+  transition:
+    background-color var(--tid-kort) var(--ease-ut),
+    border-color var(--tid-kort) var(--ease-ut),
+    color var(--tid-kort) var(--ease-ut),
+    transform var(--tid-kort) var(--ease-ut);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.knapp:active {
+  transform: scale(0.98);
+}
+
+.knapp[disabled],
+.knapp[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.knapp svg {
+  flex: none;
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.knapp:hover svg[data-pil] {
+  transform: translateX(3px);
+}
+
+.knapp--primar {
+  --knapp-bg: var(--rosa-knapp);
+  --knapp-farge: var(--paa-rosa);
+  --knapp-kant: var(--rosa-knapp);
+}
+
+.knapp--primar:hover {
+  --knapp-bg: var(--rosa-knapp-hover);
+  --knapp-kant: var(--rosa-knapp-hover);
+}
+
+.knapp--mork {
+  --knapp-bg: var(--plomme);
+  --knapp-farge: var(--paa-mork);
+  --knapp-kant: var(--plomme);
+}
+
+.knapp--mork:hover {
+  --knapp-bg: var(--plomme-dyp);
+}
+
+.knapp--sekundar:hover {
+  --knapp-bg: var(--sand-lys);
+  --knapp-kant: var(--blekk);
+}
+
+[data-flate='mork'] .knapp--sekundar {
+  --knapp-farge: var(--paa-mork);
+  --knapp-kant: var(--paa-mork-dempet);
+}
+
+[data-flate='mork'] .knapp--sekundar:hover {
+  --knapp-bg: var(--plomme-dyp);
+  --knapp-kant: var(--paa-mork);
+}
+
+.knapp--bred {
+  inline-size: 100%;
+}
+
+.knapp--stor {
+  min-block-size: 3.5rem;
+  padding-inline: var(--rom-6);
+  font-size: var(--t-brod);
+}
+
+.tekstlenke {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  font-size: var(--t-liten);
+  color: var(--blekk);
+  text-decoration: underline;
+  text-decoration-color: var(--rosa);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+  transition:
+    text-decoration-color var(--tid-kort) var(--ease-ut),
+    color var(--tid-kort) var(--ease-ut);
+}
+
+.tekstlenke:hover {
+  color: var(--rosa-tekst);
+}
+
+[data-flate='mork'] .tekstlenke {
+  color: var(--paa-mork);
+  text-decoration-color: var(--rosa-paa-mork);
+}
+
+.ikonknapp {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pille);
+  background: transparent;
+  color: inherit;
+  transition:
+    background-color var(--tid-kort) var(--ease-ut),
+    transform var(--tid-kort) var(--ease-ut);
+}
+
+.ikonknapp:hover {
+  background: var(--sand-dyp);
+}
+
+.ikonknapp:active {
+  transform: scale(0.94);
+}
+
+/* --- Skjema --- */
+
+.felt {
+  inline-size: 100%;
+  min-block-size: 3rem;
+  padding: 0 var(--rom-4);
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-m);
+  background: var(--sand-lys);
+  color: var(--blekk);
+}
+
+.felt::placeholder {
+  color: var(--blekk-dempet);
+}
+
+.felt:focus-visible {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 1px;
+}
+
+/* --- Bevegelse: forsiktig avdekking når et element ruller inn.
+   Ren CSS (scroll-drevet animasjon) – ingen JavaScript, ingen skjult innhold der nettleseren
+   ikke støtter det, og ingenting ved redusert bevegelse. --- */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-avdekk] {
+      animation: avdekk var(--ease-ut) both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--forsinkelse, 0) * 24px) entry
+        calc(220px + var(--forsinkelse, 0) * 24px);
+    }
+  }
+}
+
+@keyframes avdekk {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
+/* Lasteflater (skjelett) – rolig puls, ingen glans. */
+.skjelett {
+  background: var(--sand-dyp);
+  border-radius: var(--radius-s);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skjelett {
+    animation: puls 1.6s var(--ease-inn-ut) infinite;
+  }
+}
+
+@keyframes puls {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Når en skuff eller dialog er åpen, ligger siden stille bak. */
+html {
+  scrollbar-gutter: stable;
+  background-color: var(--sand);
+  transition: background-color var(--tid-middels) var(--ease-ut);
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Sløret dekker ikke rommet til rullefeltet; det får samme farge som sløret over sand. */
+html:has(dialog[open][data-tilstand='apen']) {
+  background-color: color-mix(in srgb, var(--blekk) 36%, var(--sand));
+}
+
+.hopp {
+  position: absolute;
+  inset-block-start: var(--rom-2);
+  inset-inline-start: var(--rom-2);
+  z-index: 100;
+  padding: var(--rom-2) var(--rom-4);
+  border-radius: var(--radius-pille);
+  background: var(--plomme);
+  color: var(--paa-mork);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.hopp:focus {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+@media print {
+  [data-avdekk] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Statussider (404, feil). */
+.statusside {
+  display: grid;
+  justify-items: start;
+  gap: var(--rom-4);
+  padding-block: var(--rom-9) var(--seksjon);
+  max-inline-size: 52rem;
+}
+
+.statusside__handlinger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rom-4) var(--rom-6);
+  margin-block-start: var(--rom-3);
+}

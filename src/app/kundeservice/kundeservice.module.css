@@ -1,0 +1,73 @@
+.side {
+  display: grid;
+  gap: var(--rom-6);
+  padding-block: var(--rom-5) var(--seksjon);
+}
+
+.hode {
+  display: grid;
+  gap: var(--rom-3);
+}
+
+.innhold {
+  display: grid;
+  gap: var(--rom-5);
+}
+
+.blokk {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-4);
+  padding: var(--rom-6);
+  border-radius: var(--radius-l);
+  background: var(--sand-lys);
+  scroll-margin-block-start: calc(var(--header-hoyde) + var(--rom-5));
+}
+
+.alternativer {
+  display: grid;
+  gap: var(--rom-2);
+}
+
+.alternativer li {
+  display: grid;
+  gap: var(--rom-1);
+  padding: var(--rom-3) var(--rom-4);
+  border: 1px solid var(--linje);
+  border-radius: var(--radius-m);
+}
+
+.alternativhode {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rom-3);
+  font-weight: 600;
+}
+
+.kontakt {
+  display: grid;
+  gap: var(--rom-3);
+}
+
+.kontakt li {
+  display: flex;
+  align-items: center;
+  gap: var(--rom-3);
+  overflow-wrap: anywhere;
+}
+
+.kontakt svg {
+  color: var(--rosa-tekst);
+  flex: none;
+}
+
+.kontakt a {
+  font-weight: 500;
+  text-decoration-color: var(--rosa);
+}
+
+@media (min-width: 64rem) {
+  .innhold {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

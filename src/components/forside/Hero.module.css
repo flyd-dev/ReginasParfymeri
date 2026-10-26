@@ -1,0 +1,182 @@
+.hero {
+  --loperlengde: clamp(5rem, 3rem + 8vw, 10rem);
+  position: relative;
+  padding-block: var(--rom-6) 0;
+}
+
+.sted {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .sted {
+    display: inline;
+  }
+}
+
+.rutenett {
+  display: grid;
+  gap: var(--rom-7);
+}
+
+.tekst {
+  display: grid;
+  align-content: center;
+  gap: var(--rom-5);
+}
+
+.tittel span {
+  display: block;
+}
+
+.ingress {
+  color: var(--blekk);
+}
+
+.handlinger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rom-4) var(--rom-6);
+  margin-block-start: var(--rom-2);
+}
+
+.tillit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+}
+
+.tillit svg {
+  color: var(--rosa-tekst);
+}
+
+.bilde {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.bue {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--bue);
+  overflow: hidden;
+  background: var(--sand-dyp);
+}
+
+.foto {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /* Døren med den rosa løperen står midt i buen. */
+  object-position: 51% 80%;
+}
+
+/* Løperen har samme bredde som teppet ved døren og går helt ned til neste seksjon. */
+.loper {
+  display: block;
+  inline-size: 12%;
+  block-size: var(--loperlengde);
+  margin-inline-start: 5%;
+  background: var(--rosa);
+  transform-origin: top;
+}
+
+.bildetekst {
+  position: absolute;
+  inset-block-end: calc(var(--loperlengde) + var(--rom-3));
+  inset-inline-start: var(--rom-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pille);
+  background: var(--sand-lys);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (min-width: 48rem) {
+  .bue {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero {
+    padding-block-start: var(--rom-7);
+  }
+
+  .rutenett {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: end;
+    gap: var(--rom-8);
+  }
+
+  .tekst {
+    padding-block-end: calc(var(--loperlengde) + var(--rom-4));
+  }
+
+  .bue {
+    aspect-ratio: 4 / 5;
+    max-block-size: min(72vh, 44rem);
+  }
+}
+
+/* --- Inngang: rolig og kort. Ingen bevegelse ved redusert bevegelse. --- */
+@media (prefers-reduced-motion: no-preference) {
+  .tekst [data-inn] {
+    animation: inn var(--tid-inngang) var(--ease-ut) both;
+    animation-delay: calc(120ms + var(--i, 0) * 90ms);
+  }
+
+  .bue {
+    animation: avduk 1300ms var(--ease-ut) both;
+  }
+
+  .foto {
+    animation: zoom 1800ms var(--ease-ut) both;
+  }
+
+  .loper {
+    animation: rull 900ms var(--ease-ut) 900ms both;
+  }
+
+  .bildetekst {
+    animation: inn var(--tid-lang) var(--ease-ut) 1200ms both;
+  }
+}
+
+@keyframes inn {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@keyframes avduk {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes rull {
+  from {
+    transform: scaleY(0);
+  }
+}

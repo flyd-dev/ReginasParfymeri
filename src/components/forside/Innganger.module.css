@@ -1,0 +1,145 @@
+.seksjon {
+  padding-block-start: 0;
+}
+
+.rutenett {
+  display: grid;
+  gap: var(--rom-7);
+}
+
+.intro {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-4);
+}
+
+.liste {
+  border-block-start: 1px solid var(--blekk);
+}
+
+.rad {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr auto;
+  grid-template-areas:
+    'nr navn pil'
+    'nr tekst pil';
+  align-items: baseline;
+  column-gap: var(--rom-3);
+  padding-block: var(--rom-4);
+  border-block-end: 1px solid var(--linje);
+  text-decoration: none;
+}
+
+/* Løperen: en rosa stripe rulles ut langs raden ved peker eller fokus. */
+.rad::before {
+  content: '';
+  position: absolute;
+  inset-block: -1px;
+  inset-inline-start: calc(var(--rom-3) * -1);
+  inline-size: var(--loper);
+  background: var(--rosa);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.rad:hover::before,
+.rad:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.nummer {
+  grid-area: nr;
+  font-size: var(--t-mini);
+  font-weight: 600;
+  color: var(--blekk-dempet);
+  font-variant-numeric: tabular-nums;
+}
+
+.navn {
+  grid-area: navn;
+  font-family: var(--skrift-display);
+  font-size: var(--t-2);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  transition:
+    color var(--tid-kort) var(--ease-ut),
+    transform var(--tid-middels) var(--ease-ut);
+}
+
+.rad:hover .navn {
+  color: var(--rosa-tekst);
+  transform: translateX(0.35rem);
+}
+
+.tekst {
+  grid-area: tekst;
+  font-size: var(--t-liten);
+  color: var(--blekk-dempet);
+}
+
+.antall {
+  display: none;
+}
+
+.forhand {
+  display: none;
+}
+
+.pil {
+  grid-area: pil;
+  align-self: center;
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.rad:hover .pil {
+  transform: translateX(4px);
+}
+
+@media (min-width: 64rem) {
+  .rutenett {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--rom-9);
+  }
+
+  .intro {
+    position: sticky;
+    inset-block-start: calc(var(--header-hoyde) + var(--rom-6));
+    align-self: start;
+  }
+
+  .rad {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 9rem 4.5rem 2rem;
+    grid-template-areas:
+      'nr navn antall bilde pil'
+      'nr tekst antall bilde pil';
+    align-items: center;
+  }
+
+  .antall {
+    display: block;
+    grid-area: antall;
+    justify-self: end;
+    font-size: var(--t-mini);
+    color: var(--blekk-dempet);
+  }
+
+  .forhand {
+    display: block;
+    grid-area: bilde;
+    inline-size: 4.5rem;
+    opacity: 0;
+    transform: translateY(0.4rem) rotate(-3deg);
+    transition:
+      opacity var(--tid-middels) var(--ease-ut),
+      transform var(--tid-middels) var(--ease-ut);
+  }
+
+  .rad:hover .forhand,
+  .rad:focus-visible .forhand {
+    opacity: 1;
+    transform: none;
+  }
+}

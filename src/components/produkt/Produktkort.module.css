@@ -1,0 +1,154 @@
+.kort {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--rom-3);
+  min-inline-size: 0;
+}
+
+.bildeomrade {
+  position: relative;
+}
+
+/* Hele kortet er klikkbart via navnet; knappene ligger over. */
+.lenke {
+  text-decoration: none;
+}
+
+.lenke::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.lenke:focus-visible {
+  outline: none;
+}
+
+.lenke:focus-visible::after {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 4px;
+  border-radius: var(--radius-m);
+}
+
+.tekst {
+  display: grid;
+  align-content: start;
+  gap: 0.15rem;
+  padding-inline-end: var(--rom-2);
+}
+
+.merke {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blekk-dempet);
+}
+
+.navn {
+  font-size: var(--t-liten);
+  font-weight: 500;
+  line-height: 1.38;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-wrap: pretty;
+}
+
+.variant {
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+}
+
+.tekst > :last-child {
+  margin-block-start: var(--rom-1);
+}
+
+.merkelapp {
+  position: absolute;
+  inset-block-start: var(--rom-4);
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+  z-index: 2;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pille);
+  background: var(--sand-lys);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--blekk);
+  box-shadow: inset 0 0 0 1px var(--linje);
+}
+
+.merkelapp[data-type='Tilbud'] {
+  background: var(--rosa-lys);
+  color: var(--rosa-tekst);
+  box-shadow: none;
+}
+
+.merkelapp[data-type='Utsolgt'] {
+  color: var(--feil);
+}
+
+.kort[data-utsolgt] [data-produktbilde] img {
+  opacity: 0.6;
+}
+
+.hurtig,
+.velg {
+  position: absolute;
+  inset-inline: var(--rom-3);
+  inset-block-end: var(--rom-3);
+  z-index: 2;
+}
+
+.velg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rom-2);
+  min-block-size: 2.75rem;
+  border-radius: var(--radius-pille);
+  background: var(--sand-lys);
+  color: var(--blekk);
+  font-size: var(--t-mini);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px var(--linje-sterk);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .velg,
+  .hurtig {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition:
+      opacity var(--tid-middels) var(--ease-ut),
+      transform var(--tid-middels) var(--ease-ut);
+  }
+
+  .kort:hover .velg,
+  .kort:hover .hurtig,
+  .kort:focus-within .hurtig {
+    opacity: 1;
+    transform: none;
+  }
+
+  .kort:hover [data-produktbilde] > img:first-child {
+    transform: scale(1.035);
+  }
+
+  .kort:hover [data-produktbilde] img + img {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  .velg {
+    display: none;
+  }
+}

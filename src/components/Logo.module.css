@@ -1,0 +1,19 @@
+.logo {
+  display: inline-grid;
+  line-height: 1;
+}
+
+.skrift {
+  inline-size: auto;
+  block-size: 3.5rem;
+}
+
+.stor .skrift {
+  block-size: 7rem;
+}
+
+@media (min-width: 64rem) {
+  .standard .skrift {
+    block-size: 4.6rem;
+  }
+}

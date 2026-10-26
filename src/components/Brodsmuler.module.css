@@ -1,0 +1,34 @@
+.smuler ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rom-1) 0;
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+}
+
+.smuler li {
+  display: inline-flex;
+  align-items: center;
+}
+
+.smuler li + li::before {
+  content: '';
+  inline-size: 0.875rem;
+  block-size: 1px;
+  margin-inline: var(--rom-2);
+  background: var(--linje-sterk);
+}
+
+.smuler a {
+  text-decoration: none;
+}
+
+.smuler a:hover {
+  color: var(--blekk);
+  text-decoration: underline;
+  text-decoration-color: var(--rosa);
+}
+
+.smuler [aria-current='page'] {
+  color: var(--blekk);
+}

@@ -1,0 +1,60 @@
+.rad {
+  position: relative;
+  display: grid;
+  gap: var(--rom-4);
+}
+
+.piler {
+  display: none;
+  justify-content: flex-end;
+  gap: var(--rom-2);
+}
+
+.piler button {
+  border: 1px solid var(--linje-sterk);
+}
+
+.piler button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.liste {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(12.5rem, 72%);
+  gap: var(--rom-5);
+  margin: 0;
+  padding: 0 var(--kant) var(--rom-3);
+  margin-inline: calc(var(--kant) * -1);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--kant);
+  scrollbar-width: thin;
+  scrollbar-color: var(--linje-sterk) transparent;
+}
+
+.liste > li {
+  scroll-snap-align: start;
+  min-inline-size: 0;
+}
+
+@media (min-width: 40rem) {
+  .liste {
+    grid-auto-columns: minmax(13rem, 40%);
+  }
+}
+
+@media (min-width: 64rem) {
+  .piler {
+    display: flex;
+  }
+
+  .liste {
+    grid-auto-columns: calc((100% - 3 * var(--rom-5)) / 4);
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-padding-inline: 0;
+  }
+}
