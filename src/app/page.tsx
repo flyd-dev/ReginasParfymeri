@@ -1,20 +1,14 @@
 import { Duftnoter, type Notegruppe } from '@/components/forside/Duftnoter'
 import { Hero } from '@/components/forside/Hero'
 import { Innganger, type Inngang } from '@/components/forside/Innganger'
+import { Merkebaand } from '@/components/forside/Merkebaand'
 import { Besok, Hudpleieavdeling, Merkevegg, Nisjeduft, Veiledning } from '@/components/forside/Seksjoner'
-import { INNGANGER, UTVALGTE_NISJEDUFTER } from '@/innhold/forside'
+import { HERO_FLASKER, INNGANGER, MERKEBAAND, UTVALGTE_NISJEDUFTER } from '@/innhold/forside'
+import { frilagte, inngangsvisning } from '@/lib/innganger'
 import { hentKatalog } from '@/lib/katalog/kilde'
 import { finnKategori, harNote, noteoversikt, produkterI, sorter } from '@/lib/katalog/sporring'
 import type { Produkt } from '@/lib/katalog/typer'
 import { tilKort } from '@/lib/visning'
-
-const GODT_BILDE = new Set(['hvit', 'transparent', 'flat'])
-
-function representant(produkter: Produkt[]): Produkt | undefined {
-  return produkter.find(
-    (p) => p.lager.status !== 'utsolgt' && p.bilder[0] && GODT_BILDE.has(p.bilder[0].bakgrunn),
-  )
-}
 
 export default async function Forside() {
   const katalog = await hentKatalog()
@@ -35,9 +29,17 @@ export default async function Forside() {
         href: `/kategori/${kategori.slug}`,
         antall: produkter.length,
         tekst: i.tekst,
-        bilde: representant(produkter)?.bilder[0] ?? null,
+        plass: i.plass,
+        visning: inngangsvisning(katalog, i, produkter),
       },
     ]
+  })
+
+  const heroflaske = frilagte(katalog, HERO_FLASKER)[0]
+
+  const baand = MERKEBAAND.flatMap((slug) => {
+    const m = katalog.merker.find((x) => x.slug === slug && x.antall > 0)
+    return m ? [{ navn: m.navn, href: `/merker/${m.slug}` }] : []
   })
 
   const noter: Notegruppe[] = noteoversikt(katalog, 3)
@@ -59,7 +61,8 @@ export default async function Forside() {
 
   return (
     <>
-      <Hero antallMerker={merker.length} />
+      <Hero antallMerker={merker.length} flaske={heroflaske ? tilKort(heroflaske) : null} />
+      {baand.length > 0 ? <Merkebaand merker={baand} /> : null}
       <Innganger innganger={innganger} />
       {nisjeduft.length > 0 ? (
         <Nisjeduft

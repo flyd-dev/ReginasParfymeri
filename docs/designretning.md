@@ -8,11 +8,29 @@ Uttrykket er varmt og redaksjonelt, med tydelig handel: få, store grep – ikke
 
 ## Signaturgrep
 
-| Grep                    | Hvor                                                                                                                                      |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Løperen**             | Heroen (teppet i fotoet fortsetter som en rosa stripe ned i kategorilisten), menypunkt, kickers, skuffekanter, valgt variant, bunnteksten |
-| **Buen**                | Butikkfasaden i heroen, portrett i «Besøk oss» og hvert produkt i lister – «nisjer» som i et butikkvindu                                  |
-| **Reginas egne bilder** | Fasaden, medarbeiderne, salongen med de røde stolene, Tom Ford-hyllen – ikke stockbilder                                                  |
+| Grep                    | Hvor                                                                                                                                         |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Løperen**             | Det rosa merkebåndet rett under heroen (teppet fra butikkdøren lagt på tvers), menypunkt, kickers, skuffekanter, valgt variant, bunnteksten  |
+| **Buen**                | Butikkfasaden i heroen, megamenyens bilde, «Bare i butikken», personlig veiledning og hvert produkt i lister – «nisjer» som i et butikkvindu |
+| **Frilagte flasker**    | Produkter med gjennomsiktig bakgrunn står fritt foran butikkdøren og på fargede kategorikort – bildene er uendret                            |
+| **Reginas egne bilder** | Fasaden, disken, salongen, behandlingsrommet, Tom Ford-hyllen, interiøret, Haugescent-duftpinnene – ikke stockbilder                         |
+
+## Forsiden (versjon 2)
+
+| Seksjon                   | Flate       | Innhold                                                                                                  |
+| ------------------------- | ----------- | -------------------------------------------------------------------------------------------------------- |
+| Hero                      | Sand        | Kollasj: fasaden i bue, et lite bilde fra disken og en frilagt flaske med navn og pris (lenke til varen) |
+| Merkebåndet               | Rosa        | Merkene glir rolig forbi; stopper ved peker, fokus, pauseknapp og redusert bevegelse                     |
+| Hva leter du etter?       | Sand        | Kategorikort i rutenett: butikkbilder og frilagte produkter på plomme, rosa og sand                      |
+| Nisjeduft                 | Mørk plomme | Utvalgte nisjedufter i buer                                                                              |
+| Femte generasjon          | Sand        | Historien og personlig veiledning                                                                        |
+| Finn duften etter noten   | Sand-dyp    | Faner med duftnoter fra produktbeskrivelsene                                                             |
+| Merker og Bare i butikken | Sand        | Merkene i kolonner med antall; Tom Ford-hyllen og øyenskyggen lagt over hverandre                        |
+| Hudpleieavdelingen, Besøk | Rosa / sand | Behandlingsrommet, butikklokalet og kontakt                                                              |
+
+Kategorisidene viser samme bilde som kategorikortet på forsiden ved siden av tittelen, og produktsidene for
+duft avslutter med personlig veiledning i butikken. Headeren glir bort når man ruller nedover og kommer
+tilbake straks man ruller opp eller flytter fokus dit.
 
 ## Farger
 
@@ -63,7 +81,12 @@ nisje per produkt – så de hvite flatene blir et bevisst grep og ikke hvite ko
 | `--ease-ut`     | `cubic-bezier(0.22, 0.7, 0.18, 1)`  | standard – rolig landing        |
 | `--ease-fjaer`  | `cubic-bezier(0.34, 1.45, 0.64, 1)` | små bekreftelser (hake, antall) |
 
-- Heroen: buen avdekkes nedenfra, teksten løftes inn linje for linje, løperen rulles ut.
+- Heroen: overskriften glir opp bak en maske linje for linje, buen og bildet zoomer rolig inn, flasken
+  løftes inn og svever svakt. Når siden rulles, beveger flasken og det lille bildet seg i ulik fart
+  (CSS scroll-tidslinje, ingen JavaScript).
+- Merkebåndet: farten bygges opp og ned mykt (overført fra 21st.dev), bare transform på sporet, og det står
+  stille utenfor skjermen.
+- Kategorikort og megamenybilder: bildet zoomer svakt og flaskene løftes ved peker.
 - Seksjoner avdekkes med CSS scroll-drevet animasjon (`animation-timeline: view()`) – ingen JavaScript,
   innholdet er synlig der det ikke støttes.
 - «Legg i handlekurven»: bildet flyr til kurven, telleren spretter, skuffen åpner med kvittering.
@@ -77,5 +100,17 @@ kurv og søk, minst 44 px trykkflater, ingen horisontal rulling fra 320 px.
 
 ## 21st.dev
 
-21st.dev-MCP-en var ikke tilgjengelig i arbeidsøkten, så ingen komponenter derfra er brukt. Komponentene er
-skrevet for konseptet; mønstrene (megameny, skuff, filterskuff, kjøpslinje) følger WAI-ARIA-praksis.
+21st.dev-MCP-en er ikke koblet til økten som verktøy, men nøkkelen ligger i miljøet (`API_KEY_21ST`). Den ble
+brukt direkte mot 21st.dev sitt MCP-endepunkt (`https://21st.dev/api/mcp`, JSON-RPC med nøkkelen i
+`x-api-key`) fra et lite skript utenfor repoet. Nøkkelen er aldri skrevet til kode, logg eller git.
+Kontoen er på gratisnivå: søk og forhåndsvisninger er gratis, to kodehentinger per dag, ingen AI-generering.
+
+| Ressurs (21st.dev)                                                    | Brukt slik                                                                                                                                                                                                                  |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Logo Marquee** (ddoemonn, id 23537) – kode hentet                   | Bevegelsen i `Merkebaand.tsx`: myk oppbygging/nedbremsing, kopier etter bredde, pause ved peker/fokus/utenfor skjerm, kopier skjult for skjermlesere. Skrevet om uten Tailwind og Motion; pauseknapp lagt til (WCAG 2.2.2). |
+| **Editorial Collage Hero** (felipemenezes098, id 19074) – kode hentet | Oppsettet i heroen: serif-overskrift ved en lagdelt kollasj, trinnvis inngang. Skrevet om i CSS-moduler; blur-effekten er tatt ut (bare transform og opacity).                                                              |
+| **Shop by Category Grid** (ziegfiroyt) – forhåndsvisning              | Mønster for kategorikortene: bildekort med antall og zoom ved peker.                                                                                                                                                        |
+| **Shop Navigation Menu** (bundui) – forhåndsvisning                   | Mønster for bilde i megamenyen.                                                                                                                                                                                             |
+
+Resten av komponentene er skrevet for konseptet; mønstrene (megameny, skuff, filterskuff, kjøpslinje) følger
+WAI-ARIA-praksis.

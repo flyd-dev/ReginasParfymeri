@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { Inngangsflate } from '@/components/forside/Innganger'
 import { Produktliste } from '@/components/liste/Produktliste'
 import { NISJE } from '@/innhold/butikk'
 import { hentKatalog } from '@/lib/katalog/kilde'
 import { barnAv, finnKategori, kategoristi, produkterI, type Sokeparametre } from '@/lib/katalog/sporring'
+import { finnInngang, inngangsvisning } from '@/lib/innganger'
 import { byggListe } from '@/lib/liste'
 
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<Sokeparametre> }
@@ -48,6 +50,7 @@ export default async function Kategoriside({ params, searchParams }: Props) {
     .sort((a, b) => b.antall - a.antall)
 
   const liste = byggListe(katalog, grunnlag, parametre, barn)
+  const inngang = finnInngang(kategori.slug)
   const overordnet = sti.length > 1 ? sti[sti.length - 2] : undefined
 
   return (
@@ -56,6 +59,7 @@ export default async function Kategoriside({ params, searchParams }: Props) {
       kicker={overordnet?.navn}
       tittel={kategori.navn}
       ingress={INGRESS[kategori.slug]}
+      visuell={inngang ? <Inngangsflate visning={inngangsvisning(katalog, inngang, grunnlag)} /> : undefined}
       smuler={sti.map((k) => ({ navn: k.navn, href: `/kategori/${k.slug}` }))}
       snarveier={snarveier}
       kategoritittel="Type"

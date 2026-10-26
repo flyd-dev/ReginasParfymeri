@@ -10,7 +10,7 @@ import styles from './Seksjoner.module.css'
 
 export function Nisjeduft({ produkter, antall }: { produkter: Kortdata[]; antall: number }) {
   return (
-    <section className={`${styles.nisje} seksjon`} aria-labelledby="nisje-tittel">
+    <section className={`${styles.nisje} seksjon`} data-flate="mork" aria-labelledby="nisje-tittel">
       <div className="ramme">
         <div className={styles.nisjeHode}>
           <div className={styles.nisjeTekst}>
@@ -113,8 +113,8 @@ export function Hudpleieavdeling() {
         </div>
         <figure className={styles.hudpleieBilde} data-avdekk>
           <Image
-            src={BILDER.salong.bilde}
-            alt={BILDER.salong.alt}
+            src={BILDER.behandlingsrom.bilde}
+            alt={BILDER.behandlingsrom.alt}
             placeholder="blur"
             sizes="(min-width: 64rem) 55vw, 100vw"
             className={styles.fyll}
@@ -139,8 +139,11 @@ export function Merkevegg({ merker }: { merker: { navn: string; href: string; an
           {merker.map((m) => (
             <li key={m.href}>
               <Link href={m.href}>
-                {m.navn}
-                <sup className="tall">{m.antall}</sup>
+                <span className={styles.merkenavn}>{m.navn}</span>
+                <span className={`${styles.merkeantall} tall`}>
+                  {m.antall}
+                  <span className="skjult"> produkter</span>
+                </span>
               </Link>
             </li>
           ))}
@@ -148,25 +151,42 @@ export function Merkevegg({ merker }: { merker: { navn: string; href: string; an
         <Link href="/merker" className={`tekstlenke ${styles.alleMerker}`}>
           Alle merker A–Å <Ikon navn="pil" storrelse={16} data-pil />
         </Link>
+
         <div className={styles.butikkmerker}>
-          <figure className={styles.butikkmerkerBilde} data-avdekk>
-            <Image
-              src={BILDER.tomFord.bilde}
-              alt={BILDER.tomFord.alt}
-              placeholder="blur"
-              sizes="(min-width: 64rem) 30vw, 100vw"
-              className={styles.fyll}
-            />
-          </figure>
+          <div className={styles.butikkmerkerBilder} data-avdekk>
+            <figure className={styles.butikkmerkerBilde}>
+              <Image
+                src={BILDER.tomFord.bilde}
+                alt={BILDER.tomFord.alt}
+                placeholder="blur"
+                sizes="(min-width: 64rem) 45vw, 90vw"
+                className={styles.fyll}
+              />
+            </figure>
+            <figure className={styles.butikkmerkerDetalj}>
+              <Image
+                src={BILDER.oyenskygge.bilde}
+                alt={BILDER.oyenskygge.alt}
+                placeholder="blur"
+                sizes="(min-width: 64rem) 18vw, 34vw"
+                className={styles.fyll}
+              />
+            </figure>
+          </div>
           <div className={styles.butikkmerkerTekst} data-avdekk>
             <p className="kicker">Bare i butikken</p>
-            <p className="t-3">{KUN_I_BUTIKKEN.slice(0, 6).join(', ')} og flere.</p>
+            <h3 className="t-2">Noen merker må du oppleve i Haraldsgata</h3>
             <p className="dempet">
               Enkelte eksklusive merker er ikke tilgjengelige i nettbutikken, etter avtale med leverandørene.
-              Kom innom Haraldsgata eller ring oss – vi hjelper deg gjerne.
+              Kom innom eller ring oss – vi hjelper deg gjerne.
             </p>
+            <ul role="list" aria-label="Merker i butikken">
+              {KUN_I_BUTIKKEN.slice(0, 6).map((m) => (
+                <li key={m}>{m}</li>
+              ))}
+            </ul>
             <Link href="/merker#butikken" className="tekstlenke">
-              Se merkene i butikken <Ikon navn="pil" storrelse={16} data-pil />
+              Se alle merkene i butikken <Ikon navn="pil" storrelse={16} data-pil />
             </Link>
           </div>
         </div>
@@ -181,10 +201,10 @@ export function Besok() {
       <div className={`${styles.besokRutenett} ramme`}>
         <figure className={styles.besokBilde} data-avdekk>
           <Image
-            src={BILDER.disken.bilde}
-            alt={BILDER.disken.alt}
+            src={BILDER.interior.bilde}
+            alt={BILDER.interior.alt}
             placeholder="blur"
-            sizes="(min-width: 64rem) 30vw, 80vw"
+            sizes="(min-width: 64rem) 55vw, 100vw"
             className={styles.fyll}
           />
         </figure>

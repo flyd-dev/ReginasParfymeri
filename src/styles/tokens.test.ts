@@ -46,6 +46,11 @@ const PAR: [string, string, number][] = [
   ['paa-mork-dempet', 'plomme', 4.5],
   ['rosa-paa-mork', 'plomme', 4.5],
   ['paa-mork', 'plomme-dyp', 4.5],
+  ['paa-mork-dempet', 'plomme-dyp', 4.5],
+  ['rosa-paa-mork', 'plomme-dyp', 4.5],
+  // Kategorikortene på rosa flater.
+  ['blekk-dempet', 'rosa-lys', 4.5],
+  ['blekk-dempet', 'rosa-dus', 4.5],
   ['ok', 'sand', 4.5],
   ['ok', 'sand-lys', 4.5],
   ['varsel', 'sand', 4.5],
@@ -59,6 +64,8 @@ const PAR: [string, string, number][] = [
   ['linje-sterk', 'sand', 3],
   ['linje-sterk', 'sand-lys', 3],
   ['rosa-knapp', 'sand', 3],
+  // Pauseknappen i det rosa merkebåndet.
+  ['plomme', 'rosa-knapp', 3],
 ]
 
 describe('fargekontrast', () => {

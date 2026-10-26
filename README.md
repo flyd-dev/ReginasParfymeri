@@ -39,8 +39,11 @@ Skjermbilder av forsiden, kategori, produkt, handlekurv og kasse på desktop og 
 
 ## Hva er implementert
 
-- **Forside** med hero (butikkfasaden i en bue, rosa løper), kategoriinnganger, utvalgte nisjedufter,
-  personlig veiledning/historie, utforsk etter duftnote, merkevegg, hudpleieavdelingen og besøk oss.
+- **Forside** med kollasj-hero (butikkfasaden i en bue, en frilagt flaske med pris, et bilde fra disken),
+  rosa merkebånd med pauseknapp, kategorikort med Reginas egne bilder og frilagte produkter, utvalgte
+  nisjedufter på mørk flate, personlig veiledning/historie, utforsk etter duftnote, merker i kolonner,
+  «Bare i butikken», hudpleieavdelingen og besøk oss.
+- **Header** som glir bort ved rulling nedover og kommer tilbake ved rulling opp; megameny med butikkbilde.
 - **Kategori, merke, søk og tilbud** – filtrering (type, merke, pris, lager, tilbud, duftnote) med antall per
   valg, sortering, aktive filtre, «vis flere», filterskuff på mobil, tomme treff og lastetilstand.
   Filtrene ligger i adressen og kan deles.
@@ -65,7 +68,7 @@ Skjermbilder av forsiden, kategori, produkt, handlekurv og kasse på desktop og 
 
 ```bash
 pnpm verify              # typecheck + lint + enhetstester + build
-pnpm test                # vitest (115 tester)
+pnpm test                # vitest (120 tester)
 pnpm test:e2e            # Playwright: hovedreisen på desktop og mobil (krever kjørende server)
 pnpm katalog:hent        # nytt utdrag fra Reginas Store API (bare GET)
 pnpm katalog:bygg        # bygg katalogen på nytt fra mellomlagret rådata, uten nettverk
@@ -90,6 +93,7 @@ Produktbildene hentes fra Reginas mediebibliotek og optimaliseres av Next.js. Se
 | Butikkfakta, levering, retur, historie      | **Ekte**, fra Reginas egne sider – kilde i `src/innhold/butikk.ts`          |
 | Butikkbilder og logo                        | **Reginas eget materiale** – bruksrett må bekreftes (`docs/bildekilder.md`) |
 | Utvalget på forsiden og kategoritekstene    | **Satt av Flyd** for konseptet (`src/innhold/forside.ts`)                   |
+| Kategoribilder, heroflasken, merkebåndet    | **Satt av Flyd**: hvilke produkter og bilder som vises (`forside.ts`)       |
 | Handlekurven                                | **Lokal i nettleseren**, kontrollert mot katalogen. Ikke WooCommerce-kurv   |
 | Kassen / betaling                           | **Ikke koblet.** Ingen ordre opprettes. Overlevering er bygget, men av      |
 

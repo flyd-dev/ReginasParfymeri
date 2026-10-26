@@ -5,6 +5,62 @@
   padding-block: var(--rom-6) var(--rom-7);
 }
 
+.panel[data-fremhevet] {
+  grid-template-columns: 1fr 13rem 17rem;
+  gap: var(--rom-7);
+}
+
+.fremhevet {
+  display: grid;
+  align-content: start;
+  gap: var(--rom-2);
+  color: var(--blekk);
+  text-decoration: none;
+}
+
+.fremhevetBilde {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--bue);
+  overflow: hidden;
+  margin-block-end: var(--rom-2);
+}
+
+.fyll {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform var(--tid-bilde) var(--ease-ut);
+}
+
+.fremhevetTittel {
+  font-family: var(--skrift-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.fremhevetTekst {
+  font-size: var(--t-mini);
+  color: var(--blekk-dempet);
+}
+
+.fremhevet:hover .fremhevetTittel {
+  color: var(--rosa-tekst);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fremhevet:hover .fyll {
+    transform: scale(1.04);
+  }
+}
+
+.fremhevet:focus-visible {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 4px;
+  border-radius: var(--radius-m);
+}
+
 .hoved {
   display: grid;
   align-content: start;

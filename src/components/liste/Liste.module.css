@@ -19,6 +19,47 @@
   margin-block-start: var(--rom-4);
 }
 
+.hodeRad {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--rom-5) var(--rom-8);
+  align-items: end;
+}
+
+.hodeTekst {
+  display: grid;
+  gap: var(--rom-4);
+  min-inline-size: 0;
+}
+
+.visuell {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .hodeRad[data-visuell] {
+    grid-template-columns: minmax(0, 1fr) clamp(16rem, 30vw, 27rem);
+  }
+
+  .visuell {
+    display: block;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .visuell {
+    animation: visuell var(--tid-inngang) var(--ease-ut) both;
+  }
+}
+
+@keyframes visuell {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+}
+
 .tittelblokk {
   display: grid;
   gap: var(--rom-3);

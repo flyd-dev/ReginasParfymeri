@@ -25,6 +25,8 @@ const STIER = {
   venstre: <path d="m14.5 6.5-5.5 5.5 5.5 5.5" />,
   pluss: <path d="M12 5.5v13M5.5 12h13" />,
   minus: <path d="M5.5 12h13" />,
+  pause: <path d="M9 6.5v11M15 6.5v11" />,
+  spill: <path d="M8.5 6.2v11.6a.6.6 0 0 0 .9.5l9-5.8a.6.6 0 0 0 0-1l-9-5.8a.6.6 0 0 0-.9.5z" />,
   sjekk: <path d="m5.5 12.5 4.25 4.25L18.5 7.5" />,
   sted: (
     <>

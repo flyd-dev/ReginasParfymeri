@@ -12,10 +12,15 @@
   margin-block-start: var(--rom-3);
 }
 
-/* --- Nisjeduft --- */
+/* --- Nisjeduft (mørk flate) --- */
 
 .nisje {
-  background: var(--sand-dyp);
+  background: var(--plomme-dyp);
+  color: var(--paa-mork);
+}
+
+.nisje :global(.ingress) {
+  color: var(--paa-mork-dempet);
 }
 
 .nisjeHode {
@@ -41,11 +46,10 @@
   }
 }
 
-/* --- Duftnoter (mørk flate) --- */
+/* --- Duftnoter --- */
 
 .noter {
-  background: var(--plomme);
-  color: var(--paa-mork);
+  background: var(--sand-dyp);
 }
 
 .noterHode {
@@ -61,7 +65,7 @@
 
 .noterForklaring {
   max-inline-size: 28rem;
-  color: var(--paa-mork-dempet);
+  color: var(--blekk-dempet);
   font-size: var(--t-liten);
 }
 
@@ -88,10 +92,10 @@
   gap: var(--rom-2);
   min-block-size: 2.75rem;
   padding: 0.55rem var(--rom-4);
-  border: 1px solid var(--plomme-linje);
+  border: 1px solid var(--linje-sterk);
   border-radius: var(--radius-pille);
   background: transparent;
-  color: var(--paa-mork);
+  color: var(--blekk);
   font-size: var(--t-liten);
   font-weight: 600;
   transition:
@@ -103,21 +107,21 @@
 .fane span {
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--paa-mork-dempet);
+  color: var(--blekk-dempet);
 }
 
 .fane:hover {
-  border-color: var(--paa-mork-dempet);
+  border-color: var(--blekk);
 }
 
 .fane[aria-selected='true'] {
-  background: var(--paa-mork);
-  border-color: var(--paa-mork);
-  color: var(--plomme);
+  background: var(--plomme);
+  border-color: var(--plomme);
+  color: var(--paa-mork);
 }
 
 .fane[aria-selected='true'] span {
-  color: var(--blekk-dempet);
+  color: var(--paa-mork-dempet);
 }
 
 .notepanel {
@@ -141,20 +145,6 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--rom-6) var(--rom-5);
   }
-}
-
-/* Kortene på mørk flate. */
-.noter article p,
-.noter article h3 {
-  color: var(--paa-mork);
-}
-
-.noter article p:first-child {
-  color: var(--paa-mork-dempet);
-}
-
-.noter article [data-produktbilde] {
-  outline: 1px solid var(--plomme-linje);
 }
 
 .noter :global(.tekstlenke) {
@@ -294,14 +284,45 @@
 }
 
 .merkevegg {
+  columns: 2 13rem;
+  column-gap: var(--rom-6);
+  margin-block-start: var(--rom-4);
+}
+
+.merkevegg li {
+  break-inside: avoid;
+}
+
+.merkevegg a {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem 0;
-  font-family: var(--skrift-display);
-  font-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.75rem);
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rom-3);
+  padding-block: 0.7rem;
+  border-block-end: 1px solid var(--linje);
   font-weight: 500;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: color var(--tid-kort) var(--ease-ut);
+}
+
+.merkenavn {
+  transition: transform var(--tid-middels) var(--ease-ut);
+}
+
+.merkeantall {
+  font-size: var(--t-mini);
+  font-weight: 500;
+  color: var(--blekk-dempet);
+}
+
+.merkevegg a:hover {
+  color: var(--rosa-tekst);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .merkevegg a:hover .merkenavn {
+    transform: translateX(0.35rem);
+  }
 }
 
 .alleMerker {
@@ -312,45 +333,25 @@
   .merkevegg li:nth-child(n + 17) {
     display: none;
   }
+}
 
-  .merkevegg li:nth-child(16)::after {
-    content: none;
+@media (min-width: 64rem) {
+  .merkevegg {
+    columns: 4;
   }
 }
 
-.merkevegg li:not(:last-child)::after {
-  content: '/';
-  margin-inline: 0.45em;
-  color: var(--linje-sterk);
-  font-weight: 300;
-}
-
-.merkevegg a {
-  text-decoration: none;
-  transition: color var(--tid-kort) var(--ease-ut);
-}
-
-.merkevegg a:hover {
-  color: var(--rosa-tekst);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-
-.merkevegg sup {
-  margin-inline-start: 0.15em;
-  font-family: var(--skrift-tekst);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  color: var(--blekk-dempet);
-  vertical-align: super;
-}
-
+/* Bare i butikken: to av Reginas egne bilder fra Tom Ford-hyllen, lagt over hverandre. */
 .butikkmerker {
   display: grid;
-  gap: var(--rom-5);
-  margin-block-start: var(--rom-6);
-  padding-block-start: var(--rom-6);
-  border-block-start: 1px solid var(--linje);
+  gap: var(--rom-7);
+  margin-block-start: var(--seksjon);
+}
+
+.butikkmerkerBilder {
+  position: relative;
+  padding-inline-end: 22%;
+  padding-block-end: 12%;
 }
 
 .butikkmerkerBilde {
@@ -359,18 +360,63 @@
   overflow: hidden;
 }
 
+.butikkmerkerDetalj {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+  inline-size: 34%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--bue);
+  overflow: hidden;
+  outline: 0.4rem solid var(--sand);
+}
+
 .butikkmerkerTekst {
   display: grid;
-  gap: var(--rom-3);
+  gap: var(--rom-4);
   align-content: center;
   justify-items: start;
   max-inline-size: 34rem;
 }
 
+.butikkmerkerTekst ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rom-2);
+}
+
+.butikkmerkerTekst li {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--linje-sterk);
+  border-radius: var(--radius-pille);
+  font-size: var(--t-mini);
+  font-weight: 500;
+}
+
 @media (min-width: 64rem) {
   .butikkmerker {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--rom-8);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--rom-9);
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .butikkmerkerDetalj {
+      animation: loft linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+@keyframes loft {
+  from {
+    transform: translateY(3rem);
+  }
+  to {
+    transform: translateY(-3rem);
   }
 }
 
@@ -387,11 +433,10 @@
 }
 
 .besokBilde {
-  inline-size: min(100%, 24rem);
-  aspect-ratio: 2 / 3;
-  border-radius: var(--bue);
+  inline-size: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-l);
   overflow: hidden;
-  justify-self: center;
 }
 
 .besokTekst {
@@ -425,7 +470,7 @@
 
 @media (min-width: 64rem) {
   .besokRutenett {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: var(--rom-9);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: var(--rom-8);
   }
 }

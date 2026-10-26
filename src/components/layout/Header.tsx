@@ -21,6 +21,7 @@ export function Header({ meny }: { meny: Menydata }) {
   const [mobil, setMobil] = useState(false)
   const [sok, setSok] = useState(false)
   const [scrollet, setScrollet] = useState(false)
+  const [skjult, setSkjult] = useState(false)
   const pathname = usePathname()
   const timer = useRef<number | undefined>(undefined)
   const navRef = useRef<HTMLElement>(null)
@@ -34,11 +35,27 @@ export function Header({ meny }: { meny: Menydata }) {
     setSok(false)
   }
 
+  // Headeren glir bort når man ruller nedover i innholdet og kommer tilbake så snart man ruller opp.
   useEffect(() => {
-    const vedScroll = () => setScrollet(window.scrollY > 8)
+    let forrige = window.scrollY
+    let ramme = 0
+    const vedScroll = () => {
+      cancelAnimationFrame(ramme)
+      ramme = requestAnimationFrame(() => {
+        const y = window.scrollY
+        setScrollet(y > 8)
+        if (y < 320) setSkjult(false)
+        else if (y > forrige + 8) setSkjult(true)
+        else if (y < forrige - 8) setSkjult(false)
+        if (Math.abs(y - forrige) > 8) forrige = y
+      })
+    }
     vedScroll()
     window.addEventListener('scroll', vedScroll, { passive: true })
-    return () => window.removeEventListener('scroll', vedScroll)
+    return () => {
+      cancelAnimationFrame(ramme)
+      window.removeEventListener('scroll', vedScroll)
+    }
   }, [])
 
   useEffect(() => {
@@ -79,7 +96,9 @@ export function Header({ meny }: { meny: Menydata }) {
       <header
         className={styles.header}
         data-scrollet={scrollet || undefined}
+        data-skjult={(skjult && !aktiv && !mobil && !sok) || undefined}
         data-meny-apen={aktiv ? '' : undefined}
+        onFocus={() => setSkjult(false)}
         onPointerLeave={(e) => e.pointerType === 'mouse' && planlegg(null, LUKKE_FORSINKELSE)}
       >
         <div className={`${styles.rad} ramme`}>

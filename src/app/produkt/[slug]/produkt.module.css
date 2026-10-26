@@ -133,6 +133,88 @@
   background: var(--sand-dyp);
 }
 
+/* Butikken: personlig veiledning, på mørk flate. */
+.butikk {
+  background: var(--plomme-dyp);
+  color: var(--paa-mork);
+  padding-block: var(--seksjon);
+}
+
+.butikkRutenett {
+  display: grid;
+  gap: var(--rom-7);
+  align-items: center;
+}
+
+.butikkBilde {
+  inline-size: min(100%, 22rem);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--bue);
+  overflow: hidden;
+}
+
+.fyll {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.butikkTekst {
+  display: grid;
+  gap: var(--rom-4);
+  justify-items: start;
+  max-inline-size: 36rem;
+}
+
+.butikkTekst p:not(:global(.kicker)) {
+  color: var(--paa-mork-dempet);
+}
+
+.butikkLenker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rom-4) var(--rom-6);
+  margin-block-start: var(--rom-2);
+}
+
+@media (min-width: 64rem) {
+  .butikkRutenett {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--rom-9);
+  }
+}
+
+/* Inngang: bildet og kjøpsboksen kommer rolig inn. */
+@media (prefers-reduced-motion: no-preference) {
+  .galleri {
+    animation: inn var(--tid-bilde) var(--ease-ut) both;
+  }
+
+  .info > * {
+    animation: inn var(--tid-bilde) var(--ease-ut) both;
+  }
+
+  .info > :nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .info > :nth-child(3) {
+    animation-delay: 160ms;
+  }
+
+  .info > :nth-child(n + 4) {
+    animation-delay: 240ms;
+  }
+}
+
+@keyframes inn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
 .relatertTittel {
   margin-block-end: var(--rom-5);
 }

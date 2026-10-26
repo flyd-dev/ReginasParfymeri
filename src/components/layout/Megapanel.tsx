@@ -1,13 +1,39 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { KUN_I_BUTIKKEN } from '@/innhold/butikk'
+import { BILDER, type Fotografi } from '@/innhold/bilder'
+import { BUTIKK, KUN_I_BUTIKKEN } from '@/innhold/butikk'
 import type { Menylenke, Menypost } from '@/lib/visning'
 import { Ikon } from '../Ikon'
 import styles from './Megapanel.module.css'
 
+// Et butikkbilde i panelet der det finnes et som passer (mønster fra 21st.dev «Shop Navigation
+// Menu»). Bare tjenester og fakta fra Reginas egne sider – ingen kampanjer.
+const FREMHEVET: Record<string, { foto: Fotografi; tittel: string; tekst: string; href: string }> = {
+  duft: {
+    foto: BILDER.medarbeidere,
+    tittel: 'Personlig veiledning',
+    tekst: 'Kom innom Haraldsgata, så finner vi duften sammen.',
+    href: '/om-regina#besok',
+  },
+  hudpleie: {
+    foto: BILDER.salong,
+    tittel: 'Hudpleieavdelingen',
+    tekst: 'Behandlinger i andre etasje. Bestill time hos Ledig Time.',
+    href: BUTIKK.timebestilling,
+  },
+  makeup: {
+    foto: BILDER.disken,
+    tittel: 'Prøv i butikken',
+    tekst: 'Hele sortimentet står i butikken i Haraldsgata.',
+    href: '/om-regina#besok',
+  },
+}
+
 export function Megapanel({ post }: { post: Menypost }) {
   const flat = post.grupper.every((g) => g.barn.length === 0)
+  const fremhevet = FREMHEVET[post.id]
   return (
-    <div className={`${styles.panel} ramme`}>
+    <div className={`${styles.panel} ramme`} data-fremhevet={fremhevet ? '' : undefined}>
       <div className={styles.hoved}>
         {flat ? (
           <ul className={styles.flat} role="list">
@@ -60,6 +86,21 @@ export function Megapanel({ post }: { post: Menypost }) {
             ))}
           </ul>
         </aside>
+      ) : null}
+      {fremhevet ? (
+        <Link href={fremhevet.href} className={styles.fremhevet}>
+          <span className={styles.fremhevetBilde}>
+            <Image
+              src={fremhevet.foto.bilde}
+              alt=""
+              placeholder="blur"
+              sizes="18rem"
+              className={styles.fyll}
+            />
+          </span>
+          <span className={styles.fremhevetTittel}>{fremhevet.tittel}</span>
+          <span className={styles.fremhevetTekst}>{fremhevet.tekst}</span>
+        </Link>
       ) : null}
     </div>
   )

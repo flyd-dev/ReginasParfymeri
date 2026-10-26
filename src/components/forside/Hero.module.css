@@ -1,5 +1,4 @@
 .hero {
-  --loperlengde: clamp(5rem, 3rem + 8vw, 10rem);
   position: relative;
   padding-block: var(--rom-6) 0;
 }
@@ -25,12 +24,23 @@
   gap: var(--rom-5);
 }
 
-.tittel span {
+/* Hver linje i overskriften glir opp bak en maske. Rommet under linjen gir plass til
+   underlengdene (f, g, j) og kursiven, så ingenting klippes når teksten står i ro. */
+.linje {
+  display: block;
+  overflow: hidden;
+  padding-block-end: 0.12em;
+  margin-block-end: -0.12em;
+  padding-inline-end: 0.08em;
+}
+
+.linje > span {
   display: block;
 }
 
 .ingress {
   color: var(--blekk);
+  max-inline-size: 34rem;
 }
 
 .handlinger {
@@ -53,16 +63,22 @@
   color: var(--rosa-tekst);
 }
 
-.bilde {
+/* ---------- Kollasjen ---------- */
+
+.kollasj {
   position: relative;
-  display: grid;
-  justify-items: center;
+  /* Plass til flasken til venstre og bildet til høyre for buen. */
+  padding-inline: 9% 11%;
 }
 
 .bue {
   position: relative;
-  inline-size: 100%;
-  aspect-ratio: 1;
+  margin: 0;
+}
+
+.bueInn {
+  position: relative;
+  aspect-ratio: 4 / 5;
   border-radius: var(--bue);
   overflow: hidden;
   background: var(--sand-dyp);
@@ -74,24 +90,23 @@
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
-  /* Døren med den rosa løperen står midt i buen. */
-  object-position: 51% 80%;
 }
 
-/* Løperen har samme bredde som teppet ved døren og går helt ned til neste seksjon. */
-.loper {
-  display: block;
-  inline-size: 12%;
-  block-size: var(--loperlengde);
-  margin-inline-start: 5%;
-  background: var(--rosa);
-  transform-origin: top;
+.bue .foto {
+  /* Døren med den rosa løperen står midt i buen. Øverste kant av bildet (et avkuttet skilt)
+     skjules, så buen får en ren topp. */
+  inset-block-start: -3%;
+  block-size: 103%;
+  object-position: 51% 80%;
 }
 
 .bildetekst {
   position: absolute;
-  inset-block-end: calc(var(--loperlengde) + var(--rom-3));
-  inset-inline-start: var(--rom-3);
+  inset-block-start: 16%;
+  inset-inline: 0;
+  margin-inline: auto;
+  inline-size: max-content;
+  max-inline-size: 86%;
   display: inline-flex;
   align-items: center;
   gap: var(--rom-2);
@@ -100,11 +115,147 @@
   background: var(--sand-lys);
   font-size: 0.75rem;
   font-weight: 500;
+  z-index: 1;
+}
+
+.lag {
+  position: absolute;
+  z-index: 2;
+}
+
+.lagSmaa {
+  inset-inline-end: 0;
+  inset-block-end: 14%;
+  inline-size: 30%;
+}
+
+.smaa {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  outline: 0.4rem solid var(--sand);
+}
+
+.smaa .foto {
+  object-position: 40% 30%;
+}
+
+.lagFlaske {
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  z-index: 3;
+}
+
+.flaske {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: var(--rom-3);
+  color: var(--blekk);
+  text-decoration: none;
+}
+
+.flaskebilde {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  flex: none;
+  inline-size: clamp(6.5rem, 4rem + 9vw, 11rem);
+  aspect-ratio: 4 / 5;
+}
+
+.flaskefoto {
+  object-fit: contain;
+  object-position: 50% 100%;
+  transition: scale var(--tid-lang) var(--ease-ut);
+}
+
+/* Skyggen er en egen flate under flasken – produktbildet får aldri filter. */
+.flaskebilde::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-inline: 12%;
+  inset-block-end: -5%;
+  block-size: 12%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(63 19 46 / 0.32), transparent);
+}
+
+.etikett {
+  flex: none;
+  inline-size: max-content;
+  margin-block-end: var(--rom-5);
+  display: grid;
+  gap: 0.05rem;
+  padding: 0.55rem 0.9rem 0.6rem;
+  border-radius: var(--radius-m);
+  background: var(--sand-lys);
+  box-shadow: inset 0 0 0 1px var(--linje);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  max-inline-size: 14rem;
+}
+
+.etikettMerke {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blekk-dempet);
+}
+
+.etikettNavn {
+  font-weight: 600;
+}
+
+.etikettPris {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-2);
+  color: var(--rosa-tekst);
+  font-weight: 600;
+}
+
+.etikettPris svg {
+  transition: translate var(--tid-middels) var(--ease-ut);
+}
+
+.flaske:hover .flaskefoto {
+  scale: 1.04;
+}
+
+.flaske:hover .etikettPris svg {
+  translate: 0.2rem 0;
+}
+
+.flaske:focus-visible {
+  outline: none;
+}
+
+.flaske:focus-visible .etikett {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 3px;
+}
+
+@media (max-width: 39.99rem) {
+  .bildetekst {
+    display: none;
+  }
+
+  .etikett {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .etikettMerke {
+    display: none;
+  }
 }
 
 @media (min-width: 48rem) {
-  .bue {
-    aspect-ratio: 5 / 4;
+  .kollasj {
+    padding-inline: 14% 14%;
   }
 }
 
@@ -114,42 +265,89 @@
   }
 
   .rutenett {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
     align-items: end;
-    gap: var(--rom-8);
+    gap: var(--rom-7);
   }
 
   .tekst {
-    padding-block-end: calc(var(--loperlengde) + var(--rom-4));
+    padding-block-end: var(--rom-9);
   }
 
-  .bue {
-    aspect-ratio: 4 / 5;
-    max-block-size: min(72vh, 44rem);
+  .kollasj {
+    padding-inline: 12% 10%;
+  }
+
+  .bueInn {
+    /* Høyden begrenses av skjermen; bredden følger forholdet 4:5. */
+    inline-size: min(100%, calc(min(74vh, 44rem) * 0.8));
+    margin-inline-start: auto;
   }
 }
 
-/* --- Inngang: rolig og kort. Ingen bevegelse ved redusert bevegelse. --- */
+/* ---------- Bevegelse: bare transform og opacity, av ved redusert bevegelse ---------- */
+
 @media (prefers-reduced-motion: no-preference) {
   .tekst [data-inn] {
     animation: inn var(--tid-inngang) var(--ease-ut) both;
-    animation-delay: calc(120ms + var(--i, 0) * 90ms);
+    animation-delay: calc(260ms + var(--i, 0) * 90ms);
   }
 
-  .bue {
-    animation: avduk 1300ms var(--ease-ut) both;
+  .linje > span {
+    animation: linje var(--tid-inngang) var(--ease-ut) both;
+    animation-delay: calc(120ms + var(--i, 0) * 110ms);
   }
 
-  .foto {
-    animation: zoom 1800ms var(--ease-ut) both;
+  .bueInn {
+    animation: bue calc(var(--tid-inngang) * 1.3) var(--ease-ut) both;
   }
 
-  .loper {
-    animation: rull 900ms var(--ease-ut) 900ms both;
+  .bue .foto {
+    animation: zoom calc(var(--tid-inngang) * 2) var(--ease-ut) both;
+  }
+
+  .smaa {
+    animation: inn var(--tid-inngang) var(--ease-ut) 650ms both;
+  }
+
+  .flaske {
+    animation: flaske calc(var(--tid-inngang) * 1.2) var(--ease-ut) 500ms both;
+  }
+
+  .flaskebilde {
+    animation: svev var(--tid-svev) var(--ease-inn-ut) 1800ms infinite alternate;
   }
 
   .bildetekst {
-    animation: inn var(--tid-lang) var(--ease-ut) 1200ms both;
+    animation: inn var(--tid-lang) var(--ease-ut) 1100ms both;
+  }
+
+  /* Lagene beveger seg i ulik fart når siden rulles (CSS scroll-tidslinje, ingen JavaScript). */
+  @supports (animation-timeline: scroll()) {
+    .lagFlaske,
+    .lagSmaa {
+      animation: parallakse linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    .lagFlaske {
+      --parallakse: -3rem;
+    }
+
+    .lagSmaa {
+      --parallakse: -1.5rem;
+    }
+
+    @media (min-width: 64rem) {
+      .lagFlaske {
+        --parallakse: -7rem;
+      }
+
+      .lagSmaa {
+        --parallakse: -3.5rem;
+      }
+    }
   }
 }
 
@@ -160,23 +358,40 @@
   }
 }
 
-@keyframes avduk {
+@keyframes linje {
   from {
-    clip-path: inset(100% 0 0 0);
+    transform: translateY(108%);
   }
-  to {
-    clip-path: inset(0 0 0 0);
+}
+
+@keyframes bue {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.97);
   }
 }
 
 @keyframes zoom {
   from {
-    transform: scale(1.08);
+    transform: scale(1.14);
   }
 }
 
-@keyframes rull {
+@keyframes flaske {
   from {
-    transform: scaleY(0);
+    opacity: 0;
+    transform: translateY(3rem) rotate(-4deg);
+  }
+}
+
+@keyframes svev {
+  to {
+    transform: translateY(-0.6rem);
+  }
+}
+
+@keyframes parallakse {
+  to {
+    transform: translateY(var(--parallakse, -4rem));
   }
 }

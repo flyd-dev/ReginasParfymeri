@@ -4,7 +4,13 @@
   z-index: 50;
   background: var(--sand);
   box-shadow: 0 1px 0 transparent;
-  transition: box-shadow var(--tid-middels) var(--ease-ut);
+  transition:
+    box-shadow var(--tid-middels) var(--ease-ut),
+    transform var(--tid-lang) var(--ease-ut);
+}
+
+.header[data-skjult] {
+  transform: translateY(-100%);
 }
 
 .header[data-scrollet],

@@ -41,7 +41,7 @@ export function Duftnoter({ grupper }: { grupper: Notegruppe[] }) {
   if (!gruppe) return null
 
   return (
-    <section className={`${styles.noter} seksjon`} data-flate="mork" aria-labelledby="noter-tittel">
+    <section className={`${styles.noter} seksjon`} aria-labelledby="noter-tittel">
       <div className="ramme">
         <div className={styles.noterHode}>
           <div className={styles.noterIntro}>

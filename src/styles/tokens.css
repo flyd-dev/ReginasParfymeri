@@ -92,6 +92,8 @@
   --tid-middels: 280ms;
   --tid-lang: 520ms;
   --tid-inngang: 1100ms;
+  --tid-bilde: 900ms; /* bilder som zoomer svakt ved peker */
+  --tid-svev: 6s; /* flasken i heroen som svever */
   --ease-ut: cubic-bezier(0.22, 0.7, 0.18, 1); /* «silke»: rolig landing */
   --ease-inn-ut: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-fjaer: cubic-bezier(0.34, 1.45, 0.64, 1); /* små bekreftelser */
@@ -112,5 +114,7 @@
     --tid-middels: 0ms;
     --tid-lang: 0ms;
     --tid-inngang: 0ms;
+    --tid-bilde: 0ms;
+    --tid-svev: 0ms;
   }
 }

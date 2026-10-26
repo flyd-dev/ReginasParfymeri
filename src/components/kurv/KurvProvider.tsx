@@ -57,7 +57,8 @@ function reduserBevegelse(): boolean {
 /** Et lite bilde flyr fra produktet til handlekurven. Bare transform og opacity. */
 function flyTilKurv(kilde: HTMLElement | null | undefined): void {
   const mal = document.getElementById('kurvknapp')
-  if (!kilde || !mal || reduserBevegelse()) return
+  // Er headeren rullet bort, er det ingen kurv å fly til – skuffen åpnes uansett.
+  if (!kilde || !mal || reduserBevegelse() || mal.closest('[data-skjult]')) return
   const fra = kilde.getBoundingClientRect()
   const til = mal.getBoundingClientRect()
   if (fra.width === 0 || til.width === 0) return

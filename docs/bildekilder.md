@@ -7,17 +7,25 @@ metadata (EXIF/posisjon), med uendret utsnitt og farger. Next.js lager mindre ut
 fotograf er ikke oppgitt (sannsynligvis et oppdrag fra 2020 i forbindelse med nettstedet levert av
 VinnVinn Reklame). Høyere oppløsning bør skaffes fra fotografen – originalene er 1000–1536 px.
 
-| Fil i prosjektet (`src/innhold/bilder/`) | Kilde                                                            | Motiv                      | Status                         |
-| ---------------------------------------- | ---------------------------------------------------------------- | -------------------------- | ------------------------------ |
-| `butikken-fasade.jpg`                    | reginaparfymeri.no/wp-content/uploads/2020/11/bilde_regina_8.jpg | Fasaden med rosa løper     | Avklares                       |
-| `butikken-medarbeidere.jpg`              | …/2020/11/bilde_regina_3.jpg                                     | To medarbeidere ved disken | Avklares (personer – samtykke) |
-| `butikken-salong.jpg`                    | …/2020/11/bilde_regina_13.jpg                                    | Rom med røde lenestoler    | Avklares                       |
-| `butikken-behandlingsrom.jpg`            | …/2020/11/bilde_regina_2.jpg                                     | Rom med rosa lenestol      | Avklares                       |
-| `butikken-tom-ford.jpg`                  | …/2020/11/bilde_regina_9.jpg                                     | Tom Ford-hyllen            | Avklares (varemerke synlig)    |
-| `butikken-disken.jpg`                    | …/2020/11/bilde_regina_5.jpg                                     | Medarbeider ved disken     | Avklares (person – samtykke)   |
+| Fil i prosjektet (`src/innhold/bilder/`) | Kilde                                                            | Motiv                                  | Status                                |
+| ---------------------------------------- | ---------------------------------------------------------------- | -------------------------------------- | ------------------------------------- |
+| `butikken-fasade.jpg`                    | reginaparfymeri.no/wp-content/uploads/2020/11/bilde_regina_8.jpg | Fasaden med rosa løper                 | Avklares                              |
+| `butikken-medarbeidere.jpg`              | …/2020/11/bilde_regina_3.jpg                                     | To medarbeidere ved disken             | Avklares (personer – samtykke)        |
+| `butikken-salong.jpg`                    | …/2020/11/bilde_regina_13.jpg                                    | Rom med røde lenestoler                | Avklares                              |
+| `butikken-behandlingsrom.jpg`            | …/2020/11/bilde_regina_2.jpg                                     | Rom med rosa lenestol                  | Avklares                              |
+| `butikken-tom-ford.jpg`                  | …/2020/11/bilde_regina_9.jpg                                     | Tom Ford-hyllen                        | Avklares (varemerke synlig)           |
+| `butikken-disken.jpg`                    | …/2020/11/bilde_regina_5.jpg                                     | Medarbeider ved disken                 | Avklares (person – samtykke)          |
+| `butikken-ved-disken.jpg`                | …/2020/11/bilde_regina_1.jpg                                     | Medarbeider bak disken, gaveesker      | Avklares (person – samtykke)          |
+| `butikken-interior.jpg`                  | …/2020/11/bilde_regina_6.jpg                                     | Butikklokalet                          | Avklares                              |
+| `butikken-oyenskygge.jpg`                | …/2020/11/bilde_regina_7.jpg                                     | Tom Ford-øyenskygge, nærbilde          | Avklares (varemerke synlig)           |
+| `haugescent-duftpinner.jpg`              | …/2025/11/IMG_0178.jpg                                           | Haugescent duftpinner (selges på nett) | Avklares (kan være Haugescents bilde) |
 
-Vurdert, men ikke brukt i konseptet: `bilde_regina_1, 6, 7, 10, 11, 12` (interiør og merkehyller) og
-Haugescent-bildene fra 2025 (`IMG_0178.jpg`, `100A9112.jpg`) – de passer i en senere redaksjonell side.
+Vurdert, men ikke brukt i konseptet: `bilde_regina_4, 10, 11, 12, 14` og `Untitled-4.jpg` (hårfargekart og
+hyller med merker som ikke selges på nett) og `100A9112.jpg` (Haugescent-lys, 2025).
+
+Bildene velges etter hva de viser: et kategorikort viser bare et butikkbilde der det som er i bildet selges i
+den kategorien på nett (f.eks. Haugescent-duftpinner for «Duftlys og duftpinner»). Merker som bare finnes i
+butikken (Tom Ford) vises bare under «Bare i butikken».
 
 Ikke brukt: AdobeStock-bilder på reginaparfymeri.no (lisens gjelder Reginas nettsted, ikke nødvendigvis nye
 bruk) og leverandørenes kampanjebilder (Sisley, Laura Mercier, Guerlain m.fl.).
@@ -32,4 +40,6 @@ Favikonet er Reginas eget (`cropped-favicon-192x192.png`).
 ## Produktbilder
 
 Hentes fra Reginas WooCommerce-mediebibliotek – samme kilde som dagens nettbutikk. De er i hovedsak
-leverandørenes pakkebilder, som forhandleren normalt kan bruke til salg av produktene.
+leverandørenes pakkebilder, som forhandleren normalt kan bruke til salg av produktene. Pakkebilder som
+allerede er frilagt (gjennomsiktig bakgrunn i WooCommerce, målt ved henting) brukes som frittstående flasker
+i heroen og på kategorikortene – bildet er uendret, bare plassert på en farget flate.

@@ -194,3 +194,59 @@ test('redusert bevegelse slår av animasjonene', async ({ page }) => {
   expect(await page.evaluate(() => document.getAnimations().length)).toBe(0)
   await expect(page.getByRole('heading', { name: 'Hva leter du etter?' })).toBeVisible()
 })
+
+test('merkebåndet kan stoppes, og står stille ved redusert bevegelse', async ({ page }) => {
+  await page.goto('/')
+  const baand = page.getByRole('region', { name: 'Utvalgte merker', exact: true })
+  const spor = baand.locator('ul').first().locator('..')
+  const pause = baand.getByRole('button', { name: 'Stopp merkebåndet' })
+  await expect(pause).toHaveAttribute('aria-pressed', 'false')
+  // Båndet står stille utenfor skjermen; på mobil ligger det under heroen.
+  await baand.scrollIntoViewIfNeeded()
+  // Båndet beveger seg …
+  const forskyvning = () => spor.evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m41)
+  const for1 = await forskyvning()
+  await page.waitForTimeout(600)
+  expect(await forskyvning()).not.toBe(for1)
+  // … til det stoppes med knappen (farten bygges ned mykt, så vi venter litt).
+  await pause.click()
+  await expect(baand.getByRole('button', { name: 'Start merkebåndet' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  )
+  await page.waitForTimeout(1200)
+  const stopp = await forskyvning()
+  await page.waitForTimeout(500)
+  expect(await forskyvning()).toBe(stopp)
+  // Merkene i første rekke er lenker; kopiene er skjult for skjermlesere.
+  await expect(baand.getByRole('link', { name: 'Creed', exact: true })).toHaveCount(1)
+
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.reload()
+  await expect(baand.getByRole('button', { name: /merkebåndet/ })).toHaveCount(0)
+  await expect(baand.getByRole('region', { name: 'Merkene, rull sideveis' })).toHaveAttribute('tabindex', '0')
+})
+
+test('kategorikortene viser antall og leder til kategorien', async ({ page }) => {
+  await page.goto('/')
+  const kort = page.getByRole('link', { name: /^Nisjeduft 161 produkter/ })
+  await expect(kort).toBeVisible()
+  await kort.click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Nisjeduft' })).toBeVisible()
+})
+
+test('headeren glir bort ved rulling nedover og kommer tilbake ved rulling opp', async ({ page }) => {
+  test.skip(erMobil(page), 'Samme oppførsel på mobil; testes på stor skjerm')
+  await page.goto('/')
+  const header = page.locator('header').first()
+  await page.mouse.move(700, 880)
+  for (let i = 0; i < 6; i++) await page.mouse.wheel(0, 300)
+  await expect(header).toHaveAttribute('data-skjult', 'true')
+  await page.mouse.wheel(0, -200)
+  await expect(header).not.toHaveAttribute('data-skjult')
+  // Tastaturfokus i headeren henter den alltid fram.
+  for (let i = 0; i < 6; i++) await page.mouse.wheel(0, 300)
+  await expect(header).toHaveAttribute('data-skjult', 'true')
+  await page.getByRole('button', { name: 'Duft', exact: true }).focus()
+  await expect(header).not.toHaveAttribute('data-skjult')
+})

@@ -46,3 +46,28 @@ meldes som avvik. Alternativet – å vise begge – ville gitt kunden to like v
 
 Avdekking av seksjoner er CSS scroll-drevet animasjon. En tidlig JS-løsning (IntersectionObserver) endret
 klasser på server-rendret innhold før React var ferdig med hydrering og ble fjernet.
+
+## R-10 Versjon 2: mer bilde, mer bevegelse, samme regler
+
+Første versjon ble vurdert som ikke god nok. Versjon 2 beholder arkitektur, data og tokens, men bygger om
+forsiden (kollasj-hero, rosa merkebånd, kategorikort med bilder, mørk nisjeseksjon), gir kategorisidene og
+megamenyen bilder og lar headeren gli bort ved rulling. Reglene står: ingen påfunne påstander, bilder
+endres ikke, bare transform og opacity, alt av ved redusert bevegelse.
+
+## R-11 21st.dev via nøkkel i miljøet
+
+MCP-en var ikke koblet til økten. Nøkkelen i miljøet ble brukt direkte mot 21st.dev sitt MCP-endepunkt fra
+et skript utenfor repoet. Kodene som ble hentet (2 per dag på gratisnivå) er skrevet om til prosjektets
+CSS-moduler; det legges ikke til Tailwind eller Motion for to komponenter.
+
+## R-12 Merkebåndet har pauseknapp
+
+Innhold som beveger seg av seg selv i mer enn fem sekunder skal kunne stoppes (WCAG 2.2.2). Pause ved peker
+og fokus alene holder ikke på berøringsskjerm, så båndet har en synlig knapp. Ved redusert bevegelse står det
+stille og kan rulles.
+
+## R-13 Headeren glir bort ved rulling
+
+Headeren med søk og to menyrader er høy. Den glir bort når man ruller nedover i innholdet og kommer tilbake
+straks man ruller opp, åpner en meny eller flytter fokus dit. Flyanimasjonen til kurven hoppes over når
+headeren er borte; skuffen åpnes uansett.

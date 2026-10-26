@@ -28,3 +28,12 @@
   color: var(--blekk-dempet);
   font-size: 0.9em;
 }
+
+:global([data-flate='mork']) .fra,
+:global([data-flate='mork']) .for {
+  color: var(--paa-mork-dempet);
+}
+
+:global([data-flate='mork']) .tilbud {
+  color: var(--rosa-paa-mork);
+}

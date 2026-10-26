@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Brodsmuler } from '@/components/Brodsmuler'
@@ -8,7 +9,8 @@ import { Kjopsboks, type Kjopsdata } from '@/components/produkt/Kjopsboks'
 import { Beskrivelse, Duftpyramide } from '@/components/produkt/Produktinfo'
 import { Produktkort } from '@/components/produkt/Produktkort'
 import { Produktrad } from '@/components/produkt/Produktrad'
-import { BUTIKK, LEVERING, RETUR } from '@/innhold/butikk'
+import { BILDER } from '@/innhold/bilder'
+import { BUTIKK, LEVERING, NISJE, RETUR } from '@/innhold/butikk'
 import type { NyLinje } from '@/lib/handlekurv/kurv'
 import { lagLinje } from '@/lib/handlekurv/kurv'
 import { ingress } from '@/lib/katalog/innhold'
@@ -228,6 +230,37 @@ export default async function Produktside({ params }: Props) {
           </section>
         </div>
       </div>
+
+      {sti[0]?.slug === 'duft' ? (
+        <section className={styles.butikk} data-flate="mork" aria-labelledby="butikk-tittel">
+          <div className={`${styles.butikkRutenett} ramme`}>
+            <figure className={styles.butikkBilde} data-avdekk>
+              <Image
+                src={BILDER.medarbeidere.bilde}
+                alt={BILDER.medarbeidere.alt}
+                placeholder="blur"
+                sizes="(min-width: 64rem) 28vw, 70vw"
+                className={styles.fyll}
+              />
+            </figure>
+            <div className={styles.butikkTekst} data-avdekk>
+              <p className="kicker">Personlig veiledning</p>
+              <h2 id="butikk-tittel" className="t-2">
+                Kjenn på duften i Haraldsgata
+              </h2>
+              <p>{NISJE.veiledning}</p>
+              <div className={styles.butikkLenker}>
+                <a href={BUTIKK.telefon.lenke} className="knapp knapp--sekundar">
+                  <Ikon navn="telefon" storrelse={18} /> Ring {BUTIKK.telefon.visning}
+                </a>
+                <Link href="/om-regina#besok" className="tekstlenke">
+                  {BUTIKK.adresse.gate}, {BUTIKK.adresse.sted}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {relaterte.length > 0 ? (
         <section className={`${styles.relaterte} seksjon`} aria-labelledby="relaterte-tittel">

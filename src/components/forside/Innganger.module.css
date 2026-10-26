@@ -1,145 +1,277 @@
 .seksjon {
-  padding-block-start: 0;
+  padding-block-start: calc(var(--seksjon) * 0.8);
 }
+
+.hode {
+  display: grid;
+  gap: var(--rom-3);
+  max-inline-size: 40rem;
+  margin-block-end: var(--rom-7);
+}
+
+/* ---------- Rutenettet ---------- */
 
 .rutenett {
   display: grid;
-  gap: var(--rom-7);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: clamp(11rem, 8rem + 12vw, 15rem);
+  grid-auto-flow: dense;
+  gap: var(--rom-3);
 }
 
-.intro {
-  display: grid;
-  align-content: start;
-  gap: var(--rom-4);
+.celle {
+  min-inline-size: 0;
 }
 
-.liste {
-  border-block-start: 1px solid var(--blekk);
+.celle[data-plass='stor'] {
+  grid-column: span 2;
 }
 
-.rad {
-  position: relative;
-  display: grid;
-  grid-template-columns: 2.25rem 1fr auto;
-  grid-template-areas:
-    'nr navn pil'
-    'nr tekst pil';
-  align-items: baseline;
-  column-gap: var(--rom-3);
-  padding-block: var(--rom-4);
-  border-block-end: 1px solid var(--linje);
-  text-decoration: none;
-}
+/* Kortene fyller alltid hele rader: 2 kolonner på mobil og nettbrett, 4 på store skjermer. */
+@media (min-width: 48rem) {
+  .rutenett {
+    gap: var(--rom-4);
+  }
 
-/* Løperen: en rosa stripe rulles ut langs raden ved peker eller fokus. */
-.rad::before {
-  content: '';
-  position: absolute;
-  inset-block: -1px;
-  inset-inline-start: calc(var(--rom-3) * -1);
-  inline-size: var(--loper);
-  background: var(--rosa);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform var(--tid-middels) var(--ease-ut);
-}
+  .celle[data-plass='bred'] {
+    grid-column: span 2;
+  }
 
-.rad:hover::before,
-.rad:focus-visible::before {
-  transform: scaleY(1);
-}
-
-.nummer {
-  grid-area: nr;
-  font-size: var(--t-mini);
-  font-weight: 600;
-  color: var(--blekk-dempet);
-  font-variant-numeric: tabular-nums;
-}
-
-.navn {
-  grid-area: navn;
-  font-family: var(--skrift-display);
-  font-size: var(--t-2);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  transition:
-    color var(--tid-kort) var(--ease-ut),
-    transform var(--tid-middels) var(--ease-ut);
-}
-
-.rad:hover .navn {
-  color: var(--rosa-tekst);
-  transform: translateX(0.35rem);
-}
-
-.tekst {
-  grid-area: tekst;
-  font-size: var(--t-liten);
-  color: var(--blekk-dempet);
-}
-
-.antall {
-  display: none;
-}
-
-.forhand {
-  display: none;
-}
-
-.pil {
-  grid-area: pil;
-  align-self: center;
-  transition: transform var(--tid-middels) var(--ease-ut);
-}
-
-.rad:hover .pil {
-  transform: translateX(4px);
+  .celle[data-plass='hoy'] {
+    grid-row: span 2;
+  }
 }
 
 @media (min-width: 64rem) {
   .rutenett {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: var(--rom-9);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: clamp(14rem, 9rem + 9vw, 18.5rem);
   }
 
-  .intro {
-    position: sticky;
-    inset-block-start: calc(var(--header-hoyde) + var(--rom-6));
-    align-self: start;
+  .celle[data-plass='stor'] {
+    grid-row: span 2;
+  }
+}
+
+/* ---------- Kortet ---------- */
+
+.kort {
+  position: relative;
+  display: block;
+  block-size: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-l);
+  background: var(--sand-dyp);
+  color: var(--blekk);
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.kort[data-farge='plomme'] {
+  background: var(--plomme);
+  color: var(--paa-mork);
+}
+
+.kort[data-farge='rosa'] {
+  background: var(--rosa-lys);
+}
+
+.kort[data-farge='rosa-dus'] {
+  background: var(--rosa-dus);
+}
+
+.kort[data-farge='sand'] {
+  background: var(--sand-dyp);
+}
+
+.kort:focus-visible {
+  outline: 2px solid var(--rosa-tekst);
+  outline-offset: 3px;
+}
+
+/* Etiketten: på fotografier står den på en egen sandflate, aldri rett på bildet. */
+.etikett {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: var(--rom-4);
+  inset-inline-start: var(--rom-4);
+  display: grid;
+  gap: 0.2rem;
+  max-inline-size: calc(100% - 2 * var(--rom-4) - 3rem);
+}
+
+.kort[data-visning='foto'] .etikett {
+  inset-block: auto var(--rom-3);
+  inset-inline-start: var(--rom-3);
+  padding: 0.7rem 1rem 0.75rem;
+  border-radius: var(--radius-m);
+  background: var(--sand-lys);
+  color: var(--blekk);
+  max-inline-size: calc(100% - 2 * var(--rom-3));
+}
+
+.navn {
+  font-family: var(--skrift-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+}
+
+.celle[data-plass='stor'] .navn {
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem);
+}
+
+.meta {
+  font-size: var(--t-mini);
+  line-height: 1.4;
+  color: var(--blekk-dempet);
+}
+
+.kort[data-farge='plomme'] .meta {
+  color: var(--paa-mork-dempet);
+}
+
+.tekst {
+  display: none;
+}
+
+.pil {
+  position: absolute;
+  z-index: 2;
+  inset-block-start: var(--rom-3);
+  inset-inline-end: var(--rom-3);
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: 50%;
+  background: var(--sand-lys);
+  color: var(--blekk);
+  transition:
+    background-color var(--tid-middels) var(--ease-ut),
+    color var(--tid-middels) var(--ease-ut),
+    transform var(--tid-middels) var(--ease-ut);
+}
+
+@media (min-width: 40rem) {
+  .tekst {
+    display: inline;
+  }
+}
+
+/* ---------- Fotografi ---------- */
+
+.foto {
+  position: absolute;
+  inset: 0;
+}
+
+.fotoBilde {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transition: transform var(--tid-bilde) var(--ease-ut);
+}
+
+/* Utsnitt per bilde: produktet i bildet skal synes, merkeskilt som ikke selges på nett, skal ikke. */
+.kort[data-foto='salong'] .fotoBilde {
+  object-position: 35% 60%;
+}
+
+.kort[data-foto='duftpinner'] .fotoBilde {
+  object-position: 50% 80%;
+}
+
+.kort[data-foto='disken'] .fotoBilde {
+  object-position: 50% 35%;
+}
+
+/* ---------- Frilagte produkter ---------- */
+
+.flasker {
+  position: absolute;
+  inset: 34% 0 0 18%;
+}
+
+.flaske {
+  position: absolute;
+  isolation: isolate;
+  inset-block-end: 6%;
+  inset-inline-end: 6%;
+  inline-size: 70%;
+  block-size: 92%;
+  transition: transform var(--tid-lang) var(--ease-ut);
+  transition-delay: calc(var(--n) * 50ms);
+}
+
+.flaskeBilde {
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+/* Skyggen er en egen flate under produktet – produktbildet får aldri filter. */
+.flaske::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-inline: 14%;
+  inset-block-end: -4%;
+  block-size: 9%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(46 13 33 / 0.34), transparent);
+}
+
+/* Tre flasker står i en liten gruppe, den midterste foran. */
+.flasker[data-antall='3'] .flaske {
+  inline-size: 34%;
+  block-size: 78%;
+}
+
+.flasker[data-antall='3'] .flaske:nth-child(1) {
+  inset-inline-end: 54%;
+  block-size: 66%;
+}
+
+.flasker[data-antall='3'] .flaske:nth-child(2) {
+  inset-inline-end: 30%;
+  z-index: 1;
+  block-size: 86%;
+}
+
+.flasker[data-antall='3'] .flaske:nth-child(3) {
+  inset-inline-end: 4%;
+  block-size: 72%;
+}
+
+.celle[data-plass='stor'] .flasker {
+  inset: 22% 0 0 8%;
+}
+
+.produkt {
+  position: absolute;
+  inset: 38% 8% 8% 40%;
+}
+
+/* ---------- Pekeren over ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .kort:hover .pil {
+    background: var(--rosa-knapp);
+    color: var(--paa-rosa);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .kort:hover .fotoBilde {
+    transform: scale(1.05);
   }
 
-  .rad {
-    grid-template-columns: 2.5rem minmax(0, 1fr) 9rem 4.5rem 2rem;
-    grid-template-areas:
-      'nr navn antall bilde pil'
-      'nr tekst antall bilde pil';
-    align-items: center;
+  .kort:hover .flaske {
+    transform: translateY(-0.6rem);
   }
 
-  .antall {
-    display: block;
-    grid-area: antall;
-    justify-self: end;
-    font-size: var(--t-mini);
-    color: var(--blekk-dempet);
-  }
-
-  .forhand {
-    display: block;
-    grid-area: bilde;
-    inline-size: 4.5rem;
-    opacity: 0;
-    transform: translateY(0.4rem) rotate(-3deg);
-    transition:
-      opacity var(--tid-middels) var(--ease-ut),
-      transform var(--tid-middels) var(--ease-ut);
-  }
-
-  .rad:hover .forhand,
-  .rad:focus-visible .forhand {
-    opacity: 1;
-    transform: none;
+  .kort:hover .pil {
+    transform: translateX(0.15rem);
   }
 }

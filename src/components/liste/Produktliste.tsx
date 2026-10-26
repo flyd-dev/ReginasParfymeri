@@ -16,6 +16,8 @@ export interface Listeoppsett {
   tittel: ReactNode
   kicker?: string
   ingress?: ReactNode
+  /** Bilde ved siden av tittelen (dekorativt), f.eks. det samme som kategorikortet på forsiden. */
+  visuell?: ReactNode
   smuler: Smule[]
   snarveier?: { navn: string; href: string; antall: number; aktiv?: boolean }[]
   tilstand: Listetilstand
@@ -75,16 +77,25 @@ export function Produktliste(o: Listeoppsett) {
       <div className={`${styles.side} ramme`}>
         <header className={styles.hode}>
           <Brodsmuler smuler={o.smuler} />
-          <div className={styles.tittelrad}>
-            <div className={styles.tittelblokk}>
-              {o.kicker ? <p className="kicker">{o.kicker}</p> : null}
-              <h1 className="t-1">{o.tittel}</h1>
+          <div className={styles.hodeRad} data-visuell={o.visuell ? '' : undefined}>
+            <div className={styles.hodeTekst}>
+              <div className={styles.tittelrad}>
+                <div className={styles.tittelblokk}>
+                  {o.kicker ? <p className="kicker">{o.kicker}</p> : null}
+                  <h1 className="t-1">{o.tittel}</h1>
+                </div>
+                <p className={`${styles.totalt} tall`} aria-live="polite">
+                  {o.totalt} {o.totalt === 1 ? 'produkt' : 'produkter'}
+                </p>
+              </div>
+              {o.ingress ? <div className={`ingress ${styles.ingress}`}>{o.ingress}</div> : null}
             </div>
-            <p className={`${styles.totalt} tall`} aria-live="polite">
-              {o.totalt} {o.totalt === 1 ? 'produkt' : 'produkter'}
-            </p>
+            {o.visuell ? (
+              <div className={styles.visuell} aria-hidden="true">
+                {o.visuell}
+              </div>
+            ) : null}
           </div>
-          {o.ingress ? <div className={`ingress ${styles.ingress}`}>{o.ingress}</div> : null}
           {o.snarveier && o.snarveier.length > 1 ? (
             <nav aria-label="Underkategorier" className={styles.snarveier}>
               <ul role="list">
