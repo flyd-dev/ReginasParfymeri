@@ -37,12 +37,20 @@ export const HISTORIE = {
     'I dag driver Grethe Kongshavn, femte generasjon i familien, butikken sammen med datteren Maria og to dyktige medarbeidere – en engasjert firkløver som brenner for fagkunnskap, personlig service og ekte skjønnhetsglede.',
   ],
   autorisert: 'Regina er autorisert forhandler av alle merkevarene butikken fører.',
-  /** Tidslinjen på forsiden. Bare årstall og hendelser med kilde – ingen utfylling. */
+  /**
+   * Tidslinjen på forsiden og om oss. Bare årstall og hendelser med kilde – ingen utfylling. Tittelen er
+   * hentet fra teksten i samme punkt.
+   */
   tidslinje: [
-    { aar: '1863', tekst: 'Grethes tippoldefar starter Nilsen & Sønner i Haugesund.' },
-    { aar: '1970', tekst: 'AS Regina blir etablert.' },
+    {
+      aar: '1863',
+      tittel: 'Nilsen & Sønner',
+      tekst: 'Grethes tippoldefar starter Nilsen & Sønner i Haugesund.',
+    },
+    { aar: '1970', tittel: 'AS Regina', tekst: 'AS Regina blir etablert.' },
     {
       aar: 'I dag',
+      tittel: 'Femte generasjon',
       tekst:
         'Grethe Kongshavn, femte generasjon, driver butikken i Haraldsgata 138 sammen med datteren Maria.',
     },

@@ -2,6 +2,7 @@ import { Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { Innholdsside } from '@/components/innhold/innholdsside'
+import { Mediebilde } from '@/components/innhold/sidehero'
 import { Button } from '@/components/ui/button'
 import { BILDER } from '@/content/bilder'
 import { BEHANDLINGER, BUTIKK } from '@/content/butikk'
@@ -17,13 +18,23 @@ export const metadata: Metadata = {
 export default function Behandlinger() {
   return (
     <Innholdsside
+      redaksjonell
       tittel="Behandlinger"
-      kicker={`Hudpleieavdelingen · ${BEHANDLINGER.etasje}`}
+      kicker={`Hudpleieavdelingen hos ${BUTIKK.navn}`}
+      overskrift={
+        <>
+          Behandlinger i <em className="text-regina-pink">andre etasje</em>
+        </>
+      }
       ingress={<p>{BEHANDLINGER.tekst}</p>}
+      media={<Mediebilde foto={BILDER.behandlingsrom} utsnitt="50% 62%" />}
     >
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-        <div>
-          <p className="max-w-lg text-[1.0625rem] leading-relaxed">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <section className="lg:col-span-5 lg:self-center" aria-labelledby="timebestilling">
+          <h2 id="timebestilling" className="text-3xl md:text-4xl">
+            Bestill time
+          </h2>
+          <p className="mt-5 max-w-lg text-[1.0625rem] leading-relaxed">
             Se behandlingene, prisene og ledige timer i timebestillingen, eller ring oss, så hjelper vi deg å
             finne en behandling som passer.
           </p>
@@ -39,26 +50,15 @@ export default function Behandlinger() {
               </a>
             </Button>
           </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative col-span-2 aspect-[3/2] overflow-hidden bg-sand-100">
-            <Image
-              src={BILDER.behandlingsrom.bilde}
-              alt={BILDER.behandlingsrom.alt}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="relative col-span-2 aspect-[3/2] overflow-hidden bg-sand-100">
-            <Image
-              src={BILDER.salong.bilde}
-              alt={BILDER.salong.alt}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+        </section>
+        <div className="avdekk relative aspect-[3/2] overflow-hidden bg-sand-100 lg:col-span-6 lg:col-start-7">
+          <Image
+            src={BILDER.salong.bilde}
+            alt={BILDER.salong.alt}
+            fill
+            sizes="(min-width: 1536px) 730px, (min-width: 1024px) 48vw, 100vw"
+            className="object-cover"
+          />
         </div>
       </div>
     </Innholdsside>

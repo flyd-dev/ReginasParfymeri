@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Innholdsside } from '@/components/innhold/innholdsside'
+import { Mediebilde } from '@/components/innhold/sidehero'
 import { Sidetekst } from '@/components/innhold/sidetekst'
+import { Sitatpanel } from '@/components/innhold/sitatpanel'
+import { Tidslinje, type Tidspunkt } from '@/components/innhold/tidslinje'
 import { BILDER } from '@/content/bilder'
 import { HISTORIE } from '@/content/butikk'
+import { SITATER } from '@/content/sitater'
 import { hentSide } from '@/lib/woocommerce/innhold'
 
 export const metadata: Metadata = {
@@ -14,33 +17,56 @@ export const metadata: Metadata = {
   alternates: { canonical: '/om-oss/' },
 }
 
+/** Bare «I dag» har et bilde som viser punktet (butikken i Haraldsgata). Vi har ingen arkivbilder. */
+const PUNKTER: Tidspunkt[] = HISTORIE.tidslinje.map((t) =>
+  t.aar === 'I dag' ? { ...t, foto: BILDER.fasade } : t,
+)
+
 export default async function OmOss() {
   const side = await hentSide('om-oss')
   if (!side) notFound()
   return (
-    <Innholdsside tittel="Om oss" kicker={`Familiebedrift siden ${HISTORIE.grunnlagt}`}>
-      <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
-        <Sidetekst side={side} tittel="Om oss" stopp="Kontaktinformasjon" />
-        <div className="space-y-6">
-          <div className="relative aspect-[4/5] overflow-hidden bg-sand-100">
-            <Image
-              src={BILDER.medarbeidere.bilde}
-              alt={BILDER.medarbeidere.alt}
-              fill
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="object-cover"
+    <Innholdsside
+      redaksjonell
+      tittel="Om oss"
+      kicker={`Familiebedrift i Haugesund siden ${HISTORIE.grunnlagt}`}
+      // Reginas egne ord fra «Om oss»: «Velkommen til Regina – en moderne parfymeritradisjon …». Myk
+      // bindestrek, så det lange ordet bare deles på de smaleste skjermene.
+      overskrift={
+        <>
+          En moderne parfymeri{'­'}tradisjon med <em className="text-regina-pink">røtter</em> tilbake til
+          1800-tallet
+        </>
+      }
+      ingress={
+        <p>Regina er et av Norges eldste frittstående parfymerier, drevet av femte generasjon i familien.</p>
+      }
+      media={<Mediebilde foto={BILDER.medarbeidere} utsnitt="50% 42%" />}
+    >
+      <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <Sidetekst side={side} tittel="Om oss" stopp="Kontaktinformasjon" />
+        </div>
+        <div className="lg:col-span-6 lg:col-start-7">
+          <div className="lg:sticky lg:top-40">
+            <Sitatpanel
+              sitater={SITATER}
+              tittel="Med egne ord"
+              ingress="Ordrett fra Reginas egne nettsider."
             />
           </div>
-          <ol className="border-l border-sand-200">
-            {HISTORIE.tidslinje.map((t) => (
-              <li key={t.aar} className="relative pb-6 pl-6 last:pb-0">
-                <span className="absolute top-2 -left-[5px] size-2.5 bg-regina-pink" aria-hidden />
-                <p className="font-heading text-2xl">{t.aar}</p>
-                <p className="text-sand-ink">{t.tekst}</p>
-              </li>
-            ))}
-          </ol>
         </div>
+      </div>
+      <div className="mt-20 md:mt-28">
+        <Tidslinje
+          punkter={PUNKTER}
+          kicker="Historien"
+          tittel={
+            <>
+              Fem generasjoner i <em className="text-regina-pink">Haugesund</em>
+            </>
+          }
+        />
       </div>
     </Innholdsside>
   )

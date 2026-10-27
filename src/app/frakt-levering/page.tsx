@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Innholdsside } from '@/components/innhold/innholdsside'
+import { Kundeservicemeny } from '@/components/innhold/kundeservicemeny'
 import { Sidetekst } from '@/components/innhold/sidetekst'
 import { hentSide } from '@/lib/woocommerce/innhold'
 
@@ -14,7 +15,13 @@ export default async function Side() {
   const side = await hentSide('frakt-levering')
   if (!side) notFound()
   return (
-    <Innholdsside tittel="Frakt og levering" kicker="Kundeservice">
+    <Innholdsside
+      redaksjonell
+      tekstkolonne
+      marg={<Kundeservicemeny aktiv="/frakt-levering/" />}
+      tittel="Frakt og levering"
+      kicker="Kundeservice"
+    >
       <Sidetekst side={side} tittel={side.title} />
     </Innholdsside>
   )
