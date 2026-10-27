@@ -5,11 +5,14 @@
 import type { StaticImageData } from 'next/image'
 import behandlingsrom from './bilder/butikken-behandlingsrom.jpg'
 import disken from './bilder/butikken-disken.jpg'
+import esteeLauder from './bilder/butikken-estee-lauder.jpg'
 import fasade from './bilder/butikken-fasade.jpg'
 import interior from './bilder/butikken-interior.jpg'
+import lauraMercier from './bilder/butikken-laura-mercier.jpg'
 import medarbeidere from './bilder/butikken-medarbeidere.jpg'
 import oyenskygge from './bilder/butikken-oyenskygge.jpg'
 import salong from './bilder/butikken-salong.jpg'
+import sisley from './bilder/butikken-sisley.jpg'
 import tomFord from './bilder/butikken-tom-ford.jpg'
 import vedDisken from './bilder/butikken-ved-disken.jpg'
 import duftpinner from './bilder/haugescent-duftpinner.jpg'
@@ -63,6 +66,21 @@ export const BILDER = {
     bilde: interior,
     alt: 'Butikklokalet med sorte vegger, makeup-disker og sittegruppe.',
     kilde: `${KILDE}/bilde_regina_6.jpg`,
+  },
+  lauraMercier: {
+    bilde: lauraMercier,
+    alt: 'Laura Mercier-disken med skinnkrakker i butikken.',
+    kilde: `${KILDE}/Untitled-4.jpg`,
+  },
+  sisley: {
+    bilde: sisley,
+    alt: 'Hyllen med Sisley-hudpleie i hvite esker.',
+    kilde: `${KILDE}/bilde_regina_12.jpg`,
+  },
+  esteeLauder: {
+    bilde: esteeLauder,
+    alt: 'Estée Lauder-veggen med makeup og hudpleie i varmt lys.',
+    kilde: `${KILDE}/bilde_regina_10.jpg`,
   },
   oyenskygge: {
     bilde: oyenskygge,

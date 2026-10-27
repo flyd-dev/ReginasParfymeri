@@ -2,13 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { BILDER } from '@/innhold/bilder'
 import { BUTIKK, HISTORIE, HUDPLEIE, KUN_I_BUTIKKEN, NISJE } from '@/innhold/butikk'
-import type { Kortdata } from '@/lib/visning'
 import { Ikon } from '../Ikon'
-import { Produktkort } from '../produkt/Produktkort'
-import { Produktrad } from '../produkt/Produktrad'
 import styles from './Seksjoner.module.css'
+import { Utstilling, type Utstillingsvare } from './Utstilling'
 
-export function Nisjeduft({ produkter, antall }: { produkter: Kortdata[]; antall: number }) {
+export function Nisjeduft({ varer, antall }: { varer: Utstillingsvare[]; antall: number }) {
   return (
     <section className={`${styles.nisje} seksjon`} data-flate="mork" aria-labelledby="nisje-tittel">
       <div className="ramme">
@@ -26,19 +24,7 @@ export function Nisjeduft({ produkter, antall }: { produkter: Kortdata[]; antall
             </Link>
           </div>
         </div>
-        <div data-avdekk>
-          <Produktrad etikett="Utvalgte nisjedufter">
-            {produkter.map((p) => (
-              <li key={p.id}>
-                <Produktkort
-                  produkt={p}
-                  avdekk={false}
-                  sizes="(min-width: 64rem) 22vw, (min-width: 40rem) 40vw, 72vw"
-                />
-              </li>
-            ))}
-          </Produktrad>
-        </div>
+        <Utstilling varer={varer} />
       </div>
     </section>
   )
@@ -195,23 +181,23 @@ export function Merkevegg({ merker }: { merker: { navn: string; href: string; an
   )
 }
 
+// Butikkbildene i ulike former (bue, sirkel, pille) som beveger seg i ulik fart når siden rulles
+// – mønster fra 21st.dev «Zoom Parallax» og YukoHealth-malen, uten å låse rullingen.
+const GALLERI = [
+  { foto: BILDER.interior, form: 'pille', drift: '2.5rem', sizes: '(min-width: 64rem) 36vw, 70vw' },
+  { foto: BILDER.lauraMercier, form: 'sirkel', drift: '5rem', sizes: '(min-width: 64rem) 18vw, 34vw' },
+  { foto: BILDER.sisley, form: 'bue', drift: '3.5rem', sizes: '(min-width: 64rem) 20vw, 40vw' },
+  { foto: BILDER.esteeLauder, form: 'hoy', drift: '6rem', sizes: '(min-width: 64rem) 16vw, 30vw' },
+] as const
+
 export function Besok() {
   return (
     <section className={`${styles.besok} seksjon`} id="besok" aria-labelledby="besok-tittel">
       <div className={`${styles.besokRutenett} ramme`}>
-        <figure className={styles.besokBilde} data-avdekk>
-          <Image
-            src={BILDER.interior.bilde}
-            alt={BILDER.interior.alt}
-            placeholder="blur"
-            sizes="(min-width: 64rem) 55vw, 100vw"
-            className={styles.fyll}
-          />
-        </figure>
         <div className={styles.besokTekst} data-avdekk>
           <p className="kicker">Besøk oss</p>
           <h2 id="besok-tittel" className="t-1">
-            Haraldsgata 138
+            Velkommen inn i Haraldsgata 138
           </h2>
           <p className="ingress">
             {BUTIKK.beliggenhet}. Her har du hele sortimentet – også merkene som ikke selges på nett.
@@ -238,6 +224,24 @@ export function Besok() {
               Veibeskrivelse <Ikon navn="utenfor" storrelse={16} />
             </a>
           </div>
+        </div>
+        <div className={styles.galleri}>
+          {GALLERI.map((g) => (
+            <figure
+              key={g.foto.kilde}
+              className={styles.galleribilde}
+              data-form={g.form}
+              style={{ '--drift': g.drift } as React.CSSProperties}
+            >
+              <Image
+                src={g.foto.bilde}
+                alt={g.foto.alt}
+                placeholder="blur"
+                sizes={g.sizes}
+                className={styles.fyll}
+              />
+            </figure>
+          ))}
         </div>
       </div>
     </section>

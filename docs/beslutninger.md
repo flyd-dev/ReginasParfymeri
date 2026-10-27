@@ -71,3 +71,19 @@ stille og kan rulles.
 Headeren med søk og to menyrader er høy. Den glir bort når man ruller nedover i innholdet og kommer tilbake
 straks man ruller opp, åpner en meny eller flytter fokus dit. Flyanimasjonen til kurven hoppes over når
 headeren er borte; skuffen åpnes uansett.
+
+## R-14 Utstillingsvinduet skifter selv – med vilkår
+
+Nisjeduftene vises én om gangen. Vinduet skifter etter sju sekunder bare når det er synlig, ingen peker eller
+fokus er i det, og brukeren ikke har trykket pause. Ved redusert bevegelse skifter det aldri. Skjermlesere
+får nytt innhold opplest bare når vinduet står stille.
+
+## R-15 Bunnteksten avdekkes bare der den får plass
+
+Siden glir opp og bort over bunnteksten på skjermer som er minst 1024 px brede og 832 px høye, der hele
+bunnteksten får plass. Ellers står den vanlig nederst, så ingenting blir liggende utenfor skjermen.
+
+## R-16 Spørsmål og svar fra vilkårene
+
+Svarene er satt sammen av `LEVERING`, `RETUR`, `KUN_I_BUTIKKEN`, `NISJE` og `HUDPLEIE` i
+`src/innhold/butikk.ts`. Endres vilkårene der, endres svarene – ingen egen tekst om priser eller frister.

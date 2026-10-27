@@ -78,10 +78,24 @@
   text-decoration-color: var(--rosa-paa-mork);
 }
 
+.ordbilde {
+  margin-block: var(--rom-8) 0;
+  padding-inline: var(--kant);
+  padding-block-end: 0.18em;
+  font-family: var(--skrift-display);
+  font-weight: 500;
+  font-size: clamp(3.5rem, 0.5rem + 13vw, 15rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: var(--rosa-paa-mork);
+  text-align: center;
+}
+
 .bunnlinje {
   display: grid;
   gap: var(--rom-2);
-  margin-block-start: var(--rom-8);
+  margin-block-start: var(--rom-6);
   padding-block-start: var(--rom-4);
   border-block-start: 1px solid var(--plomme-linje);
   font-size: var(--t-mini);
@@ -102,5 +116,26 @@
     justify-items: end;
     text-align: end;
     gap: var(--rom-6);
+  }
+}
+
+/* Bunnteksten avdekkes under siden (mønster fra 21st.dev «Sticky Footer»): siden glir opp og bort,
+   bunnteksten står stille under. Bare på store skjermer der hele bunnteksten får plass. */
+@media (min-width: 64rem) and (min-height: 52rem) {
+  .bunn {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 0;
+  }
+
+  :global(main#innhold) {
+    position: relative;
+    z-index: 1;
+    background: var(--sand);
+    border-end-start-radius: var(--radius-l);
+    border-end-end-radius: var(--radius-l);
+    /* Seksjonene inni følger de runde hjørnene; skyggen løfter siden over bunnteksten. */
+    overflow: clip;
+    box-shadow: 0 1.5rem 3rem rgb(46 13 33 / 0.28);
   }
 }

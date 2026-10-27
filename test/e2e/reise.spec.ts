@@ -5,6 +5,23 @@ import { expect, test, type Page } from '@playwright/test'
 
 const erMobil = (page: Page) => (page.viewportSize()?.width ?? 1440) < 1024
 
+/**
+ * Venter til inngangsanimasjonene er ferdige, så elementer ikke flytter seg under et klikk.
+ * Animasjoner som følger rullingen (scroll-tidslinje) og som går i løkke, regnes ikke med.
+ */
+async function ventPaaRo(page: Page) {
+  await page.waitForFunction(() =>
+    document
+      .getAnimations()
+      .every(
+        (a) =>
+          a.playState !== 'running' ||
+          !(a.timeline instanceof DocumentTimeline) ||
+          a.effect?.getComputedTiming().iterations === Infinity,
+      ),
+  )
+}
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => window.localStorage.clear())
 })
@@ -35,6 +52,7 @@ test('forside → kategori → filter → produkt → variant → handlekurv →
   await expect(page.getByText('Velg størrelse først.')).toBeVisible()
   await expect(page.getByRole('dialog', { name: 'Handlekurven' })).toBeHidden()
 
+  await ventPaaRo(page)
   await page.getByRole('radio', { name: /90\sml/ }).check({ force: true })
   await expect(page.locator('main')).toContainText('3 305 kr')
   await page.getByRole('button', { name: 'Legg i handlekurven' }).first().click()
@@ -81,6 +99,7 @@ test('raskt kjøp bare når valget er entydig', async ({ page }) => {
 test('utsolgt produkt kan ikke legges i kurven, men viser veien til butikken', async ({ page }) => {
   await page.goto('/produkt/montblanc-legend-edp')
   await expect(page.locator('main')).toContainText('Utsolgt')
+  await ventPaaRo(page)
   await page.getByRole('radio', { name: /100\sml/ }).check({ force: true })
   await expect(page.locator('main')).toContainText('utsolgt i nettbutikken')
   await expect(page.getByRole('button', { name: 'Legg i handlekurven' })).toHaveCount(0)
@@ -249,4 +268,41 @@ test('headeren glir bort ved rulling nedover og kommer tilbake ved rulling opp',
   await expect(header).toHaveAttribute('data-skjult', 'true')
   await page.getByRole('button', { name: 'Duft', exact: true }).focus()
   await expect(header).not.toHaveAttribute('data-skjult')
+})
+
+test('utstillingsvinduet for nisjeduft kan styres, skifter selv og kan stoppes', async ({ page }) => {
+  await page.goto('/')
+  const vindu = page.getByRole('region', { name: 'Utvalgte nisjedufter' })
+  await vindu.scrollIntoViewIfNeeded()
+  const lysbilde = vindu.getByRole('group', { name: /av \d+/ })
+  await expect(lysbilde).toHaveAttribute('aria-label', /^1 av /)
+  // Skifter selv etter en stund når ingenting holder det igjen.
+  await page.mouse.move(5, 5)
+  await expect(lysbilde).toHaveAttribute('aria-label', /^2 av /, { timeout: 12000 })
+  // Pilene og fremdriftsknappene styrer det.
+  await vindu.getByRole('button', { name: 'Forrige duft' }).click()
+  await expect(lysbilde).toHaveAttribute('aria-label', /^1 av /)
+  await vindu.getByRole('button', { name: /^Vis Aventus/ }).click()
+  await expect(vindu.getByRole('heading', { level: 3 })).toHaveText(/Aventus/)
+  await expect(vindu.getByRole('button', { name: /^Vis Aventus/ })).toHaveAttribute('aria-current', 'true')
+  await vindu.getByRole('button', { name: 'Stopp utstillingen' }).click()
+  await expect(vindu.getByRole('button', { name: 'Start utstillingen' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  )
+
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.reload()
+  await expect(vindu.getByRole('button', { name: /utstillingen/ })).toHaveCount(0)
+})
+
+test('spørsmål og svar åpnes ett om gangen og viser Reginas egne vilkår', async ({ page }) => {
+  await page.goto('/')
+  const omrade = page.getByRole('region', { name: 'Godt å vite før du handler' })
+  await omrade.getByText('Hva koster frakten, og hvor lang tid tar det?').click()
+  await expect(omrade.getByText(/Pakke i postkasse · 79 kr/)).toBeVisible()
+  await omrade.getByText('Hvordan returnerer jeg en vare?').click()
+  await expect(omrade.getByText(/returgebyr på 39 kr/)).toBeVisible()
+  // Bare ett svar er åpent om gangen.
+  await expect(omrade.getByText(/Pakke i postkasse · 79 kr/)).toBeHidden()
 })

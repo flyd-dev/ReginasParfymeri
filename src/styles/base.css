@@ -377,6 +377,10 @@ a {
   background: var(--sand-dyp);
 }
 
+[data-flate='mork'] .ikonknapp:hover {
+  background: var(--plomme-linje);
+}
+
 .ikonknapp:active {
   transform: scale(0.94);
 }

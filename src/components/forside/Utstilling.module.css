@@ -1,0 +1,355 @@
+.utstilling {
+  --varighet: 7s;
+  display: grid;
+  gap: var(--rom-6);
+}
+
+.innhold {
+  display: grid;
+  gap: var(--rom-6);
+}
+
+/* ---------- Teksten ---------- */
+
+.tekst {
+  display: grid;
+  align-content: center;
+  order: 2;
+}
+
+.tekstInn {
+  display: grid;
+  justify-items: start;
+  gap: var(--rom-3);
+  max-inline-size: 32rem;
+}
+
+.nummer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rom-3);
+  font-size: var(--t-mini);
+  letter-spacing: 0.16em;
+  color: var(--paa-mork-dempet);
+}
+
+/* Løperen i liten skala. */
+.nummerlinje {
+  inline-size: 2.5rem;
+  block-size: 2px;
+  background: var(--rosa);
+}
+
+.merke {
+  margin-block-start: var(--rom-2);
+  font-size: var(--t-mini);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rosa-paa-mork);
+}
+
+.navn {
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--paa-mork);
+  text-wrap: balance;
+}
+
+.ingress {
+  color: var(--paa-mork-dempet);
+  line-height: 1.65;
+}
+
+.noter {
+  display: grid;
+  gap: var(--rom-2);
+  inline-size: 100%;
+  margin-block: var(--rom-2);
+  padding-block: var(--rom-3);
+  border-block: 1px solid var(--plomme-linje);
+}
+
+.noter div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--rom-3);
+  font-size: var(--t-liten);
+}
+
+.noter dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rosa-paa-mork);
+  padding-block-start: 0.15rem;
+}
+
+.noter dd {
+  color: var(--paa-mork);
+}
+
+.pris {
+  font-size: var(--t-4);
+  font-weight: 600;
+  color: var(--paa-mork);
+}
+
+.fra,
+.variant {
+  font-weight: 500;
+  font-size: var(--t-liten);
+  color: var(--paa-mork-dempet);
+}
+
+/* ---------- Bildet ---------- */
+
+.bilder {
+  position: relative;
+  order: 1;
+  padding: var(--rom-4);
+  touch-action: pan-y;
+}
+
+/* Rammen er like stor som buen, så hjørnene sitter tett på den. */
+.ramme {
+  position: relative;
+  inline-size: min(100%, 26rem);
+  margin-inline: auto;
+}
+
+.bue {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--bue);
+  overflow: hidden;
+  background: var(--sand-lys);
+}
+
+.lag {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--tid-bilde) var(--ease-inn-ut);
+}
+
+.lag[data-aktiv] {
+  opacity: 1;
+}
+
+.bue .plate {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+/* Hjørnene fra butikkvinduet: tynne rosa linjer utenfor buen. */
+.hjorne {
+  position: absolute;
+  inline-size: 3rem;
+  block-size: 3rem;
+  border-color: var(--rosa);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.hjorneTopp {
+  inset-block-start: calc(var(--rom-4) * -1);
+  inset-inline-end: calc(var(--rom-4) * -1);
+  border-width: 1px 1px 0 0;
+}
+
+.hjorneBunn {
+  inset-block-end: calc(var(--rom-4) * -1);
+  inset-inline-start: calc(var(--rom-4) * -1);
+  border-width: 0 0 1px 1px;
+}
+
+/* ---------- Styring og fremdrift ---------- */
+
+.styring {
+  display: grid;
+  gap: var(--rom-4);
+}
+
+.piler {
+  display: flex;
+  gap: var(--rom-2);
+}
+
+.piler :global(.ikonknapp) {
+  border: 1px solid var(--plomme-linje);
+  color: var(--paa-mork);
+}
+
+.piler :global(.ikonknapp):hover {
+  border-color: var(--paa-mork-dempet);
+}
+
+.fremdrift {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: var(--rom-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fremdriftKnapp {
+  display: grid;
+  gap: var(--rom-2);
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  padding: var(--rom-2) 0;
+  border: 0;
+  background: none;
+  color: var(--paa-mork-dempet);
+  text-align: start;
+  cursor: pointer;
+}
+
+.fremdriftKnapp:focus-visible {
+  outline: 2px solid var(--rosa-paa-mork);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
+.fremdriftKnapp[aria-current='true'] {
+  color: var(--paa-mork);
+}
+
+.spor {
+  display: block;
+  block-size: 2px;
+  overflow: hidden;
+  background: var(--plomme-linje);
+}
+
+.fyll {
+  display: block;
+  block-size: 100%;
+  background: var(--rosa);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.fyll[data-status='sett'] {
+  transform: scaleX(1);
+  background: var(--paa-mork-dempet);
+}
+
+.fyll[data-status='aktiv'] {
+  transform: scaleX(1);
+}
+
+.etikett {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 64rem) {
+  .innhold {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--rom-9);
+    align-items: center;
+  }
+
+  .tekst {
+    order: 1;
+  }
+
+  .bilder {
+    order: 2;
+    padding: var(--rom-5);
+  }
+
+  .ramme {
+    inline-size: min(100%, calc(min(62vh, 36rem) * 0.8));
+  }
+
+  .styring {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--rom-7);
+  }
+
+  .etikett {
+    display: block;
+  }
+}
+
+/* ---------- Bevegelse ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .tekstInn > * {
+    animation: inn var(--tid-lang) var(--ease-ut) both;
+  }
+
+  .tekstInn > :nth-child(2) {
+    animation-delay: 40ms;
+  }
+
+  .tekstInn > :nth-child(3) {
+    animation-delay: 80ms;
+  }
+
+  .tekstInn > :nth-child(n + 4) {
+    animation-delay: 120ms;
+  }
+
+  /* Fremdriften styrer skiftet; den står stille når vinduet ikke roterer. */
+  .fyll[data-status='aktiv'] {
+    animation: fremdrift var(--varighet) linear both;
+    animation-play-state: paused;
+  }
+
+  .utstilling[data-roterer] .fyll[data-status='aktiv'] {
+    animation-play-state: running;
+  }
+
+  /* Svak zoom på bildet som vises (Ken Burns), i takt med fremdriften. */
+  .lag[data-aktiv] :global([data-produktbilde]) img {
+    animation: zoom var(--varighet) linear both;
+    animation-play-state: paused;
+  }
+
+  .utstilling[data-roterer] .lag[data-aktiv] :global([data-produktbilde]) img {
+    animation-play-state: running;
+  }
+}
+
+@keyframes inn {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+@keyframes fremdrift {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}

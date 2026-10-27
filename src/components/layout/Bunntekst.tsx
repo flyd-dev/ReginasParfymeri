@@ -93,6 +93,12 @@ export function Bunntekst({ meny, meta }: { meny: Menydata; meta: Katalogmeta })
         </div>
       </div>
 
+      {/* Stort ordbilde av adressen (mønster fra 21st.dev «Large Name Footer»). Logoen er aldri tegnet
+          på nytt – dette er adressen satt i Cormorant, og den står også som tekst over. */}
+      <p className={styles.ordbilde} aria-hidden="true">
+        {BUTIKK.adresse.gate}
+      </p>
+
       <div className={`${styles.bunnlinje} ramme`}>
         <p>
           © {BUTIKK.selskap} · Org.nr. {BUTIKK.orgnr}

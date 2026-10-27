@@ -40,9 +40,10 @@ Skjermbilder av forsiden, kategori, produkt, handlekurv og kasse på desktop og 
 ## Hva er implementert
 
 - **Forside** med kollasj-hero (butikkfasaden i en bue, en frilagt flaske med pris, et bilde fra disken),
-  rosa merkebånd med pauseknapp, kategorikort med Reginas egne bilder og frilagte produkter, utvalgte
-  nisjedufter på mørk flate, personlig veiledning/historie, utforsk etter duftnote, merker i kolonner,
-  «Bare i butikken», hudpleieavdelingen og besøk oss.
+  rosa merkebånd med pauseknapp, kategorikort med Reginas egne bilder og frilagte produkter, et
+  utstillingsvindu for nisjeduft (én duft om gangen, med pauseknapp), personlig veiledning/historie,
+  utforsk etter duftnote, merker i kolonner, «Bare i butikken», hudpleieavdelingen, spørsmål og svar og
+  «Velkommen inn» med butikkbildene i bevegelse. Bunnteksten avdekkes under siden på store skjermer.
 - **Header** som glir bort ved rulling nedover og kommer tilbake ved rulling opp; megameny med butikkbilde.
 - **Kategori, merke, søk og tilbud** – filtrering (type, merke, pris, lager, tilbud, duftnote) med antall per
   valg, sortering, aktive filtre, «vis flere», filterskuff på mobil, tomme treff og lastetilstand.
@@ -68,7 +69,7 @@ Skjermbilder av forsiden, kategori, produkt, handlekurv og kasse på desktop og 
 
 ```bash
 pnpm verify              # typecheck + lint + enhetstester + build
-pnpm test                # vitest (120 tester)
+pnpm test                # vitest (121 tester)
 pnpm test:e2e            # Playwright: hovedreisen på desktop og mobil (krever kjørende server)
 pnpm katalog:hent        # nytt utdrag fra Reginas Store API (bare GET)
 pnpm katalog:bygg        # bygg katalogen på nytt fra mellomlagret rådata, uten nettverk

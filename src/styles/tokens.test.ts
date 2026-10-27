@@ -48,6 +48,8 @@ const PAR: [string, string, number][] = [
   ['paa-mork', 'plomme-dyp', 4.5],
   ['paa-mork-dempet', 'plomme-dyp', 4.5],
   ['rosa-paa-mork', 'plomme-dyp', 4.5],
+  // Ikonknapper med peker over på mørk flate.
+  ['paa-mork', 'plomme-linje', 4.5],
   // Kategorikortene på rosa flater.
   ['blekk-dempet', 'rosa-lys', 4.5],
   ['blekk-dempet', 'rosa-dus', 4.5],

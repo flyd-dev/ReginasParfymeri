@@ -17,11 +17,15 @@ VinnVinn Reklame). Høyere oppløsning bør skaffes fra fotografen – originale
 | `butikken-disken.jpg`                    | …/2020/11/bilde_regina_5.jpg                                     | Medarbeider ved disken                 | Avklares (person – samtykke)          |
 | `butikken-ved-disken.jpg`                | …/2020/11/bilde_regina_1.jpg                                     | Medarbeider bak disken, gaveesker      | Avklares (person – samtykke)          |
 | `butikken-interior.jpg`                  | …/2020/11/bilde_regina_6.jpg                                     | Butikklokalet                          | Avklares                              |
+| `butikken-laura-mercier.jpg`             | …/2020/11/Untitled-4.jpg                                         | Laura Mercier-disken                   | Avklares (varemerke synlig)           |
+| `butikken-sisley.jpg`                    | …/2020/11/bilde_regina_12.jpg                                    | Sisley-hyllen                          | Avklares (varemerke synlig)           |
+| `butikken-estee-lauder.jpg`              | …/2020/11/bilde_regina_10.jpg                                    | Estée Lauder-veggen                    | Avklares (varemerke synlig)           |
 | `butikken-oyenskygge.jpg`                | …/2020/11/bilde_regina_7.jpg                                     | Tom Ford-øyenskygge, nærbilde          | Avklares (varemerke synlig)           |
 | `haugescent-duftpinner.jpg`              | …/2025/11/IMG_0178.jpg                                           | Haugescent duftpinner (selges på nett) | Avklares (kan være Haugescents bilde) |
 
-Vurdert, men ikke brukt i konseptet: `bilde_regina_4, 10, 11, 12, 14` og `Untitled-4.jpg` (hårfargekart og
-hyller med merker som ikke selges på nett) og `100A9112.jpg` (Haugescent-lys, 2025).
+Vurdert, men ikke brukt i konseptet: `bilde_regina_4, 11, 14` (hårfargekart og merkehyller) og
+`100A9112.jpg` (Haugescent-lys, 2025). Hyllene med Laura Mercier, Sisley og Estée Lauder står bare i
+«Velkommen inn», som viser butikken – de merkene selges bare der.
 
 Bildene velges etter hva de viser: et kategorikort viser bare et butikkbilde der det som er i bildet selges i
 den kategorien på nett (f.eks. Haugescent-duftpinner for «Duftlys og duftpinner»). Merker som bare finnes i

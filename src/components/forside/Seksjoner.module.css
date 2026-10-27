@@ -41,8 +41,28 @@
 
 @media (min-width: 64rem) {
   .nisjeHode {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: end;
+    column-gap: var(--rom-9);
+  }
+
+  .nisje .nisjeTekst {
+    display: contents;
+  }
+
+  .nisje .nisjeTekst > :global(.kicker),
+  .nisje .nisjeTekst > h2 {
+    grid-column: 1;
+  }
+
+  .nisje .nisjeTekst > :global(.ingress) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+  }
+
+  .nisje .nisjeLenker {
+    grid-column: 2;
   }
 }
 
@@ -165,6 +185,10 @@
 }
 
 /* --- Personlig veiledning --- */
+
+.veiledning {
+  background: var(--sand);
+}
 
 .veiledningRutenett {
   display: grid;
@@ -432,13 +456,6 @@
   align-items: center;
 }
 
-.besokBilde {
-  inline-size: 100%;
-  aspect-ratio: 3 / 2;
-  border-radius: var(--radius-l);
-  overflow: hidden;
-}
-
 .besokTekst {
   display: grid;
   gap: var(--rom-4);
@@ -470,7 +487,75 @@
 
 @media (min-width: 64rem) {
   .besokRutenett {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     gap: var(--rom-8);
+  }
+}
+
+/* Galleriet: fire former lagt over hverandre, hver med sin fart. */
+.galleri {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  inline-size: 100%;
+}
+
+.galleribilde {
+  position: absolute;
+  overflow: hidden;
+  margin: 0;
+  background: var(--sand-mork);
+}
+
+.galleribilde[data-form='pille'] {
+  inset-block-start: 4%;
+  inset-inline-start: 0;
+  inline-size: 68%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-pille);
+}
+
+.galleribilde[data-form='sirkel'] {
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inline-size: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  outline: 0.4rem solid var(--sand-dyp);
+}
+
+.galleribilde[data-form='bue'] {
+  inset-block-end: 0;
+  inset-inline-start: 10%;
+  inline-size: 38%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--bue);
+  outline: 0.4rem solid var(--sand-dyp);
+}
+
+.galleribilde[data-form='hoy'] {
+  inset-block-end: 8%;
+  inset-inline-end: 6%;
+  inline-size: 32%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-pille);
+  outline: 0.4rem solid var(--sand-dyp);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .galleribilde {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(var(--drift));
+  }
+  to {
+    transform: translateY(calc(var(--drift) * -1));
   }
 }
