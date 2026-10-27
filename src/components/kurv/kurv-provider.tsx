@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Kurv, LeggTil } from '@/lib/kurv/typer'
+import type { Kurvvarsel } from './kurvmeldinger'
 
 interface KurvKontekst {
   kurv: Kurv | null
@@ -20,6 +21,20 @@ interface KurvKontekst {
 const Kontekst = createContext<KurvKontekst | null>(null)
 
 const Varsler = dynamic(() => import('@/components/ui/sonner').then((m) => m.Toaster), { ssr: false })
+
+/**
+ * Viser et varsel om handlekurven (kurvmeldinger.tsx). Sonner og varselet lastes først når det trengs, så de
+ * ikke er med i første JavaScript. Skjermlesere får i tillegg beskjeden i aria-live-feltet under.
+ */
+function varsle(varsel: Kurvvarsel) {
+  void Promise.all([import('sonner'), import('./kurvmeldinger')]).then(([{ toast }, { Kurvtoast }]) => {
+    // Fast id per type: et nytt varsel av samme slag erstatter det forrige i stedet for å stable dem.
+    toast.custom((id) => <Kurvtoast varsel={varsel} lukk={() => toast.dismiss(id)} />, {
+      id: `kurv-${varsel.type}`,
+      duration: varsel.type === 'feil' ? 7000 : 9000,
+    })
+  })
+}
 
 async function send(metode: string, kropp?: unknown): Promise<Kurv> {
   const svar = await fetch('/api/kurv/', {
@@ -41,27 +56,33 @@ export function KurvProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     send('GET')
-      .then(setKurv)
+      .then((ny) => {
+        setKurv(ny)
+        // Nettbutikken har rettet kurven siden sist (pris, lager, antall): si fra med en gang.
+        if (ny.meldinger.length > 0) varsle({ type: 'oppdatert', meldinger: ny.meldinger })
+      })
       .catch(() => setKurv(null))
   }, [])
 
-  const kjor = useCallback(async (arbeid: () => Promise<Kurv>, ok?: string): Promise<boolean> => {
-    setOpptatt(true)
-    try {
-      const ny = await arbeid()
-      setKurv(ny)
-      if (ok) setBeskjed(ok)
-      return true
-    } catch (feil) {
-      const melding = (feil as Error).message
-      // Toasten lastes først når den trengs (sonner er ikke med i første JavaScript).
-      void import('sonner').then(({ toast }) => toast.error(melding))
-      setBeskjed(melding)
-      return false
-    } finally {
-      setOpptatt(false)
-    }
-  }, [])
+  const kjor = useCallback(
+    async (arbeid: () => Promise<Kurv>, ok: string, feiltittel: string): Promise<boolean> => {
+      setOpptatt(true)
+      try {
+        const ny = await arbeid()
+        setKurv(ny)
+        setBeskjed(ok)
+        return true
+      } catch (feil) {
+        const melding = (feil as Error).message
+        varsle({ type: 'feil', tittel: feiltittel, tekst: melding })
+        setBeskjed(`${feiltittel}. ${melding}`)
+        return false
+      } finally {
+        setOpptatt(false)
+      }
+    },
+    [],
+  )
 
   const verdi = useMemo<KurvKontekst>(
     () => ({
@@ -71,15 +92,23 @@ export function KurvProvider({ children }: { children: ReactNode }) {
       setApen,
       beskjed,
       leggTil: async (ny) => {
-        const ok = await kjor(() => send('POST', ny), 'Lagt i handlekurven.')
+        const ok = await kjor(
+          () => send('POST', ny),
+          'Lagt i handlekurven.',
+          'Varen ble ikke lagt i handlekurven',
+        )
         if (ok) setApen(true)
         return ok
       },
       endreAntall: async (nokkel, antall) => {
-        await kjor(() => send('PATCH', { nokkel, antall }), 'Antallet er endret.')
+        await kjor(() => send('PATCH', { nokkel, antall }), 'Antallet er endret.', 'Antallet ble ikke endret')
       },
       fjern: async (nokkel) => {
-        await kjor(() => send('DELETE', { nokkel }), 'Varen er fjernet fra handlekurven.')
+        await kjor(
+          () => send('DELETE', { nokkel }),
+          'Varen er fjernet fra handlekurven.',
+          'Varen ble ikke fjernet',
+        )
       },
     }),
     [kurv, opptatt, apen, beskjed, kjor],
