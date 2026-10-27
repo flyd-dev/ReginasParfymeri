@@ -79,13 +79,12 @@ Detaljer, kontrakter og testoppskrift for kassen: [`docs/architecture.md`](docs/
 1. **Staging-WordPress** med WooCommerce, Vipps i testmodus og Diller → kjør spiken
    (`docs/architecture.md` §8) og importen (`pnpm import:staging --apply`).
 2. **Diller i Vipps Checkout** – trolig ikke støttet av Diller-pluginen i dag; må avklares med Diller.
-3. **21st.dev-komponentene** – valgt og logget i [`docs/components.md`](docs/components.md), men ikke
-   installert: registeret svarer «Marketplace membership required» for kontoen bak `API_KEY_21ST`, og
-   gratisnivået gir dessuten bare 2 per døgn. Flaten er bygget med shadcn/ui, og forsiden etter mønstrene fra de
-   valgte 21st.dev-komponentene.
-4. Avklaringer i [`docs/data-issues.md`](docs/data-issues.md): Guerlain-produktet, åpningstider, fraktpriser,
+3. Avklaringer i [`docs/data-issues.md`](docs/data-issues.md): Guerlain-produktet, åpningstider, fraktpriser,
    kundeklubbens fordeler, Vipps-plugin, merkeregister, personvernerklæring, bruksrett til bilder, logo,
    sandfarger og film til forsiden.
+
+Komponentene er bygget selv etter valgte 21st.dev-komponenter, med egen kode (R-29); se
+[`docs/components.md`](docs/components.md).
 
 Mer: [`docs/beslutninger.md`](docs/beslutninger.md), [`docs/designretning.md`](docs/designretning.md),
 [`docs/bildekilder.md`](docs/bildekilder.md), [`docs/funn-kundereise.md`](docs/funn-kundereise.md),
