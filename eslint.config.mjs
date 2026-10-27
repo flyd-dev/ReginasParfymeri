@@ -18,6 +18,8 @@ const config = [
       'test-results/**',
       'playwright-report/**',
       'next-env.d.ts',
+      // Arbeidskopier fra Claude Code-agenter (git worktree) – ikke en del av prosjektet.
+      '.claude/**',
     ],
   },
 ]
