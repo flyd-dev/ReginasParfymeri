@@ -2,7 +2,10 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { FORSIDE } from '@/content/forside'
 import { lesJsonKatalog } from '@/lib/woocommerce/json-kilde'
 import type { Katalog } from '@/lib/woocommerce/typer'
+import { finnKategori } from '@/lib/katalog/sporring'
 import {
+  antallNisjedufter,
+  baandmerker,
   heroprodukt,
   innganger,
   nisjemerker,
@@ -57,5 +60,23 @@ describe('nisjemerker og øvrige kategorier', () => {
     const navn = ovrigeKategorier(k).map((c) => c.navn)
     expect(navn).not.toContain('Hudpleie')
     expect(navn).toContain('Duft')
+  })
+})
+
+describe('tall og merker i heroen og merkebåndet', () => {
+  it('antall nisjedufter er WooCommerces telling for kategorien – ikke et påfunnet tall', () => {
+    const antall = antallNisjedufter(k)
+    expect(antall).toBe(finnKategori(k, ['duft', 'nisjeduft'])?.antall)
+    expect(antall).toBeGreaterThan(0)
+    expect(antallNisjedufter({ ...k, kategorier: [] })).toBeNull()
+  })
+  it('merkebåndet har de største merkene først og ingen merke i begge radene', () => {
+    const [forste, andre] = baandmerker(k, 16)
+    expect(forste).toHaveLength(16)
+    expect(andre.length).toBeGreaterThan(0)
+    const alle = [...forste, ...andre]
+    expect(new Set(alle.map((m) => m.slug)).size).toBe(alle.length)
+    expect(alle.map((m) => m.antall)).toEqual([...alle.map((m) => m.antall)].sort((a, b) => b - a))
+    for (const m of alle) expect(k.merker).toContainEqual(m)
   })
 })
