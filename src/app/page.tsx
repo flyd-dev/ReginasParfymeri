@@ -1,3 +1,4 @@
+import { Inn } from '@/components/bevegelse/inn'
 import { Bestselgerfaner } from '@/components/forside/bestselgere'
 import { Hero } from '@/components/forside/hero'
 import { Merkebaand } from '@/components/forside/merkebaand'
@@ -16,6 +17,8 @@ import { Produktrad, Produktradelement } from '@/components/produkt/produktrad'
 import { BILDER } from '@/content/bilder'
 import { FORSIDE } from '@/content/forside'
 import {
+  antallNisjedufter,
+  baandmerker,
   heroprodukt,
   innganger,
   nisjemerker,
@@ -44,29 +47,38 @@ const BESTSELGERFANER = [
 export default async function Forside() {
   const [katalog, info] = await Promise.all([hentKatalog(), hentButikkinfo()])
   const tidspunkt = naa()
-  const kort = (p: Produkt, stor = false) => (
+  // Kortene glir inn forskjøvet når raden kommer til syne (R-30). Bare de fire første forskyves; kort lenger ute
+  // i raden kommer inn når kunden sveiper dem fram, og skal ikke vente.
+  const kort = (p: Produkt, n: number, stor = false) => (
     <Produktradelement key={p.id} stor={stor}>
-      <Produktkort
-        produkt={p}
-        naa={tidspunkt}
-        sizes={
-          stor
-            ? '(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 78vw'
-            : '(min-width: 1024px) 23vw, (min-width: 640px) 40vw, 62vw'
-        }
-      />
+      <Inn i={Math.min(n, 3) + 1} y="2rem">
+        <Produktkort
+          produkt={p}
+          naa={tidspunkt}
+          sizes={
+            stor
+              ? '(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 78vw'
+              : '(min-width: 1024px) 23vw, (min-width: 640px) 40vw, 62vw'
+          }
+        />
+      </Inn>
     </Produktradelement>
   )
 
   const hero = heroprodukt(katalog)
   const foto = BILDER[FORSIDE.heroBilde]
-  const baandmerker = [...katalog.merker].sort((a, b) => b.antall - a.antall).slice(0, 16)
+  const [baandrad, baandrad2] = baandmerker(katalog)
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: somScript(butikkJsonLd()) }} />
-      <Hero foto={foto.bilde} fotoAlt={foto.alt} produkt={hero ? tilVisning(hero) : null} />
-      <Merkebaand merker={baandmerker} />
+      <Hero
+        foto={foto.bilde}
+        fotoAlt={foto.alt}
+        produkt={hero ? tilVisning(hero) : null}
+        nisjedufter={antallNisjedufter(katalog)}
+      />
+      <Merkebaand merker={baandrad} merker2={baandrad2} />
 
       <section className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28" aria-labelledby="nytt-tittel">
         <Seksjonstittel
@@ -76,7 +88,7 @@ export default async function Forside() {
           lenke={{ href: '/nyheter/', tekst: 'Se alle nyheter' }}
         />
         <Produktrad tittel="Nytt i nisjeduft">
-          {nyttINisjeduft(katalog, 10).map((p) => kort(p, true))}
+          {nyttINisjeduft(katalog, 10).map((p, n) => kort(p, n, true))}
         </Produktrad>
       </section>
 
@@ -90,7 +102,7 @@ export default async function Forside() {
             navn: f.navn,
             innhold: (
               <Produktrad tittel={`Bestselgere – ${f.navn}`}>
-                {bestselgere(produkterIKategori(katalog, f.sti), 8).map((p) => kort(p))}
+                {bestselgere(produkterIKategori(katalog, f.sti), 8).map((p, n) => kort(p, n))}
               </Produktrad>
             ),
           }))}

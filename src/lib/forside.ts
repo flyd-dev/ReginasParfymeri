@@ -5,7 +5,7 @@ import { FORSIDE } from '@/content/forside'
 import { fraKroner, kroner } from '@/lib/format'
 import { bestselgere, finnKategori, nyeste, produkterIKategori } from '@/lib/katalog/sporring'
 import { lagMeny } from '@/lib/meny'
-import type { Katalog, Produkt } from '@/lib/woocommerce/typer'
+import type { Katalog, Merke, Produkt } from '@/lib/woocommerce/typer'
 
 /** Det klienten trenger for å vise et produkt – ikke hele produktobjektet. */
 export interface Visningsprodukt {
@@ -113,4 +113,19 @@ export function ovrigeKategorier(k: Katalog): { navn: string; sti: string[]; ant
   return lagMeny(k)
     .filter((m) => !brukt.has(m.sti[0] ?? ''))
     .map(({ navn, sti, antall }) => ({ navn, sti, antall }))
+}
+
+/** Antall nisjedufter i katalogen – WooCommerces egen telling for kategorien – til faktaraden i heroen. */
+export function antallNisjedufter(k: Katalog): number | null {
+  const antall = finnKategori(k, ['duft', 'nisjeduft'])?.antall
+  return antall && antall > 0 ? antall : null
+}
+
+/**
+ * Merkene i merkebåndet: de største (flest produkter i WooCommerce) i første rad, de neste i andre rad. Ingen
+ * merke står i begge.
+ */
+export function baandmerker(k: Katalog, perRad = 16): [Merke[], Merke[]] {
+  const sortert = [...k.merker].sort((a, b) => b.antall - a.antall || a.navn.localeCompare(b.navn, 'nb'))
+  return [sortert.slice(0, perRad), sortert.slice(perRad, perRad * 2)]
 }
