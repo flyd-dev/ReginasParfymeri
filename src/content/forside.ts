@@ -22,4 +22,11 @@ export const FORSIDE = {
     { sti: ['makeup'], produkt: 'anastasia-beverly-hills-brow-gel-clear' },
     { sti: ['herre'], produkt: 'montblanc-explorer-infinite-100ml' },
   ],
+  /**
+   * Varen i bildekolonnen i megamenyen, per hovedkategori. Står en kategori ikke her (eller varen ikke kan kjøpes),
+   * vises kategoriens mest solgte vare. Hudpleie er valgt fordi bestselgeren der er en håndsåpe til 39 kroner.
+   */
+  meny: {
+    hudpleie: 'guinot-huile-mirific-anti-age-oil',
+  } as Record<string, string>,
 } as const

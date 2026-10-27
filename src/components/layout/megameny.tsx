@@ -77,7 +77,9 @@ function Bildekolonne({ punkt, vare }: { punkt: Menypunkt; vare: Menyprodukt | u
   }
   return (
     <>
-      <p className={kolonneoverskrift}>Mest solgt i {punkt.navn.toLocaleLowerCase('nb')}</p>
+      <p className={kolonneoverskrift}>
+        {vare.kilde === 'utvalgt' ? 'Utvalgt' : 'Mest solgt'} i {punkt.navn.toLocaleLowerCase('nb')}
+      </p>
       <Nav.Link asChild>
         <Link href={produktUrl(vare.slug)} data-slot="megameny-vare" className="group mt-4 block">
           <Produktbilde
@@ -93,7 +95,7 @@ function Bildekolonne({ punkt, vare }: { punkt: Menypunkt; vare: Menyprodukt | u
           <span className="mt-1 block font-heading text-xl leading-snug text-regina-plum transition-colors duration-(--dur-fast) group-hover:text-regina-pink-strong">
             {vare.navn}
           </span>
-          <span className="mt-1 block text-[0.9375rem] text-regina-plum">{vare.pris}</span>
+          <span className="mt-1 block text-base text-regina-plum">{vare.pris}</span>
         </Link>
       </Nav.Link>
     </>

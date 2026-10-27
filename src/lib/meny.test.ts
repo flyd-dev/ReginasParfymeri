@@ -2,7 +2,8 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { bestselgere, produkterIKategori } from '@/lib/katalog/sporring'
 import { lesJsonKatalog } from '@/lib/woocommerce/json-kilde'
 import type { Katalog } from '@/lib/woocommerce/typer'
-import { lagMeny, menybeskrivelse, mestSolgtIMenyen } from './meny'
+import { FORSIDE } from '@/content/forside'
+import { lagMeny, menybeskrivelse, menyutvalg } from './meny'
 
 let k: Katalog
 beforeAll(async () => {
@@ -20,10 +21,14 @@ describe('megamenyen', () => {
     expect(menybeskrivelse({ navn: 'X', sti: ['x'], antall: 1, barn: [] })).toBe('1 produkt')
   })
 
-  it('bildekolonnen viser kategoriens mest solgte vare fra WooCommerces popularitet', () => {
-    const utvalg = mestSolgtIMenyen(k)
+  it('bildekolonnen viser Flyds valg eller kategoriens mest solgte vare – og sier hvilken', () => {
+    const utvalg = menyutvalg(k)
     expect(Object.keys(utvalg).length).toBeGreaterThan(0)
+    for (const [slug, valgt] of Object.entries(FORSIDE.meny)) {
+      expect(utvalg[slug]).toMatchObject({ slug: valgt, kilde: 'utvalgt' })
+    }
     for (const [slug, vare] of Object.entries(utvalg)) {
+      if (vare.kilde === 'utvalgt') continue
       const forventet = bestselgere(
         produkterIKategori(k, [slug]).filter((p) => p.bilder.length > 0),
         1,
