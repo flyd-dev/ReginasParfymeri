@@ -17,24 +17,12 @@ import {
 } from '@/components/ui/command'
 import { kategoriUrl, merkeUrl, produktUrl, sokUrl } from '@/lib/lenker'
 
-/** Hurtigsøk (kommandopalett): produkter, merker og kategorier. Åpnes med knappen, «/» eller Ctrl/Cmd+K. */
+/** Hurtigsøk (kommandopalett): produkter, merker og kategorier. Åpnes med knappen, «/» eller Ctrl/Cmd+K (header-klient.tsx). */
 export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: boolean) => void }) {
   const router = useRouter()
   const [q, setQ] = useState('')
   const [sisteSvar, setSvar] = useState<Hurtigsvar | null>(null)
   const [laster, setLaster] = useState(false)
-
-  useEffect(() => {
-    const tast = (e: KeyboardEvent) => {
-      const iFelt = e.target instanceof HTMLElement && e.target.closest('input, textarea, [contenteditable]')
-      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !iFelt)) {
-        e.preventDefault()
-        setApen(true)
-      }
-    }
-    window.addEventListener('keydown', tast)
-    return () => window.removeEventListener('keydown', tast)
-  }, [setApen])
 
   useEffect(() => {
     const tekst = q.trim()

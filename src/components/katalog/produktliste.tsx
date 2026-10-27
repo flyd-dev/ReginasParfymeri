@@ -100,6 +100,7 @@ export function Produktliste({
           </div>
         ) : (
           <div className="mt-8">
+            <h2 className="sr-only">Produkter</h2>
             <Produktrutenett>
               {elementer.map((p, i) => (
                 <Produktkort key={p.id} produkt={p} naa={naa} prioritet={i < 4} />

@@ -7,7 +7,7 @@ metadata (EXIF/posisjon), med uendret utsnitt og farger. Next.js lager mindre ut
 fotograf er ikke oppgitt (sannsynligvis et oppdrag fra 2020 i forbindelse med nettstedet levert av
 VinnVinn Reklame). Høyere oppløsning bør skaffes fra fotografen – originalene er 1000–1536 px.
 
-| Fil i prosjektet (`src/innhold/bilder/`) | Kilde                                                            | Motiv                                  | Status                                |
+| Fil i prosjektet (`src/content/bilder/`) | Kilde                                                            | Motiv                                  | Status                                |
 | ---------------------------------------- | ---------------------------------------------------------------- | -------------------------------------- | ------------------------------------- |
 | `butikken-fasade.jpg`                    | reginaparfymeri.no/wp-content/uploads/2020/11/bilde_regina_8.jpg | Fasaden med rosa løper                 | Avklares                              |
 | `butikken-medarbeidere.jpg`              | …/2020/11/bilde_regina_3.jpg                                     | To medarbeidere ved disken             | Avklares (personer – samtykke)        |
@@ -36,14 +36,9 @@ bruk) og leverandørenes kampanjebilder (Sisley, Laura Mercier, Guerlain m.fl.).
 
 ## Logo
 
-`public/logo/regina-skrift.svg` og `public/logo/regina-velkommen.svg` er Reginas originale vektorfiler fra
-reginaparfymeri.no (`logo-med-tekst-2.svg`, `REGINA_LOGO.svg`), uendret og i logoens egen rosa `#EF3AA7`.
-Nettbutikkens nyere logo (2025, med «PARFYMERI») finnes bare som PNG med hvit bakgrunn – be om vektorfil.
-Favikonet er Reginas eget (`cropped-favicon-192x192.png`).
-
-## Produktbilder
-
-Hentes fra Reginas WooCommerce-mediebibliotek – samme kilde som dagens nettbutikk. De er i hovedsak
-leverandørenes pakkebilder, som forhandleren normalt kan bruke til salg av produktene. Pakkebilder som
-allerede er frilagt (gjennomsiktig bakgrunn i WooCommerce, målt ved henting) brukes som frittstående flasker
-i heroen og på kategorikortene – bildet er uendret, bare plassert på en farget flate.
+- `public/brand/regina-skrift.svg` og `public/brand/regina-velkommen.svg` er Reginas originale vektorfiler fra
+  reginaparfymeri.no, uendret og i logoens egen rosa `#EF3AA7`. `regina-skrift.svg` brukes i header, footer og
+  som ikon.
+- `public/brand/regina-parfymeri-logo.png` (fra nettbutikken, oppdraget §4) og `public/brand/regina-hvit.svg`
+  (reginaparfymeri.no) er lastet ned uendret. PNG-logoen har **hvit, ugjennomsiktig bakgrunn** og kan ikke stå på
+  sand; derfor brukes vektorlogoen. Be Regina om logoen med «PARFYMERI» i vektor med gjennomsiktig bakgrunn.

@@ -1,7 +1,7 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { toast } from 'sonner'
 import type { Kurv, LeggTil } from '@/lib/kurv/typer'
 
 interface KurvKontekst {
@@ -18,6 +18,8 @@ interface KurvKontekst {
 }
 
 const Kontekst = createContext<KurvKontekst | null>(null)
+
+const Varsler = dynamic(() => import('@/components/ui/sonner').then((m) => m.Toaster), { ssr: false })
 
 async function send(metode: string, kropp?: unknown): Promise<Kurv> {
   const svar = await fetch('/api/kurv/', {
@@ -52,7 +54,8 @@ export function KurvProvider({ children }: { children: ReactNode }) {
       return true
     } catch (feil) {
       const melding = (feil as Error).message
-      toast.error(melding)
+      // Toasten lastes først når den trengs (sonner er ikke med i første JavaScript).
+      void import('sonner').then(({ toast }) => toast.error(melding))
       setBeskjed(melding)
       return false
     } finally {
@@ -85,6 +88,7 @@ export function KurvProvider({ children }: { children: ReactNode }) {
   return (
     <Kontekst.Provider value={verdi}>
       {children}
+      <Varsler position="top-center" />
       <p className="sr-only" aria-live="polite" role="status">
         {beskjed}
       </p>

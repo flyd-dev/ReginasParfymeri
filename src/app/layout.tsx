@@ -6,7 +6,6 @@ import { Header } from '@/components/layout/header'
 import { Kampanjebanner } from '@/components/layout/kampanjebanner'
 import { Samtykke } from '@/components/layout/samtykke'
 import { Toppstripe } from '@/components/layout/toppstripe'
-import { Toaster } from '@/components/ui/sonner'
 import { NETTSTEDNAVN, nettstedUrl, skalIndekseres } from '@/lib/seo/nettsted'
 import { hentKampanjer } from '@/lib/woocommerce/innhold'
 import './globals.css'
@@ -14,6 +13,8 @@ import './globals.css'
 // Dagens fonter (oppdraget §4): Playfair Display til overskrifter, Poppins til brødtekst og UI.
 const playfair = Playfair_Display({
   subsets: ['latin'],
+  // Overskriftene står i 500 (globals.css); én vekt gir mindre skriftfiler enn den variable fonten.
+  weight: ['500'],
   style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
@@ -62,7 +63,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </main>
           <Footer />
           <Samtykke />
-          <Toaster position="top-center" />
         </KurvProvider>
       </body>
     </html>

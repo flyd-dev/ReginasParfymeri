@@ -19,8 +19,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm build",
-    "katalog:hent": "python3 scripts/refresh_from_store.py . && python3 scripts/build_catalog.py .",
-    "katalog:bygg": "python3 scripts/build_catalog.py .",
+    "katalog:hent": "python3 scripts/refresh_from_store.py . && python3 scripts/build_catalog.py . && python3 scripts/lag_rapporter.py .",
+    "katalog:bygg": "python3 scripts/build_catalog.py . && python3 scripts/lag_rapporter.py .",
     "import:staging": "tsx scripts/import_to_woocommerce.ts"
   },
   "dependencies": {

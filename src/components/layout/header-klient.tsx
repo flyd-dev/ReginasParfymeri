@@ -1,13 +1,16 @@
 'use client'
 
 import { Search, ShoppingBag, User } from 'lucide-react'
-import { useState } from 'react'
-import { Handlekurv } from '@/components/kurv/handlekurv'
+import dynamic from 'next/dynamic'
+import { useEffect, useState } from 'react'
 import { useKurv } from '@/components/kurv/kurv-provider'
 import type { Menypunkt } from '@/lib/meny'
 import { Megameny } from './megameny'
 import { Mobilmeny } from './mobilmeny'
-import { Sokedialog } from './sokedialog'
+
+// Søk og handlekurvskuff lastes først når de åpnes – mindre JavaScript før siden er tegnet (LCP).
+const Sokedialog = dynamic(() => import('./sokedialog').then((m) => m.Sokedialog), { ssr: false })
+const Handlekurv = dynamic(() => import('@/components/kurv/handlekurv').then((m) => m.Handlekurv), { ssr: false })
 
 const ikonknapp =
   'inline-flex size-11 items-center justify-center text-regina-plum transition-colors duration-(--dur-fast) hover:text-regina-pink-strong'
@@ -21,8 +24,27 @@ export function HeaderKlient({
   logo: React.ReactNode
   kontoUrl: string
 }) {
-  const [sokApen, setSokApen] = useState(false)
-  const { kurv, setApen } = useKurv()
+  const [sokApen, setSokApenTilstand] = useState(false)
+  const [sokBrukt, setSokBrukt] = useState(false)
+  const setSokApen = (apen: boolean) => {
+    if (apen) setSokBrukt(true)
+    setSokApenTilstand(apen)
+  }
+  useEffect(() => {
+    const tast = (e: KeyboardEvent) => {
+      const iFelt = e.target instanceof HTMLElement && e.target.closest('input, textarea, [contenteditable]')
+      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !iFelt)) {
+        e.preventDefault()
+        setSokBrukt(true)
+        setSokApenTilstand(true)
+      }
+    }
+    window.addEventListener('keydown', tast)
+    return () => window.removeEventListener('keydown', tast)
+  }, [])
+  const { kurv, apen: kurvApen, setApen } = useKurv()
+  const [kurvBrukt, setKurvBrukt] = useState(false)
+  if (kurvApen && !kurvBrukt) setKurvBrukt(true)
   const antall = kurv?.antall ?? 0
 
   return (
@@ -74,8 +96,8 @@ export function HeaderKlient({
         </div>
       </div>
       <Megameny meny={meny} />
-      <Sokedialog apen={sokApen} setApen={setSokApen} />
-      <Handlekurv />
+      {sokBrukt && <Sokedialog apen={sokApen} setApen={setSokApen} />}
+      {kurvBrukt && <Handlekurv />}
     </header>
   )
 }

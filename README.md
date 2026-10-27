@@ -1,112 +1,89 @@
-# Regina Parfymeri – konsept for ny nettbutikk
+# Regina Parfymeri – ny nettbutikk
 
-Konsept utarbeidet av **Flyd** for Regina Parfymeri (Regina Haraldsgaten AS, Haraldsgata 138, Haugesund).
-En fungerende, presentasjonsklar nettbutikk bygget som en _headless_ flate foran Reginas eksisterende
-WooCommerce – med Reginas egne produkter, priser, varianter, lagerstatus, merker og bilder.
+Ny nettbutikk for **Regina Parfymeri** (Regina Haraldsgaten AS, Haraldsgata 138, Haugesund), laget av **Flyd**.
+WooCommerce er fortsatt motoren: produkter, priser, lager, kasse, Vipps, Diller og «Min konto». Denne flaten
+(Next.js) står foran og håndterer alt fram til «Gå til kassen». Oppdraget står i [`docs/oppdrag.md`](docs/oppdrag.md).
 
-> **Status:** konsept. Produktdata er ekte (lest fra Reginas offentlige WooCommerce Store API), men
-> kassen er ikke koblet til betaling – ingen bestilling kan sendes. Se «Hva er ekte og hva er demo» under.
+> **Status 27.10.2026:** Fase 0–6 er bygget. Flaten kjører mot ekte produktdata (1 082 produkter fra Reginas
+> Store API, bare lesing). Kurvoverføringen til WooCommerces kasse er skrevet og testet mot en falsk
+> WooCommerce, men **spiken er ikke kjørt i staging ennå** – det finnes ingen staging-WordPress. Se
+> «Gjenstår» nederst.
 
 ## Kom i gang
 
 ```bash
 pnpm install
-pnpm dev                 # http://localhost:3000
+pnpm dev                    # http://localhost:3000 (prototype: DATA_SOURCE=json, lokal handlekurv)
+pnpm build && pnpm start    # produksjonsbygg
 ```
 
-Produksjonsbygg (det som bør vises for kunden – raskere og uten utviklingsmerket i hjørnet):
+Krever Node 22 og pnpm 10. Ingen nøkler trengs for prototypen. Alle miljøvariabler står i
+[`.env.example`](.env.example).
 
 ```bash
-pnpm build && pnpm start # http://localhost:3000
+pnpm verify                 # typecheck + lint + enhetstester + build
+pnpm test:e2e               # Playwright (starter selv servere og en falsk WooCommerce)
+pnpm katalog:hent           # nytt utdrag fra Store API (bare GET) → data/, docs/redirects.csv, docs/data-issues.md
+pnpm import:staging         # tørrkjøring av import til staging-WooCommerce (--apply skriver)
+node scripts/skjermbilder.mjs fase-x   # skjermbilder til docs/screenshots/ (server må kjøre)
 ```
 
-Krever Node 22 og pnpm 10. Ingen nøkler eller miljøvariabler er nødvendige for å kjøre konseptet.
+## Arkitektur
 
-Skjermbilder av forsiden, kategori, produkt, handlekurv og kasse på desktop og mobil ligger i
-`docs/skjermbilder/`.
+| Del                    | Hvor                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------ |
+| Flate                  | Next.js 16 (App Router), React 19, TypeScript strict, Tailwind CSS v4, shadcn/ui (Radix), lucide-react |
+| Designtokens           | `src/styles/tokens.css` (verdier fra oppdraget §4), kontrasttest i `tokens.test.ts`                    |
+| Datalag                | `src/lib/woocommerce/` – `DATA_SOURCE=json` (data/products.json) eller `woocommerce` (Store API)       |
+| Filtre, søk, sortering | `src/lib/katalog/sporring.ts` – rene funksjoner, filtrene ligger i adressen                            |
+| Handlekurv             | `src/lib/kurv/` – lokal (prototype) eller Store API-kurv med Cart-Token (staging)                      |
+| Kasse og «Min konto»   | WooCommerce selv. Overføring via mu-plugin: `wordpress/mu-plugins/regina-headless/`                    |
+| Innhold fra WordPress  | Kampanjebanner (start/slutt), åpningstider, «gi meg beskjed» – samme mu-plugin                         |
+| Import til staging     | `scripts/import_to_woocommerce.ts` (idempotent på SKU, tørrkjøring som standard, nekter produksjon)    |
+| Data                   | `scripts/refresh_from_store.py` → `raw/`, `scripts/build_catalog.py` → `data/`                         |
 
-### Demonstrasjon – foreslått rekkefølge
+Detaljer, kontrakter og testoppskrift for kassen: [`docs/architecture.md`](docs/architecture.md).
 
-1. **Forsiden** – den rosa løperen fra butikkdøren i Haraldsgata ruller ut på siden og leder inn i kategoriene.
-2. **Meny → Duft → Nisjeduft** (megameny med tastatur, mus og berøring).
-3. **Filtrer** på merke (f.eks. Initio), se antall treff, aktive filtre og «Nullstill».
-4. **Side Effect EdP** – trykk «Legg i handlekurven» uten størrelse (du blir bedt om å velge), velg 90 ml,
-   se prisen endre seg, legg i kurven (bildet flyr til kurven, kurven åpner seg).
-5. I kurven: endre antall, fjern, legg til igjen, **Gå til kassen** – oppsummering og leveringsvalg.
-6. **Søk** «vanilje» eller «creed aventus»; på forsiden: «Finn duften etter noten du liker».
-7. **Merker** – A–Å og merkene som bare finnes i butikken.
-8. Mobil (390 px): meny med nivåer, filterskuff, fast kjøpslinje på produktsiden.
+## Sider
 
-## Hva er implementert
+- **Forside** – hero (plassholder for film), merkebånd, nytt i nettbutikken, kategori-inngang, nisjeduft,
+  bestselgere (WooCommerces popularitet), historien siden 1863, behandlinger, kundeklubb, besøk butikken.
+- **Kategori** `/produktkategori/<sti>/` – filtre for underkategori, merke, pris, størrelse, farge, lager og
+  tilbud, sortering, antall treff, «Vis flere». Virker uten JavaScript, og filtrene kan deles.
+- **Produkt** `/produkt/<slug>/` – galleri (opptil 8 bilder), variantvalg, pris og lager per variant, «gi meg
+  beskjed» ved utsolgt, beskrivelse (og tekst når den mangler), relaterte produkter, JSON-LD.
+- **Merker** `/merker/` (A–Å og «Merker kun i butikken»), **merkeside** `/brand/<slug>/`.
+- **Søk** – hurtigsøk (kommandopalett, «/» eller Ctrl/Cmd+K) og `/sok/`.
+- **Handlekurv** (skuff og `/handlekurv/`) → «Gå til kassen».
+- **Innhold** – om oss, behandlinger, kundeklubb, kontakt med kart, frakt og levering, angrerett og retur,
+  kjøpsvilkår, personvern (med informasjonskapsler). Tekstene er Reginas egne fra dagens nettsider.
+- **SEO** – samme adresser som i dag (alle 1 082 produktadresser er like), 301 der noe er endret
+  ([`docs/redirects.csv`](docs/redirects.csv)), `sitemap.xml`, `robots.txt` (stengt til lansering),
+  kanoniske adresser og Open Graph.
 
-- **Forside** med kollasj-hero (butikkfasaden i en bue, en frilagt flaske med pris, et bilde fra disken),
-  rosa merkebånd med pauseknapp, kategorikort med Reginas egne bilder og frilagte produkter, et
-  utstillingsvindu for nisjeduft (én duft om gangen, med pauseknapp), personlig veiledning/historie,
-  utforsk etter duftnote, merker i kolonner, «Bare i butikken», hudpleieavdelingen, spørsmål og svar og
-  «Velkommen inn» med butikkbildene i bevegelse. Bunnteksten avdekkes under siden på store skjermer.
-- **Header** som glir bort ved rulling nedover og kommer tilbake ved rulling opp; megameny med butikkbilde.
-- **Kategori, merke, søk og tilbud** – filtrering (type, merke, pris, lager, tilbud, duftnote) med antall per
-  valg, sortering, aktive filtre, «vis flere», filterskuff på mobil, tomme treff og lastetilstand.
-  Filtrene ligger i adressen og kan deles.
-- **Produktside** – galleri (miniatyrer på stor skjerm, sveip på mobil), variantvalg med pris og lager per
-  størrelse/farge, antall, kjøpsknapp, fast kjøpslinje på mobil, duftpyramide når notene er oppgitt,
-  beskrivelse, verifiserte leverings- og returopplysninger, relaterte produkter.
-- **Handlekurv** som skuff – riktig variant, antall, pris, delsum, fjerning, tom tilstand, lasting, feil, og
-  kontroll mot gjeldende pris og lager (gammel pris rettes og forklares).
-- **Kasse (oversikt)** – gjennomgang før Reginas kasse. I konseptmodus er betaling tydelig ikke aktivert.
-- **Merker A–Å, Om Regina, Levering/retur/kontakt, 404 og feilside.**
-- **Søk** i dialog med forslag (produkter, merker, kategorier, duftnoter) og egen resultatside.
+## Kvalitet (målt 27.10.2026)
 
-## Teknisk
+- **Tester:** enhetstester (vitest) for datalag, filtre/søk, pris, kurv, Store API-kontrakten, signaturer,
+  kampanjer, kontrast og omdirigeringer, og importen. Playwright: søk → produkt → variant → kurv → kassen på
+  desktop og mobil, WooCommerce-kurv mot falsk Store API med overføring til kassen, filtre, kjøp uten
+  JavaScript og axe (WCAG 2.1 AA) på ni sider.
+- **Lighthouse mobil** (lokal `next start`, varm cache): ytelse 90–95, tilgjengelighet 96–100, beste praksis
+  100 på forside, kategori og produkt. LCP 2,7–3,5 s i labmålingen – målet på 2,5 s må måles på nytt på
+  Vercel (CDN og bildebuffer). SEO 100 når bygget lages med `INDEKSERING=pa`; til lansering er siden bevisst
+  stengt for søkemotorer.
 
-- Next.js 16 (App Router), React 19, TypeScript, CSS-moduler med semantiske tokens
-  (`src/styles/tokens.css`). Ingen UI-rammeverk – bare det designet trenger.
-- Skrifter selvhostet via Fontsource: **Cormorant Garamond** (500–600, hero og store overskrifter) og
-  **Manrope** (400–600, alt funksjonelt).
-- Katalogen: `src/lib/katalog/` – domenemodell (`typer.ts`), mapping fra Store API (`woo/mapping.ts`), lesing
-  med tillatt-liste (`woo/hent.ts`), filtrering/søk (`sporring.ts`). Handlekurv: `src/lib/handlekurv/`.
-- Kassen: `src/lib/kasse/lenke.ts` – overlevering til WooCommerce via delbar kasse-lenke (av som standard).
+## Gjenstår (krever Marius/Regina eller staging)
 
-```bash
-pnpm verify              # typecheck + lint + enhetstester + build
-pnpm test                # vitest (121 tester)
-pnpm test:e2e            # Playwright: hovedreisen på desktop og mobil (krever kjørende server)
-pnpm katalog:hent        # nytt utdrag fra Reginas Store API (bare GET)
-pnpm katalog:bygg        # bygg katalogen på nytt fra mellomlagret rådata, uten nettverk
-```
+1. **Staging-WordPress** med WooCommerce, Vipps i testmodus og Diller → kjør spiken
+   (`docs/architecture.md` §8) og importen (`pnpm import:staging --apply`).
+2. **Diller i Vipps Checkout** – trolig ikke støttet av Diller-pluginen i dag; må avklares med Diller.
+3. **21st.dev-komponentene** – valgt og logget i [`docs/components.md`](docs/components.md), men ikke
+   installert: gratisnivået gir 2 per døgn, og dagens kvote var brukt. Flaten er bygget med shadcn/ui i
+   mellomtiden.
+4. Avklaringer i [`docs/data-issues.md`](docs/data-issues.md): Guerlain-produktet, åpningstider, fraktpriser,
+   kundeklubbens fordeler, Vipps-plugin, merkeregister, personvernerklæring, bruksrett til bilder, logo,
+   sandfarger og film til forsiden.
 
-### Katalogkilde
-
-| `KATALOG_KILDE` | Hva                                                                                  |
-| --------------- | ------------------------------------------------------------------------------------ |
-| `utdrag`        | Standard. Lagret utdrag i `data/katalog/` (hentet 26.10.2026). Virker uten nettverk. |
-| `live`          | Leser Store API direkte (bare GET), mellomlagret `KATALOG_LEVETID` sekunder (300).   |
-
-Produktbildene hentes fra Reginas mediebibliotek og optimaliseres av Next.js. Se `.env.example`.
-
-## Hva er ekte og hva er demo
-
-| Del                                         | Status                                                                      |
-| ------------------------------------------- | --------------------------------------------------------------------------- |
-| Produkter, priser, varianter, lager, merker | **Ekte**, fra Reginas WooCommerce (utdrag 26.10.2026, eller live)           |
-| Produktbilder                               | **Ekte**, fra Reginas mediebibliotek                                        |
-| Duftnoter                                   | **Ekte**, lest fra produktbeskrivelsene der de er oppgitt (52 produkter)    |
-| Butikkfakta, levering, retur, historie      | **Ekte**, fra Reginas egne sider – kilde i `src/innhold/butikk.ts`          |
-| Butikkbilder og logo                        | **Reginas eget materiale** – bruksrett må bekreftes (`docs/bildekilder.md`) |
-| Utvalget på forsiden og kategoritekstene    | **Satt av Flyd** for konseptet (`src/innhold/forside.ts`)                   |
-| Kategoribilder, heroflasken, merkebåndet    | **Satt av Flyd**: hvilke produkter og bilder som vises (`forside.ts`)       |
-| Handlekurven                                | **Lokal i nettleseren**, kontrollert mot katalogen. Ikke WooCommerce-kurv   |
-| Kassen / betaling                           | **Ikke koblet.** Ingen ordre opprettes. Overlevering er bygget, men av      |
-
-## Gjenstående avhengigheter
-
-1. **Bruksrett til bildene** fra reginaparfymeri.no (fotograf ikke oppgitt) og originalfiler i høyere oppløsning.
-2. **Kasse:** bekreft at WooCommerce-installasjonen godtar `/checkout-link/` (WooCommerce 10.x) eller velg
-   Store API-handlekurv med `Cart-Token` – testes i Reginas staging, ikke i produksjon.
-3. **Rabatter og frakt** beregnes av WooCommerce (Woo Discount Rules, Posten/Bring) i kassen – ikke i flaten.
-4. **Åpningstider** finnes ikke på Reginas sider og er derfor ikke vist.
-5. **Datakvalitet** i butikken: doble varianter, produkter uten merke og uten beskrivelse
-   (`data/katalog/datakvalitet.json`, `docs/funn-kundereise.md`).
-
-Mer: `docs/designretning.md`, `docs/integrasjon-woocommerce.md`, `docs/funn-kundereise.md`,
-`docs/bildekilder.md`, `docs/beslutninger.md`.
+Mer: [`docs/beslutninger.md`](docs/beslutninger.md), [`docs/designretning.md`](docs/designretning.md),
+[`docs/bildekilder.md`](docs/bildekilder.md), [`docs/funn-kundereise.md`](docs/funn-kundereise.md),
+skjermbilder i [`docs/screenshots/`](docs/screenshots/).

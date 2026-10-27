@@ -1,4 +1,5 @@
-@import 'tailwindcss';
+/* Tailwind skanner bare src/ – ikke data/ og raw/ (megabyte med produkttekst ga ~100 KB ubrukt CSS). */
+@import 'tailwindcss' source('../');
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '../styles/tokens.css';

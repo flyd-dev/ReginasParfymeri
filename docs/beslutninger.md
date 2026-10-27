@@ -87,3 +87,82 @@ bunnteksten får plass. Ellers står den vanlig nederst, så ingenting blir ligg
 
 Svarene er satt sammen av `LEVERING`, `RETUR`, `KUN_I_BUTIKKEN`, `NISJE` og `HUDPLEIE` i
 `src/innhold/butikk.ts`. Endres vilkårene der, endres svarene – ingen egen tekst om priser eller frister.
+
+---
+
+# Ny nettbutikk etter oppdraget (fra 27.10.2026)
+
+Beslutningene over (R-1 til R-16) gjaldt konseptet. Fra 27.10.2026 er nettbutikken bygget på nytt etter
+oppdragsbeskrivelsen (`docs/oppdrag.md`). R-1 til R-4, R-8 og R-12 gjelder fortsatt. R-5, R-6, R-7, R-9 til R-11
+og R-13 til R-16 er erstattet av beslutningene under.
+
+## R-17 Bygget på nytt etter oppdraget
+
+Flyd valgte 27.10.2026 å bygge flaten på nytt slik oppdraget beskriver – Tailwind CSS v4, shadcn/ui og
+21st.dev-komponenter – i stedet for å bygge videre på konseptets CSS-moduler. Butikkfakta
+(`src/content/butikk.ts`), Reginas bilder og de testede reglene for tekst, pris og varianter er tatt med.
+
+## R-18 Oppdragets profil fullt ut
+
+Flyd valgte oppdragets profil: Playfair Display (overskrifter) og Poppins (brødtekst/UI), fargetokens fra
+oppdraget §4 og produktbilder på `--paper` med `mix-blend-mode: multiply`. Erstatter R-5, R-6 og R-7.
+Konsekvenser: `--sand-ink` og `--regina-pink-strong` holder ikke 4,5:1 på `--sand-100`; der brukes
+`--sand-ink-deep` (lagt til) og plum. Ren rosa brukes bare til stor tekst og dekor (`tokens.test.ts`).
+
+## R-19 Samme adresser som i dag
+
+`/produkt/<slug>/`, `/produktkategori/<sti>/` og `/brand/<slug>/` beholdes, med skråstrek til slutt som i
+WordPress. Alle 1 082 produktadresser er like. Merker der slugen er endret, og WooCommerce-sider som kassen,
+får 301 (`src/lib/seo/omdirigeringer.ts`, `docs/redirects.csv`). Merkene får slugen fra dagens merkeregister
+(Perfect WooCommerce Brands), så `/brand/memo/` fortsatt virker selv om merket heter «Memo Paris».
+
+## R-20 Data fra oppdragets products.json, beriket fra samme Store API
+
+`data/products.json` fra oppdraget er brukt og hentet på nytt (bare GET). `build_catalog.py` er utvidet med pris
+og lager per variant, publiseringsdato, popularitet, merkeregisteret og Reginas egne sider. Merket kommer fra
+feltet `brand` (normalisert), ikke fra prefikset i navnet. Begge kildene (json og Store API) gir samme pris,
+lager og varianter for alle produkter – det er testet.
+
+## R-21 «Nyhet» og «Bestselgere» bare fra WooCommerce
+
+«Nyhet» = publisert i WooCommerce de siste 45 dagene (`NYHET_DAGER`). «Bestselgere» = WooCommerces egen
+popularitet (total_sales), vist per kategori (nisjeduft, ansiktspleie, makeup). Ingen merker settes for hånd.
+
+## R-22 Kurven: kopi gjennom WooCommerces kurv-API, ikke adopsjon av økten
+
+Etter spiken (`docs/architecture.md` §4): Next.js holder Store API-kurven med Cart-Token i en httpOnly-cookie.
+«Gå til kassen» er et POST-skjema som sender kunden til mu-pluginen, som legger varene i kundens egen
+WooCommerce-økt med `add_to_cart` og sender videre til kassen. WooCommerces innebygde `?session=` er vurdert og
+forkastet (tokenet blir stående i adressen, gamle kurver gjenbrukes, Vipps-kroker kjøres ikke).
+
+## R-23 Prototypen har en lokal kurv
+
+Uten staging er det ingen WooCommerce-kurv å skrive til, og produksjonen skal ikke få kurver. Prototypen har
+derfor en lokal kurv (ID-er og antall i en cookie, kontrollert mot katalogen ved hver lesing). Kurv mot
+produksjonsverten er stengt i koden til `TILLAT_KURV_PRODUKSJON=ja`.
+
+## R-24 Virker uten JavaScript der det teller
+
+Filtre er lenker, sortering et skjema, «Legg i handlekurven» et skjema som poster til `/api/kurv/`, produktrader
+bruker scroll-snap, og beskrivelser bruker `<details>`. Søk og handlekurvskuff lastes først når de åpnes.
+
+## R-25 21st.dev: valgt, men ikke installert
+
+21st.dev krever innlogging for registeret, og gratisnivået gir 2 komponenter per døgn. Kvoten var brukt.
+Komponentene er valgt og logget i `docs/components.md`; flaten er bygget med shadcn/ui i mellomtiden.
+Merkebåndet bruker merkenavn i Playfair, fordi vi ikke har merkenes logoer med bruksrett.
+
+## R-26 Guerlain bestemmes ikke av oss
+
+«GUERLAIN – Mon Guerlain Xmas» vises og kan kjøpes som i dag, selv om Guerlain står på listen over merker som
+ikke kan selges på nett. Det er Reginas beslutning (`AVKLARES` i `src/content/butikk.ts`, `docs/data-issues.md`).
+
+## R-27 Stengt for søkemotorer til lansering
+
+`robots.txt` og `noindex` til `INDEKSERING=pa`, så staging og forhåndsvisninger ikke konkurrerer med dagens
+butikk.
+
+## R-28 Kart først ved klikk
+
+Kontaktsiden viser adresse og lenke til Google Maps. Kartet (OpenStreetMap) lastes først når kunden ber om det,
+så ingen tredjepart får IP-adressen uten et valg. Koordinatene er fra OpenStreetMap Nominatim.

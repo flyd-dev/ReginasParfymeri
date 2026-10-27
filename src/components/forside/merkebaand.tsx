@@ -28,8 +28,8 @@ export function Merkebaand({ merker }: { merker: { navn: string; slug: string }[
   )
   return (
     <section aria-label="Merker" className="border-y border-sand-200 bg-sand-50">
-      <div className="group relative mx-auto flex max-w-screen-2xl items-center">
-        <div className="flex-1 overflow-hidden py-8 motion-reduce:overflow-x-auto">
+      <div className="group mx-auto max-w-screen-2xl">
+        <div className="overflow-hidden pt-8 pb-3 motion-reduce:overflow-x-auto">
           <div
             className="flex w-max animate-[merkebaand_60s_linear_infinite] group-focus-within:[animation-play-state:paused] group-hover:[animation-play-state:paused] motion-reduce:animate-none"
             style={pause ? { animationPlayState: 'paused' } : undefined}
@@ -38,14 +38,18 @@ export function Merkebaand({ merker }: { merker: { navn: string; slug: string }[
             {rad(true)}
           </div>
         </div>
-        <button
-          type="button"
-          onClick={() => setPause((p) => !p)}
-          className="mr-4 grid size-11 shrink-0 place-items-center border border-sand-200 bg-sand-50 motion-reduce:hidden md:mr-6"
-          aria-label={pause ? 'Start merkebåndet' : 'Stopp merkebåndet'}
-        >
-          {pause ? <Play className="size-4" aria-hidden /> : <Pause className="size-4" aria-hidden />}
-        </button>
+        {/* Egen rad for knappen, så merkene som glir forbi aldri ligger over den (WCAG 2.5.8). */}
+        <div className="flex justify-end px-4 pb-3 motion-reduce:hidden md:px-6">
+          <button
+            type="button"
+            onClick={() => setPause((p) => !p)}
+            className="inline-flex h-11 items-center gap-2 px-2 text-sm text-sand-ink hover:text-regina-plum"
+            aria-label={pause ? 'Start merkebåndet' : 'Stopp merkebåndet'}
+          >
+            {pause ? <Play className="size-4" aria-hidden /> : <Pause className="size-4" aria-hidden />}
+            <span aria-hidden>{pause ? 'Start' : 'Stopp'}</span>
+          </button>
+        </div>
       </div>
     </section>
   )
