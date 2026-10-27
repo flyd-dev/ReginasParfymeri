@@ -23,6 +23,22 @@ Alle verdier står i `src/styles/tokens.css` og er koblet til Tailwind i `src/ap
 
 Rosa er en aksent: kursive ord i overskrifter, «Nyhet», fokusring og hover. Resten er sand og plum.
 
+### Dybde og rytme (27.10.2026)
+
+Sand-50, paper og sand-100 ligger svært nær hverandre i lyshet. Brukt alene gir de en flat side. Derfor:
+
+- **Verdikontrast:** plum er sidens mørke flate og brukes bevisst flere steder – flaten bak hero-bildet som går
+  ut i kanten, merkebåndet, nisjeduft, den store kategoriflisen, besøkskortet og footeren. Lyse og mørke flater
+  veksler nedover forsiden.
+- **Én rosa flate:** Reginas løfte om veiledning står på `--regina-pink-strong` med hvit tekst (5,8:1). Det er
+  sidens eneste store rosa flate; ellers er rosa fortsatt en aksent.
+- **Dybde uten skygger:** forskjøvne fargeflater bak bilder, elementer som ligger over kanten av en annen flate
+  (produktkortet i heroen, fasaden i historien, plumkortet over butikkbildet) og en kort rosa strek foran
+  overlinjene.
+- **Svak parallakse:** `.parallakse` og `.parallakse-ut` i `globals.css` lar enkelte bildelag gli 1,5–3 rem
+  saktere eller raskere enn siden. Bare transform, bare med rullestyrte animasjoner og aldri ved redusert
+  bevegelse. Brukes ikke på tekst.
+
 ## Typografi
 
 - **Playfair Display 500** (normal og kursiv) til overskrifter – kursiv aksent i rosa («Nisjedufter med
@@ -42,6 +58,8 @@ Rosa er en aksent: kursive ord i overskrifter, «Nyhet», fokusring og hover. Re
 
 Fade og slide på 150–250 ms (`--dur-fast/base/slow`), bare transform og opacity. Ingenting ved
 `prefers-reduced-motion`. Merkebåndet går rolig og har pauseknapp (WCAG 2.2.2). Ingen automatisk karusell.
+Rullestyrt avdekking (`.avdekk`) og parallakse (`.parallakse`) brukes bare på bilder, så kontrasten aldri måles
+på halvgjennomsiktig tekst.
 
 ## Komponenter
 

@@ -11,9 +11,9 @@ import { BUTIKKEN, KUNDESERVICE } from './lenker'
 import { Logo } from './logo'
 import { Samtykkelenke } from './samtykke'
 
-// Sekundærtekst og lenker i sand-ink-deep på sand-100; peker gir plomme og understrek (rosa holder ikke her).
+// Footeren står på plum og avslutter siden med en mørk flate. Lenker i sand-100, peker gir sand-50 og understrek.
 const lenke =
-  'text-sand-ink-deep underline-offset-4 transition-colors duration-(--dur-fast) hover:text-regina-plum hover:underline'
+  'text-sand-100 underline-offset-4 transition-colors duration-(--dur-fast) hover:text-sand-50 hover:underline'
 const overskrift = 'font-sans text-base font-medium'
 // Lenkene ligger på én linje som brytes på mobil, og i kolonne fra md.
 const liste = 'mt-4 flex flex-wrap gap-x-5 gap-y-2.5 md:flex-col md:gap-y-3'
@@ -22,12 +22,12 @@ export async function Footer() {
   const info = await hentButikkinfo()
   const innmelding = dillerInnmelding()
   return (
-    <footer className="mt-24 border-t border-sand-200 bg-sand-100">
+    <footer className="mt-24 bg-regina-plum text-sand-50 [&_:focus-visible]:outline-sand-50">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-6">
         <div className="flex flex-col gap-10 py-14 md:flex-row md:items-end md:justify-between md:gap-16">
           <div>
             <Logo className="block h-16 w-fit" />
-            <p className="mt-6 text-sand-ink-deep">
+            <p className="mt-6 text-sand-100">
               {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
             </p>
             <ul className="mt-4 flex gap-6" aria-label="Regina i sosiale medier">
@@ -51,7 +51,7 @@ export async function Footer() {
           </p>
         </div>
 
-        <div className="border-t-2 border-dotted border-sand-200" />
+        <div className="border-t-2 border-dotted border-white/20" />
 
         <div className="grid gap-x-10 gap-y-12 py-14 md:grid-cols-3 lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.5fr)]">
           <nav aria-label="Kundeservice">
@@ -93,7 +93,7 @@ export async function Footer() {
               </p>
             </address>
             {info?.bekreftet && info.apningstider.length > 0 && (
-              <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm text-sand-ink-deep">
+              <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm text-sand-100">
                 {info.apningstider.map((a) => (
                   <div key={a.dager} className="contents">
                     <dt>{a.dager}</dt>
@@ -107,10 +107,10 @@ export async function Footer() {
             <h2 id="footer-kundeklubb" className={overskrift}>
               {KUNDEKLUBB.navn}
             </h2>
-            <p className="mt-4 max-w-md text-sand-ink-deep">
+            <p className="mt-4 max-w-md text-sand-100">
               {KUNDEKLUBB.drift} {KUNDEKLUBB.iKassen}
             </p>
-            <Button asChild className="mt-5">
+            <Button asChild variant="rosa" className="mt-5">
               {innmelding ? (
                 <a href={innmelding} rel="noopener">
                   Meld deg inn
@@ -120,13 +120,13 @@ export async function Footer() {
                 <Link href="/kundeklubb/">Om kundeklubben</Link>
               )}
             </Button>
-            {innmelding && <p className="mt-3 text-sm text-sand-ink-deep">{KUNDEKLUBB.hosDiller}</p>}
+            {innmelding && <p className="mt-3 text-sm text-sand-100">{KUNDEKLUBB.hosDiller}</p>}
           </section>
         </div>
       </div>
 
-      <div className="border-t border-sand-200">
-        <div className="mx-auto flex max-w-screen-2xl flex-col gap-3 px-4 py-6 text-sm text-sand-ink-deep md:flex-row md:items-center md:justify-between md:px-6">
+      <div className="border-t border-white/15">
+        <div className="mx-auto flex max-w-screen-2xl flex-col gap-3 px-4 py-6 text-sm text-sand-100 md:flex-row md:items-center md:justify-between md:px-6">
           <p>
             {BUTIKK.selskap} · Org.nr. {BUTIKK.orgnr} · Alle priser er inkl. mva.
           </p>

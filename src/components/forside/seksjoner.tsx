@@ -29,7 +29,12 @@ export function Seksjonstittel({
   return (
     <div className="mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-14">
       <div>
-        {kicker && <p className="text-sm tracking-[0.2em] text-sand-ink-deep uppercase">{kicker}</p>}
+        {kicker && (
+          <p className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
+            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            {kicker}
+          </p>
+        )}
         <h2 id={id} className="mt-3 text-4xl md:text-6xl">
           {tittel}
         </h2>
@@ -65,8 +70,8 @@ const FLIS_LITEN = {
 }
 const FLIS = [
   {
-    li: 'col-span-2 aspect-[4/3] lg:row-span-2 lg:aspect-auto',
-    luft: 'p-[12%] lg:p-[16%]',
+    li: 'col-span-2 aspect-square sm:aspect-[4/3] lg:row-span-2 lg:aspect-auto',
+    luft: 'p-[10%]',
     tittel: 'text-3xl md:text-5xl',
     sizes: '(min-width: 1024px) 45vw, 100vw',
   },
@@ -97,33 +102,57 @@ export function Kategoriinnganger({
         <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4 lg:grid-rows-[repeat(2,20rem)] xl:grid-rows-[repeat(2,23rem)]">
           {innganger.map((k, i) => {
             const flis = FLIS[i] ?? FLIS_LITEN
+            // Den store flisen er plum med produktet på en papirflate: den mørke flaten gir rutenettet tyngde.
+            const mork = i === 0
+            const bilde = k.produkt?.bilder[0] && (
+              <Image
+                src={k.produkt.bilder[0].src}
+                alt=""
+                fill
+                sizes={flis.sizes}
+                className={cn(
+                  'object-contain mix-blend-multiply transition-transform duration-(--dur-slow) ease-out group-hover:scale-[1.04]',
+                  flis.luft,
+                )}
+              />
+            )
             return (
               <li key={k.sti.join('/')} className={cn('relative', flis.li)}>
                 <Link
                   href={kategoriUrl(k.sti)}
-                  className="group absolute inset-0 flex flex-col overflow-hidden border border-sand-200 bg-paper"
+                  className={cn(
+                    'group absolute inset-0 flex flex-col overflow-hidden border',
+                    mork ? 'border-regina-plum bg-regina-plum text-sand-50' : 'border-sand-200 bg-paper',
+                  )}
                 >
-                  <span className="absolute top-4 left-5 z-10 text-sm text-sand-ink tabular-nums md:left-6">
+                  <span
+                    className={cn(
+                      'absolute top-4 left-5 z-10 text-sm tabular-nums md:left-6',
+                      mork ? 'text-sand-100' : 'text-sand-ink',
+                    )}
+                  >
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="avdekk relative isolate min-h-0 flex-1 bg-paper">
-                    {k.produkt?.bilder[0] && (
-                      <Image
-                        src={k.produkt.bilder[0].src}
-                        alt=""
-                        fill
-                        sizes={flis.sizes}
-                        className={cn(
-                          'object-contain mix-blend-multiply transition-transform duration-(--dur-slow) ease-out group-hover:scale-[1.04]',
-                          flis.luft,
-                        )}
-                      />
+                  {mork ? (
+                    <span className="avdekk grid min-h-0 flex-1 place-items-center px-5 pt-12 pb-5 md:px-8 md:pt-14 md:pb-8">
+                      <span className="relative isolate aspect-square h-full max-w-full overflow-hidden bg-paper">
+                        {bilde}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="avdekk relative isolate min-h-0 flex-1 bg-paper">{bilde}</span>
+                  )}
+                  <span
+                    className={cn(
+                      'flex items-end justify-between gap-4 border-t px-5 py-4 md:px-6 md:py-5',
+                      mork ? 'border-white/15' : 'border-sand-200',
                     )}
-                  </span>
-                  <span className="flex items-end justify-between gap-4 border-t border-sand-200 px-5 py-4 md:px-6 md:py-5">
+                  >
                     <span>
                       <span className={cn('block font-heading leading-none', flis.tittel)}>{k.navn}</span>
-                      <span className="mt-2 block text-sm text-sand-ink">{k.antall} produkter</span>
+                      <span className={cn('mt-2 block text-sm', mork ? 'text-sand-100' : 'text-sand-ink')}>
+                        {k.antall} produkter
+                      </span>
                     </span>
                     <ArrowRight
                       className="mb-1 size-5 shrink-0 transition-transform duration-(--dur-base) group-hover:translate-x-1"
@@ -200,27 +229,37 @@ export function Nisjemerker({ merker }: { merker: Nisjemerke[] }) {
   )
 }
 
-/** Reginas eget løfte om veiledning (reginaparfymeri.no) – ikke et kundesitat. */
+/**
+ * Reginas eget løfte om veiledning (reginaparfymeri.no) – ikke et kundesitat. Sidens ene flate i Reginas rosa
+ * (regina-pink-strong, hvit tekst holder 5,8:1): et tydelig fargeløft midt i en ellers rolig side.
+ */
 export function Veiledning() {
   return (
-    <section className="bg-sand-100" aria-labelledby="veiledning-tittel">
-      <div className="mx-auto max-w-5xl px-4 py-20 text-center md:px-6 md:py-32">
-        <h2 id="veiledning-tittel" className="sr-only">
-          Personlig veiledning
-        </h2>
-        <Quote className="mx-auto size-10 text-regina-pink" aria-hidden />
-        <blockquote className="mt-8 font-heading text-[clamp(1.75rem,1.1rem+2.2vw,3.25rem)] leading-[1.18]">
-          {NISJE.veiledning}
-        </blockquote>
-        <p className="mt-8 text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
-          Regina Parfymeri · {BUTIKK.adresse.gate}
-        </p>
-        <Link
-          href="/kontakt/"
-          className="mt-6 inline-flex items-center gap-2 border-b border-regina-plum pb-1 hover:border-regina-pink"
-        >
-          Finn veien til butikken <ArrowRight className="size-4" aria-hidden />
-        </Link>
+    <section
+      className="bg-regina-pink-strong text-white [&_:focus-visible]:outline-white"
+      aria-labelledby="veiledning-tittel"
+    >
+      <div className="mx-auto grid max-w-screen-2xl gap-10 px-4 py-20 md:px-6 md:py-32 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-3">
+          <Quote className="size-12 md:size-16" aria-hidden />
+          <h2 id="veiledning-tittel" className="mt-6 font-sans text-sm tracking-[0.2em] uppercase">
+            Personlig veiledning
+          </h2>
+        </div>
+        <div className="lg:col-span-9">
+          <blockquote className="font-heading text-[clamp(2rem,1.2rem+2.8vw,4.25rem)] leading-[1.12]">
+            {NISJE.veiledning}
+          </blockquote>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/30 pt-6">
+            <p className="text-sm tracking-[0.2em] uppercase">Regina Parfymeri · {BUTIKK.adresse.gate}</p>
+            <Link
+              href="/kontakt/"
+              className="inline-flex items-center gap-2 border-b border-white pb-1 transition-colors duration-(--dur-fast) hover:border-transparent"
+            >
+              Finn veien til butikken <ArrowRight className="size-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -234,7 +273,12 @@ export function Historien() {
       aria-labelledby="historie-tittel"
     >
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
-        <div className="relative pb-[22%] lg:col-span-6 lg:pb-[16%]">
+        <div className="relative isolate pb-[22%] lg:col-span-6 lg:pb-[16%]">
+          {/* Tre plan: plumflate, butikkbildet og fasaden foran – dybde uten skygger. */}
+          <span
+            className="absolute top-[24%] bottom-[6%] -left-4 -z-10 w-[52%] bg-regina-plum md:-left-8"
+            aria-hidden
+          />
           <div className="avdekk relative aspect-[4/5] w-[80%] overflow-hidden bg-sand-100">
             <Image
               src={BILDER.vedDisken.bilde}
@@ -244,7 +288,7 @@ export function Historien() {
               className="object-cover"
             />
           </div>
-          <div className="avdekk absolute right-0 bottom-0 aspect-square w-[50%] overflow-hidden border-[10px] border-sand-50 bg-sand-100">
+          <div className="parallakse absolute right-0 bottom-0 aspect-square w-[50%] overflow-hidden border-[10px] border-sand-50 bg-sand-100 [--parallakse:2rem]">
             <Image
               src={BILDER.fasade.bilde}
               alt={BILDER.fasade.alt}
@@ -255,7 +299,10 @@ export function Historien() {
           </div>
         </div>
         <div className="self-center lg:col-span-5 lg:col-start-8">
-          <p className="text-sm tracking-[0.2em] text-sand-ink uppercase">Familiebedrift</p>
+          <p className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink uppercase">
+            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            Familiebedrift
+          </p>
           <h2 id="historie-tittel" className="mt-3 text-4xl md:text-6xl">
             Fem generasjoner i Haugesund
           </h2>
@@ -323,7 +370,7 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
   return (
     <section className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28" aria-labelledby="besok-tittel">
       <div className="grid lg:grid-cols-12">
-        <div className="avdekk relative aspect-[4/3] overflow-hidden bg-sand-100 lg:col-span-8 lg:col-start-1 lg:row-start-1">
+        <div className="parallakse relative aspect-[4/3] overflow-hidden bg-sand-100 [--parallakse:1.5rem] lg:col-span-8 lg:col-start-1 lg:row-start-1">
           <Image
             src={BILDER.interior.bilde}
             alt={BILDER.interior.alt}
@@ -332,12 +379,16 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
             className="object-cover"
           />
         </div>
-        <div className="relative mx-4 -mt-16 border border-sand-200 bg-paper p-8 md:mx-12 md:p-12 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:mx-0 lg:mt-0 lg:self-center">
-          <p className="text-sm tracking-[0.2em] text-sand-ink uppercase">Besøk oss</p>
+        {/* Plumkortet ligger over bildekanten: mørk flate mot lyst foto gir dybde uten skygge. */}
+        <div className="relative mx-4 -mt-16 bg-regina-plum p-8 text-sand-50 md:mx-12 md:p-12 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:mx-0 lg:mt-0 lg:self-center [&_:focus-visible]:outline-sand-50">
+          <p className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-100 uppercase">
+            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            Besøk oss
+          </p>
           <h2 id="besok-tittel" className="mt-3 text-4xl md:text-5xl">
             {BUTIKK.adresse.gate}
           </h2>
-          <p className="mt-5 text-lg text-sand-ink">{BUTIKK.beliggenhet}.</p>
+          <p className="mt-5 text-lg text-sand-100">{BUTIKK.beliggenhet}.</p>
           {info?.bekreftet && info.apningstider.length > 0 && (
             <dl className="mt-6 grid max-w-xs grid-cols-[auto_1fr] gap-x-6 gap-y-1">
               {info.apningstider.map((a) => (
@@ -352,7 +403,7 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
             <li>
               <a
                 href={BUTIKK.kart}
-                className="inline-flex min-h-11 items-center gap-3 hover:text-regina-pink-strong"
+                className="inline-flex min-h-11 items-center gap-3 underline-offset-4 hover:underline"
                 rel="noopener"
               >
                 <MapPin className="size-4" aria-hidden /> Veibeskrivelse
@@ -361,13 +412,13 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
             <li>
               <a
                 href={BUTIKK.telefon.lenke}
-                className="inline-flex min-h-11 items-center gap-3 hover:text-regina-pink-strong"
+                className="inline-flex min-h-11 items-center gap-3 underline-offset-4 hover:underline"
               >
                 <Phone className="size-4" aria-hidden /> {BUTIKK.telefon.visning}
               </a>
             </li>
           </ul>
-          <Button asChild variant="outline" size="lg" className="mt-8 bg-transparent">
+          <Button asChild variant="rosa" size="lg" className="mt-8">
             <Link href="/kontakt/">Kontakt og kart</Link>
           </Button>
         </div>

@@ -42,14 +42,15 @@ export function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-sand-50" aria-labelledby="hero-tittel">
-      {/* Rosa løper: den tynne streken går fra butikkdøren i bildet og ned i siden. */}
+      {/* Plumflaten går ut i kanten og bærer bildet: sand og plum i to plan gir dybde uten skygger. */}
       <span
-        className="absolute top-0 right-[18%] -z-10 hidden h-full w-px bg-regina-pink/40 lg:block"
+        className="absolute top-0 right-0 -z-10 h-[24rem] w-[58%] bg-regina-plum sm:h-[30rem] lg:inset-y-0 lg:h-auto lg:w-[36%]"
         aria-hidden
       />
       <div className="mx-auto grid max-w-screen-2xl gap-y-14 px-4 pt-8 pb-20 md:px-6 lg:min-h-[calc(100svh-9.5rem)] lg:grid-cols-12 lg:items-center lg:gap-x-8 lg:py-14">
         <div className="order-2 lg:order-1 lg:col-span-6 xl:col-span-6">
-          <p className="text-sm tracking-[0.24em] text-sand-ink uppercase">
+          <p className="flex items-center gap-3 text-sm tracking-[0.24em] text-sand-ink uppercase">
+            <span className="h-px w-8 bg-regina-pink" aria-hidden />
             Haugesund · siden {HISTORIE.grunnlagt}
           </p>
           <h1
@@ -89,7 +90,7 @@ export function Hero({
         </div>
 
         <div className="relative order-1 pb-16 lg:order-2 lg:col-span-6 lg:pb-0 xl:col-span-6">
-          <div className="relative ml-auto aspect-[4/5] w-[78%] overflow-hidden bg-sand-100 sm:w-[64%] lg:w-[74%]">
+          <div className="parallakse-ut relative ml-auto aspect-[4/5] w-[78%] overflow-hidden bg-sand-100 [--parallakse:3rem] sm:w-[64%] lg:w-[74%]">
             {video ? (
               <>
                 <video
@@ -139,7 +140,7 @@ export function Hero({
           {produkt && (
             <Link
               href={produktUrl(produkt.slug)}
-              className="group absolute bottom-0 left-0 block w-[56%] border border-sand-200 bg-paper sm:w-[44%] lg:-bottom-4 lg:w-[46%]"
+              className="parallakse-ut group absolute bottom-0 left-0 block w-[56%] border border-sand-200 bg-paper [--parallakse:-1.5rem] sm:w-[44%] lg:-bottom-4 lg:w-[46%]"
             >
               <span className="relative block aspect-square overflow-hidden">
                 {produkt.bilde && (
