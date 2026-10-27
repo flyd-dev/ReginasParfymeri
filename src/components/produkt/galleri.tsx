@@ -1,11 +1,22 @@
 // Bygget etter «Thumbnail image viewer» (ibrandify, MIT) på 21st.dev – https://21st.dev/@ibrandify/components/thumbnail-image-viewer. Egen kode; ingen kode er kopiert.
+// Fremdriftslinjen på mobil er bygget etter «Scroll Progress» (Julien Thibeaut / ibelick, MIT) på 21st.dev – https://21st.dev/@ibelick/components/scroll-progress. Egen kode; ingen kode er kopiert.
 'use client'
 
+import './overganger.css'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-import { useEffect, useRef, useState, useSyncExternalStore, type KeyboardEvent } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  ViewTransition,
+  type KeyboardEvent,
+  type ReactNode,
+} from 'react'
 import { cn } from '@/lib/utils'
 import type { Bilde } from '@/lib/woocommerce/typer'
+import { MORFKLASSE, morfnavn } from './morfnavn'
 import { Produktbilde } from './produktbilde'
 
 const tosifret = (n: number) => String(n).padStart(2, '0')
@@ -17,9 +28,12 @@ const ingenAbonnement = () => () => {}
  *
  * Uten JavaScript er bildene en rad med scroll-snap, og miniatyrene er lenker til hvert bilde (#bilde-2 …), så
  * alle bildene kan nås. Teller og bildetekst hører til hvert bilde og stemmer derfor også da. Med JavaScript
- * tones bildene over i hverandre på stor skjerm (opacity), mens mobilen beholder sveipingen.
+ * tones bildene over i hverandre på stor skjerm, og det nye bildet legger seg på plass fra en svak forstørrelse;
+ * mobilen beholder sveipingen og får en tynn linje som følger fingeren.
+ *
+ * Det første bildet er målet for overgangen fra produktkortet (morf.tsx): samme navn, så kortbildet glir hit.
  */
-export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
+export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: string; produktId: number }) {
   const liste = bilder.slice(0, 8)
   const antall = liste.length
   const flere = antall > 1
@@ -35,6 +49,7 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
   )
   const spor = useRef<HTMLUListElement>(null)
   const miniatyrer = useRef<HTMLOListElement>(null)
+  const fremdrift = useRef<HTMLSpanElement>(null)
 
   // Mobil: miniatyrraden ruller selv så valgt bilde alltid synes, også når man sveiper i bildet.
   useEffect(() => {
@@ -71,8 +86,10 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
     gaaTil(aktiv + (e.key === 'ArrowRight' ? 1 : -1))
   }
 
+  // Trykk gir et lite søkk (transform), og pilen dytter i retningen ved peker.
   const knapp =
-    'grid size-11 place-items-center border border-sand-200 bg-paper text-regina-plum transition-colors duration-(--dur-fast) hover:border-regina-plum'
+    'group/pil grid size-11 place-items-center border border-sand-200 bg-paper text-regina-plum transition-[border-color,transform] duration-(--dur-fast) ease-out hover:border-regina-plum active:scale-95'
+  const pil = 'size-4 transition-transform duration-(--dur-fast) ease-out'
 
   return (
     // min-w-0: radene med bilder og miniatyrer skal rulle, ikke gjøre rutenettkolonnen bredere.
@@ -85,7 +102,11 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
           aria-label={`Bilder av ${navn}`}
           onScroll={(e) => {
             const el = e.currentTarget
-            if (el.clientWidth > 0) setAktiv(Math.min(antall - 1, Math.round(el.scrollLeft / el.clientWidth)))
+            if (el.clientWidth === 0) return
+            setAktiv(Math.min(antall - 1, Math.round(el.scrollLeft / el.clientWidth)))
+            // Linjen følger fingeren direkte (ingen re-render): andelen av raden som er rullet.
+            const andel = el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth)
+            fremdrift.current?.style.setProperty('--andel', String(Math.min(1, Math.max(0, andel))))
           }}
           className={cn(
             'flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
@@ -105,25 +126,34 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
               )}
             >
               <figure>
-                <div className="relative isolate aspect-square bg-paper">
-                  <Image
-                    src={b.src}
-                    alt={i === 0 ? b.alt : `${b.alt} – bilde ${i + 1} av ${antall}`}
-                    fill
-                    priority={i === 0}
-                    sizes="(min-width: 1536px) 770px, (min-width: 768px) 55vw, 100vw"
-                    className="object-contain p-[6%] mix-blend-multiply"
-                  />
-                  {flere && (
-                    <p
-                      className="absolute top-3 right-3 border border-sand-200 bg-paper px-2.5 py-1 text-sm leading-none tabular-nums"
-                      aria-hidden
-                    >
-                      <span className="font-medium">{tosifret(i + 1)}</span>
-                      <span className="text-sand-ink"> / {tosifret(antall)}</span>
-                    </p>
-                  )}
-                </div>
+                <Morfmal produktId={produktId} aktiv={i === 0}>
+                  <div className="relative isolate aspect-square overflow-hidden bg-paper">
+                    <Image
+                      src={b.src}
+                      alt={i === 0 ? b.alt : `${b.alt} – bilde ${i + 1} av ${antall}`}
+                      fill
+                      priority={i === 0}
+                      sizes="(min-width: 1536px) 770px, (min-width: 768px) 55vw, 100vw"
+                      className={cn(
+                        'object-contain p-[6%] mix-blend-multiply',
+                        // Stor skjerm: det nye bildet legger seg på plass mens det toner inn.
+                        klar &&
+                          blaet &&
+                          'md:transition-transform md:duration-(--dur-inn) md:ease-(--ease-ut)',
+                        klar && i !== aktiv && 'md:scale-[1.04]',
+                      )}
+                    />
+                    {flere && (
+                      <p
+                        className="absolute top-3 right-3 border border-sand-200 bg-paper px-2.5 py-1 text-sm leading-none tabular-nums"
+                        aria-hidden
+                      >
+                        <span className="font-medium">{tosifret(i + 1)}</span>
+                        <span className="text-sand-ink"> / {tosifret(antall)}</span>
+                      </p>
+                    )}
+                  </div>
+                </Morfmal>
                 {flere && (
                   <figcaption className="flex h-12 items-center text-sm">
                     <span className="truncate">
@@ -146,7 +176,7 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
               aria-label="Forrige bilde"
               aria-controls="galleri-bilder"
             >
-              <ChevronLeft className="size-4" aria-hidden />
+              <ChevronLeft className={cn(pil, 'group-hover/pil:-translate-x-0.5')} aria-hidden />
             </button>
             <button
               type="button"
@@ -155,9 +185,26 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
               aria-label="Neste bilde"
               aria-controls="galleri-bilder"
             >
-              <ChevronRight className="size-4" aria-hidden />
+              <ChevronRight className={cn(pil, 'group-hover/pil:translate-x-0.5')} aria-hidden />
             </button>
           </div>
+        )}
+
+        {flere && klar && (
+          // Mobil: tynn linje i underkanten av bildet som følger sveipingen. Andelen (--andel) settes i onScroll.
+          <span
+            className="pointer-events-none absolute inset-x-0 bottom-12 h-0.5 bg-sand-200 md:hidden"
+            aria-hidden
+          >
+            <span
+              ref={fremdrift}
+              className="block h-full bg-regina-plum"
+              style={{
+                width: `${100 / antall}%`,
+                transform: `translateX(calc(var(--andel, 0) * ${antall - 1} * 100%))`,
+              }}
+            />
+          </span>
         )}
       </div>
 
@@ -194,5 +241,15 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
         </ol>
       )}
     </div>
+  )
+}
+
+/** Det første bildet bærer navnet til overgangen fra produktkortet. Det står fast, så navnet er unikt på siden. */
+function Morfmal({ produktId, aktiv, children }: { produktId: number; aktiv: boolean; children: ReactNode }) {
+  if (!aktiv) return children
+  return (
+    <ViewTransition name={morfnavn(produktId)} enter={MORFKLASSE} default="none">
+      {children}
+    </ViewTransition>
   )
 }

@@ -1,0 +1,89 @@
+/*
+ * Bevegelse for produktkort, produktliste og produktside (R-30). Importeres av morf.tsx, så den følger med overalt
+ * der et produktkort eller galleriet står. Bare transform og opacity, varighet og kurve fra tokens.css (som er 0 ved
+ * redusert bevegelse), og alt står stille ved prefers-reduced-motion.
+ */
+
+/* --- Delt element: bildet i produktkortet glir over i galleriet på produktsiden (morf.tsx, galleri.tsx) --- */
+
+/* Overleggene tar ikke imot trykk, så siden under kan brukes mens overgangen går. */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-group(.produktbilde) {
+  animation-duration: var(--dur-inn);
+  animation-timing-function: var(--ease-ut);
+}
+
+/* Kommer kunden fra et annet sted enn et kort, toner det store bildet inn og legger seg på plass. */
+::view-transition-new(.produktbilde):only-child {
+  animation: var(--dur-inn) var(--ease-ut) both produktbilde-inn;
+}
+@keyframes produktbilde-inn {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+/* Har produktsiden ikke noe bilde å lande i, toner kortbildet bare ut sammen med resten av siden. */
+::view-transition-old(.produktbilde):only-child {
+  animation: var(--dur-base) var(--ease-out) both side-ut;
+}
+
+/* Resten av siden toner rolig over mens bildet flytter seg: den gamle siden går fort, den nye kommer mykt. */
+:root:active-view-transition-type(til-produkt)::view-transition-old(root) {
+  animation: var(--dur-base) var(--ease-out) both side-ut;
+}
+:root:active-view-transition-type(til-produkt)::view-transition-new(root) {
+  animation: var(--dur-inn) var(--ease-ut) var(--dur-fast) both side-inn;
+}
+@keyframes side-ut {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes side-inn {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* --- Produktrutenett: kortene kommer inn kolonne for kolonne (data-inn i globals.css bruker --i) --- */
+
+.rutenett-inn > :nth-child(2n) {
+  --i: 1;
+}
+@media (width >= 48rem) {
+  .rutenett-inn > :nth-child(3n + 1) {
+    --i: 0;
+  }
+  .rutenett-inn > :nth-child(3n + 2) {
+    --i: 1;
+  }
+  .rutenett-inn > :nth-child(3n) {
+    --i: 2;
+  }
+}
+@media (width >= 80rem) {
+  .rutenett-inn > :nth-child(4n + 1) {
+    --i: 0;
+  }
+  .rutenett-inn > :nth-child(4n + 2) {
+    --i: 1;
+  }
+  .rutenett-inn > :nth-child(4n + 3) {
+    --i: 2;
+  }
+  .rutenett-inn > :nth-child(4n) {
+    --i: 3;
+  }
+}
