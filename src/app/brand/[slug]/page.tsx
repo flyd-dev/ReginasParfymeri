@@ -2,6 +2,8 @@ import { Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { AvdekkTekst } from '@/components/bevegelse/avdekk-tekst'
+import { Inn } from '@/components/bevegelse/inn'
 import { Listehode } from '@/components/katalog/listehode'
 import { Produktliste } from '@/components/katalog/produktliste'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
@@ -48,13 +50,17 @@ export default async function Merkeside({ params, searchParams }: Props) {
       <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
         <Brodsmuler smuler={[{ navn: 'Merker', href: '/merker/' }, { navn: butikkmerke.navn }]} />
         <div className="mt-10 max-w-2xl">
-          <p className="text-sm tracking-[0.16em] text-sand-ink uppercase">Kun i butikken</p>
-          <h1 className="mt-3 text-5xl md:text-7xl">{butikkmerke.navn}</h1>
-          <p className="mt-6 text-lg">{KUN_I_BUTIKKEN_TEKST}</p>
-          <address className="mt-6 not-italic text-sand-ink">
+          <Inn som="p" className="text-sm tracking-[0.16em] text-sand-ink uppercase">
+            Kun i butikken
+          </Inn>
+          <AvdekkTekst som="h1" i={1} deler={[butikkmerke.navn]} className="mt-3 text-5xl md:text-7xl" />
+          <Inn som="p" i={3} className="mt-6 text-lg">
+            {KUN_I_BUTIKKEN_TEKST}
+          </Inn>
+          <Inn som="address" i={4} className="mt-6 not-italic text-sand-ink">
             {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
-          </address>
-          <div className="mt-8 flex flex-wrap gap-3">
+          </Inn>
+          <Inn i={5} className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg">
               <a href={BUTIKK.telefon.lenke}>
                 <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
@@ -63,7 +69,7 @@ export default async function Merkeside({ params, searchParams }: Props) {
             <Button asChild size="lg" variant="outline">
               <Link href="/kontakt/">Kontakt og veibeskrivelse</Link>
             </Button>
-          </div>
+          </Inn>
         </div>
       </div>
     )

@@ -2,6 +2,8 @@ import { Phone, Store } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { AvdekkTekst } from '@/components/bevegelse/avdekk-tekst'
+import { Inn } from '@/components/bevegelse/inn'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
 import { Produktdetaljer } from '@/components/produkt/detaljer'
 import { Galleri } from '@/components/produkt/galleri'
@@ -67,18 +69,31 @@ export default async function Produktside({ params }: Props) {
         smuler={[...kjede.map((k) => ({ navn: k.navn, href: kategoriUrl(k.sti) })), { navn: p.visningsnavn }]}
       />
       <div className="mt-6 grid gap-8 md:grid-cols-[1.2fr_1fr] md:gap-12 lg:gap-20">
-        <Galleri bilder={p.bilder} navn={[p.merke?.navn, p.visningsnavn].filter(Boolean).join(' ')} />
+        <Galleri
+          bilder={p.bilder}
+          navn={[p.merke?.navn, p.visningsnavn].filter(Boolean).join(' ')}
+          produktId={p.id}
+        />
+        {/* Kjøpskolonnen kommer inn i rekkefølge: merke, navn ord for ord, kjøpsboks og fordeler. Galleriet står
+            utenfor, så bildet er der med en gang (og kan ta imot overgangen fra produktkortet). */}
         <div className="md:sticky md:top-32 md:self-start">
           {p.merke && (
-            <Link
-              href={merkeUrl(p.merke.slug)}
-              className="text-sm tracking-[0.16em] text-sand-ink uppercase hover:text-regina-pink-strong"
-            >
-              {p.merke.navn}
-            </Link>
+            <Inn>
+              <Link
+                href={merkeUrl(p.merke.slug)}
+                className="text-sm tracking-[0.16em] text-sand-ink uppercase hover:text-regina-pink-strong"
+              >
+                {p.merke.navn}
+              </Link>
+            </Inn>
           )}
-          <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl">{p.visningsnavn}</h1>
-          <div className="mt-6">
+          <AvdekkTekst
+            som="h1"
+            i={1}
+            deler={[p.visningsnavn]}
+            className="mt-2 text-3xl md:text-4xl lg:text-5xl"
+          />
+          <Inn i={3} className="mt-6">
             {kunIButikk ? (
               <div className="border border-sand-200 bg-paper p-5">
                 <p className="flex items-center gap-2 font-medium">
@@ -94,12 +109,12 @@ export default async function Produktside({ params }: Props) {
             ) : (
               <Kjopsboks produkt={p} />
             )}
-          </div>
-          <ul className="mt-8 space-y-1.5 text-sm text-sand-ink">
+          </Inn>
+          <Inn som="ul" i={4} className="mt-8 space-y-1.5 text-sm text-sand-ink">
             {FORDELER.map((f) => (
               <li key={f}>{f}</li>
             ))}
-          </ul>
+          </Inn>
         </div>
       </div>
 
@@ -109,9 +124,11 @@ export default async function Produktside({ params }: Props) {
 
       {mer.length > 0 && (
         <section className="mt-24" aria-labelledby="mer-tittel">
-          <h2 id="mer-tittel" className="mb-8 text-3xl md:text-4xl">
-            Mer fra {p.merke ? p.merke.navn : (p.hovedkategori?.navn ?? 'samme kategori')}
-          </h2>
+          <AvdekkTekst
+            id="mer-tittel"
+            deler={[`Mer fra ${p.merke ? p.merke.navn : (p.hovedkategori?.navn ?? 'samme kategori')}`]}
+            className="mb-8 text-3xl md:text-4xl"
+          />
           <Produktrutenett>
             {mer.map((q) => (
               <Produktkort key={q.id} produkt={q} naa={tidspunkt} />

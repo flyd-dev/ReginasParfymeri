@@ -1,12 +1,15 @@
 // Bygget etter «Product Card» (deltacomponents, MIT) på 21st.dev – https://21st.dev/@deltacomponents/components/product-card. Egen kode; ingen kode er kopiert.
 
 import Link from 'next/link'
+import { Children, type ReactNode } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { erNyhet, erPaTilbud, hurtigkjop } from '@/lib/katalog/sporring'
 import { produktUrl } from '@/lib/lenker'
 import { NYHET_DAGER } from '@/lib/tid'
 import type { Produkt } from '@/lib/woocommerce/typer'
 import { Hurtigkjop } from './hurtigkjop'
+import { Morfkort } from './morf'
+import { morfnavn, TIL_PRODUKT } from './morfnavn'
 import { Pris } from './pris'
 import { Produktbilde } from './produktbilde'
 
@@ -14,6 +17,10 @@ import { Produktbilde } from './produktbilde'
  * Produktkort: kvadratisk bildebrønn med merke og hurtigkjøp over hjørnene, og under den en rad med navn til
  * venstre og pris til høyre. Er kortet smalt (to kolonner på mobil), legger prisen seg under navnet. Hele kortet
  * er én lenke (navnet strekkes over kortet), så det blir ett tabulatorstopp per vare pluss hurtigkjøpet.
+ *
+ * Bevegelse: med mus toner bilde nummer to fram (som i «ProductCard», youcefbnm), og ved trykk glir bildet over i
+ * det store bildet på produktsiden (morf.tsx). På berøringsskjerm mister kunden ingenting – bildet er det samme,
+ * og alle bildene står i galleriet.
  */
 export function Produktkort({
   produkt: p,
@@ -39,9 +46,17 @@ export function Produktkort({
           : null
 
   return (
-    <article className="group @container relative flex flex-col">
+    <Morfkort className="group @container relative flex flex-col">
       <div className="relative">
-        <Produktbilde src={p.bilder[0]?.src ?? null} alt="" sizes={sizes} prioritet={prioritet} zoom />
+        <Produktbilde
+          src={p.bilder[0]?.src ?? null}
+          bytte={p.bilder[1]?.src ?? null}
+          alt=""
+          sizes={sizes}
+          prioritet={prioritet}
+          zoom
+          morf={morfnavn(p.id)}
+        />
         {merke && (
           <Badge variant={merke.variant} className="pointer-events-none absolute top-2 left-2">
             {merke.tekst}
@@ -55,6 +70,7 @@ export function Produktkort({
           <h3 className="min-w-0 font-sans text-base leading-snug font-normal">
             <Link
               href={produktUrl(p.slug)}
+              transitionTypes={[TIL_PRODUKT]}
               aria-label={navn}
               className="transition-colors duration-(--dur-fast) group-hover:text-regina-pink-strong after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-regina-pink-strong"
             >
@@ -82,14 +98,24 @@ export function Produktkort({
           <Hurtigkjop produktId={p.id} variantId={kjop.variantId} navn={navn} />
         </div>
       )}
-    </article>
+    </Morfkort>
   )
 }
 
-export function Produktrutenett({ children }: { children: React.ReactNode }) {
+/**
+ * Rutenett med produktkort. Hvert kort glir inn når det kommer til syne (data-inn, «Inngang» i globals.css), og
+ * kortene i samme rad kommer etter hverandre fra venstre: forsinkelsen (--i) er kolonnen, satt i overganger.css
+ * for 2, 3 og 4 kolonner. Uten JavaScript eller ved redusert bevegelse står kortene der fra start.
+ */
+export function Produktrutenett({ children }: { children: ReactNode }) {
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
-      {children}
+    <div className="rutenett-inn grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
+      {Children.map(children, (kort) => (
+        // Som <Inn>, men uten --i i style-attributtet, så kolonnen fra CSS-en gjelder. Grid, så kortet fyller cellen.
+        <div data-inn="" className="grid" suppressHydrationWarning>
+          {kort}
+        </div>
+      ))}
     </div>
   )
 }

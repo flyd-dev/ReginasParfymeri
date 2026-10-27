@@ -1,6 +1,8 @@
 import { Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AvdekkTekst } from '@/components/bevegelse/avdekk-tekst'
+import { Inn } from '@/components/bevegelse/inn'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
 import { Button } from '@/components/ui/button'
 import { BUTIKK, KUN_I_BUTIKKEN, KUN_I_BUTIKKEN_TEKST } from '@/content/butikk'
@@ -34,8 +36,10 @@ export default async function Merker() {
     <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
       <Brodsmuler smuler={[{ navn: 'Merker' }]} />
       <header className="mt-8 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl">Merker A–Å</h1>
-        <p className="mt-4 text-lg text-sand-ink">{merker.length} merker i nettbutikken.</p>
+        <AvdekkTekst som="h1" deler={['Merker A–Å']} className="text-4xl md:text-6xl" />
+        <Inn som="p" i={2} className="mt-4 text-lg text-sand-ink">
+          {merker.length} merker i nettbutikken.
+        </Inn>
       </header>
       <nav
         aria-label="Hopp til bokstav"
@@ -60,8 +64,15 @@ export default async function Merker() {
         </ul>
       </nav>
       <div className="mt-10 columns-1 gap-12 sm:columns-2 lg:columns-4">
-        {bokstaver.map((b) => (
-          <section key={b} id={`bokstav-${b}`} className="mb-10 break-inside-avoid scroll-mt-48">
+        {/* Bokstavene glir inn etter hverandre når de kommer til syne (data-inn); uten JavaScript står de der. */}
+        {bokstaver.map((b, n) => (
+          <Inn
+            som="section"
+            key={b}
+            id={`bokstav-${b}`}
+            i={n % 4}
+            className="mb-10 break-inside-avoid scroll-mt-48"
+          >
             <h2 className="font-heading text-4xl text-regina-pink">{b}</h2>
             <ul className="mt-3 space-y-1.5">
               {(grupper.get(b) ?? []).map((m) => (
@@ -72,11 +83,12 @@ export default async function Merker() {
                 </li>
               ))}
             </ul>
-          </section>
+          </Inn>
         ))}
       </div>
 
-      <section
+      <Inn
+        som="section"
         id="kun-i-butikken"
         className="mt-16 scroll-mt-48 border-t border-sand-200 bg-sand-100 px-6 py-12 md:px-12"
       >
@@ -105,7 +117,7 @@ export default async function Merker() {
             ))}
           </ul>
         </div>
-      </section>
+      </Inn>
     </div>
   )
 }

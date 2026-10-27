@@ -3,8 +3,13 @@
 // Fra forbildet: fast filterkolonne til venstre som følger med ved rulling, verktøylinje med antall treff og
 // sortering over rutenettet, aktive filtre som brikker og en tynn linje før produktene; på mobil en
 // «Filtrer»-knapp ved siden av antallet og sorteringen i full bredde under.
+//
+// Bevegelse (R-30): verktøylinjen og filterkolonnen glir inn under listehodet, og kortene kommer inn kolonne for
+// kolonne (Produktrutenett). Når filtre eller sortering endres, bygges rutenettet på nytt, så de nye kortene kommer
+// inn på samme myke måte; «Vis flere» beholder kortene som står der og lar bare de nye komme inn.
 
 import Link from 'next/link'
+import { Inn } from '@/components/bevegelse/inn'
 import { Produktkort, Produktrutenett } from '@/components/produkt/produktkort'
 import { Button } from '@/components/ui/button'
 import { antallTekst } from '@/lib/format'
@@ -66,6 +71,7 @@ export function Produktliste({
   const fas = fasetter(base, tilstand.filtre, katalog, underkategorier, basisSti)
   const aktive = antallAktive(tilstand.filtre)
   const nullstill = nullstillUrl(basis, tilstand)
+  const visning = listeUrl(basis, tilstand, { side: 1 })
   const sorteringer = [
     ...(tilstand.sok !== undefined ? [{ id: 'relevans', navn: 'Mest relevant' }] : []),
     ...SORTERINGER,
@@ -82,7 +88,8 @@ export function Produktliste({
 
   return (
     <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:gap-12 xl:grid-cols-[16.5rem_1fr] xl:gap-16">
-      <aside aria-label="Filtre" className="hidden lg:block">
+      {/* data-inn på selve kolonnen: en innpakning rundt den klebrige delen ville stoppet den fra å følge med. */}
+      <Inn som="aside" i={3} aria-label="Filtre" className="hidden lg:block">
         {/* Følger med ved rulling under den faste toppen; egen rulling når filtrene er høyere enn vinduet. */}
         <div className="sticky top-36 max-h-[calc(100dvh-10rem)] overflow-y-auto overscroll-contain pr-2 pb-6 [scrollbar-width:thin]">
           {/* Samme høyde som verktøylinjen til høyre, så de to linjene står likt. */}
@@ -103,10 +110,10 @@ export function Produktliste({
           </div>
           {panel}
         </div>
-      </aside>
+      </Inn>
 
       <div className="min-w-0">
-        <div className="border-b border-sand-200 pb-5">
+        <Inn i={4} className="border-b border-sand-200 pb-5">
           <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
             <div className="flex items-center gap-4">
               <Filterskuff antallAktive={aktive} treff={filtrert.length} nullstill={nullstill}>
@@ -124,10 +131,10 @@ export function Produktliste({
             />
           </div>
           <AktiveFiltre fasetter={fas} tilstand={tilstand} basis={basis} className="mt-4" />
-        </div>
+        </Inn>
 
         {elementer.length === 0 ? (
-          <div className="flex flex-col items-center py-20 text-center">
+          <Inn key={visning} className="flex flex-col items-center py-20 text-center">
             <p className="font-heading text-2xl md:text-3xl">
               {aktive > 0 ? 'Ingen produkter passer filtrene' : 'Ingen produkter her ennå'}
             </p>
@@ -143,11 +150,12 @@ export function Produktliste({
                 </Link>
               </Button>
             )}
-          </div>
+          </Inn>
         ) : (
           <div className="mt-8">
             <h2 className="sr-only">Produkter</h2>
-            <Produktrutenett>
+            {/* Ny nøkkel ved nye filtre eller ny sortering (ikke ved «Vis flere»): kortene kommer inn på nytt. */}
+            <Produktrutenett key={visning}>
               {elementer.map((p, i) => (
                 <Produktkort key={p.id} produkt={p} naa={naa} prioritet={i < 4} />
               ))}

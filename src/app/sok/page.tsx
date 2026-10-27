@@ -22,15 +22,7 @@ export default async function Sokeside({ searchParams }: PageProps<'/sok'>) {
       <Brodsmuler smuler={[{ navn: 'Søk' }]} />
       <Listehode
         overtittel="Søk i nettbutikken"
-        tittel={
-          q ? (
-            <>
-              <span className="sr-only">Søk: </span>«{q}»
-            </>
-          ) : (
-            'Søk'
-          )
-        }
+        tittel={q ? [{ tekst: 'Søk: ', className: 'sr-only' }, `«${q}»`] : 'Søk'}
       >
         <form method="get" action="/sok/" role="search" className="flex max-w-2xl gap-2">
           <label htmlFor="sok-felt" className="sr-only">
