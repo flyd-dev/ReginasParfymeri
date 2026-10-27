@@ -113,7 +113,20 @@ export function Kjopsboks({ produkt: p }: { produkt: Produkt }) {
             {maks > 1 && (!erVariabel || valgt) && (
               <Antallvelger antall={antall} maks={maks} navn={p.visningsnavn} onEndre={setAntall} />
             )}
-            <Button type="submit" size="lg" className="flex-1" disabled={opptatt}>
+            <Button
+              type="submit"
+              size="lg"
+              className="flex-1"
+              disabled={opptatt}
+              onClick={(e) => {
+                // Før nettleserens egen «required»-melding: vår egen, på norsk, ved feltet.
+                if (erVariabel && !valgt) {
+                  e.preventDefault()
+                  setMangler(true)
+                  document.getElementById(`${gruppe}-0`)?.focus()
+                }
+              }}
+            >
               Legg i handlekurven
             </Button>
           </div>

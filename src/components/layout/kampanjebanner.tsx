@@ -6,7 +6,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { Kampanje } from '@/lib/woocommerce/innhold'
+import type { Kampanje } from '@/lib/woocommerce/kampanje'
 
 function aktiv(k: Kampanje, naa: number) {
   return Date.parse(k.start) <= naa && naa < Date.parse(k.slutt)

@@ -11,6 +11,8 @@ export function meldingstekst(m: Kurvmelding): string {
       return `Vi har bare ${m.antall} igjen av ${m.navn}. Antallet er justert.`
     case 'fjernet':
       return `${m.navn} finnes ikke lenger i nettbutikken og er tatt ut av handlekurven.`
+    case 'tekst':
+      return m.tekst
   }
 }
 

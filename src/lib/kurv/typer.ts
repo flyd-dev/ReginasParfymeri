@@ -28,6 +28,8 @@ export type Kurvmelding =
   | { type: 'utsolgt'; navn: string }
   | { type: 'antall-justert'; navn: string; antall: number }
   | { type: 'fjernet'; navn: string }
+  /** Melding fra WooCommerce (f.eks. at en vare er utsolgt), slik WooCommerce skriver den. */
+  | { type: 'tekst'; tekst: string }
 
 export interface Kurv {
   modus: Kurvmodus

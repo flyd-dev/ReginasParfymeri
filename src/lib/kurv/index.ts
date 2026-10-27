@@ -1,7 +1,17 @@
 import 'server-only'
 
 import { cookies } from 'next/headers'
-import { hentKatalog } from '@/lib/woocommerce'
+import { hentKatalog, wooUrl } from '@/lib/woocommerce'
+import {
+  endreStore,
+  fjernStore,
+  fraStoreKurv,
+  kasseadresse,
+  leggTilStore,
+  lesStoreKurv,
+  TOKEN_COOKIE,
+  type Kurvoppsett,
+} from './store-kurv'
 import {
   kontroller,
   endreAntall,
@@ -51,19 +61,50 @@ async function lokalKurv(endring?: (l: LagretLinje[]) => LagretLinje[]): Promise
   return kurv
 }
 
+/** Cart-Token i httpOnly-cookie, oppdatert fra hvert svar (docs/architecture.md §5.1). */
+async function storeOppsett(): Promise<Kurvoppsett> {
+  const jar = await cookies()
+  let token = jar.get(TOKEN_COOKIE)?.value || null
+  return {
+    butikk: wooUrl(),
+    token: {
+      les: () => token,
+      skriv: (nytt) => {
+        token = nytt
+        jar.set(TOKEN_COOKIE, nytt, { ...COOKIE_OPPSETT, maxAge: 60 * 60 * 48 })
+      },
+    },
+  }
+}
+
 export async function hentKurv(): Promise<Kurv> {
-  return lokalKurv()
+  if (kurvmodus() === 'lokal') return lokalKurv()
+  const o = await storeOppsett()
+  // Ingen kurv ennå: ikke opprett en WooCommerce-økt for hver besøkende.
+  if (!o.token.les()) return { modus: 'woocommerce', linjer: [], antall: 0, delsum: 0, meldinger: [] }
+  return fraStoreKurv(await hentKatalog(), await lesStoreKurv(o))
 }
 
 export async function leggIKurv(ny: LeggTil): Promise<Kurv> {
   const katalog = await hentKatalog()
-  return lokalKurv((l) => leggTil(katalog, l, ny))
+  if (kurvmodus() === 'lokal') return lokalKurv((l) => leggTil(katalog, l, ny))
+  return fraStoreKurv(katalog, await leggTilStore(await storeOppsett(), katalog, ny))
 }
 
 export async function endreIKurv(nokkel: string, antall: number): Promise<Kurv> {
-  return lokalKurv((l) => endreAntall(l, nokkel, antall))
+  if (kurvmodus() === 'lokal') return lokalKurv((l) => endreAntall(l, nokkel, antall))
+  return fraStoreKurv(await hentKatalog(), await endreStore(await storeOppsett(), nokkel, antall))
 }
 
 export async function fjernFraKurv(nokkel: string): Promise<Kurv> {
-  return lokalKurv((l) => fjern(l, nokkel))
+  if (kurvmodus() === 'lokal') return lokalKurv((l) => fjern(l, nokkel))
+  return fraStoreKurv(await hentKatalog(), await fjernStore(await storeOppsett(), nokkel))
+}
+
+/** Hvor «Gå til kassen» skal: WooCommerce-kassen via overføringen, eller oversikten i prototypen. */
+export async function tilKassen(): Promise<string | null> {
+  if (kurvmodus() === 'lokal') return '/kasse/'
+  const o = await storeOppsett()
+  if (!o.token.les()) return null
+  return kasseadresse(o)
 }

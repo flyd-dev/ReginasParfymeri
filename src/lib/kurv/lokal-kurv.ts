@@ -2,6 +2,7 @@
 // slås opp i katalogen ved hver lesing. Pris og lager kan dermed aldri bli stående gamle i kurven.
 // Ingen kall mot WooCommerce.
 
+import { normaliserMal } from '@/lib/tekst'
 import type { Katalog, Produkt, Variant } from '@/lib/woocommerce/typer'
 import type { Kurv, Kurvlinje, Kurvmelding, LeggTil } from './typer'
 
@@ -13,7 +14,7 @@ export interface LagretLinje {
   k: number
 }
 
-export const LOKAL_COOKIE = 'regina_kurv'
+export const LOKAL_COOKIE = 'regina_kurv_lokal'
 const MAKS_LINJER = 60
 
 export function lesLagret(verdi: string | undefined): LagretLinje[] {
@@ -59,7 +60,7 @@ function valgtekst(produkt: Produkt, variant: Variant | null): string {
   return Object.entries(variant.valg)
     .map(([navn, slug]) => {
       const verdi = produkt.egenskaper.find((e) => e.navn === navn)?.verdier.find((x) => x.slug === slug)
-      return `${navn}: ${verdi?.navn ?? slug}`
+      return `${navn}: ${normaliserMal(verdi?.navn ?? slug)}`
     })
     .join(', ')
 }

@@ -110,9 +110,11 @@ export function Handlekurv() {
             <p className="text-sm text-sand-ink">
               Frakt og eventuelle rabatter beregnes i kassen. Prisene er inkl. mva.
             </p>
-            <Button asChild size="lg" className="w-full">
-              <a href="/api/kurv/til-kassen/">Gå til kassen</a>
-            </Button>
+            <form action="/api/kurv/til-kassen/" method="post">
+              <Button type="submit" size="lg" className="w-full">
+                Gå til kassen
+              </Button>
+            </form>
             <Button variant="ghost" className="w-full" onClick={() => setApen(false)}>
               Fortsett å handle
             </Button>
