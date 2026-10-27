@@ -10,7 +10,9 @@ import { Mobilmeny } from './mobilmeny'
 
 // Søk og handlekurvskuff lastes først når de åpnes – mindre JavaScript før siden er tegnet (LCP).
 const Sokedialog = dynamic(() => import('./sokedialog').then((m) => m.Sokedialog), { ssr: false })
-const Handlekurv = dynamic(() => import('@/components/kurv/handlekurv').then((m) => m.Handlekurv), { ssr: false })
+const Handlekurv = dynamic(() => import('@/components/kurv/handlekurv').then((m) => m.Handlekurv), {
+  ssr: false,
+})
 
 const ikonknapp =
   'inline-flex size-11 items-center justify-center text-regina-plum transition-colors duration-(--dur-fast) hover:text-regina-pink-strong'
