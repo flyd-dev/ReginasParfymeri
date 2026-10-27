@@ -2,6 +2,7 @@ import { Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Listehode } from '@/components/katalog/listehode'
 import { Produktliste } from '@/components/katalog/produktliste'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
 import { Button } from '@/components/ui/button'
@@ -73,14 +74,15 @@ export default async function Merkeside({ params, searchParams }: Props) {
   return (
     <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
       <Brodsmuler smuler={[{ navn: 'Merker', href: '/merker/' }, { navn: merke.navn }]} />
-      <header className="mt-8 mb-10 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl">{merke.navn}</h1>
-        {(butikkmerke || avklares) && (
-          <p className="mt-4 text-sand-ink">
-            Flere produkter fra {merke.navn} finner du i butikken i Haraldsgata.
-          </p>
-        )}
-      </header>
+      <Listehode
+        overtittel="Merke"
+        tittel={merke.navn}
+        ingress={
+          butikkmerke || avklares
+            ? `Flere produkter fra ${merke.navn} finner du i butikken i Haraldsgata.`
+            : undefined
+        }
+      />
       <Produktliste
         katalog={katalog}
         base={katalog.produkter.filter((p) => p.merke?.slug === merke.slug)}

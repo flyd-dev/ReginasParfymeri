@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Listehode } from '@/components/katalog/listehode'
 import { Produktliste } from '@/components/katalog/produktliste'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
 import { erPaTilbud, lesListetilstand } from '@/lib/katalog/sporring'
@@ -18,7 +19,11 @@ export default async function Tilbud({ searchParams }: PageProps<'/tilbud'>) {
   return (
     <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
       <Brodsmuler smuler={[{ navn: 'Tilbud' }]} />
-      <h1 className="mt-8 mb-10 text-4xl md:text-6xl">Tilbud</h1>
+      <Listehode
+        overtittel="Nettbutikken"
+        tittel="Tilbud"
+        ingress="Varer som er satt ned i nettbutikken akkurat nå."
+      />
       <Produktliste
         katalog={katalog}
         base={base}

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Listehode } from '@/components/katalog/listehode'
 import { Produktliste } from '@/components/katalog/produktliste'
 import { Brodsmuler } from '@/components/layout/brodsmuler'
 import { Input } from '@/components/ui/input'
@@ -19,9 +20,19 @@ export default async function Sokeside({ searchParams }: PageProps<'/sok'>) {
   return (
     <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
       <Brodsmuler smuler={[{ navn: 'Søk' }]} />
-      <header className="mt-8 mb-10 max-w-3xl">
-        <h1 className="text-4xl md:text-6xl">{q ? <>Søk: «{q}»</> : 'Søk'}</h1>
-        <form method="get" action="/sok/" role="search" className="mt-6 flex gap-2">
+      <Listehode
+        overtittel="Søk i nettbutikken"
+        tittel={
+          q ? (
+            <>
+              <span className="sr-only">Søk: </span>«{q}»
+            </>
+          ) : (
+            'Søk'
+          )
+        }
+      >
+        <form method="get" action="/sok/" role="search" className="flex max-w-2xl gap-2">
           <label htmlFor="sok-felt" className="sr-only">
             Søk etter produkter og merker
           </label>
@@ -36,7 +47,7 @@ export default async function Sokeside({ searchParams }: PageProps<'/sok'>) {
             Søk
           </Button>
         </form>
-      </header>
+      </Listehode>
       {q ? (
         <Produktliste katalog={katalog} base={treff} tilstand={tilstand} basis="/sok/" naa={naa()} />
       ) : (
