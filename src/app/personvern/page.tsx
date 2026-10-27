@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Innholdsside } from '@/components/innhold/innholdsside'
+import { Kundeservicemeny } from '@/components/innhold/kundeservicemeny'
 import { Sidetekst } from '@/components/innhold/sidetekst'
 import { BUTIKK } from '@/content/butikk'
 import { hentSide } from '@/lib/woocommerce/innhold'
@@ -42,7 +43,13 @@ export default async function Personvern() {
   if (!side) notFound()
   const kapsler = process.env.NEXT_PUBLIC_GA4_ID ? [...KAPSLER, ...ANALYSE] : KAPSLER
   return (
-    <Innholdsside tittel="Personvern" kicker="Personvernerklæring">
+    <Innholdsside
+      redaksjonell
+      tekstkolonne
+      marg={<Kundeservicemeny aktiv="/personvern/" />}
+      tittel="Personvern"
+      kicker="Personvernerklæring"
+    >
       <Sidetekst side={side} tittel="Personvernerklæring" />
       <section id="informasjonskapsler" className="mt-16 max-w-3xl scroll-mt-40">
         <h2 className="text-3xl">Informasjonskapsler i nettbutikken</h2>
@@ -52,7 +59,13 @@ export default async function Personvern() {
           endre valget når som helst under «Informasjonskapsler» nederst på siden. Kassen og «Min konto»
           kjøres av WooCommerce, Vipps og Diller, som setter egne informasjonskapsler der.
         </p>
-        <div className="mt-6 overflow-x-auto">
+        {/* Tabellen kan rulles sideveis på smal skjerm; området må da kunne nås med tastaturet. */}
+        <div
+          className="mt-6 overflow-x-auto"
+          tabIndex={0}
+          role="region"
+          aria-label="Informasjonskapsler i nettbutikken"
+        >
           <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-sand-200">

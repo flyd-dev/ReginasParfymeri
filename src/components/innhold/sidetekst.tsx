@@ -57,7 +57,7 @@ export function Sidetekst({ side, stopp, tittel }: { side: SideJson; stopp?: str
     if (i >= 0) blokker = blokker.slice(0, i)
   }
   return (
-    <div className="max-w-2xl space-y-4 text-[1.0625rem] leading-relaxed">
+    <div className="max-w-2xl space-y-4 text-[1.0625rem] leading-relaxed break-words">
       {blokker.map((b, i) => (
         <Blokk key={i} blokk={b} />
       ))}
