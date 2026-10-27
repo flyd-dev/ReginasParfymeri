@@ -1,6 +1,8 @@
 import { ArrowRight, MapPin, Phone, Quote } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AvdekkTekst } from '@/components/bevegelse/avdekk-tekst'
+import { Inn } from '@/components/bevegelse/inn'
 import { Button } from '@/components/ui/button'
 import { BILDER } from '@/content/bilder'
 import { BEHANDLINGER, BUTIKK, HISTORIE, NISJE } from '@/content/butikk'
@@ -30,14 +32,21 @@ export function Seksjonstittel({
     <div className="mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-14">
       <div>
         {kicker && (
-          <p className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
+          <Inn
+            som="p"
+            className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase"
+          >
             <span className="h-px w-8 bg-regina-pink" aria-hidden />
             {kicker}
-          </p>
+          </Inn>
         )}
-        <h2 id={id} className="mt-3 text-4xl md:text-6xl">
-          {tittel}
-        </h2>
+        {typeof tittel === 'string' ? (
+          <AvdekkTekst id={id} deler={[tittel]} i={1} className="mt-3 text-4xl md:text-6xl" />
+        ) : (
+          <h2 id={id} className="mt-3 text-4xl md:text-6xl">
+            {tittel}
+          </h2>
+        )}
       </div>
       {lenke && (
         <Link

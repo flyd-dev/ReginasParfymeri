@@ -15,6 +15,10 @@ const SIDER = [
   '/handlekurv/',
 ]
 
+// Innganger og avsløringer (R-30) er midlertidige tilstander: tekst som glir inn har lav opacity et øyeblikk.
+// axe måler derfor siden slik den står ferdig – med redusert bevegelse, der alt står der fra start.
+test.use({ reducedMotion: 'reduce' })
+
 for (const sti of SIDER) {
   test(`ingen WCAG 2.1 AA-brudd på ${sti}`, async ({ page }) => {
     await page.goto(sti)

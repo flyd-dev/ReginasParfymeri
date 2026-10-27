@@ -57,6 +57,7 @@
 
   --ease-out: var(--ease-out);
   --ease-in-out: var(--ease-in-out);
+  --ease-ut: var(--ease-ut);
   --default-transition-duration: var(--dur-base);
   --default-transition-timing-function: var(--ease-out);
 }
@@ -201,4 +202,60 @@
       animation-range: exit;
     }
   }
+}
+
+/*
+ * Inngang når innhold kommer til syne (R-30). Skriptet i src/components/bevegelse/bevegelse-skript.tsx setter
+ * data-bevegelse på <html> bare når nettleseren har IntersectionObserver og brukeren ikke har bedt om redusert
+ * bevegelse, og data-synlig på hvert [data-inn]-element når det kommer inn i bildet. Uten JavaScript, uten støtte
+ * eller med redusert bevegelse står alt der fra start. Virker likt i Safari på iPhone (ingen rullestyrte
+ * animasjoner kreves). Bare opacity og transform.
+ *
+ *   data-inn            glir opp og tones inn (--inn-y, standard 1.5rem)
+ *   data-inn="ord"      ordene i <AvdekkTekst> glir opp bak en maske, ett og ett
+ *   data-inn="teppe"    barnet .teppe glir opp fra under en maske (bilder); rammen står stille
+ *   data-inn="skala"    tones inn og skaleres fra 1.04 (bilder)
+ *   style --i           plass i rekken; forsinkelsen er --i × --stagger
+ */
+[data-inn] {
+  transition:
+    opacity var(--dur-inn) var(--ease-ut),
+    transform var(--dur-inn) var(--ease-ut);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+[data-bevegelse] [data-inn='']:not([data-synlig]) {
+  opacity: 0;
+  transform: translateY(var(--inn-y, 1.5rem));
+}
+[data-bevegelse] [data-inn='skala']:not([data-synlig]) {
+  opacity: 0;
+  transform: scale(1.04);
+}
+.ord-maske {
+  display: inline-block;
+  overflow: clip;
+  /* Plass til descendere og kursiv overheng, uten å endre linjehøyden. */
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+  padding-inline: 0.04em;
+  margin-inline: -0.04em;
+  vertical-align: bottom;
+}
+.ord-maske > .ord {
+  display: inline-block;
+  transition: transform var(--dur-inn) var(--ease-ut);
+  transition-delay: calc((var(--i, 0) + var(--j, 0)) * var(--stagger));
+}
+[data-bevegelse] [data-inn='ord']:not([data-synlig]) .ord {
+  transform: translateY(110%);
+}
+[data-inn='teppe'] {
+  overflow: clip;
+}
+[data-inn='teppe'] > .teppe {
+  transition: transform var(--dur-lang) var(--ease-ut);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+[data-bevegelse] [data-inn='teppe']:not([data-synlig]) > .teppe {
+  transform: translateY(101%);
 }

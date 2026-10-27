@@ -39,12 +39,16 @@
   /* --- Former: rette eller nesten rette hjørner (0–2px) --- */
   --radius: 2px;
 
-  /* --- Bevegelse: diskret fade/slide, 150–250 ms --- */
+  /* --- Bevegelse (R-30): korte overganger til samspill, lengre inngang når innhold kommer til syne --- */
   --dur-fast: 150ms;
   --dur-base: 200ms;
   --dur-slow: 250ms;
+  --dur-inn: 700ms; /* inngang: tekst og bilder som glir inn */
+  --dur-lang: 1100ms; /* store flater: bildeteppe i heroen, overganger mellom sider */
+  --stagger: 70ms; /* forsinkelse mellom søsken (--i) */
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-ut: cubic-bezier(0.16, 1, 0.3, 1); /* myk landing for inngang */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,5 +56,8 @@
     --dur-fast: 0ms;
     --dur-base: 0ms;
     --dur-slow: 0ms;
+    --dur-inn: 0ms;
+    --dur-lang: 0ms;
+    --stagger: 0ms;
   }
 }

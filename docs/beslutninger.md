@@ -175,3 +175,18 @@ den levende demoen. Koden er vår egen, og ingenting hentes fra registeret. Hver
 komponentens navn, forfatter, lisens og URL, og hva som er tatt med står i `docs/components.md`. Komponenter uten
 oppgitt lisens brukes bare som idé. Ingen nye avhengigheter: gsap, motion og maplibre-gl erstattes med CSS og det
 vi har.
+
+## R-30 Mer bevegelse
+
+Flyd syntes siden var flat og mente for lite animasjon og for lite av 21st.dev-preget. Regelen om «diskret
+fade/slide 150–250 ms» er derfor erstattet: samspill er fortsatt 150–250 ms, men innhold glir nå inn når det
+kommer til syne (700 ms), store flater bruker 1100 ms, og overskrifter avsløres ord for ord. Bevegelsen styres av et
+lite skript i HTML-en (IntersectionObserver), ikke av rullestyrte CSS-animasjoner alene, fordi støtten for dem i
+Safari på iPhone er usikker. Fortsatt bare transform og opacity, alt står stille ved redusert bevegelse, innhold er
+synlig uten JavaScript, og axe-testene kjører med redusert bevegelse (siden slik den står ferdig).
+
+## R-31 Mobil først
+
+De fleste av Reginas kunder handler sannsynligvis på mobil. Alt designes og sjekkes på 390 px først. Bevegelse og
+funksjoner kan ikke bare finnes ved hover, trykkflatene er minst 44 px, og ytelsen på mobil (Lighthouse ≥ 90) går
+foran effekter.

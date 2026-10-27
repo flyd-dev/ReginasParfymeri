@@ -43,8 +43,15 @@ større endringer.
   øverst i filen med komponentens navn, forfatter, lisens og URL, og logg i `docs/components.md`. Komponenter uten
   oppgitt lisens brukes bare som idé. Blir installasjon mulig, brukes kommandoen fra komponentsiden. lucide-react er
   eneste ikonsett. Tynne linjer i stedet for skygger, hjørner 0–2px.
-- **Bevegelse:** diskret fade/slide (150–250 ms, tokens `--dur-*`), bare transform/opacity, ingenting ved
-  `prefers-reduced-motion`. Innhold skal være synlig uten JavaScript.
+- **Bevegelse (R-30):** bevegelse er en del av uttrykket. Inngang med `Inn` og `AvdekkTekst`
+  (`src/components/bevegelse/`, CSS i `globals.css`), samspill på 150–250 ms (`--dur-fast/base/slow`), inngang
+  700 ms (`--dur-inn`), store flater 1100 ms (`--dur-lang`), alltid `--ease-ut`/`--ease-out`. Bare transform og
+  opacity (unntak: tall som teller opp). Alt står stille ved `prefers-reduced-motion`, innhold er synlig uten
+  JavaScript, ingen funksjon finnes bare ved hover, og ingenting beveger seg automatisk i mer enn 5 s uten
+  pauseknapp (WCAG 2.2.2).
+- **Mobil først (R-31):** de fleste kjøper på mobil. Design og sjekk 390 px først, trykkflater minst 44 px,
+  viktige handlinger innen tommelens rekkevidde, alt som vises ved hover må også nås ved trykk, og
+  Lighthouse mobil ≥ 90 på ytelse.
 - **Språk:** nb-NO overalt, også i komponenttekster («Lukk», ikke «Close»).
 - Kodestil: norske navn og kommentarer, Prettier (ingen semikolon, enkle anførselstegn), `import type`, ingen
   `any`. Komponenter i `src/components/`, datalag i `src/lib/woocommerce/`.

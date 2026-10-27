@@ -54,12 +54,20 @@ Sand-50, paper og sand-100 ligger svært nær hverandre i lyshet. Brukt alene gi
   pakken. Hvite pakkebilder smelter inn i papirflaten; ingen andre filtre.
 - Reginas egne butikkbilder (fasaden, disken, behandlingsrommet) i redaksjonelle seksjoner – ingen stockbilder.
 
-## Bevegelse
+## Bevegelse (R-30)
 
-Fade og slide på 150–250 ms (`--dur-fast/base/slow`), bare transform og opacity. Ingenting ved
-`prefers-reduced-motion`. Merkebåndet går rolig og har pauseknapp (WCAG 2.2.2). Ingen automatisk karusell.
-Rullestyrt avdekking (`.avdekk`) og parallakse (`.parallakse`) brukes bare på bilder, så kontrasten aldri måles
-på halvgjennomsiktig tekst.
+Bevegelse er en del av uttrykket, men aldri på bekostning av lesbarhet, ytelse eller tilgjengelighet.
+
+- **Samspill** (peker, trykk, åpne/lukke): 150–250 ms (`--dur-fast/base/slow`).
+- **Inngang** når innhold kommer til syne: 700 ms (`--dur-inn`) med `--ease-ut`, søsken forskjøvet med
+  `--stagger` (70 ms). Komponentene `Inn` og `AvdekkTekst` i `src/components/bevegelse/`; CSS-en står under
+  «Inngang» i `globals.css`. Overskrifter avsløres ord for ord bak en maske.
+- **Store flater** (bildeteppe, sideoverganger): 1100 ms (`--dur-lang`).
+- Bare transform og opacity (unntak: tall som teller opp). Svak parallakse (`.parallakse`) og rullestyrt
+  avdekking (`.avdekk`) brukes bare på bilder.
+- Alt står stille ved `prefers-reduced-motion`; uten JavaScript står alt der fra start. Merkebåndet og annet som
+  beveger seg av seg selv har pauseknapp (WCAG 2.2.2). Ingen automatisk karusell.
+- **Mobil først (R-31):** bevegelsen skal virke ved trykk og rulling på telefon, ikke bare ved peker.
 
 ## Komponenter
 

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Poppins } from 'next/font/google'
+import { BevegelseSkript } from '@/components/bevegelse/bevegelse-skript'
 import { KurvProvider } from '@/components/kurv/kurv-provider'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
@@ -46,7 +47,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { kampanjer, tidspunkt } = await hentKampanjer()
   return (
-    <html lang="nb" className={`${playfair.variable} ${poppins.variable}`}>
+    <html lang="nb" className={`${playfair.variable} ${poppins.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#innhold"
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
           <Samtykke />
         </KurvProvider>
+        <BevegelseSkript />
       </body>
     </html>
   )
