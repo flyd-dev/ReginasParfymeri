@@ -1,6 +1,8 @@
 // Mobilutgaven av megamenyen (megameny.tsx), med samme oppsett: små kolonneoverskrifter og menypunkter med
 // navn og en andrelinje fra kategoritreet – etter «Rich Navigation Menu» (shadcnui-blocks, MIT) på 21st.dev –
 // https://21st.dev/@shadcnui-blocks/components/navigation-menu-06. Egen kode; ingen kode er kopiert.
+// Radene glir inn fra venstre én etter én når skuffen åpnes, og underpunktene når en kategori åpnes
+// (liste-inn.ts, etter «Animated List» – Dillion Verma, Magic UI, MIT).
 'use client'
 
 import { ArrowRight, Menu } from 'lucide-react'
@@ -11,19 +13,23 @@ import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger 
 import { kategoriUrl } from '@/lib/lenker'
 import { menybeskrivelse, type Menypunkt } from '@/lib/meny'
 import { SEKUNDAERLENKER } from './lenker'
+import { listeInn, listeInnFraVenstre, plass } from './liste-inn'
 
 const kolonneoverskrift = 'text-xs font-semibold tracking-[0.16em] text-sand-ink uppercase'
 
 /** Som raden i megamenyen: lenken omslutter navnet og dekker raden med ::after, andrelinjen er beskrivelsen. */
-function Rad({ punkt }: { punkt: Menypunkt }) {
+function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
   const id = useId()
   return (
-    <li className="relative py-2.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid">
+    <li
+      style={plass(i)}
+      className={`relative py-2.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
+    >
       <SheetClose asChild>
         <Link
           href={kategoriUrl(punkt.sti)}
           aria-describedby={id}
-          className="block text-base font-medium text-regina-plum no-underline after:absolute after:inset-0 focus-visible:outline-none"
+          className="block text-base font-medium text-regina-plum no-underline transition-colors duration-(--dur-fast) after:absolute after:inset-0 focus-visible:outline-none active:text-regina-pink-strong"
         >
           {punkt.navn}
         </Link>
@@ -39,7 +45,7 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
   return (
     <Sheet>
       <SheetTrigger
-        className="-ml-2 inline-flex size-11 items-center justify-center lg:hidden"
+        className="-ml-2 inline-flex size-11 items-center justify-center transition-[scale] duration-(--dur-fast) ease-out active:scale-90 lg:hidden"
         aria-label="Meny"
       >
         <Menu className="size-6" aria-hidden />
@@ -49,20 +55,23 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
           <SheetTitle className="font-heading text-2xl font-medium">Meny</SheetTitle>
         </SheetHeader>
         <nav aria-label="Hovedmeny" className="px-5 pt-6 pb-10">
-          <p className={kolonneoverskrift}>Kategorier</p>
+          <p className={`${kolonneoverskrift} ${listeInnFraVenstre}`} style={plass(1)}>
+            Kategorier
+          </p>
           <Accordion type="multiple" className="mt-2">
-            {meny.map((punkt) => (
+            {meny.map((punkt, i) => (
               <AccordionItem
                 key={punkt.sti.join('/')}
                 value={punkt.sti.join('/')}
-                className="border-sand-200"
+                style={plass(i + 2)}
+                className={`border-sand-200 ${listeInnFraVenstre}`}
               >
                 <AccordionTrigger className="py-4 text-xl hover:no-underline aria-expanded:text-regina-pink-strong">
                   {punkt.navn}
                 </AccordionTrigger>
                 <AccordionContent className="[&_a]:no-underline">
                   <ul className="pb-3">
-                    <li>
+                    <li className={listeInn} style={plass(0)}>
                       <SheetClose asChild>
                         <Link
                           href={kategoriUrl(punkt.sti)}
@@ -73,22 +82,30 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
                         </Link>
                       </SheetClose>
                     </li>
-                    {punkt.barn.map((u) => (
-                      <Rad key={u.sti.join('/')} punkt={u} />
+                    {punkt.barn.map((u, j) => (
+                      <Rad key={u.sti.join('/')} punkt={u} i={j + 1} />
                     ))}
                   </ul>
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-          <p className={`${kolonneoverskrift} mt-10`}>Regina</p>
+          <p className={`${kolonneoverskrift} mt-10 ${listeInnFraVenstre}`} style={plass(meny.length + 2)}>
+            Regina
+          </p>
           <ul className="mt-2 divide-y divide-sand-200 border-y border-sand-200">
-            {SEKUNDAERLENKER.map((l) => (
-              <li key={l.href}>
+            {SEKUNDAERLENKER.map((l, i) => (
+              <li key={l.href} className={listeInnFraVenstre} style={plass(meny.length + 3 + i)}>
                 <SheetClose asChild>
-                  <Link href={l.href} className="flex items-center justify-between py-3.5 text-base">
+                  <Link
+                    href={l.href}
+                    className="group/lenke flex items-center justify-between py-3.5 text-base transition-colors duration-(--dur-fast) active:text-regina-pink-strong"
+                  >
                     {l.navn}
-                    <ArrowRight className="size-4 text-sand-ink" aria-hidden />
+                    <ArrowRight
+                      className="size-4 text-sand-ink transition-transform duration-(--dur-slow) ease-ut group-hover/lenke:translate-x-1 group-active/lenke:translate-x-1"
+                      aria-hidden
+                    />
                   </Link>
                 </SheetClose>
               </li>

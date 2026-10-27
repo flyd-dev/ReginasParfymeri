@@ -1,0 +1,71 @@
+/*
+ * Rullende tall og «pop» for handlekurven (rulletall.tsx). Egne keyframes fordi det gamle tallet må stå usynlig
+ * også når animasjonen ikke kjører (opacity 0 i grunnstilen, nøkkelbildene viser det mens det ruller ut).
+ * Bare transform og opacity. Varighet fra tokens – 0 ved redusert bevegelse (tokens.css og globals.css).
+ */
+
+.tall {
+  display: inline-grid;
+  overflow: clip;
+  /* Plass til tall med understrek eller gjennomstreking uten at de klippes. */
+  padding-block: 0.08em;
+  margin-block: -0.08em;
+}
+
+.tall > * {
+  grid-area: 1 / 1;
+}
+
+.inn {
+  animation: rull-inn var(--dur-slow) var(--ease-ut) both;
+}
+
+.ut {
+  opacity: 0;
+  animation: rull-ut var(--dur-slow) var(--ease-ut) both;
+}
+
+/* Tallet ble mindre: det nye kommer ovenfra, det gamle går ned. */
+.ned {
+  --rull-fra: -100%;
+  --rull-til: 100%;
+}
+
+@keyframes rull-inn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rull-fra, 100%));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rull-ut {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(var(--rull-til, -100%));
+  }
+}
+
+/* Merket på handlekurvknappen spretter når antallet endres – etter at skuffen har glidd bort (--dur-base). */
+.pop {
+  animation: pop var(--dur-slow) var(--ease-ut) var(--dur-base);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

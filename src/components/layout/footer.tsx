@@ -1,5 +1,6 @@
 // Bygget etter «Newsletter Footer» (Méschac Irung, Tailark, MIT) på 21st.dev – https://21st.dev/@meschacirung/components/footer-4. Egen kode; ingen kode er kopiert.
 // Nyhetsbrevfeltet er byttet med kundeklubben i Diller: Regina har ingen nyhetsbrevtjeneste (src/content/kundeklubb.ts).
+// Lenkene i listene ruller ved peker (rulletekst.tsx, etter «Text Roll» – Julien Thibeaut, Motion Primitives, MIT).
 
 import { ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
@@ -9,14 +10,20 @@ import { dillerInnmelding, KUNDEKLUBB } from '@/content/kundeklubb'
 import { hentButikkinfo } from '@/lib/woocommerce/innhold'
 import { BUTIKKEN, KUNDESERVICE } from './lenker'
 import { Logo } from './logo'
+import { Rulletekst } from './rulletekst'
 import { Samtykkelenke } from './samtykke'
 
 // Footeren står på plum og avslutter siden med en mørk flate. Lenker i sand-100, peker gir sand-50 og understrek.
 const lenke =
   'text-sand-100 underline-offset-4 transition-colors duration-(--dur-fast) hover:text-sand-50 hover:underline'
+// Lenker i listene: teksten ruller opp ved peker og fokus (Rulletekst). På mobil er hver lenke 44 px høy.
+const rullelenke =
+  'group/rull inline-flex min-h-11 items-center gap-1 text-sand-100 transition-colors duration-(--dur-fast) hover:text-sand-50 active:text-sand-50 md:min-h-0'
+const pil =
+  'size-3.5 transition-transform duration-(--dur-slow) ease-ut group-hover/rull:translate-x-0.5 group-hover/rull:-translate-y-0.5'
 const overskrift = 'font-sans text-base font-medium'
 // Lenkene ligger på én linje som brytes på mobil, og i kolonne fra md.
-const liste = 'mt-4 flex flex-wrap gap-x-5 gap-y-2.5 md:flex-col md:gap-y-3'
+const liste = 'mt-2 flex flex-wrap gap-x-5 md:mt-4 md:flex-col md:gap-y-3'
 
 export async function Footer() {
   const info = await hentButikkinfo()
@@ -30,17 +37,17 @@ export async function Footer() {
             <p className="mt-6 text-sand-100">
               {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
             </p>
-            <ul className="mt-4 flex gap-6" aria-label="Regina i sosiale medier">
+            <ul className="mt-2 flex gap-6 md:mt-4" aria-label="Regina i sosiale medier">
               <li>
-                <a href={BUTIKK.instagram.lenke} className={`${lenke} inline-flex items-center gap-1`}>
-                  Instagram
-                  <ArrowUpRight className="size-3.5" aria-hidden />
+                <a href={BUTIKK.instagram.lenke} className={rullelenke}>
+                  <Rulletekst tekst="Instagram" />
+                  <ArrowUpRight className={pil} aria-hidden />
                 </a>
               </li>
               <li>
-                <a href={BUTIKK.facebook.lenke} className={`${lenke} inline-flex items-center gap-1`}>
-                  Facebook
-                  <ArrowUpRight className="size-3.5" aria-hidden />
+                <a href={BUTIKK.facebook.lenke} className={rullelenke}>
+                  <Rulletekst tekst="Facebook" />
+                  <ArrowUpRight className={pil} aria-hidden />
                 </a>
               </li>
             </ul>
@@ -59,8 +66,8 @@ export async function Footer() {
             <ul className={liste}>
               {KUNDESERVICE.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className={lenke}>
-                    {l.navn}
+                  <Link href={l.href} className={rullelenke}>
+                    <Rulletekst tekst={l.navn} />
                   </Link>
                 </li>
               ))}
@@ -71,8 +78,8 @@ export async function Footer() {
             <ul className={liste}>
               {BUTIKKEN.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className={lenke}>
-                    {l.navn}
+                  <Link href={l.href} className={rullelenke}>
+                    <Rulletekst tekst={l.navn} />
                   </Link>
                 </li>
               ))}
