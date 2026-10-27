@@ -1,55 +1,68 @@
 import type { Metadata, Viewport } from 'next'
-import type { ReactNode } from 'react'
-import '@/styles/skrift.css'
-import '@/styles/tokens.css'
-import '@/styles/base.css'
-import { Handlekurv } from '@/components/kurv/Handlekurv'
-import { KurvProvider } from '@/components/kurv/KurvProvider'
-import { Bunntekst } from '@/components/layout/Bunntekst'
-import { Header } from '@/components/layout/Header'
-import { Toppstripe } from '@/components/layout/Toppstripe'
-import { hentKatalog } from '@/lib/katalog/kilde'
-import { byggMeny } from '@/lib/visning'
+import { Playfair_Display, Poppins } from 'next/font/google'
+import { KurvProvider } from '@/components/kurv/kurv-provider'
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
+import { Kampanjebanner } from '@/components/layout/kampanjebanner'
+import { Samtykke } from '@/components/layout/samtykke'
+import { Toppstripe } from '@/components/layout/toppstripe'
+import { Toaster } from '@/components/ui/sonner'
+import { NETTSTEDNAVN, nettstedUrl, skalIndekseres } from '@/lib/seo/nettsted'
+import { hentKampanjer } from '@/lib/woocommerce/innhold'
+import './globals.css'
+
+// Dagens fonter (oppdraget §4): Playfair Display til overskrifter, Poppins til brødtekst og UI.
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+  display: 'swap',
+})
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-poppins',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://reginaparfymeri.no'),
+  metadataBase: new URL(nettstedUrl()),
   title: {
-    default: 'Regina Parfymeri – nisjeduft, hudpleie og makeup i Haugesund',
-    template: '%s – Regina Parfymeri',
+    default: `${NETTSTEDNAVN} – nisjeparfymer, hudpleie og makeup i Haugesund siden 1863`,
+    template: `%s | ${NETTSTEDNAVN}`,
   },
   description:
-    'Familieparfymeri i Haraldsgata i Haugesund siden 1863. Nisjeduft fra Creed, Initio, Parfums de Marly, Fugazzi og BDK, hudpleie og makeup – med personlig veiledning.',
-  // Dette er et konsept: det skal ikke indekseres ved siden av Reginas ekte nettsted.
-  robots: { index: false, follow: false },
-  openGraph: { locale: 'nb_NO', siteName: 'Regina Parfymeri', type: 'website' },
+    'Et av Norges eldste frittstående parfymerier. Eksklusive nisjedufter, hudpleie og makeup – i butikken i Haraldsgata 138 i Haugesund og på nett.',
+  robots: skalIndekseres() ? { index: true, follow: true } : { index: false, follow: false },
+  openGraph: { siteName: NETTSTEDNAVN, locale: 'nb_NO', type: 'website' },
+  formatDetection: { telephone: false },
 }
-
-// Med KATALOG_KILDE=live fornyes de forhåndsrendrede sidene hvert femte minutt.
-export const revalidate = 300
 
 export const viewport: Viewport = {
-  themeColor: '#f2e9dd',
-  width: 'device-width',
-  initialScale: 1,
+  themeColor: '#f4ede4',
 }
 
-export default async function RotOppsett({ children }: { children: ReactNode }) {
-  const katalog = await hentKatalog()
-  const meny = byggMeny(katalog)
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { kampanjer, tidspunkt } = await hentKampanjer()
   return (
-    <html lang="nb">
-      <body>
-        <a href="#innhold" className="hopp">
+    <html lang="nb" className={`${playfair.variable} ${poppins.variable}`}>
+      <body className="flex min-h-dvh flex-col">
+        <a
+          href="#innhold"
+          className="sr-only z-50 bg-regina-plum px-4 py-3 text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+        >
           Hopp til innholdet
         </a>
         <KurvProvider>
+          <Kampanjebanner kampanjer={kampanjer} bygget={tidspunkt} />
           <Toppstripe />
-          <Header meny={meny} />
-          <main id="innhold" tabIndex={-1}>
+          <Header />
+          <main id="innhold" className="flex-1">
             {children}
           </main>
-          <Bunntekst meny={meny} meta={katalog.meta} />
-          <Handlekurv />
+          <Footer />
+          <Samtykke />
+          <Toaster position="top-center" />
         </KurvProvider>
       </body>
     </html>

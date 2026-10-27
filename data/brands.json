@@ -1,0 +1,392 @@
+[
+  {
+    "name": "MAVALA",
+    "slug": "mavala",
+    "product_count": 100
+  },
+  {
+    "name": "AHAVA",
+    "slug": "ahava",
+    "product_count": 92
+  },
+  {
+    "name": "Rudolph Care",
+    "slug": "rudolph-care",
+    "product_count": 62
+  },
+  {
+    "name": "Beter Elite",
+    "slug": "beter-elite",
+    "product_count": 55
+  },
+  {
+    "name": "Titania",
+    "slug": "titania",
+    "product_count": 54
+  },
+  {
+    "name": "Susanne Kaufmann",
+    "slug": "susanne-kaufmann",
+    "product_count": 46
+  },
+  {
+    "name": "JJDK",
+    "slug": "jjdk",
+    "product_count": 41
+  },
+  {
+    "name": "Anastasia Beverly Hills",
+    "slug": "anastasia-beverly-hills",
+    "product_count": 39
+  },
+  {
+    "name": "Hermines Story",
+    "slug": "hermines-story",
+    "product_count": 38
+  },
+  {
+    "name": "Löwengrip",
+    "slug": "lowengrip",
+    "product_count": 37
+  },
+  {
+    "name": "Parfums de Marly",
+    "slug": "parfums-de-marly",
+    "product_count": 36
+  },
+  {
+    "name": "HAAN",
+    "slug": "haan",
+    "product_count": 32
+  },
+  {
+    "name": "Montblanc",
+    "slug": "montblanc",
+    "product_count": 30
+  },
+  {
+    "name": "Creed",
+    "slug": "creed",
+    "product_count": 29
+  },
+  {
+    "name": "Guinot",
+    "slug": "guinot",
+    "product_count": 27
+  },
+  {
+    "name": "Ida Warg",
+    "slug": "ida-warg",
+    "product_count": 25
+  },
+  {
+    "name": "Optima Natura",
+    "slug": "optima-natura",
+    "product_count": 24
+  },
+  {
+    "name": "Initio",
+    "slug": "initio",
+    "product_count": 22
+  },
+  {
+    "name": "Memo Paris",
+    "slug": "memo",
+    "product_count": 19
+  },
+  {
+    "name": "BDK Parfums",
+    "slug": "bdk-parfums",
+    "product_count": 18
+  },
+  {
+    "name": "Fugazzi",
+    "slug": "fugazzi",
+    "product_count": 17
+  },
+  {
+    "name": "Dresdner Essenz",
+    "slug": "dresdner",
+    "product_count": 17
+  },
+  {
+    "name": "Essential Parfums",
+    "slug": "essential-parfums",
+    "product_count": 16
+  },
+  {
+    "name": "Escentric Molecules",
+    "slug": "molecules",
+    "product_count": 15
+  },
+  {
+    "name": "Haugescent",
+    "slug": "haugescent",
+    "product_count": 14
+  },
+  {
+    "name": "Björn Axén",
+    "slug": "bjorn-axen",
+    "product_count": 13
+  },
+  {
+    "name": "Kent",
+    "slug": "kent",
+    "product_count": 12
+  },
+  {
+    "name": "Ormonde Jayne",
+    "slug": "ormonde-jayne",
+    "product_count": 11
+  },
+  {
+    "name": "Hanne Bang",
+    "slug": "hanne-bang",
+    "product_count": 7
+  },
+  {
+    "name": "Van Cleef & Arpels",
+    "slug": "van-cleef-arpels",
+    "product_count": 7
+  },
+  {
+    "name": "Yardley London",
+    "slug": "yardley-london",
+    "product_count": 7
+  },
+  {
+    "name": "Jobski",
+    "slug": "jobski-cosmetic",
+    "product_count": 7
+  },
+  {
+    "name": "Esponjabon",
+    "slug": "esponjabon",
+    "product_count": 6
+  },
+  {
+    "name": "IDC Institute",
+    "slug": "idc-institute",
+    "product_count": 6
+  },
+  {
+    "name": "Free Vola",
+    "slug": "free-vola",
+    "product_count": 6
+  },
+  {
+    "name": "Engelsrufer",
+    "slug": "engelsrufer",
+    "product_count": 5
+  },
+  {
+    "name": "Mitchum",
+    "slug": "mitchum",
+    "product_count": 5
+  },
+  {
+    "name": "Grande Cosmetics",
+    "slug": "grande-cosmetics",
+    "product_count": 5
+  },
+  {
+    "name": "Men Rock",
+    "slug": "men-rock",
+    "product_count": 5
+  },
+  {
+    "name": "Martinelia",
+    "slug": "martinelia",
+    "product_count": 4
+  },
+  {
+    "name": "Perlier",
+    "slug": "perlier",
+    "product_count": 4
+  },
+  {
+    "name": "Nesti Dante",
+    "slug": "nesti-dante",
+    "product_count": 4
+  },
+  {
+    "name": "Medicube",
+    "slug": "medicube",
+    "product_count": 4
+  },
+  {
+    "name": "Florentino",
+    "slug": "florentino",
+    "product_count": 3
+  },
+  {
+    "name": "Elizabeth Arden",
+    "slug": "elizabeth-arden",
+    "product_count": 3
+  },
+  {
+    "name": "Davidoff",
+    "slug": "davidoff",
+    "product_count": 3
+  },
+  {
+    "name": "Summer Beach",
+    "slug": "summer-beach",
+    "product_count": 3
+  },
+  {
+    "name": "Old Spice",
+    "slug": "old-spice",
+    "product_count": 3
+  },
+  {
+    "name": "Helene Fischer",
+    "slug": "helene-fischer",
+    "product_count": 2
+  },
+  {
+    "name": "Bell",
+    "slug": "bell-cosmetics",
+    "product_count": 2
+  },
+  {
+    "name": "GC Homme",
+    "slug": "gc-homme",
+    "product_count": 2
+  },
+  {
+    "name": "Brylcreem",
+    "slug": "brylcreem",
+    "product_count": 2
+  },
+  {
+    "name": "Gian Marco Venturi",
+    "slug": "gian-marco-venturi",
+    "product_count": 2
+  },
+  {
+    "name": "Magnista",
+    "slug": "maginista",
+    "product_count": 2
+  },
+  {
+    "name": "Danielle",
+    "slug": "danielle",
+    "product_count": 2
+  },
+  {
+    "name": "Suavina",
+    "slug": "suavina",
+    "product_count": 2
+  },
+  {
+    "name": "Gillette",
+    "slug": "gillette",
+    "product_count": 2
+  },
+  {
+    "name": "Rebellious",
+    "slug": "rebellious",
+    "product_count": 2
+  },
+  {
+    "name": "Yerka",
+    "slug": "yerka",
+    "product_count": 1
+  },
+  {
+    "name": "Sonic",
+    "slug": "sonic",
+    "product_count": 1
+  },
+  {
+    "name": "Pears",
+    "slug": "pears",
+    "product_count": 1
+  },
+  {
+    "name": "Stern",
+    "slug": "stern",
+    "product_count": 1
+  },
+  {
+    "name": "Bondi Sands",
+    "slug": "bondi-sands",
+    "product_count": 1
+  },
+  {
+    "name": "Erasmic",
+    "slug": "erasmic",
+    "product_count": 1
+  },
+  {
+    "name": "Zew for men",
+    "slug": "zew-for-men",
+    "product_count": 1
+  },
+  {
+    "name": "Micro Cell 2000",
+    "slug": "micro-cell-2000",
+    "product_count": 1
+  },
+  {
+    "name": "Equate",
+    "slug": "equate",
+    "product_count": 1
+  },
+  {
+    "name": "Vadeco",
+    "slug": "vadeco",
+    "product_count": 1
+  },
+  {
+    "name": "Batiste",
+    "slug": "batiste",
+    "product_count": 1
+  },
+  {
+    "name": "Love",
+    "slug": "love",
+    "product_count": 1
+  },
+  {
+    "name": "Eye Candy",
+    "slug": "eye-candy",
+    "product_count": 1
+  },
+  {
+    "name": "Skippy",
+    "slug": "skippy",
+    "product_count": 1
+  },
+  {
+    "name": "Athena",
+    "slug": "athena",
+    "product_count": 1
+  },
+  {
+    "name": "Pure Bristles",
+    "slug": "pure-bristles",
+    "product_count": 1
+  },
+  {
+    "name": "Nail HQ",
+    "slug": "nail-hq",
+    "product_count": 1
+  },
+  {
+    "name": "Highland",
+    "slug": "highland",
+    "product_count": 1
+  },
+  {
+    "name": "Mii",
+    "slug": "mii",
+    "product_count": 1
+  },
+  {
+    "name": "Guerlain",
+    "slug": "guerlain",
+    "product_count": 1
+  }
+]

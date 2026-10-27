@@ -1,0 +1,373 @@
+[
+  {
+    "slug": "ahava",
+    "name": "AHAVA",
+    "count": 92,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/ahava/",
+    "new_slug": "ahava"
+  },
+  {
+    "slug": "anastasia-beverly-hills",
+    "name": "ANASTASIA BEVERLY HILLS",
+    "count": 39,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/anastasia-beverly-hills/",
+    "new_slug": "anastasia-beverly-hills"
+  },
+  {
+    "slug": "bdk-parfums",
+    "name": "BDK PARFUMS",
+    "count": 18,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/bdk-parfums/",
+    "new_slug": "bdk-parfums"
+  },
+  {
+    "slug": "bell-cosmetics",
+    "name": "BELL COSMETICS",
+    "count": 1,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/bell-cosmetics/",
+    "new_slug": "bell-cosmetics"
+  },
+  {
+    "slug": "beter-elite",
+    "name": "BETER ELITE",
+    "count": 55,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/beter-elite/",
+    "new_slug": "beter-elite"
+  },
+  {
+    "slug": "bjorn-axen",
+    "name": "BJÖRN AXÈN",
+    "count": 13,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/bjorn-axen/",
+    "new_slug": "bjorn-axen"
+  },
+  {
+    "slug": "boucheron",
+    "name": "BOUCHERON",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/boucheron/",
+    "new_slug": null
+  },
+  {
+    "slug": "creed",
+    "name": "CREED",
+    "count": 29,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/creed/",
+    "new_slug": "creed"
+  },
+  {
+    "slug": "davidoff",
+    "name": "DAVIDOFF",
+    "count": 3,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/davidoff/",
+    "new_slug": "davidoff"
+  },
+  {
+    "slug": "dolce-gabbana",
+    "name": "Dolce & Gabbana",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/dolce-gabbana/",
+    "new_slug": null
+  },
+  {
+    "slug": "dresdner",
+    "name": "DRESDNER",
+    "count": 17,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/dresdner/",
+    "new_slug": "dresdner"
+  },
+  {
+    "slug": "elizabeth-arden",
+    "name": "ELIZABETH ARDEN",
+    "count": 3,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/elizabeth-arden/",
+    "new_slug": "elizabeth-arden"
+  },
+  {
+    "slug": "engelsrufer",
+    "name": "ENGELSRUFER",
+    "count": 5,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/engelsrufer/",
+    "new_slug": "engelsrufer"
+  },
+  {
+    "slug": "essential-parfums",
+    "name": "ESSENTIAL PARFUMS",
+    "count": 16,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/essential-parfums/",
+    "new_slug": "essential-parfums"
+  },
+  {
+    "slug": "fugazzi",
+    "name": "FUGAZZI",
+    "count": 17,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/fugazzi/",
+    "new_slug": "fugazzi"
+  },
+  {
+    "slug": "gc-homme",
+    "name": "GC HOMME",
+    "count": 2,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/gc-homme/",
+    "new_slug": "gc-homme"
+  },
+  {
+    "slug": "grande-cosmetics",
+    "name": "GRANDE COSMETICS",
+    "count": 5,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/grande-cosmetics/",
+    "new_slug": "grande-cosmetics"
+  },
+  {
+    "slug": "guerlain",
+    "name": "GUERLAIN",
+    "count": 1,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/guerlain/",
+    "new_slug": "guerlain"
+  },
+  {
+    "slug": "guinot",
+    "name": "GUINOT",
+    "count": 27,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/guinot/",
+    "new_slug": "guinot"
+  },
+  {
+    "slug": "haan",
+    "name": "HAAN",
+    "count": 32,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/haan/",
+    "new_slug": "haan"
+  },
+  {
+    "slug": "hanne-bang",
+    "name": "HANNE BANG",
+    "count": 7,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/hanne-bang/",
+    "new_slug": "hanne-bang"
+  },
+  {
+    "slug": "haugescent",
+    "name": "HAUGESCENT",
+    "count": 14,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/haugescent/",
+    "new_slug": "haugescent"
+  },
+  {
+    "slug": "helene-fischer",
+    "name": "HELENE FISCHER",
+    "count": 2,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/helene-fischer/",
+    "new_slug": "helene-fischer"
+  },
+  {
+    "slug": "hermes-paris",
+    "name": "HERMES PARIS",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/hermes-paris/",
+    "new_slug": null
+  },
+  {
+    "slug": "ida-warg",
+    "name": "IDA WARG",
+    "count": 22,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/ida-warg/",
+    "new_slug": "ida-warg"
+  },
+  {
+    "slug": "idc-institute",
+    "name": "IDC INSTITUTE",
+    "count": 1,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/idc-institute/",
+    "new_slug": "idc-institute"
+  },
+  {
+    "slug": "initio",
+    "name": "INITIO",
+    "count": 22,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/initio/",
+    "new_slug": "initio"
+  },
+  {
+    "slug": "jjdk",
+    "name": "JJDK",
+    "count": 39,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/jjdk/",
+    "new_slug": "jjdk"
+  },
+  {
+    "slug": "jobski-cosmetic",
+    "name": "JOBSKI COSMETIC",
+    "count": 7,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/jobski-cosmetic/",
+    "new_slug": "jobski-cosmetic"
+  },
+  {
+    "slug": "kent",
+    "name": "KENT",
+    "count": 12,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/kent/",
+    "new_slug": "kent"
+  },
+  {
+    "slug": "lowengrip",
+    "name": "Löwengrip",
+    "count": 37,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/lowengrip/",
+    "new_slug": "lowengrip"
+  },
+  {
+    "slug": "maginista",
+    "name": "MAGINISTA",
+    "count": 2,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/maginista/",
+    "new_slug": "maginista"
+  },
+  {
+    "slug": "martinelia",
+    "name": "MARTINELIA",
+    "count": 4,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/martinelia/",
+    "new_slug": "martinelia"
+  },
+  {
+    "slug": "mavala",
+    "name": "MAVALA",
+    "count": 100,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/mavala/",
+    "new_slug": "mavala"
+  },
+  {
+    "slug": "medicube",
+    "name": "MEDICUBE",
+    "count": 4,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/medicube/",
+    "new_slug": "medicube"
+  },
+  {
+    "slug": "memo",
+    "name": "MEMO",
+    "count": 19,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/memo/",
+    "new_slug": "memo"
+  },
+  {
+    "slug": "mii",
+    "name": "MII",
+    "count": 1,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/mii/",
+    "new_slug": "mii"
+  },
+  {
+    "slug": "molecules",
+    "name": "MOLECULES",
+    "count": 15,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/molecules/",
+    "new_slug": "molecules"
+  },
+  {
+    "slug": "montblanc",
+    "name": "MONTBLANC",
+    "count": 30,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/montblanc/",
+    "new_slug": "montblanc"
+  },
+  {
+    "slug": "old-spice",
+    "name": "OLD SPICE",
+    "count": 3,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/old-spice/",
+    "new_slug": "old-spice"
+  },
+  {
+    "slug": "optima-natura",
+    "name": "OPTIMA NATURA",
+    "count": 24,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/optima-natura/",
+    "new_slug": "optima-natura"
+  },
+  {
+    "slug": "ormonde-jayne",
+    "name": "ORMONDE JAYNE",
+    "count": 11,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/ormonde-jayne/",
+    "new_slug": "ormonde-jayne"
+  },
+  {
+    "slug": "paco-rabanne",
+    "name": "PACO RABANNE",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/paco-rabanne/",
+    "new_slug": null
+  },
+  {
+    "slug": "parfums-de-marly",
+    "name": "PARFUMS DE MARLY",
+    "count": 36,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/parfums-de-marly/",
+    "new_slug": "parfums-de-marly"
+  },
+  {
+    "slug": "perlier",
+    "name": "PERLIER",
+    "count": 4,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/perlier/",
+    "new_slug": "perlier"
+  },
+  {
+    "slug": "rudolph-care",
+    "name": "RUDOLPH CARE",
+    "count": 62,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/rudolph-care/",
+    "new_slug": "rudolph-care"
+  },
+  {
+    "slug": "sisley",
+    "name": "SISLEY",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/sisley/",
+    "new_slug": null
+  },
+  {
+    "slug": "suavina",
+    "name": "SUAVINA",
+    "count": 2,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/suavina/",
+    "new_slug": "suavina"
+  },
+  {
+    "slug": "susanne-kaufmann",
+    "name": "SUSANNE KAUFMANN",
+    "count": 46,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/susanne-kaufmann/",
+    "new_slug": "susanne-kaufmann"
+  },
+  {
+    "slug": "titania",
+    "name": "Titania",
+    "count": 54,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/titania/",
+    "new_slug": "titania"
+  },
+  {
+    "slug": "tweezerman",
+    "name": "TWEEZERMAN",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/tweezerman/",
+    "new_slug": null
+  },
+  {
+    "slug": "van-cleef-arpels",
+    "name": "VAN CLEEF & ARPELS",
+    "count": 7,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/van-cleef-arpels/",
+    "new_slug": "van-cleef-arpels"
+  },
+  {
+    "slug": "versace",
+    "name": "VERSACE",
+    "count": 0,
+    "url": "https://nettbutikk.reginaparfymeri.no/brand/versace/",
+    "new_slug": null
+  }
+]

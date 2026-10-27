@@ -1,120 +1,56 @@
 /*
- * Designtokens for Regina Parfymeri – konseptet «Den rosa løperen».
+ * Designtokens for Regina Parfymeri. Alle farger, skrifter og bevegelser i flaten kommer herfra.
  *
- * Rosa er Reginas egen: #E9168C er primærfargen i både reginaparfymeri.no og nettbutikken
- * (WoodMart: --wd-primary-color: rgb(233,22,140)). Logoen er tegnet i #EF3AA7, løperen foran
- * butikken i Haraldsgata er samme familie. Sand er butikkgulvet; plomme (#3F132E) er
- * nettbutikkens egen sekundærfarge.
+ * Verdiene er fra oppdraget (§4): rosa er hentet direkte fra dagens to nettsider, sand er et forslag til
+ * «dus sand» som må godkjennes av kunden. Endres en verdi, endres den bare her.
  *
- * Komponent-CSS bruker bare variablene her. Kontrastene er kontrollert i tokens.test.ts –
- * et nytt par av tekst og bakgrunn skal inn i testen.
+ * Kontrastregler (WCAG 2.1 AA), målt i tokens.test.ts – et nytt par av tekst og bakgrunn skal inn der:
+ * - --regina-pink bare til stor tekst (24px+, eller 19px+ fet), ikoner, flater og dekor.
+ * - --regina-pink-strong til rosa lenker og tekst, og til rosa knapper med hvit tekst.
+ * - --sand-ink (sekundærtekst) bare på --sand-50 og --paper, ikke på --sand-100 (4,2:1). Der brukes
+ *   --sand-ink-deep, som også er shadcn sin «muted-foreground».
+ * - Rosa er en aksent, ikke en flate: ca. 5–10 % rosa, resten sand og plum.
  */
 
 :root {
   /* --- Merkefarger --- */
-  --rosa: #e9168c; /* Reginas rosa: identitet, store titler, løperen, dekor */
-  --rosa-logo: #ef3aa7; /* fargen i logofilen – brukes bare av logoen */
-  --rosa-knapp: #d4127e; /* knapper med hvit tekst (5,0:1) – tilnærmet lik merkefargen */
-  --rosa-knapp-hover: #b80e6a;
-  --rosa-tekst: #b80e6a; /* liten rosa tekst og lenker på sand (5,3:1) */
-  --rosa-lys: #f6dce6; /* tonede flater: valgt filter, merkelapper */
-  --rosa-dus: #fbeef3; /* hover på lyse flater */
-  --rosa-paa-mork: #f5a3cb; /* rosa tekst på plomme (8,2:1) */
-  --plomme: #3f132e;
-  --plomme-dyp: #2e0d21;
-  --plomme-linje: #6b3a57;
+  --regina-pink: #e9168c; /* kundens rosa: logo, aksenter, merker, dekor, store overskrifter */
+  --regina-pink-strong: #c2106f; /* rosa tekst, lenker og rosa knapper med hvit tekst */
+  --regina-plum: #3f132e; /* primær tekst og primærknapp (fra dagens butikk) */
 
   /* --- Sand --- */
-  --sand: #f2e9dd; /* arbeidsflaten – aldri rent hvitt */
-  --sand-lys: #f8f2ea; /* hevede flater: menyer, skuffer, kort */
-  --sand-dyp: #e9ddcc; /* vekslende seksjoner, flate for gjennomsiktige produktbilder */
-  --sand-mork: #dccbb5;
-  --linje: #dccdbb; /* hårfine skillelinjer (dekor) */
-  --linje-sterk: #8e7866; /* kanter på skjemafelt og knapper (3,5:1 mot sand) */
+  --sand-50: #f4ede4; /* hovedbakgrunn */
+  --sand-100: #eadfd2; /* seksjoner, kort, footer */
+  --sand-200: #d9cbb8; /* linjer, rammer, skillere */
+  --sand-ink: #7a6555; /* sekundærtekst, metadata – på sand-50 og paper */
+  --sand-ink-deep: #6e5a4b; /* sekundærtekst som også står på sand-100 (shadcn «muted») */
+  --paper: #fbf8f4; /* bakgrunn bak produktbilder */
 
-  /* --- Tekst --- */
-  --blekk: #2b1a21; /* brødtekst og titler (13,7:1 på sand) */
-  --blekk-dempet: #6a5560; /* sekundær tekst (5,7:1 på sand) */
-  --paa-rosa: #ffffff; /* tekst på rosa knapper */
-  --paa-mork: #f2e9dd; /* tekst på plomme */
-  --paa-mork-dempet: #d9c5cf;
+  /* --- Tillegg som oppdraget ikke dekker (samme sted, samme regler) --- */
+  --white: #ffffff; /* tekst på rosa og plum knapper */
+  --status-ok: #2e6b4a; /* «På lager» – fra WooCommerce, aldri pynt */
+  --status-varsel: #8a5300; /* «Få igjen» */
+  --status-feil: #a3242e; /* feilmeldinger, «Utsolgt» */
 
-  /* --- Status (fra WooCommerce, aldri pynt) --- */
-  --ok: #2e6b4a;
-  --varsel: #8a5300;
-  --feil: #a3242e;
+  /* --- Skrift (settes av next/font i layout.tsx) --- */
+  --font-display: var(--font-playfair), 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-ui: var(--font-poppins), Poppins, 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  /* --- Skrift --- */
-  --skrift-display: 'Cormorant Garamond Variable', 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
-  --skrift-tekst: 'Manrope Variable', Manrope, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* --- Former: rette eller nesten rette hjørner (0–2px) --- */
+  --radius: 2px;
 
-  /* Cormorant har lav x-høyde – de redaksjonelle størrelsene er derfor romslige. */
-  --t-mega: clamp(3.25rem, 1.6rem + 6.4vw, 7.25rem);
-  --t-1: clamp(2.5rem, 1.6rem + 3.4vw, 4.75rem);
-  --t-2: clamp(2rem, 1.45rem + 2vw, 3.25rem);
-  /* Mindre overskrifter settes i Manrope. */
-  --t-3: clamp(1.25rem, 1.15rem + 0.45vw, 1.5rem);
-  --t-4: clamp(1.0625rem, 1.03rem + 0.2vw, 1.1875rem);
-  --t-brod: 1.0625rem;
-  --t-liten: 0.9375rem;
-  --t-mini: 0.8125rem;
-
-  --linjehoyde-tett: 1;
-  --linjehoyde-tittel: 1.08;
-  --linjehoyde-tekst: 1.6;
-
-  /* --- Rom (4 px-rytme) --- */
-  --rom-1: 0.25rem;
-  --rom-2: 0.5rem;
-  --rom-3: 0.75rem;
-  --rom-4: 1rem;
-  --rom-5: 1.5rem;
-  --rom-6: 2rem;
-  --rom-7: 3rem;
-  --rom-8: 4rem;
-  --rom-9: 6rem;
-  --rom-10: 8rem;
-  --seksjon: clamp(4rem, 2.5rem + 6vw, 8.5rem);
-  --kant: clamp(1rem, 0.4rem + 2.6vw, 3rem); /* sidemarg */
-  --bredde: 92rem;
-  --bredde-tekst: 38rem;
-
-  /* --- Former --- */
-  --radius-s: 4px;
-  --radius-m: 10px;
-  --radius-l: 18px;
-  --radius-pille: 999px;
-  --bue: 999px 999px 0 0; /* buen – brukt sparsomt på redaksjonelle bilder */
-  --loper: 0.375rem; /* bredden på den rosa løperen som markør */
-
-  /* --- Bevegelse --- */
-  --tid-kort: 160ms;
-  --tid-middels: 280ms;
-  --tid-lang: 520ms;
-  --tid-inngang: 1100ms;
-  --tid-bilde: 900ms; /* bilder som zoomer svakt ved peker */
-  --tid-svev: 6s; /* flasken i heroen som svever */
-  --ease-ut: cubic-bezier(0.22, 0.7, 0.18, 1); /* «silke»: rolig landing */
-  --ease-inn-ut: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-fjaer: cubic-bezier(0.34, 1.45, 0.64, 1); /* små bekreftelser */
-
-  --fokus: 0 0 0 2px var(--sand), 0 0 0 4px var(--rosa-tekst);
-  --header-hoyde: 4.25rem;
-}
-
-@media (min-width: 64rem) {
-  :root {
-    --header-hoyde: 7.5rem;
-  }
+  /* --- Bevegelse: diskret fade/slide, 150–250 ms --- */
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --dur-slow: 250ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --tid-kort: 0ms;
-    --tid-middels: 0ms;
-    --tid-lang: 0ms;
-    --tid-inngang: 0ms;
-    --tid-bilde: 0ms;
-    --tid-svev: 0ms;
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
   }
 }

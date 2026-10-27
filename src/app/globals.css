@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '../styles/tokens.css';
+
+/*
+ * Tailwind-tokens. Verdiene ligger i src/styles/tokens.css; her kobles de til Tailwind
+ * (bg-sand-50, text-regina-plum, border-sand-200 …) og til shadcn/ui sine semantiske navn.
+ * Ingen farger skal skrives direkte i komponentene.
+ */
+@theme inline {
+  --color-regina-pink: var(--regina-pink);
+  --color-regina-pink-strong: var(--regina-pink-strong);
+  --color-regina-plum: var(--regina-plum);
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-ink: var(--sand-ink);
+  --color-sand-ink-deep: var(--sand-ink-deep);
+  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-status-ok: var(--status-ok);
+  --color-status-varsel: var(--status-varsel);
+  --color-status-feil: var(--status-feil);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-ui);
+  --font-heading: var(--font-display);
+  --font-serif: var(--font-display);
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
+
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+  --default-transition-duration: var(--dur-base);
+  --default-transition-timing-function: var(--ease-out);
+}
+
+:root {
+  --background: var(--sand-50);
+  --foreground: var(--regina-plum);
+  --card: var(--paper);
+  --card-foreground: var(--regina-plum);
+  --popover: var(--paper);
+  --popover-foreground: var(--regina-plum);
+  --primary: var(--regina-plum);
+  --primary-foreground: var(--white);
+  --secondary: var(--sand-100);
+  --secondary-foreground: var(--regina-plum);
+  --muted: var(--sand-100);
+  --muted-foreground: var(--sand-ink-deep);
+  --accent: var(--sand-100);
+  --accent-foreground: var(--regina-plum);
+  --destructive: var(--status-feil);
+  --border: var(--sand-200);
+  /* Skjemafelt trenger 3:1 mot bakgrunnen (WCAG 1.4.11), derfor ikke sand-200. */
+  --input: var(--sand-ink);
+  --ring: var(--regina-pink-strong);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-size: 1rem; /* minst 16px brødtekst */
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading;
+    font-weight: 500;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 0.2em;
+  }
+  /* Synlig fokus i rosa/plum, også på mus-fri navigasjon. */
+  :focus-visible {
+    outline: 2px solid var(--regina-pink-strong);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--regina-pink);
+    color: var(--white);
+  }
+}
+
+/* Ingen bevegelse når brukeren har bedt om det – heller ikke fra tw-animate-css eller Radix. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

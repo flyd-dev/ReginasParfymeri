@@ -1,4 +1,4 @@
-// Holder paletten innenfor WCAG 2.2. Et nytt par av tekst og bakgrunn skal inn her.
+// Holder paletten innenfor WCAG 2.1 AA. Et nytt par av tekst og bakgrunn skal inn her før det tas i bruk.
 
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
@@ -25,64 +25,61 @@ function kontrast(a: string, b: string): number {
   return (l1 + 0.05) / (l2 + 0.05)
 }
 
-// [tekst, bakgrunn, krav]
-const PAR: [string, string, number][] = [
-  ['blekk', 'sand', 4.5],
-  ['blekk', 'sand-lys', 4.5],
-  ['blekk', 'sand-dyp', 4.5],
-  ['blekk', 'sand-mork', 4.5],
-  ['blekk', 'rosa-lys', 4.5],
-  ['blekk', 'rosa-dus', 4.5],
-  ['blekk-dempet', 'sand', 4.5],
-  ['blekk-dempet', 'sand-lys', 4.5],
-  ['blekk-dempet', 'sand-dyp', 4.5],
-  ['rosa-tekst', 'sand', 4.5],
-  ['rosa-tekst', 'sand-lys', 4.5],
-  ['rosa-tekst', 'sand-dyp', 4.5],
-  ['rosa-tekst', 'rosa-lys', 4.5],
-  ['paa-rosa', 'rosa-knapp', 4.5],
-  ['paa-rosa', 'rosa-knapp-hover', 4.5],
-  ['paa-mork', 'plomme', 4.5],
-  ['paa-mork-dempet', 'plomme', 4.5],
-  ['rosa-paa-mork', 'plomme', 4.5],
-  ['paa-mork', 'plomme-dyp', 4.5],
-  ['paa-mork-dempet', 'plomme-dyp', 4.5],
-  ['rosa-paa-mork', 'plomme-dyp', 4.5],
-  // Ikonknapper med peker over på mørk flate.
-  ['paa-mork', 'plomme-linje', 4.5],
-  // Kategorikortene på rosa flater.
-  ['blekk-dempet', 'rosa-lys', 4.5],
-  ['blekk-dempet', 'rosa-dus', 4.5],
-  ['ok', 'sand', 4.5],
-  ['ok', 'sand-lys', 4.5],
-  ['varsel', 'sand', 4.5],
-  ['varsel', 'sand-lys', 4.5],
-  ['feil', 'sand', 4.5],
-  ['feil', 'sand-lys', 4.5],
-  // Store titler og dekor i merkefargen.
-  ['rosa', 'sand', 3],
-  ['rosa', 'sand-lys', 3],
-  // Kanter på skjemafelt og knapper (ikke-tekstlig kontrast).
-  ['linje-sterk', 'sand', 3],
-  ['linje-sterk', 'sand-lys', 3],
-  ['rosa-knapp', 'sand', 3],
-  // Pauseknappen i det rosa merkebåndet.
-  ['plomme', 'rosa-knapp', 3],
+const TEKST = 4.5 // brødtekst og små knappetekster
+const STOR = 3 // stor tekst (24px+, eller 19px+ fet), ikoner og kanter på skjemafelt
+
+// [forgrunn, bakgrunn, krav, hvor]
+const PAR: [string, string, number, string][] = [
+  ['regina-plum', 'sand-50', TEKST, 'standard tekst'],
+  ['regina-plum', 'sand-100', TEKST, 'tekst i seksjoner, kort og footer'],
+  ['regina-plum', 'sand-200', TEKST, 'valgt filter, hover på rader'],
+  ['regina-plum', 'paper', TEKST, 'tekst i skuffer, dialoger og menyer'],
+  ['sand-ink', 'sand-50', TEKST, 'metadata på hovedbakgrunnen'],
+  ['sand-ink', 'paper', TEKST, 'metadata i skuffer og dialoger'],
+  ['sand-ink-deep', 'sand-50', TEKST, 'shadcn muted-foreground'],
+  ['sand-ink-deep', 'sand-100', TEKST, 'sekundærtekst i seksjoner og footer'],
+  ['sand-ink-deep', 'paper', TEKST, 'shadcn muted-foreground i popover'],
+  ['regina-pink-strong', 'sand-50', TEKST, 'rosa lenker og tekst'],
+  ['regina-pink-strong', 'paper', TEKST, 'rosa lenker i skuffer'],
+  ['white', 'regina-pink-strong', TEKST, 'rosa knapp med hvit tekst'],
+  ['white', 'regina-plum', TEKST, 'primærknapp'],
+  ['sand-50', 'regina-plum', TEKST, 'lys tekst på plum (toppstripe)'],
+  ['sand-100', 'regina-plum', TEKST, 'dempet lys tekst på plum'],
+  ['regina-pink', 'sand-50', STOR, 'store rosa overskrifter og ikoner'],
+  ['regina-pink', 'paper', STOR, 'rosa merker på produktbilder (stor/fet tekst)'],
+  ['white', 'regina-pink', STOR, 'hvit stor tekst på ren rosa'],
+  ['sand-ink', 'sand-50', STOR, 'kant på skjemafelt'],
+  ['sand-ink', 'paper', STOR, 'kant på skjemafelt i skuffer'],
+  ['regina-pink-strong', 'sand-50', STOR, 'fokusring'],
+  ['regina-pink-strong', 'sand-100', STOR, 'fokusring i seksjoner'],
+  ['status-ok', 'sand-50', TEKST, 'på lager'],
+  ['status-ok', 'paper', TEKST, 'på lager i kurven'],
+  ['status-varsel', 'sand-50', TEKST, 'få igjen'],
+  ['status-varsel', 'paper', TEKST, 'få igjen i kurven'],
+  ['status-feil', 'sand-50', TEKST, 'utsolgt og feil'],
+  ['status-feil', 'paper', TEKST, 'feil i skjema'],
 ]
 
-describe('fargekontrast', () => {
-  for (const [tekst, bakgrunn, krav] of PAR) {
-    it(`${tekst} på ${bakgrunn} ≥ ${krav}:1`, () => {
-      expect(kontrast(tekst, bakgrunn)).toBeGreaterThanOrEqual(krav)
-    })
-  }
-
-  it('bruker Reginas faktiske rosa', () => {
-    expect(token('rosa').toLowerCase()).toBe('#e9168c')
+describe('kontrast i paletten', () => {
+  it.each(PAR)('%s på %s holder %d:1 (%s)', (forgrunn, bakgrunn, krav) => {
+    expect(kontrast(forgrunn, bakgrunn)).toBeGreaterThanOrEqual(krav)
   })
 
-  it('har ingen rent hvit flate', () => {
-    for (const flate of ['sand', 'sand-lys', 'sand-dyp'])
-      expect(token(flate).toLowerCase()).not.toBe('#ffffff')
+  it('oppdragets målte verdier stemmer', () => {
+    expect(kontrast('regina-pink', 'sand-50')).toBeCloseTo(3.65, 1)
+    expect(kontrast('white', 'regina-pink')).toBeCloseTo(4.24, 1)
+    expect(kontrast('regina-pink-strong', 'sand-50')).toBeCloseTo(5.03, 1)
+    expect(kontrast('white', 'regina-pink-strong')).toBeCloseTo(5.84, 1)
+    expect(kontrast('regina-plum', 'sand-50')).toBeCloseTo(13.45, 1)
+  })
+
+  it('ren rosa holder ikke for brødtekst – derfor regina-pink-strong', () => {
+    expect(kontrast('regina-pink', 'sand-50')).toBeLessThan(TEKST)
+    expect(kontrast('white', 'regina-pink')).toBeLessThan(TEKST)
+  })
+
+  it('sand-ink og regina-pink-strong holder ikke på sand-100 – derfor sand-ink-deep og plum der', () => {
+    expect(kontrast('sand-ink', 'sand-100')).toBeLessThan(TEKST)
+    expect(kontrast('regina-pink-strong', 'sand-100')).toBeLessThan(TEKST)
   })
 })

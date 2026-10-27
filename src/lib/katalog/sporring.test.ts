@@ -1,175 +1,143 @@
-import { describe, expect, it } from 'vitest'
-import type { Katalog, Produkt } from './typer'
+import { beforeAll, describe, expect, it } from 'vitest'
+import { lesJsonKatalog } from '@/lib/woocommerce/json-kilde'
+import type { Katalog } from '@/lib/woocommerce/typer'
 import {
-  antallAktive,
+  TOMME_FILTRE,
+  bestselgere,
+  erNyhet,
   fasetter,
   filtrer,
-  kategoristi,
-  kategoritre,
+  finnKategori,
+  hurtigkjop,
+  kategorikjede,
   lagSokeindeks,
-  lesFiltre,
+  lesListetilstand,
+  listeUrl,
+  produkterIKategori,
+  relaterte,
   sok,
+  sokKategorier,
+  sokMerker,
   sorter,
-  TOMME_FILTRE,
+  variantverdi,
 } from './sporring'
 
-const lager = { status: 'pa-lager' as const, antall: null, tekst: '' }
-
-function p(id: number, over: Partial<Produkt>): Produkt {
-  return {
-    id,
-    slug: `p${id}`,
-    navn: `P${id}`,
-    visningsnavn: `P${id}`,
-    merke: null,
-    type: 'enkel',
-    kategorier: [],
-    pris: { pris: 10000, ordinaer: 10000, tilbud: false, valuta: 'NOK' },
-    prisspenn: null,
-    lager,
-    kjopbar: true,
-    maks: 5,
-    sku: `SKU${id}`,
-    bilder: [],
-    beskrivelse: [],
-    duftnoter: null,
-    egenskaper: [],
-    varianter: [],
-    rekkefolge: id,
-    lenke: '',
-    ...over,
-  }
-}
-
-const creed = { id: 1, navn: 'Creed', slug: 'creed' }
-const lowengrip = { id: 2, navn: 'Löwengrip', slug: 'lowengrip' }
-
-const katalog: Katalog = {
-  kategorier: [
-    { id: 10, navn: 'Duft', slug: 'duft', forelder: null, antall: 0 },
-    { id: 11, navn: 'Nisjeduft', slug: 'nisjeduft', forelder: 10, antall: 0 },
-    { id: 12, navn: 'Herreduft', slug: 'herreduft', forelder: 10, antall: 0 },
-    { id: 20, navn: 'Hår', slug: 'har', forelder: null, antall: 0 },
-    { id: 30, navn: 'Tom', slug: 'tom', forelder: null, antall: 0 },
-  ],
-  merker: [],
-  meta: { kilde: 'utdrag', butikk: '', hentet: '', antallProdukter: 4 },
-  produkter: [
-    p(1, {
-      navn: 'CREED – Aventus',
-      visningsnavn: 'Aventus',
-      merke: creed,
-      kategorier: [11],
-      pris: { pris: 265000, ordinaer: 265000, tilbud: false, valuta: 'NOK' },
-      duftnoter: { topp: ['Bergamott'], hjerte: ['Rose'], bunn: ['Vanilje fra Madagaskar'] },
-    }),
-    p(2, {
-      navn: 'CREED – Viking Cologne',
-      visningsnavn: 'Viking Cologne',
-      merke: creed,
-      kategorier: [12],
-      pris: { pris: 25000, ordinaer: 25000, tilbud: false, valuta: 'NOK' },
-      lager: { status: 'utsolgt', antall: 0, tekst: 'Utsolgt' },
-    }),
-    p(3, {
-      navn: 'LÖWENGRIP – Good To Go – Tørrshampoo',
-      visningsnavn: 'Good To Go – Tørrshampoo',
-      merke: lowengrip,
-      kategorier: [20],
-      pris: { pris: 10900, ordinaer: 17500, tilbud: true, valuta: 'NOK' },
-    }),
-    p(4, { navn: 'Pinsett', visningsnavn: 'Pinsett', kategorier: [20] }),
-  ],
-}
+let k: Katalog
+beforeAll(async () => {
+  k = await lesJsonKatalog()
+})
 
 describe('kategorier', () => {
-  it('teller produkter i underkategorier og skjuler tomme kategorier', () => {
-    const tre = kategoritre(katalog)
-    expect(tre.map((n) => [n.slug, n.totalt])).toEqual([
-      ['duft', 2],
-      ['har', 2],
-    ])
-    expect(tre[0]?.barn.map((b) => b.slug)).toEqual(['herreduft', 'nisjeduft'])
+  it('finner kategori etter sti og gir kjeden til brødsmuler', () => {
+    expect(finnKategori(k, ['duft', 'nisjeduft'])?.navn).toBe('Nisjeduft')
+    expect(kategorikjede(k, ['duft', 'nisjeduft']).map((c) => c.navn)).toEqual(['Duft', 'Nisjeduft'])
+    expect(finnKategori(k, ['duft', 'finnes-ikke'])).toBeUndefined()
   })
-
-  it('finner stien til en kategori', () => {
-    const nisje = katalog.kategorier[1]
-    expect(nisje && kategoristi(katalog, nisje).map((k) => k.slug)).toEqual(['duft', 'nisjeduft'])
+  it('tar med underkategorier i en hovedkategori', () => {
+    expect(produkterIKategori(k, ['duft']).length).toBe(207)
+    expect(produkterIKategori(k, ['duft', 'nisjeduft']).length).toBe(161)
   })
 })
 
-describe('filtre fra adressen', () => {
-  it('leser gyldige verdier og ignorerer resten', () => {
-    const { filtre, sortering, side } = lesFiltre({
-      merke: 'creed,<script>',
-      pris: ['under-300', 'tull'],
+describe('filtre i adressen', () => {
+  it('leser og skriver de samme filtrene', () => {
+    const t = lesListetilstand({
+      merke: 'creed,initio',
+      pris: '1000-2000',
       lager: '1',
-      sorter: 'pris-synkende',
-      side: '999',
+      sorter: 'nyeste',
+      storrelse: '50-ml',
     })
-    expect(filtre.merke).toEqual(['creed'])
-    expect(filtre.pris).toEqual(['under-300'])
-    expect(filtre.lager).toBe(true)
-    expect(sortering).toBe('pris-synkende')
-    expect(side).toBe(100)
-    expect(antallAktive(filtre)).toBe(3)
+    expect(t.filtre.merke).toEqual(['creed', 'initio'])
+    expect(listeUrl('/produktkategori/duft/', t)).toBe(
+      '/produktkategori/duft/?merke=creed%2Cinitio&pris=1000-2000&storrelse=50-ml&lager=1&sorter=nyeste',
+    )
+  })
+  it('avviser ukjente prisintervaller og rare verdier', () => {
+    const t = lesListetilstand({ pris: 'gratis', merke: '<script>' })
+    expect(t.filtre.pris).toEqual([])
+    expect(t.filtre.merke).toEqual([])
+  })
+  it('starter på side 1 når filtrene endres', () => {
+    const t = lesListetilstand({ side: '3' })
+    expect(listeUrl('/x/', t, { filtre: { ...t.filtre, lager: true } })).toBe('/x/?lager=1')
   })
 })
 
 describe('filtrering og fasetter', () => {
-  it('filtrerer på merke, lager, tilbud, pris og duftnote', () => {
-    const alle = katalog.produkter
-    expect(filtrer(alle, { ...TOMME_FILTRE, merke: ['creed'] }, katalog).map((x) => x.id)).toEqual([1, 2])
-    expect(
-      filtrer(alle, { ...TOMME_FILTRE, merke: ['creed'], lager: true }, katalog).map((x) => x.id),
-    ).toEqual([1])
-    expect(filtrer(alle, { ...TOMME_FILTRE, tilbud: true }, katalog).map((x) => x.id)).toEqual([3])
-    expect(filtrer(alle, { ...TOMME_FILTRE, pris: ['over-2000'] }, katalog).map((x) => x.id)).toEqual([1])
-    expect(filtrer(alle, { ...TOMME_FILTRE, note: 'vanilje' }, katalog).map((x) => x.id)).toEqual([1])
-    expect(filtrer(alle, { ...TOMME_FILTRE, kategori: ['duft'] }, katalog).map((x) => x.id)).toEqual([1, 2])
+  it('filtrerer på merke, lager og størrelse og teller fasetter med de andre filtrene', () => {
+    const base = produkterIKategori(k, ['duft'])
+    const f = { ...TOMME_FILTRE, merke: ['creed'], lager: true }
+    const treff = filtrer(base, f, ['duft'])
+    expect(treff.length).toBeGreaterThan(0)
+    expect(treff.every((p) => p.merke?.slug === 'creed' && p.lager.status !== 'utsolgt')).toBe(true)
+    const fas = fasetter(base, f, k, finnKategori(k, ['duft'])?.barn ?? [], ['duft'])
+    expect(fas.merke.find((m) => m.id === 'creed')?.valgt).toBe(true)
+    expect(fas.storrelse.map((s) => s.navn.replace(/\u00a0/g, ' '))).toContain('50 ml')
+    const femti = filtrer(base, { ...TOMME_FILTRE, storrelse: [variantverdi('50ml').id] }, ['duft'])
+    expect(femti.length).toBeGreaterThan(0)
   })
-
-  it('teller hver fasett med de andre filtrene aktive', () => {
-    const f = fasetter(
-      katalog.produkter,
-      { ...TOMME_FILTRE, merke: ['creed'] },
-      katalog,
-      katalog.kategorier.slice(1, 3),
-    )
-    expect(f.merke.find((m) => m.id === 'creed')).toMatchObject({ antall: 2, valgt: true })
-    expect(f.merke.find((m) => m.id === 'lowengrip')).toMatchObject({ antall: 1, valgt: false })
-    expect(f.kategori.map((k) => [k.id, k.antall])).toEqual([
-      ['nisjeduft', 1],
-      ['herreduft', 1],
-    ])
-    expect(f.lager).toBe(1)
+  it('filtrerer på underkategori relativt til der listen står', () => {
+    const base = produkterIKategori(k, ['duft'])
+    expect(filtrer(base, { ...TOMME_FILTRE, kategori: ['nisjeduft'] }, ['duft']).length).toBe(161)
+  })
+  it('sorterer utsolgte sist og etter pris', () => {
+    const s = sorter(produkterIKategori(k, ['duft']), 'populare')
+    const forsteUtsolgt = s.findIndex((p) => p.lager.status === 'utsolgt')
+    expect(s.slice(forsteUtsolgt).every((p) => p.lager.status === 'utsolgt')).toBe(true)
+    const pris = sorter(produkterIKategori(k, ['duft']), 'pris-stigende').map((p) => p.pris.pris)
+    expect(pris).toEqual([...pris].sort((a, b) => a - b))
   })
 })
 
-describe('sortering', () => {
-  it('setter utsolgte sist i standardrekkefølgen', () => {
-    expect(sorter(katalog.produkter, 'nyeste').map((x) => x.id)).toEqual([1, 3, 4, 2])
+describe('hurtigkjøp', () => {
+  it('bare når valget er entydig', () => {
+    const enkel = k.produkter.find((p) => p.type === 'enkel' && p.kjopbar)
+    const flere = k.produkter.find(
+      (p) => p.type === 'variabel' && p.varianter.filter((v) => v.kjopbar).length > 1,
+    )
+    const utsolgt = k.produkter.find((p) => !p.kjopbar)
+    expect(enkel && hurtigkjop(enkel)).toEqual({ variantId: null })
+    expect(flere && hurtigkjop(flere)).toBeNull()
+    expect(utsolgt && hurtigkjop(utsolgt)).toBeNull()
   })
-  it('sorterer på pris', () => {
-    expect(sorter(katalog.produkter, 'pris-stigende').map((x) => x.id)).toEqual([4, 3, 2, 1])
+})
+
+describe('nyheter, bestselgere og relaterte', () => {
+  it('kaller bare noe nyhet når WooCommerce-datoen er ny nok', () => {
+    const p = k.produkter.find((x) => x.opprettet)
+    expect(p && erNyhet(p, new Date(p.opprettet ?? ''), 60)).toBe(true)
+    expect(p && erNyhet(p, new Date('2100-01-01'), 60)).toBe(false)
+  })
+  it('bestselgere følger WooCommerces popularitet og er kjøpbare', () => {
+    const b = bestselgere(produkterIKategori(k, ['duft', 'nisjeduft']), 8)
+    expect(b).toHaveLength(8)
+    expect(b.every((p) => p.kjopbar)).toBe(true)
+  })
+  it('relaterte deler merke eller kategori og er aldri produktet selv', () => {
+    const p = k.produkter.find((x) => x.merke?.slug === 'creed')
+    if (!p) throw new Error('mangler Creed')
+    const r = relaterte(k, p)
+    expect(r.length).toBeGreaterThan(0)
+    expect(r.some((x) => x.id === p.id)).toBe(false)
   })
 })
 
 describe('søk', () => {
-  const indeks = lagSokeindeks(katalog)
-  it('finner merker uten aksenter og krever at alle ord treffer', () => {
-    expect(sok(indeks, 'lowengrip').map((x) => x.id)).toEqual([3])
-    expect(sok(indeks, 'creed aventus').map((x) => x.id)).toEqual([1])
-    expect(sok(indeks, 'creed tørrshampoo')).toEqual([])
+  const indeks = () => lagSokeindeks(k)
+  it('finner merke + produktnavn', () => {
+    const treff = sok(indeks(), 'creed aventus')
+    expect(treff[0]?.merke?.slug).toBe('creed')
+    expect(treff[0]?.visningsnavn.toLowerCase()).toContain('aventus')
   })
-  it('forstår «parfyme» og setter varer på lager først', () => {
-    expect(sok(indeks, 'creed').map((x) => x.id)).toEqual([1, 2])
-    expect(sok(indeks, 'parfyme').map((x) => x.id)).toContain(1)
+  it('tåler aksenter og store bokstaver', () => {
+    expect(sok(indeks(), 'LOWENGRIP').length).toBeGreaterThan(0)
+    expect(sokMerker(k, 'löwen')[0]?.navn).toBe('Löwengrip')
   })
-  it('finner dufter etter oppgitt note', () => {
-    expect(sok(indeks, 'vanilje').map((x) => x.id)).toEqual([1])
+  it('finner kategorier', () => {
+    expect(sokKategorier(k, 'nisje')[0]?.navn).toBe('Nisjeduft')
   })
-  it('gir ingen treff på tomt søk', () => {
-    expect(sok(indeks, '   ')).toEqual([])
+  it('gir tomt svar på tomt søk', () => {
+    expect(sok(indeks(), '   ')).toEqual([])
   })
 })

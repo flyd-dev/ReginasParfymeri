@@ -1,0 +1,81 @@
+'use client'
+
+import { Search, ShoppingBag, User } from 'lucide-react'
+import { useState } from 'react'
+import { Handlekurv } from '@/components/kurv/handlekurv'
+import { useKurv } from '@/components/kurv/kurv-provider'
+import type { Menypunkt } from '@/lib/meny'
+import { Megameny } from './megameny'
+import { Mobilmeny } from './mobilmeny'
+import { Sokedialog } from './sokedialog'
+
+const ikonknapp =
+  'inline-flex size-11 items-center justify-center text-regina-plum transition-colors duration-(--dur-fast) hover:text-regina-pink-strong'
+
+export function HeaderKlient({
+  meny,
+  logo,
+  kontoUrl,
+}: {
+  meny: Menypunkt[]
+  logo: React.ReactNode
+  kontoUrl: string
+}) {
+  const [sokApen, setSokApen] = useState(false)
+  const { kurv, setApen } = useKurv()
+  const antall = kurv?.antall ?? 0
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50/95 backdrop-blur-[2px] supports-[backdrop-filter]:bg-sand-50/90">
+      <div className="mx-auto grid h-16 max-w-screen-2xl grid-cols-[1fr_auto_1fr] items-center px-4 md:px-6 lg:h-20">
+        <div className="flex items-center gap-1">
+          <Mobilmeny meny={meny} />
+          <button
+            type="button"
+            onClick={() => setSokApen(true)}
+            className="hidden h-11 w-full max-w-xs items-center gap-3 border-b border-input px-1 text-left text-sand-ink transition-colors duration-(--dur-fast) hover:border-regina-plum lg:flex"
+          >
+            <Search className="size-4 shrink-0" aria-hidden />
+            <span className="flex-1 truncate text-[0.9375rem]">Søk etter duft eller merke</span>
+            <kbd className="hidden border border-sand-200 px-1.5 text-xs xl:inline">/</kbd>
+          </button>
+        </div>
+        <div className="h-12 lg:h-16">{logo}</div>
+        <div className="flex items-center justify-end">
+          <button
+            type="button"
+            onClick={() => setSokApen(true)}
+            className={`${ikonknapp} lg:hidden`}
+            aria-label="Søk"
+          >
+            <Search className="size-5" aria-hidden />
+          </button>
+          <a href={kontoUrl} className={`${ikonknapp} hidden sm:inline-flex`} aria-label="Min konto">
+            <User className="size-5" aria-hidden />
+          </a>
+          <button
+            type="button"
+            onClick={() => setApen(true)}
+            className={`${ikonknapp} relative`}
+            aria-label={
+              antall > 0 ? `Handlekurv, ${antall} ${antall === 1 ? 'vare' : 'varer'}` : 'Handlekurv, tom'
+            }
+          >
+            <ShoppingBag className="size-5" aria-hidden />
+            {antall > 0 && (
+              <span
+                className="absolute top-1.5 right-1 grid min-w-4.5 place-items-center bg-regina-pink-strong px-1 text-[0.6875rem] leading-4.5 font-semibold text-white"
+                aria-hidden
+              >
+                {antall}
+              </span>
+            )}
+          </button>
+        </div>
+      </div>
+      <Megameny meny={meny} />
+      <Sokedialog apen={sokApen} setApen={setSokApen} />
+      <Handlekurv />
+    </header>
+  )
+}

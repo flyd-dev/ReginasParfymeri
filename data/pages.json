@@ -1,0 +1,1154 @@
+[
+  {
+    "slug": "angrerett-og-retur",
+    "title": "Angrerett og retur",
+    "modified": "2025-12-15T08:33:56",
+    "source_url": "https://nettbutikk.reginaparfymeri.no/angrerett-og-retur/",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Angrerett & Retur"
+      },
+      {
+        "type": "heading",
+        "text": "RETUR"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Du har 14 dagers åpent kjøp når du handler i vår nettbutikk (gjelder ikke ved kjøp i butikk), fra datoen du mottar din bestilling (jf. Angrerettloven § 21). For å gjennomføre en retur kontakter du "
+          },
+          {
+            "text": "kundeservice på e-post",
+            "href": "mailto:velkommen.regina@gmail.com"
+          },
+          {
+            "text": " som vil sende deg et returskjema og returetikett. Du kan også benytte standard angrerettskjema som fulgte med i ordrebekreftelsen du har mottatt på e-post."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Returgebyr på kr 39,- trekkes fra på retur av bestillinger under 1000,-."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Du har selv ansvar for å kontrollere leveransen og se at produktene er uskadet når du mottar pakken. Ved eventuelle feil eller problemer med bestillingen må du ta kontakt med kundeservice snarest på e-post: "
+          },
+          {
+            "text": "velkommen.regina@gmail.com",
+            "href": "mailto:velkommen.regina@gmail.com"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Produktet må være uåpnet og i originalforpakning med forsegling og kan ikke være ødelagt eller skadet for å kunne få godkjent retur."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Vi behandler alle returer fortløpende. Ved godkjent retur vil vi tilbakebetale beløpet (minus evt. returgebyr) til betalingsmetoden du brukte ved bestilling."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "REKLAMASJON OG ALLERGISK REAKSJON"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom du har en reklamasjon på et produkt kjøpt i vår nettbutikk, eller du har opplevd en allergisk reaksjon, vennligst kontakt kundeservice på e-post så vil vi hjelpe deg videre."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "VARER KJØPT I VÅRE BUTIKKER"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Produkter du har kjøpt i våre fysiske butikker kan byttes mot andre varer eller tilgodelapp i våre butikker. For å kunne bytte må du ha med kvittering eller byttelapp. Produktet må være uåpnet og i originalforpakning med forsegling og kan ikke være ødelagt eller skadet."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Vi gjør oppmerksom på at det er begrenset bytteperiode for julegaver og gavesett. Se frist på kvittering. Salgsvarer og utgåtte varer byttes ikke."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "frakt-levering",
+    "title": "Frakt & Levering",
+    "modified": "2025-12-15T12:53:10",
+    "source_url": "https://nettbutikk.reginaparfymeri.no/frakt-levering/",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Frakt & Levering"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Alle ordre sendes med Posten fra vår butikk i Haugesund. Når du handler i nettbutikken vår, kan du velge mellom følgende leveringsalternativer:"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Pakke i postkasse – 79,-"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Leveringstid er normalt 1–5 virkedager. Pakken leveres direkte i postkassen din. Dersom pakken er for stor, eller postkassen er full, blir den sendt til nærmeste hentested. Du mottar SMS fra Posten når pakken er klar til henting."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dette alternativet kan kun benyttes til din faste adresse registrert hos Posten."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Pakke til hentested – 100,-"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Forventet leveringstid er 1–5 virkedager. Pakken leveres til ditt nærmeste utleveringssted."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hent i butikk Regina Parfymeri – Gratis"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Du kan velge å hente bestillingen din i butikk. Vi sender deg melding når varene er klare til henting. Hent i butikk er tilgjengelig så lenge butikken har alle bestilte varer på lager."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Spesielle vilkår",
+            "strong": true
+          },
+          {
+            "text": " – Pakke i postkasse Pakke i postkasse kan kun sendes til adressen du er folkeregistrert på. Dersom mottaker ikke er registrert på adressen, vil pakken ikke bli levert. Ønsker du levering til en annen adresse, må du velge Pakke til hentested eller Hjemlevering."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Regina Parfymeri kan ikke holdes ansvarlig for pakker som blir borte eller stjålet fra postkassen, og slike forsendelser erstattes ikke. Tyveri av pakker levert i postkasse er dessverre et kjent problem, og for å redusere risikoen anbefaler vi derfor å velge Pakke til hentested, spesielt ved bestillinger av høyere verdi eller dersom du ønsker en sikrere leveringsløsning. Når pakken er levert i postkassen av Posten, overføres ansvaret til deg som mottaker."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom pakken ikke får plass i postkassen, blir den levert til nærmeste utleveringssted, og du vil bli varslet av Posten. Dette fraktalternativet gjelder ikke for bestillinger med verdi over kr 2.000,-"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "betingelser",
+    "title": "Betingelser",
+    "modified": "2025-12-15T10:01:37",
+    "source_url": "https://nettbutikk.reginaparfymeri.no/betingelser/",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "1. Avtalen"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Avtalen består av disse salgsbetingelsene, opplysninger gitt i bestillingsløsningen og eventuelt særskilt avtalte vilkår. Ved eventuell motstrid mellom opplysningene, går det som særskilt er avtalt mellom partene foran, så fremt det ikke strider mot ufravikelig lovgivning."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Avtalen vil i tillegg bli utfylt av relevante lovbestemmelser som regulerer kjøp av varer mellom næringsdrivende og forbrukere."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "2. Partene"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Selger er REGINA HARALDSGATEN AS, Haraldsgata 138 5527 HAUGESUND, velkommen.regina@gmail.com, +47 94897061, orgnr 980314677, og betegnes i det følgende som selger/selgeren."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøper er den forbrukeren som foretar bestillingen, og betegnes i det følgende som  kjøper/kjøperen."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "3. Pris"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Den oppgitte prisen for varen og tjenester er den totale prisen kjøper skal betale. Denne prisen inkluderer alle avgifter og tilleggskostnader. Ytterligere kostnader som selger før kjøpet ikke har informert om, skal kjøper ikke bære."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "4. Avtaleinngåelse"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Avtalen er bindende for begge parter når kjøperen har sendt sin bestilling til selgeren."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Avtalen er likevel ikke bindende hvis det har forekommet skrive- eller tastefeil i tilbudet fra selgeren i bestillingsløsningen i nettbutikken eller i kjøperens bestilling, og den annen part innså eller burde ha innsett at det forelå en slik feil."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "5. Betaling"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Selgeren kan kreve betaling for varen fra det tidspunkt den blir sendt fra selgeren til kjøperen."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom kjøperen bruker kredittkort eller debetkort ved betaling, kan selgeren reservere kjøpesummen på kortet ved bestilling. Kortet blir belastet samme dag som varen sendes."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Ved betaling med faktura, blir fakturaen til kjøperen utstedt ved forsendelse av varen. Betalingsfristen fremgår av fakturaen og er på minimum 14 dager fra mottak."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "6. Levering"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Levering er skjedd når kjøperen, eller hans representant, har overtatt tingen."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Hvis ikke leveringstidspunkt fremgår av bestillingsløsningen, skal selgeren levere varen til kjøper uten unødig opphold og senest 30 dager etter bestillingen fra kunden. Varen skal leveres hos kjøperen med mindre annet er særskilt avtalt mellom partene."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "7. Risikoen for varen"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Risikoen for varen går over på kjøper når han, eller hans representant, har fått varene levert i tråd med punkt 6."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "8. Angrerett"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Med mindre avtalen er unntatt fra angrerett, kan kjøperen angre kjøpet av varen i henhold til angrerettloven."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Stoffmetervare ikke omfattes av angreretten, da dette er spesialtilpasset."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøperen må gi selger melding om bruk av angreretten innen 14 dager fra fristen begynner å løpe. I fristen inkluderes alle kalenderdager. Dersom fristen ender på en lørdag, helligdag eller høytidsdag forlenges fristen til nærmeste virkedag."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Angrefristen anses overholdt dersom melding er sendt før utløpet av fristen. Kjøper har bevisbyrden for at angreretten er blitt gjort gjeldende, og meldingen bør derfor skje skriftlig (angrerettskjema, e-post eller brev)."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Angrefristen begynner å løpe:"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "items": [
+          [
+            {
+              "text": "Ved kjøp av enkeltstående varer vil angrefristen løpe fra dagen etter varen(e) er mottatt."
+            }
+          ],
+          [
+            {
+              "text": "Selges et abonnement, eller innebærer avtalen regelmessig levering av identiske varer, løper fristen fra dagen etter første forsendelse er mottatt."
+            }
+          ],
+          [
+            {
+              "text": "Består kjøpet av flere leveranser, vil angrefristen løpe fra dagen etter siste leveranse er mottatt."
+            }
+          ]
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Angrefristen utvides til 12 måneder etter utløpet av den opprinnelige fristen dersom selger ikke før avtaleinngåelsen opplyser om at det foreligger angrerett og standardisert angreskjema. Tilsvarende gjelder ved manglende opplysning om vilkår, tidsfrister og fremgangsmåte for å benytte angreretten. Sørger den næringsdrivende for å gi opplysningene i løpet av disse 12 månedene, utløper angrefristen likevel 14 dager etter den dagen kjøperen mottok opplysningene."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Ved bruk av angreretten må varen leveres tilbake til selgeren uten unødig opphold og senest 14 dager fra melding om bruk av angreretten er gitt. Kjøper dekker de direkte kostnadene ved å returnere varen, med mindre annet er avtalt eller selger har unnlatt å opplyse om at kjøper skal dekke returkostnadene. Selgeren kan ikke fastsette gebyr for kjøperens bruk av angreretten."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøper kan prøve eller teste varen på en forsvarlig måte for å fastslå varens art, egenskaper og funksjon, uten at angreretten faller bort. Dersom prøving eller test av varen går utover hva som er forsvarlig og nødvendig, kan kjøperen bli ansvarlig for eventuell redusert verdi på varen."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Selgeren er forpliktet til å tilbakebetale kjøpesummen til kjøperen uten unødig opphold, og senest 14 dager fra selgeren fikk melding om kjøperens beslutning om å benytte angreretten. Selger har rett til å holde tilbake betalingen til han har mottatt varene fra kjøperen, eller til kjøper har lagt frem dokumentasjon for at varene er sendt  tilbake."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "9. Forsinkelse og manglende levering – kjøpernes rettigheter og frist for å melde krav"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom selgeren ikke leverer varen eller leverer den for sent i henhold til avtalen mellom partene, og dette ikke skyldes kjøperen eller forhold på kjøperens side, kan kjøperen i henhold til reglene i forbrukerkjøpslovens kapittel 5 etter omstendighetene "
+          },
+          {
+            "text": "holde kjøpesummen tilbake"
+          },
+          {
+            "text": ", kreve "
+          },
+          {
+            "text": "oppfyllelse"
+          },
+          {
+            "text": ", "
+          },
+          {
+            "text": "heve "
+          },
+          {
+            "text": "avtalen og/eller kreve "
+          },
+          {
+            "text": "erstatning "
+          },
+          {
+            "text": "fra selgeren."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Ved krav om misligholdsbeføyelser bør meldingen av bevishensyn være skriftlig (for eksempel e-post)."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Oppfyllelse"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøper kan fastholde kjøpet og kreve oppfyllelse fra selger. Kjøper kan imidlertid ikke kreve oppfyllelse dersom det foreligger en hindring som selgeren ikke kan overvinne, eller dersom oppfyllelse vil medføre en så stor ulempe eller kostnad for selger at det står i vesentlig misforhold til kjøperens interesse i at selgeren oppfyller. Skulle vanskene falle bort innen rimelig tid, kan kjøper likevel kreve oppfyllelse."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøperen taper sin rett til å kreve oppfyllelse om han eller hun venter urimelig lenge med å fremme kravet."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Heving"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom selgeren ikke leverer varen på leveringstidspunktet, skal kjøperen oppfordre selger til å levere innen en rimelig tilleggsfrist for oppfyllelse. Dersom selger ikke leverer varen innen tilleggsfristen, kan kjøperen heve kjøpet."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøper kan imidlertid heve kjøpet umiddelbart hvis selger nekter å levere varen. Tilsvarende gjelder dersom levering til avtalt tid var avgjørende for inngåelsen av avtalen, eller dersom kjøperen har underrettet selger om at leveringstidspunktet er avgjørende."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Leveres tingen etter tilleggsfristen forbrukeren har satt eller etter leveringstidspunktet som var avgjørende for inngåelsen av avtalen, må krav om heving gjøres gjeldende innen rimelig tid etter at kjøperen fikk vite om leveringen."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Erstatning"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøperen kan kreve erstatning for lidt tap som følge av forsinkelsen. Dette gjelder imidlertid ikke dersom selgeren godtgjør at forsinkelsen skyldes hindring utenfor selgers kontroll som ikke med rimelighet kunne blitt tatt i betraktning på avtaletiden, unngått, eller overvunnet følgene av."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "10. Mangel ved varen – kjøperens rettigheter og reklamasjonsfrist"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Hvis det foreligger en mangel ved varen må kjøper innen rimelig tid etter at den ble oppdaget eller burde ha blitt oppdaget, gi selger melding om at han eller hun vil påberope seg mangelen. Kjøper har alltid reklamert tidsnok dersom det skjer innen 2 mnd. fra mangelen ble oppdaget eller burde blitt oppdaget. Reklamasjon kan skje senest to år etter at kjøper overtok varen. Dersom varen eller deler av den er ment å vare vesentlig lenger enn to år, er reklamasjonsfristen fem år."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom varen har en mangel og dette ikke skyldes kjøperen eller forhold på kjøperens side, kan kjøperen i henhold til reglene i forbrukerkjøpsloven kapittel 6 etter omstendighetene "
+          },
+          {
+            "text": "holde kjøpesummen tilbake"
+          },
+          {
+            "text": ", velge mellom "
+          },
+          {
+            "text": "retting "
+          },
+          {
+            "text": "og "
+          },
+          {
+            "text": "omlevering"
+          },
+          {
+            "text": ", kreve "
+          },
+          {
+            "text": "prisavslag"
+          },
+          {
+            "text": ", kreve avtalen hevet og/eller kreve "
+          },
+          {
+            "text": "erstatning  "
+          },
+          {
+            "text": "fra selgeren."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Reklamasjon til selgeren bør skje skriftlig."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Retting eller omlevering"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøperen kan velge mellom å kreve mangelen rettet eller levering av tilsvarende ting. Selger kan likevel motsette seg kjøperens krav dersom gjennomføringen av kravet er umulig eller volder selgeren urimelige kostnader. Retting eller omlevering skal foretas innen rimelig tid. Selger har i utgangspunktet ikke rett til å foreta mer enn to avhjelpsforsøk for samme mangel."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Prisavslag"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Kjøper kan kreve et passende prisavslag dersom varen ikke blir rettet eller omlevert. Dette innebærer at forholdet mellom nedsatt og avtalt pris svarer til forholdet mellom tingens verdi i mangelfull og kontraktsmessig stand. Dersom særlige grunner taler for det, kan prisavslaget i stedet settes lik mangelens betydning for kjøperen."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Heving"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom varen ikke er rettet eller omlevert, kan kjøperen også heve kjøpet når mangelen ikke er uvesentlig."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "11. Selgerens rettigheter ved kjøperens mislighold"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom kjøperen ikke betaler eller oppfyller de øvrige pliktene etter avtalen eller loven, og dette ikke skyldes selgeren eller forhold på selgerens side, kan selgeren i henhold til reglene i forbrukerkjøpsloven kapittel 9 etter omstendighetene "
+          },
+          {
+            "text": "holde"
+          },
+          {
+            "text": "varen tilbake"
+          },
+          {
+            "text": ", kreve "
+          },
+          {
+            "text": "oppfyllelse "
+          },
+          {
+            "text": "av avtalen, kreve avtalen "
+          },
+          {
+            "text": "hevet "
+          },
+          {
+            "text": "samt kreve "
+          },
+          {
+            "text": "erstatning "
+          },
+          {
+            "text": "fra kjøperen. Selgeren vil også etter omstendighetene kunne kreve "
+          },
+          {
+            "text": "renter ved forsinket betaling, inkassogebyr"
+          },
+          {
+            "text": " og et rimelig "
+          },
+          {
+            "text": "gebyr ved uavhentede varer"
+          },
+          {
+            "text": "."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Oppfyllelse"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Selger kan fastholde kjøpet og kreve at kjøperen betaler kjøpesummen. Er varen ikke levert, taper selgeren sin rett dersom han venter urimelig lenge med å fremme kravet."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Heving"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Selger kan heve avtalen dersom det foreligger vesentlig betalingsmislighold eller annet vesentlig mislighold fra kjøperens side. Selger kan likevel ikke heve dersom hele kjøpesummen er betalt. Fastsetter selger en rimelig tilleggsfrist for oppfyllelse og kjøperen ikke betaler innen denne fristen, kan selger heve kjøpet."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Renter ved forsinket betaling/inkassogebyr"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom kjøperen ikke betaler kjøpesummen i henhold til avtalen, kan selger kreve renter av kjøpesummen etter forsinkelsesrenteloven. Ved manglende betaling kan kravet, etter forutgående varsel, bli sendt til Kjøper kan da bli holdt ansvarlig for gebyr etter inkassoloven."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Gebyr ved uavhentede ikke-forskuddsbetalte varer"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Dersom kjøperen unnlater å hente ubetalte varer, kan selger belaste kjøper med et gebyr. Gebyret skal maksimalt dekke selgerens faktiske  utlegg for å levere varen til kjøperen. Et slikt gebyr kan ikke belastes kjøpere under 18  år."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "12. Garanti"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Garanti som gis av selgeren eller produsenten, gir kjøperen rettigheter i tillegg til de kjøperen allerede har etter ufravikelig lovgivning. En garanti innebærer dermed ingen begrensninger i kjøperens rett til reklamasjon og krav ved forsinkelse eller mangler etter punkt 9 og 10."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "13. Personopplysninger"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Behandlingsansvarlig for innsamlede personopplysninger er selger. Med mindre kjøperen samtykker til noe annet, kan selgeren, i tråd med personopplysningsloven, kun innhente og lagre de personopplysninger som er nødvendig for at selgeren skal kunne gjennomføre forpliktelsene etter avtalen. Kjøperens personopplysninger vil kun bli utlevert til andre hvis det er nødvendig for at selger skal få gjennomført avtalen med kjøperen, eller i lovbestemte tilfelle."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "14. Konfliktløsning"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Klager rettes til selger innen rimelig tid, jf. punkt 9 og 10. Partene skal forsøke å løse eventuelle tvister i minnelighet. Dersom dette ikke lykkes, kan kjøperen ta kontakt med Forbrukerrådet for mekling. Forbrukerrådet er tilgjengelig  på  telefon 23  400  500  eller "
+          },
+          {
+            "text": "www.forbrukerradet.no.",
+            "href": "http://www.forbrukerradet.no/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "om-oss",
+    "title": "Om oss",
+    "modified": "2025-09-10T19:16:39",
+    "source_url": "https://nettbutikk.reginaparfymeri.no/om-oss/",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "OM OSS"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "AS Regina ble etablert i 1970, men vår historie strekker seg faktisk mye lenger tilbake. Vi er stolte av å være en del av en familietradisjon som startet helt tilbake i 1863, da Grethes tippoldefar grunnla virksomheten Nilsen & Sønner – en arv som fortsatt lever i alt vi gjør."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "I dag drives Regina av Grethe Kongshavn, femte generasjon i familien, med datteren Maria som en viktig del av teamet. Sammen med våre to andre dyktige medarbeidere utgjør vi en engasjert firkløver som brenner for fagkunnskap, personlig service og ekte skjønnhetsglede."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Du finner vår fysiske butikk midt i Haugesund sentrum, rett overfor Viktoriahjørnet i Haraldsgaten. Her møter du en lun og luksuriøs atmosfære, fylt med håndplukkede og eksklusive merkevarer innen parfyme, hudpleie og skjønnhet."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Vi er autorisert forhandler av alle merkevarene vi fører – det betyr at du alltid kan stole på at produktene du kjøper hos oss er ekte og av høyeste kvalitet."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Hos Regina setter vi kundeservice i høysetet. Enten du handler i nettbutikken eller besøker oss fysisk, kan du være trygg på at vi gjør vårt ytterste for å hjelpe deg med å finne det som passer akkurat deg."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Velkommen til Regina – en moderne parfymeritradisjon med røtter tilbake til 1800-tallet."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Kontaktinformasjon"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Adresse: Haraldsgata 138, 5527 Haugesund"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Facebook: "
+          },
+          {
+            "text": "www.facebook.com/",
+            "href": "http://www.facebook.com/reginahgsd"
+          },
+          {
+            "text": "regina",
+            "href": "http://www.facebook.com/reginahgsd"
+          },
+          {
+            "text": "hgsd",
+            "href": "http://www.facebook.com/reginahgsd"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Internettside: "
+          },
+          {
+            "text": "reginaparfymeri.no",
+            "href": "https://reginaparfymeri.no"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "E-post: "
+          },
+          {
+            "text": "velkommen.",
+            "href": "mailto:velkommen.regina@gmail.com"
+          },
+          {
+            "text": "regina",
+            "href": "mailto:velkommen.regina@gmail.com"
+          },
+          {
+            "text": "@gmail.com",
+            "href": "mailto:velkommen.regina@gmail.com"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Telefon: "
+          },
+          {
+            "text": "+47 948 97 061",
+            "href": "tel:+4794897061"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "personvernerklaering",
+    "title": "Personvernerklæring",
+    "modified": "2020-12-07T15:36:17",
+    "source_url": "https://reginaparfymeri.no/personvernerklaering/",
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "Personvernerklæring"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Regina Haraldsgaten AS, ved daglig leder, er behandlingsansvarlig for vår behandling av personopplysninger. Denne erklæringen handler om hvordan vi samler inn og bruker slike personopplysninger, og om hva du kan kreve av oss når vi samler inn slike opplysninger om deg."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hva er personopplysninger?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Personopplysninger er opplysninger som kan brukes til å identifisere en person. Dette kan være navn, adresse, telefonnummer, e-postadresse o.l. Opplysninger om hva du gjør, regnes også som personopplysninger og dette kan f.eks. være opplysninger om hvilke butikker du handler i, hvilke TV-serier du liker og hvor du bruker å jogge. Noen personopplysninger regnes som sensitive. Dette kan være opplysninger om helse, religion, etnisitet, seksualitet etc., men på vår nettside har vi hverken tilgang til eller behov for denne type opplysninger."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hva menes med behandlingsansvarlig?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Med behandling menes enhver bruk av personopplysninger, som innsamling, registrering, deling, lagring, analyse og lignende. Behandlingsansvarlig er den som bestemmer hvorfor og hvordan slike personopplysninger behandles og står som juridisk ansvarlig. I dette tilfellet er det Regina Haraldsgaten AS."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hva er en databehandler?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "En databehandler er andre virksomheter som hjelper til med behandlingen, men som gjør det på oppdrag av den behandlingsansvarlige. Dette kan være leverandører av regnskapssystemer, analyseverktøy, fraktløsninger e.l. Alle som bruker slike databehandlere er lovpålagt å ha en databehandleravtale som ser til at alle personopplysninger blir behandlet på en forsvarlig måte og i samsvar med lovverket."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hva slags personopplysninger samler vi inn?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "For å kunne lage en så god nettside som mulig, er vi avhengig av å kunne følge litt med på hva som skjer der og dette medfører at vi gjerne vil lagre informasjon som er personopplysninger. Under finner du en liste over hva slags opplysninger vi samler inn:"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Opplysninger vi får om din tilkobling: Dette er først og fremst din internettadresse, også kalt IP-adresse. Når du ber om å få se vår nettside, så er det denne som står som avsender på forespørselen."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Opplysninger vi får fra din enhet: Dette er informasjon som følger med når din forespørsel når oss. Dette er opplysninger om hvilket operativsystem og hvilken nettleser du bruker når du besøker nettsiden vår."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Opplysninger du gir oss: Dette er opplysninger du gir oss frivillig hvis du f.eks. bruker et kontaktskjema . Dette vil ofte være navn, adresse, telefon, e-postadresse o.l."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Opplysninger om hva du gjør: Når du klikker på ting så lagrer vi når og hva du klikker på, men i de fleste tilfeller vil ikke disse opplysningene kunne brukes til å identifisere deg som person."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Informasjonskapsler (Cookies): Dette er små datafiler vi lagrer i nettleseren og som vi senere kan lese av igjen. Disse brukes for å kjenne deg igjen når du hopper fra side til side."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hvorfor behandler vi personopplysninger?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Det er flere grunner til at vi samler inn personopplysninger. Noe samler vi inn rett og slett for at nettsiden ikke vil virke skikkelig uten, mens andre opplysninger samler vi inn for at nettsiden skal bli mer brukervennlig. Under finner du en liste over hvorfor vi samler inn slike personopplysninger."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "For å levere nettsiden til deg:"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "For at du skal kunne se nettsiden vår, er vi helt avhengig av å vite hvor du er på internettet slik at vi vet hvor nettsiden skal sendes. Dette bruker vi din IP-adresse til."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "For å huske hva du har gitt samtykke til: Når du gir oss et samtykke, så prøver vi å huske det til neste gang du kommer på besøk. Til dette bruker vi en slik informasjonskapsel."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "For å forbedre nettsiden:"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Vi trenger ikke identifisere alle som besøker vår nettside, men vi vil gjerne vite ting om hvor mange som besøker oss, om de har besøkt oss tidligere og hva de gjør på nettsiden. Dette er informasjon vi bruker til å forbedre både hvordan vi setter opp våre datamaskiner og hvordan hjemmesiden skal fungere best mulig."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "For å markedsføre oss: Markedsføring er viktig for oss. Vi er avhengig av å få vårt budskap ut til verden, men ved å analysere noen av de opplysningene vi samler inn kan vi gjøre dette på en mer målrettet måte."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "For å hindre misbruk:"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Det er ikke alle som er like snille på internett og vi bruker til en viss grad personopplysninger til å sikre vår nettside mot misbruk. Dette kan f.eks. være at noen prøver å hacke oss, svindle oss eller annen slik uønsket oppførsel som er forbudt etter norsk lov."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Hvilket grunnlag har vi for å behandle personopplysninger?"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "For at vi skal kunne behandle personopplysninger, må vi ha et juridisk grunnlag. Det finnes flere grunnlag man kan bruke, men under finner du de fire som er aktuelle for oss. I all hovedsak er vår innsamling av personopplysninger basert på ditt samtykke og dette er frivillig. For at vi f.eks. skal kunne lagre cookies, må du godkjenne dette på forhånd. Hvis vi allerede har et eksisterende kundeforhold, kan vi bruke dette som grunnlag (dette kalles berettiget interesse) for å sende ut nyhetsbrev o.l., men er du ny kunde har du likevel krav på å godkjenne dette på forhånd. Noen ganger må bruke personopplysninger for å oppfylle forpliktelser med våre kunder og da er det dette som er grunnlaget for innsamlingen."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hvordan passer vi på personopplysninger?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Du skal kunne stole på at dine personopplysninger er i trygge hender hos oss. Vi tar ikke vare på mer enn vi må og vi prøver så langt det er mulig å se til at opplysninger vi lagrer ikke kan brukes til å identifisere noen. Bare når det er strengt nødvendig for at noen skal gjøre jobben sin, blir det gitt tilgang til slike opplysninger og alle personopplysninger blir lagret på en sikker og forsvarlig måte. Vi bruker et sikkerhetssertifikat(SSL) for å trygge kommunikasjonen mellom oss og deg. Sertifikatet gjør at vi kan forsikre deg om hvem vi er og at all informasjon som overføres blir kryptert før det sendes. Alt vi lagrer av opplysninger lagres her i Norge og vi har et ansvar for at opplysningene vi lagrer er korrekte og at endringer skal kunne spores. Skulle vi få mistanke om at personopplysninger er kommet på avveie, så er vi også forpliktet til å varsle deg om dette så fort som mulig."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hvem deler vi personopplysninger med?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Vi bruker Google Analytics til å føre statistikk over besøk på nettsiden. For at denne skal virke, er vi avhengig av å lagre en egen informasjonskapsel og sende inn informasjon om hvordan brukere beveger seg på nettsiden. Den informasjonen vi sender til Google er automatisk anonymisert og kan ikke brukes for å identifisere personer. I helt spesielle tilfeller kan også myndighetene kreve å få tilgang til de opplysninger vi har lagret der dette er lovpålagt."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Hvilke rettigheter har du?"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Etter at den nye loven trer i kraft har alle krav på å kunne se hvilke personopplysninger som er lagret, be om å få en kopi av disse opplysningene og kreve å få rettet opp eller slettet sine personopplysninger. Når du gir oss et samtykke, f.eks. til å lagre informasjonskapsler, har du også rett til å trekke dette samtykket tilbake når du måtte ønske det. I de tilfeller der vi behandler personopplysninger ut i fra berettige interesser, f.eks. når vi sender ut nyhetsbrev, så har du rett til å protestere og vi er forpliktet til å stoppe denne type behandling. I tillegg har alle krav på generell informasjon om hvordan vi behandler personopplysninger, men dette dekkes av denne personvernerklæringen. Alle slike forespørsler skal behandles kostnadsfritt og innen 30 dager og for mer informasjon om hvilke rettigheter du har, besøk denne nettsiden hos Datatilsynet: https://www.datatilsynet.no/regelverk-og-skjema/veiledere/de-registrertes-rettigheter-etter-nytt-regelverk/."
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Kontaktinformasjon"
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Regina Haraldsgaten AS"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "Haraldsgata 138,"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "runs": [
+          {
+            "text": "5527 Haugesund"
+          }
+        ]
+      }
+    ]
+  }
+]

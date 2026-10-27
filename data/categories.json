@@ -1,0 +1,916 @@
+[
+  {
+    "slug": "hudpleie",
+    "name": "HUDPLEIE",
+    "path": "hudpleie",
+    "product_count": 351,
+    "children": [
+      {
+        "slug": "kroppspleie",
+        "name": "KROPPSPLEIE",
+        "path": "hudpleie/kroppspleie",
+        "product_count": 202,
+        "children": [
+          {
+            "slug": "handpleie",
+            "name": "HÅNDPLEIE",
+            "path": "hudpleie/kroppspleie/handpleie",
+            "product_count": 46,
+            "children": [
+              {
+                "slug": "handsape",
+                "name": "HÅNDSÅPE",
+                "path": "hudpleie/kroppspleie/handpleie/handsape",
+                "product_count": 20,
+                "children": []
+              },
+              {
+                "slug": "handkrem",
+                "name": "HÅNDKREM",
+                "path": "hudpleie/kroppspleie/handpleie/handkrem",
+                "product_count": 16,
+                "children": []
+              },
+              {
+                "slug": "handsprit",
+                "name": "HÅNDSPRIT",
+                "path": "hudpleie/kroppspleie/handpleie/handsprit",
+                "product_count": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "slug": "body-lotion-olje",
+            "name": "BODY LOTION & OLJE",
+            "path": "hudpleie/kroppspleie/body-lotion-olje",
+            "product_count": 39,
+            "children": []
+          },
+          {
+            "slug": "dusjsape",
+            "name": "DUSJSÅPE",
+            "path": "hudpleie/kroppspleie/dusjsape",
+            "product_count": 38,
+            "children": []
+          },
+          {
+            "slug": "bad-og-velvaere",
+            "name": "BAD OG VELVÆRE",
+            "path": "hudpleie/kroppspleie/bad-og-velvaere",
+            "product_count": 24,
+            "children": []
+          },
+          {
+            "slug": "deodorant",
+            "name": "DEODORANT",
+            "path": "hudpleie/kroppspleie/deodorant",
+            "product_count": 23,
+            "children": []
+          },
+          {
+            "slug": "eteriske-oljer",
+            "name": "ETERISKE OLJER",
+            "path": "hudpleie/kroppspleie/eteriske-oljer",
+            "product_count": 17,
+            "children": []
+          },
+          {
+            "slug": "peeling-skrubb",
+            "name": "PEELING & SKRUBB",
+            "path": "hudpleie/kroppspleie/peeling-skrubb",
+            "product_count": 7,
+            "children": []
+          },
+          {
+            "slug": "fotpleie",
+            "name": "FOTPLEIE",
+            "path": "hudpleie/kroppspleie/fotpleie",
+            "product_count": 6,
+            "children": [
+              {
+                "slug": "fotkrem",
+                "name": "FOTKREM",
+                "path": "hudpleie/kroppspleie/fotpleie/fotkrem",
+                "product_count": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "slug": "body-mist",
+            "name": "BODY MIST",
+            "path": "hudpleie/kroppspleie/body-mist",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "ansiktspleie",
+        "name": "ANSIKTSPLEIE",
+        "path": "hudpleie/ansiktspleie",
+        "product_count": 70,
+        "children": [
+          {
+            "slug": "dagkrem",
+            "name": "DAGKREM",
+            "path": "hudpleie/ansiktspleie/dagkrem",
+            "product_count": 29,
+            "children": []
+          },
+          {
+            "slug": "ansiktsmasker",
+            "name": "ANSIKTSMASKER",
+            "path": "hudpleie/ansiktspleie/ansiktsmasker",
+            "product_count": 15,
+            "children": []
+          },
+          {
+            "slug": "ansiktsserum",
+            "name": "ANSIKTSSERUM",
+            "path": "hudpleie/ansiktspleie/ansiktsserum",
+            "product_count": 15,
+            "children": []
+          },
+          {
+            "slug": "nattkrem",
+            "name": "NATTKREM",
+            "path": "hudpleie/ansiktspleie/nattkrem",
+            "product_count": 5,
+            "children": []
+          },
+          {
+            "slug": "ansiktsoljer",
+            "name": "ANSIKTSOLJER",
+            "path": "hudpleie/ansiktspleie/ansiktsoljer",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "facemist",
+            "name": "FACEMIST",
+            "path": "hudpleie/ansiktspleie/facemist",
+            "product_count": 3,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "renseprodukter",
+        "name": "RENSEPRODUKTER",
+        "path": "hudpleie/renseprodukter",
+        "product_count": 31,
+        "children": [
+          {
+            "slug": "ansiktsrens",
+            "name": "ANSIKTSRENS",
+            "path": "hudpleie/renseprodukter/ansiktsrens",
+            "product_count": 18,
+            "children": []
+          },
+          {
+            "slug": "rensetilbehor",
+            "name": "RENSETILBEHØR",
+            "path": "hudpleie/renseprodukter/rensetilbehor",
+            "product_count": 4,
+            "children": []
+          },
+          {
+            "slug": "ansiktspeeling-og-skrubb",
+            "name": "ANSIKTSPEELING OG SKRUBB",
+            "path": "hudpleie/renseprodukter/ansiktspeeling-og-skrubb",
+            "product_count": 4,
+            "children": []
+          },
+          {
+            "slug": "oyesminkefjerner",
+            "name": "ØYESMINKEFJERNER",
+            "path": "hudpleie/renseprodukter/oyesminkefjerner",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "ansiktsvann",
+            "name": "ANSIKTSVANN",
+            "path": "hudpleie/renseprodukter/ansiktsvann",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "solbeskyttelse",
+        "name": "SOLBESKYTTELSE",
+        "path": "hudpleie/solbeskyttelse",
+        "product_count": 23,
+        "children": [
+          {
+            "slug": "solbeskyttelse-ansikt",
+            "name": "SOLBESKYTTELSE ANSIKT",
+            "path": "hudpleie/solbeskyttelse/solbeskyttelse-ansikt",
+            "product_count": 11,
+            "children": []
+          },
+          {
+            "slug": "solbeskyttelse-kropp",
+            "name": "SOLBESKYTTELSE KROPP",
+            "path": "hudpleie/solbeskyttelse/solbeskyttelse-kropp",
+            "product_count": 5,
+            "children": []
+          },
+          {
+            "slug": "aftersun",
+            "name": "AFTERSUN",
+            "path": "hudpleie/solbeskyttelse/aftersun",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "solbeskyttelse-lepper",
+            "name": "SOLBESKYTTELSE LEPPER",
+            "path": "hudpleie/solbeskyttelse/solbeskyttelse-lepper",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "solbeskyttelse-barn",
+            "name": "SOLBESKYTTELSE BARN",
+            "path": "hudpleie/solbeskyttelse/solbeskyttelse-barn",
+            "product_count": 2,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "oye-og-leppeprodukter",
+        "name": "ØYE OG LEPPEPRODUKTER",
+        "path": "hudpleie/oye-og-leppeprodukter",
+        "product_count": 19,
+        "children": [
+          {
+            "slug": "oyekrem",
+            "name": "ØYEKREM",
+            "path": "hudpleie/oye-og-leppeprodukter/oyekrem",
+            "product_count": 9,
+            "children": []
+          },
+          {
+            "slug": "oyemasker",
+            "name": "ØYEMASKER",
+            "path": "hudpleie/oye-og-leppeprodukter/oyemasker",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "oyeserum",
+            "name": "ØYESERUM",
+            "path": "hudpleie/oye-og-leppeprodukter/oyeserum",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "oyevippeserum",
+            "name": "ØYEVIPPESERUM",
+            "path": "hudpleie/oye-og-leppeprodukter/oyevippeserum",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "leppeolje",
+            "name": "LEPPEOLJE",
+            "path": "hudpleie/oye-og-leppeprodukter/leppeolje",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "leppemaske",
+            "name": "LEPPEMASKE",
+            "path": "hudpleie/oye-og-leppeprodukter/leppemaske",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "selvbruning",
+        "name": "SELVBRUNING",
+        "path": "hudpleie/selvbruning",
+        "product_count": 6,
+        "children": [
+          {
+            "slug": "selvbruning-kropp",
+            "name": "SELVBRUNING KROPP",
+            "path": "hudpleie/selvbruning/selvbruning-kropp",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "selvbruning-tilbehor",
+            "name": "SELVBRUNING TILBEHØR",
+            "path": "hudpleie/selvbruning/selvbruning-tilbehor",
+            "product_count": 1,
+            "children": []
+          },
+          {
+            "slug": "selvbruning-ansikt",
+            "name": "SELVBRUNING ANSIKT",
+            "path": "hudpleie/selvbruning/selvbruning-ansikt",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "duft",
+    "name": "DUFT",
+    "path": "duft",
+    "product_count": 207,
+    "children": [
+      {
+        "slug": "nisjeduft",
+        "name": "NISJEDUFT",
+        "path": "duft/nisjeduft",
+        "product_count": 161,
+        "children": []
+      },
+      {
+        "slug": "dameduft",
+        "name": "DAMEDUFT",
+        "path": "duft/dameduft",
+        "product_count": 16,
+        "children": []
+      },
+      {
+        "slug": "duftlys-og-duftpinner",
+        "name": "DUFTLYS OG DUFTPINNER",
+        "path": "duft/duftlys-og-duftpinner",
+        "product_count": 15,
+        "children": []
+      },
+      {
+        "slug": "unisex",
+        "name": "UNISEX",
+        "path": "duft/unisex",
+        "product_count": 8,
+        "children": []
+      },
+      {
+        "slug": "har-parfyme",
+        "name": "HÅR PARFYME",
+        "path": "duft/har-parfyme",
+        "product_count": 6,
+        "children": []
+      },
+      {
+        "slug": "body-spray",
+        "name": "BODY SPRAY",
+        "path": "duft/body-spray",
+        "product_count": 1,
+        "children": []
+      }
+    ]
+  },
+  {
+    "slug": "makeup",
+    "name": "MAKEUP",
+    "path": "makeup",
+    "product_count": 198,
+    "children": [
+      {
+        "slug": "negler",
+        "name": "NEGLER",
+        "path": "makeup/negler",
+        "product_count": 76,
+        "children": [
+          {
+            "slug": "neglelakk",
+            "name": "NEGLELAKK",
+            "path": "makeup/negler/neglelakk",
+            "product_count": 45,
+            "children": []
+          },
+          {
+            "slug": "neglepleie",
+            "name": "NEGLEPLEIE",
+            "path": "makeup/negler/neglepleie",
+            "product_count": 20,
+            "children": []
+          },
+          {
+            "slug": "neglesaks",
+            "name": "NEGLESAKS",
+            "path": "makeup/negler/neglesaks",
+            "product_count": 7,
+            "children": []
+          },
+          {
+            "slug": "neglelakkfjerner",
+            "name": "NEGLELAKKFJERNER",
+            "path": "makeup/negler/neglelakkfjerner",
+            "product_count": 4,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "oyne",
+        "name": "ØYNE",
+        "path": "makeup/oyne",
+        "product_count": 36,
+        "children": [
+          {
+            "slug": "oyenskygge",
+            "name": "ØYENSKYGGE",
+            "path": "makeup/oyne/oyenskygge",
+            "product_count": 23,
+            "children": []
+          },
+          {
+            "slug": "mascara",
+            "name": "MASCARA",
+            "path": "makeup/oyne/mascara",
+            "product_count": 5,
+            "children": []
+          },
+          {
+            "slug": "oyenskyggepalett",
+            "name": "ØYENSKYGGEPALETT",
+            "path": "makeup/oyne/oyenskyggepalett",
+            "product_count": 4,
+            "children": []
+          },
+          {
+            "slug": "eyeliner",
+            "name": "EYELINER",
+            "path": "makeup/oyne/eyeliner",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "oye-primer",
+            "name": "ØYE PRIMER",
+            "path": "makeup/oyne/oye-primer",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "makeup-lepper",
+        "name": "MAKEUP LEPPER",
+        "path": "makeup/makeup-lepper",
+        "product_count": 32,
+        "children": [
+          {
+            "slug": "leppestift",
+            "name": "LEPPESTIFT",
+            "path": "makeup/makeup-lepper/leppestift",
+            "product_count": 24,
+            "children": []
+          },
+          {
+            "slug": "leppepomade",
+            "name": "LEPPEPOMADE",
+            "path": "makeup/makeup-lepper/leppepomade",
+            "product_count": 6,
+            "children": []
+          },
+          {
+            "slug": "lipgloss",
+            "name": "LIPGLOSS",
+            "path": "makeup/makeup-lepper/lipgloss",
+            "product_count": 2,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "makeup-borste-og-redskaper",
+        "name": "MAKEUP BØRSTE OG REDSKAPER",
+        "path": "makeup/makeup-borste-og-redskaper",
+        "product_count": 21,
+        "children": []
+      },
+      {
+        "slug": "bryn",
+        "name": "BRYN",
+        "path": "makeup/bryn",
+        "product_count": 16,
+        "children": [
+          {
+            "slug": "brynspenn",
+            "name": "BRYNSPENN",
+            "path": "makeup/bryn/brynspenn",
+            "product_count": 8,
+            "children": []
+          },
+          {
+            "slug": "brynsfarge",
+            "name": "BRYNSFARGE",
+            "path": "makeup/bryn/brynsfarge",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "brynsserum",
+            "name": "BRYNSSERUM",
+            "path": "makeup/bryn/brynsserum",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "brynsgele",
+            "name": "BRYNSGELÈ",
+            "path": "makeup/bryn/brynsgele",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "brynstilbehor",
+            "name": "BRYNSTILBEHØR",
+            "path": "makeup/bryn/brynstilbehor",
+            "product_count": 1,
+            "children": []
+          },
+          {
+            "slug": "brynsskygge",
+            "name": "BRYNSSKYGGE",
+            "path": "makeup/bryn/brynsskygge",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "makeup-tilbehor",
+        "name": "MAKEUP TILBEHØR",
+        "path": "makeup/makeup-tilbehor",
+        "product_count": 9,
+        "children": []
+      },
+      {
+        "slug": "makeup-ansikt",
+        "name": "MAKEUP ANSIKT",
+        "path": "makeup/makeup-ansikt",
+        "product_count": 8,
+        "children": [
+          {
+            "slug": "settingspray",
+            "name": "SETTINGSPRAY",
+            "path": "makeup/makeup-ansikt/settingspray",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "setting-pudder",
+            "name": "SETTING PUDDER",
+            "path": "makeup/makeup-ansikt/setting-pudder",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "foundation",
+            "name": "FOUNDATION",
+            "path": "makeup/makeup-ansikt/foundation",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "highlighter",
+            "name": "HIGHLIGHTER",
+            "path": "makeup/makeup-ansikt/highlighter",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "har",
+    "name": "HÅR",
+    "path": "har",
+    "product_count": 146,
+    "children": [
+      {
+        "slug": "harstyling",
+        "name": "HÅRSTYLING",
+        "path": "har/harstyling",
+        "product_count": 51,
+        "children": [
+          {
+            "slug": "harborste",
+            "name": "HÅRBØRSTE",
+            "path": "har/harstyling/harborste",
+            "product_count": 23,
+            "children": []
+          },
+          {
+            "slug": "harspray",
+            "name": "HÅRSPRAY",
+            "path": "har/harstyling/harspray",
+            "product_count": 9,
+            "children": []
+          },
+          {
+            "slug": "torrshampoo",
+            "name": "TØRRSHAMPOO",
+            "path": "har/harstyling/torrshampoo",
+            "product_count": 8,
+            "children": []
+          },
+          {
+            "slug": "harvoks-og-gele",
+            "name": "HÅRVOKS OG GELE",
+            "path": "har/harstyling/harvoks-og-gele",
+            "product_count": 5,
+            "children": []
+          },
+          {
+            "slug": "harskum",
+            "name": "HÅRSKUM",
+            "path": "har/harstyling/harskum",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "varmebeskyttelse",
+            "name": "VARMEBESKYTTELSE",
+            "path": "har/harstyling/varmebeskyttelse",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "saltvannspray",
+            "name": "SALTVANNSPRAY",
+            "path": "har/harstyling/saltvannspray",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "harpleie",
+        "name": "HÅRPLEIE",
+        "path": "har/harpleie",
+        "product_count": 47,
+        "children": [
+          {
+            "slug": "shampoo",
+            "name": "SHAMPOO",
+            "path": "har/harpleie/shampoo",
+            "product_count": 17,
+            "children": []
+          },
+          {
+            "slug": "balsam",
+            "name": "BALSAM",
+            "path": "har/harpleie/balsam",
+            "product_count": 14,
+            "children": []
+          },
+          {
+            "slug": "harmaske",
+            "name": "HÅRMASKE",
+            "path": "har/harpleie/harmaske",
+            "product_count": 8,
+            "children": []
+          },
+          {
+            "slug": "leave-in-balsam",
+            "name": "LEAVE-IN BALSAM",
+            "path": "har/harpleie/leave-in-balsam",
+            "product_count": 3,
+            "children": []
+          },
+          {
+            "slug": "harolje",
+            "name": "HÅROLJE",
+            "path": "har/harpleie/harolje",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "detox",
+            "name": "DETOX",
+            "path": "har/harpleie/detox",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "harkur",
+            "name": "HÅRKUR",
+            "path": "har/harpleie/harkur",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "har-pynt",
+        "name": "HÅR PYNT",
+        "path": "har/har-pynt",
+        "product_count": 43,
+        "children": []
+      },
+      {
+        "slug": "harfjerning",
+        "name": "HÅRFJERNING",
+        "path": "har/harfjerning",
+        "product_count": 5,
+        "children": []
+      }
+    ]
+  },
+  {
+    "slug": "tilbehor",
+    "name": "TILBEHØR",
+    "path": "tilbehor",
+    "product_count": 78,
+    "children": [
+      {
+        "slug": "toalettveske",
+        "name": "TOALETTVESKE",
+        "path": "tilbehor/toalettveske",
+        "product_count": 30,
+        "children": []
+      },
+      {
+        "slug": "gavesett",
+        "name": "GAVESETT",
+        "path": "tilbehor/gavesett",
+        "product_count": 12,
+        "children": [
+          {
+            "slug": "julegavesett",
+            "name": "JULEGAVESETT",
+            "path": "tilbehor/gavesett/julegavesett",
+            "product_count": 8,
+            "children": []
+          },
+          {
+            "slug": "gavesett-herre",
+            "name": "GAVESETT HERRE",
+            "path": "tilbehor/gavesett/gavesett-herre",
+            "product_count": 2,
+            "children": []
+          },
+          {
+            "slug": "gavesett-dame",
+            "name": "GAVESETT DAME",
+            "path": "tilbehor/gavesett/gavesett-dame",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "speil",
+        "name": "SPEIL",
+        "path": "tilbehor/speil",
+        "product_count": 11,
+        "children": []
+      },
+      {
+        "slug": "pinsett",
+        "name": "PINSETT",
+        "path": "tilbehor/pinsett",
+        "product_count": 6,
+        "children": []
+      },
+      {
+        "slug": "reisesett",
+        "name": "REISEPRODUKTER",
+        "path": "tilbehor/reisesett",
+        "product_count": 5,
+        "children": []
+      },
+      {
+        "slug": "vaskeball",
+        "name": "VASKEBALL",
+        "path": "tilbehor/vaskeball",
+        "product_count": 1,
+        "children": []
+      },
+      {
+        "slug": "julekalender",
+        "name": "JULEKALENDER",
+        "path": "tilbehor/julekalender",
+        "product_count": 1,
+        "children": []
+      }
+    ]
+  },
+  {
+    "slug": "herre",
+    "name": "HERRE",
+    "path": "herre",
+    "product_count": 64,
+    "children": [
+      {
+        "slug": "barbering",
+        "name": "BARBERING",
+        "path": "herre/barbering",
+        "product_count": 25,
+        "children": []
+      },
+      {
+        "slug": "kroppspleie-herre",
+        "name": "KROPPSPLEIE HERRE",
+        "path": "herre/kroppspleie-herre",
+        "product_count": 21,
+        "children": [
+          {
+            "slug": "deodorant-herre",
+            "name": "DEODORANT HERRE",
+            "path": "herre/kroppspleie-herre/deodorant-herre",
+            "product_count": 10,
+            "children": []
+          },
+          {
+            "slug": "dusjsape-herre",
+            "name": "DUSJSÅPE HERRE",
+            "path": "herre/kroppspleie-herre/dusjsape-herre",
+            "product_count": 5,
+            "children": []
+          }
+        ]
+      },
+      {
+        "slug": "herreduft",
+        "name": "HERREDUFT",
+        "path": "herre/herreduft",
+        "product_count": 14,
+        "children": []
+      },
+      {
+        "slug": "ansiktspleie-for-menn",
+        "name": "ANSIKTSPLEIE FOR MENN",
+        "path": "herre/ansiktspleie-for-menn",
+        "product_count": 4,
+        "children": [
+          {
+            "slug": "ansiktsmasker-herre",
+            "name": "ANSIKTSMASKER HERRE",
+            "path": "herre/ansiktspleie-for-menn/ansiktsmasker-herre",
+            "product_count": 1,
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "accessories",
+    "name": "ACCESSORIES",
+    "path": "accessories",
+    "product_count": 38,
+    "children": [
+      {
+        "slug": "oredobber",
+        "name": "ØREDOBBER",
+        "path": "accessories/oredobber",
+        "product_count": 10,
+        "children": []
+      },
+      {
+        "slug": "armband",
+        "name": "ARMBÅND",
+        "path": "accessories/armband",
+        "product_count": 8,
+        "children": []
+      },
+      {
+        "slug": "smykker",
+        "name": "SMYKKER",
+        "path": "accessories/smykker",
+        "product_count": 7,
+        "children": []
+      },
+      {
+        "slug": "belter",
+        "name": "BELTER",
+        "path": "accessories/belter",
+        "product_count": 6,
+        "children": []
+      },
+      {
+        "slug": "skjerf",
+        "name": "SKJERF",
+        "path": "accessories/skjerf",
+        "product_count": 4,
+        "children": []
+      },
+      {
+        "slug": "halsband-til-hund",
+        "name": "HALSBÅND TIL HUND",
+        "path": "accessories/halsband-til-hund",
+        "product_count": 3,
+        "children": []
+      }
+    ]
+  }
+]

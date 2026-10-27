@@ -1,0 +1,99 @@
+'use client'
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { toast } from 'sonner'
+import type { Kurv, LeggTil } from '@/lib/kurv/typer'
+
+interface KurvKontekst {
+  kurv: Kurv | null
+  /** Sant mens en endring sendes. */
+  opptatt: boolean
+  apen: boolean
+  setApen: (apen: boolean) => void
+  leggTil: (ny: LeggTil) => Promise<boolean>
+  endreAntall: (nokkel: string, antall: number) => Promise<void>
+  fjern: (nokkel: string) => Promise<void>
+  /** Siste beskjed til skjermlesere (aria-live). */
+  beskjed: string
+}
+
+const Kontekst = createContext<KurvKontekst | null>(null)
+
+async function send(metode: string, kropp?: unknown): Promise<Kurv> {
+  const svar = await fetch('/api/kurv/', {
+    method: metode,
+    headers: kropp ? { 'content-type': 'application/json' } : undefined,
+    body: kropp ? JSON.stringify(kropp) : undefined,
+    cache: 'no-store',
+  })
+  const data = (await svar.json().catch(() => ({}))) as Kurv & { feil?: string }
+  if (!svar.ok) throw new Error(data.feil ?? 'Noe gikk galt med handlekurven.')
+  return data
+}
+
+export function KurvProvider({ children }: { children: ReactNode }) {
+  const [kurv, setKurv] = useState<Kurv | null>(null)
+  const [opptatt, setOpptatt] = useState(false)
+  const [apen, setApen] = useState(false)
+  const [beskjed, setBeskjed] = useState('')
+
+  useEffect(() => {
+    send('GET')
+      .then(setKurv)
+      .catch(() => setKurv(null))
+  }, [])
+
+  const kjor = useCallback(async (arbeid: () => Promise<Kurv>, ok?: string): Promise<boolean> => {
+    setOpptatt(true)
+    try {
+      const ny = await arbeid()
+      setKurv(ny)
+      if (ok) setBeskjed(ok)
+      return true
+    } catch (feil) {
+      const melding = (feil as Error).message
+      toast.error(melding)
+      setBeskjed(melding)
+      return false
+    } finally {
+      setOpptatt(false)
+    }
+  }, [])
+
+  const verdi = useMemo<KurvKontekst>(
+    () => ({
+      kurv,
+      opptatt,
+      apen,
+      setApen,
+      beskjed,
+      leggTil: async (ny) => {
+        const ok = await kjor(() => send('POST', ny), 'Lagt i handlekurven.')
+        if (ok) setApen(true)
+        return ok
+      },
+      endreAntall: async (nokkel, antall) => {
+        await kjor(() => send('PATCH', { nokkel, antall }), 'Antallet er endret.')
+      },
+      fjern: async (nokkel) => {
+        await kjor(() => send('DELETE', { nokkel }), 'Varen er fjernet fra handlekurven.')
+      },
+    }),
+    [kurv, opptatt, apen, beskjed, kjor],
+  )
+
+  return (
+    <Kontekst.Provider value={verdi}>
+      {children}
+      <p className="sr-only" aria-live="polite" role="status">
+        {beskjed}
+      </p>
+    </Kontekst.Provider>
+  )
+}
+
+export function useKurv(): KurvKontekst {
+  const k = useContext(Kontekst)
+  if (!k) throw new Error('useKurv må brukes inne i KurvProvider')
+  return k
+}
