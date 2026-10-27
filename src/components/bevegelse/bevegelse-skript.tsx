@@ -1,7 +1,8 @@
-// Avslører [data-inn]-elementer når de kommer inn i bildet (se «Inngang» i globals.css). Skriptet står inne i
-// HTML-en og kjører før React er hydrert, så innhold øverst på siden ikke venter på JavaScript-bunten. Det følger
-// også med på nye elementer (klientnavigasjon) via MutationObserver. Ingenting skjer ved redusert bevegelse eller
-// uten IntersectionObserver – da står alt der fra start.
+// Avslører [data-inn]-elementer når de kommer inn i bildet (se «Inngang» i globals.css). Skriptet står i <head>,
+// før noe innhold er malt: data-bevegelse settes før første bilde (ingen blink fra synlig til skjult), og en
+// MutationObserver fanger elementene mens HTML-en strømmer inn, så innhold øverst på siden ikke venter på resten av
+// dokumentet eller på JavaScript-bunten. Den følger også med på nye elementer ved klientnavigasjon. Ingenting skjer
+// ved redusert bevegelse eller uten IntersectionObserver – da står alt der fra start.
 
 const skript = `(() => {
   const rot = document.documentElement
@@ -19,10 +20,10 @@ const skript = `(() => {
     if (node.matches('[data-inn]:not([data-synlig])')) io.observe(node)
     node.querySelectorAll('[data-inn]:not([data-synlig])').forEach((el) => io.observe(el))
   }
-  finn(document.body)
+  finn(rot)
   new MutationObserver((endringer) => {
     for (const e of endringer) e.addedNodes.forEach(finn)
-  }).observe(document.body, { childList: true, subtree: true })
+  }).observe(rot, { childList: true, subtree: true })
 })()`
 
 export function BevegelseSkript() {

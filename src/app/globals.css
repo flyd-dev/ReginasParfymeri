@@ -214,6 +214,7 @@
  *   data-inn            glir opp og tones inn (--inn-y, standard 1.5rem)
  *   data-inn="ord"      ordene i <AvdekkTekst> glir opp bak en maske, ett og ett
  *   data-inn="teppe"    barnet .teppe glir opp fra under en maske (bilder); rammen står stille
+ *   data-inn="glid"     glir opp uten å tones inn – for det som kan bli LCP (heroen)
  *   data-inn="skala"    tones inn og skaleres fra 1.04 (bilder)
  *   style --i           plass i rekken; forsinkelsen er --i × --stagger
  */
@@ -225,6 +226,10 @@
 }
 [data-bevegelse] [data-inn='']:not([data-synlig]) {
   opacity: 0;
+  transform: translateY(var(--inn-y, 1.5rem));
+}
+/* Bare bevegelse, ingen opacity: elementet males fra første bilde, så LCP aldri venter på skriptet (heroen). */
+[data-bevegelse] [data-inn='glid']:not([data-synlig]) {
   transform: translateY(var(--inn-y, 1.5rem));
 }
 [data-bevegelse] [data-inn='skala']:not([data-synlig]) {

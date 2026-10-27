@@ -143,8 +143,9 @@ export function Hero({
 
         <div className="relative order-1 pb-16 lg:order-2 lg:col-span-6 lg:pb-0 xl:col-span-6">
           <div className="parallakse-ut relative ml-auto aspect-[4/5] w-[78%] [--parallakse:3rem] sm:w-[64%] lg:w-[74%]">
-            {/* Teppe: bildet glir opp bak rammen (1100 ms). Rammen står stille, så bildet aldri venter på React. */}
-            <Inn variant="teppe" i={1} className="absolute inset-0">
+            {/* Bildet glir på plass og skaleres ned fra 1,08, men er synlig fra første bilde: det er stort nok til å
+                bli LCP, så det skal ikke skjules bak et teppe som venter på skriptet. */}
+            <Inn variant="glid" y="2rem" i={1} className="absolute inset-0">
               <div className="teppe absolute inset-0 bg-sand-100">
                 {video ? (
                   <>
@@ -196,6 +197,7 @@ export function Hero({
           </div>
           {produkt && (
             <Inn
+              variant="glid"
               i={6}
               y="3rem"
               className="absolute bottom-0 left-0 w-[56%] sm:w-[44%] lg:-bottom-4 lg:w-[46%]"
@@ -208,7 +210,8 @@ export function Hero({
                     multiply må ha papiret under seg i gruppen, ellers ses bildets hvite bakgrunn underveis. */}
                 <Inn
                   som="span"
-                  variant="skala"
+                  variant="glid"
+                  y="0.75rem"
                   i={9}
                   className="relative block aspect-square overflow-hidden bg-paper"
                 >

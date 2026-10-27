@@ -48,6 +48,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { kampanjer, tidspunkt } = await hentKampanjer()
   return (
     <html lang="nb" className={`${playfair.variable} ${poppins.variable}`} suppressHydrationWarning>
+      <head>
+        <BevegelseSkript />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#innhold"
@@ -65,7 +68,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
           <Samtykke />
         </KurvProvider>
-        <BevegelseSkript />
       </body>
     </html>
   )

@@ -1,6 +1,6 @@
 import type { CSSProperties, ElementType, ReactNode } from 'react'
 
-type Variant = '' | 'skala' | 'teppe'
+type Variant = '' | 'glid' | 'skala' | 'teppe'
 
 /**
  * Inngang når elementet kommer til syne (globals.css, «Inngang»). Server-komponent: data-synlig settes av
