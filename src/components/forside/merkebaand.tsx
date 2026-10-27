@@ -54,7 +54,8 @@ export function Merkebaand({ merker, merker2 = [] }: { merker: Merke[]; merker2?
       )}
       style={pause ? { animationPlayState: 'paused' } : undefined}
     >
-      {rad(liste, false, liten)}
+      {/* Den lille raden er pynt: merkene finnes på /merker/, så den gir ikke 16 ekstra tabstopp. */}
+      {rad(liste, liten, liten)}
       {rad(liste, true, liten)}
     </div>
   )
