@@ -3,7 +3,10 @@
 import { ShoppingBag } from 'lucide-react'
 import { useKurv } from '@/components/kurv/kurv-provider'
 
-/** Raskt kjøp fra produktkortet – bare når valget er entydig (`hurtigkjop` i sporring.ts). */
+/**
+ * Raskt kjøp fra produktkortet – bare når valget er entydig (`hurtigkjop` i sporring.ts). Står over hjørnet av
+ * bildebrønnen, derfor papirflate med tynn linje.
+ */
 export function Hurtigkjop({
   produktId,
   variantId,
@@ -28,7 +31,7 @@ export function Hurtigkjop({
       <button
         type="submit"
         disabled={opptatt}
-        className="inline-flex size-11 items-center justify-center border border-regina-plum bg-paper text-regina-plum transition-colors duration-(--dur-fast) hover:bg-regina-plum hover:text-white disabled:opacity-50"
+        className="inline-flex size-11 items-center justify-center border border-sand-200 bg-paper text-regina-plum transition-colors duration-(--dur-fast) hover:border-regina-plum hover:bg-regina-plum hover:text-white disabled:opacity-50"
         aria-label={`Legg ${navn} i handlekurven`}
       >
         <ShoppingBag className="size-4" aria-hidden />
