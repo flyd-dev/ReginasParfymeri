@@ -46,8 +46,10 @@ Detaljer, kontrakter og testoppskrift for kassen: [`docs/architecture.md`](docs/
 
 ## Sider
 
-- **Forside** – hero (plassholder for film), merkebånd, nytt i nettbutikken, kategori-inngang, nisjeduft,
-  bestselgere (WooCommerces popularitet), historien siden 1863, behandlinger, kundeklubb, besøk butikken.
+- **Forside** – hero som kollasj (butikkfoto og en utvalgt nisjeduft; plassholder for film), merkebånd, nytt i
+  nisjeduft (publiseringsdato), kategorier som rutenett, bestselgere (WooCommerces popularitet), utstillingsvindu
+  for nisjeduft, nisjehusene som liste med flaske ved peker, Reginas løfte om veiledning, historien siden 1863,
+  behandlinger og besøk butikken. Utvalget står i `src/content/forside.ts`.
 - **Kategori** `/produktkategori/<sti>/` – filtre for underkategori, merke, pris, størrelse, farge, lager og
   tilbud, sortering, antall treff, «Vis flere». Virker uten JavaScript, og filtrene kan deles.
 - **Produkt** `/produkt/<slug>/` – galleri (opptil 8 bilder), variantvalg, pris og lager per variant, «gi meg
@@ -78,8 +80,9 @@ Detaljer, kontrakter og testoppskrift for kassen: [`docs/architecture.md`](docs/
    (`docs/architecture.md` §8) og importen (`pnpm import:staging --apply`).
 2. **Diller i Vipps Checkout** – trolig ikke støttet av Diller-pluginen i dag; må avklares med Diller.
 3. **21st.dev-komponentene** – valgt og logget i [`docs/components.md`](docs/components.md), men ikke
-   installert: gratisnivået gir 2 per døgn, og dagens kvote var brukt. Flaten er bygget med shadcn/ui i
-   mellomtiden.
+   installert: registeret svarer «Marketplace membership required» for kontoen bak `API_KEY_21ST`, og
+   gratisnivået gir dessuten bare 2 per døgn. Flaten er bygget med shadcn/ui, og forsiden etter mønstrene fra de
+   valgte 21st.dev-komponentene.
 4. Avklaringer i [`docs/data-issues.md`](docs/data-issues.md): Guerlain-produktet, åpningstider, fraktpriser,
    kundeklubbens fordeler, Vipps-plugin, merkeregister, personvernerklæring, bruksrett til bilder, logo,
    sandfarger og film til forsiden.

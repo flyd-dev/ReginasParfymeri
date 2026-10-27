@@ -21,6 +21,8 @@ for (const v of visninger) {
     viewport: { width: v.width, height: v.height },
     deviceScaleFactor: 1,
     locale: 'nb-NO',
+    // Uten rullestyrt avdekking (.avdekk), ellers står bildene under bretten usynlige på helsidebildet.
+    reducedMotion: 'reduce',
   })
   for (const sti of sider) {
     await side.goto(base + sti, { waitUntil: 'load' })

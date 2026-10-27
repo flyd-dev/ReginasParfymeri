@@ -30,7 +30,7 @@ export function Produktkort({
           alt={p.bilder[0]?.alt ?? navn}
           sizes={sizes}
           prioritet={prioritet}
-          className="transition-opacity duration-(--dur-base) group-hover:opacity-90"
+          zoom
         />
       </Link>
       <div className="pointer-events-none absolute top-2 left-2 flex flex-col items-start gap-1">
@@ -45,12 +45,12 @@ export function Produktkort({
       <div className="mt-3 flex flex-1 items-start justify-between gap-3">
         <div className="min-w-0">
           {p.merke && <p className="text-xs tracking-[0.14em] text-sand-ink uppercase">{p.merke.navn}</p>}
-          <h3 className="mt-1 font-sans text-[0.9375rem] leading-snug font-normal">
+          <h3 className="mt-1 font-sans text-base leading-snug font-normal">
             <Link href={produktUrl(p.slug)} className="hover:text-regina-pink-strong">
               {p.visningsnavn}
             </Link>
           </h3>
-          <Pris pris={p.pris} fra={p.prisspenn?.fra} className="mt-1.5 text-[0.9375rem] font-medium" />
+          <Pris pris={p.pris} fra={p.prisspenn?.fra} className="mt-1.5 text-base font-medium" />
           {p.lager.status === 'fa-igjen' && p.lager.antall !== null && (
             <p className="mt-1 text-xs text-status-varsel">
               {p.lager.antall === 1 ? 'Bare 1 igjen' : `Få igjen (${p.lager.antall})`}

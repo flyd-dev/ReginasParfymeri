@@ -46,6 +46,16 @@ export function Produktrad({ tittel, children }: { tittel: string; children: Rea
   )
 }
 
-export function Produktradelement({ children }: { children: ReactNode }) {
-  return <li className="w-[62%] shrink-0 snap-start sm:w-[40%] md:w-[30%] lg:w-[23%]">{children}</li>
+export function Produktradelement({ children, stor = false }: { children: ReactNode; stor?: boolean }) {
+  return (
+    <li
+      className={
+        stor
+          ? 'w-[78%] shrink-0 snap-start sm:w-[46%] md:w-[38%] lg:w-[30%]'
+          : 'w-[62%] shrink-0 snap-start sm:w-[40%] md:w-[30%] lg:w-[23%]'
+      }
+    >
+      {children}
+    </li>
+  )
 }

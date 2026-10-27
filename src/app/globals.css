@@ -147,3 +147,24 @@
     transform: translateX(-50%);
   }
 }
+
+/*
+ * Avdekking ved rulling: bilder glir svakt inn når de kommer inn i bildet. Bare opacity og transform, bare der
+ * nettleseren har rullestyrte animasjoner, og aldri ved redusert bevegelse – uten støtte står alt der som vanlig.
+ * Brukes på bilderammer, ikke tekst, så kontrasten aldri måles på halvgjennomsiktig tekst.
+ */
+@keyframes avdekk {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.98);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .avdekk {
+      animation: avdekk linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+}

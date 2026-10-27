@@ -12,6 +12,7 @@ export function Produktbilde({
   prioritet = false,
   className,
   luft = true,
+  zoom = false,
 }: {
   src: string | null
   alt: string
@@ -20,6 +21,8 @@ export function Produktbilde({
   className?: string
   /** Luft rundt pakken. Av for miniatyrer. */
   luft?: boolean
+  /** Svak zoom når en forelder med `group` får peker (produktkort). */
+  zoom?: boolean
 }) {
   return (
     <div className={cn('relative isolate aspect-square overflow-hidden bg-paper', className)}>
@@ -30,7 +33,11 @@ export function Produktbilde({
           fill
           sizes={sizes}
           priority={prioritet}
-          className={cn('object-contain mix-blend-multiply', luft && 'p-[7%]')}
+          className={cn(
+            'object-contain mix-blend-multiply',
+            luft && 'p-[7%]',
+            zoom && 'transition-transform duration-(--dur-slow) ease-out group-hover:scale-[1.04]',
+          )}
         />
       ) : (
         <span className="absolute inset-0 grid place-items-center p-4 text-center text-sm text-sand-ink">

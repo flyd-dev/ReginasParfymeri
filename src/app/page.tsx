@@ -6,22 +6,30 @@ import {
   Behandlinger,
   Historien,
   Kategoriinnganger,
-  Kundeklubb,
   Nisjeduft,
+  Nisjemerker,
   Seksjonstittel,
-  type Inngang,
+  Veiledning,
 } from '@/components/forside/seksjoner'
 import { Produktkort } from '@/components/produkt/produktkort'
 import { Produktrad, Produktradelement } from '@/components/produkt/produktrad'
 import { BILDER } from '@/content/bilder'
-import { NISJE } from '@/content/butikk'
-import { bestselgere, finnMerke, nyeste, produkterIKategori } from '@/lib/katalog/sporring'
-import { lagMeny } from '@/lib/meny'
+import { FORSIDE } from '@/content/forside'
+import {
+  heroprodukt,
+  innganger,
+  nisjemerker,
+  nyttINisjeduft,
+  ovrigeKategorier,
+  tilVisning,
+  utstilling,
+} from '@/lib/forside'
+import { bestselgere, produkterIKategori } from '@/lib/katalog/sporring'
 import { butikkJsonLd, somScript } from '@/lib/seo/jsonld'
 import { naa } from '@/lib/tid'
 import { hentKatalog } from '@/lib/woocommerce'
 import { hentButikkinfo } from '@/lib/woocommerce/innhold'
-import type { Merke, Produkt } from '@/lib/woocommerce/typer'
+import type { Produkt } from '@/lib/woocommerce/typer'
 
 // Nyheter, bestselgere og lager endres; forsiden bygges på nytt hver time (og ved webhook).
 export const revalidate = 3600
@@ -36,51 +44,43 @@ const BESTSELGERFANER = [
 export default async function Forside() {
   const [katalog, info] = await Promise.all([hentKatalog(), hentButikkinfo()])
   const tidspunkt = naa()
-  const kort = (p: Produkt) => (
-    <Produktradelement key={p.id}>
+  const kort = (p: Produkt, stor = false) => (
+    <Produktradelement key={p.id} stor={stor}>
       <Produktkort
         produkt={p}
         naa={tidspunkt}
-        sizes="(min-width: 1024px) 23vw, (min-width: 640px) 40vw, 62vw"
+        sizes={
+          stor
+            ? '(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 78vw'
+            : '(min-width: 1024px) 23vw, (min-width: 640px) 40vw, 62vw'
+        }
       />
     </Produktradelement>
   )
 
-  const innganger: Inngang[] = lagMeny(katalog).map((m) => ({
-    navn: m.navn,
-    sti: m.sti,
-    antall: m.antall,
-    produkt: bestselgere(produkterIKategori(katalog, m.sti), 1)[0] ?? null,
-  }))
-  const nisjemerker = NISJE.merker
-    .map((navn) =>
-      katalog.merker.find((m) =>
-        m.navn.toLocaleLowerCase('nb').startsWith(navn.toLocaleLowerCase('nb').split(' ')[0] ?? ''),
-      ),
-    )
-    .filter((m): m is Merke => Boolean(m))
+  const hero = heroprodukt(katalog)
+  const foto = BILDER[FORSIDE.heroBilde]
   const baandmerker = [...katalog.merker].sort((a, b) => b.antall - a.antall).slice(0, 16)
-  const finnesMerke = (slug: string) => Boolean(finnMerke(katalog, slug))
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: somScript(butikkJsonLd()) }} />
-      <Hero plakat={BILDER.fasade.bilde} plakatAlt={BILDER.fasade.alt} />
-      <Merkebaand merker={baandmerker.filter((m) => finnesMerke(m.slug))} />
+      <Hero foto={foto.bilde} fotoAlt={foto.alt} produkt={hero ? tilVisning(hero) : null} />
+      <Merkebaand merker={baandmerker} />
 
-      <section className="mx-auto max-w-screen-2xl px-4 pt-20 md:px-6 md:pt-28" aria-labelledby="nytt-tittel">
+      <section className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28" aria-labelledby="nytt-tittel">
         <Seksjonstittel
           id="nytt-tittel"
-          kicker="Nyheter"
-          tittel="Nytt i nettbutikken"
+          kicker="Sist lagt til"
+          tittel="Nytt i nisjeduft"
           lenke={{ href: '/nyheter/', tekst: 'Se alle nyheter' }}
         />
-        <Produktrad tittel="Nytt i nettbutikken">{nyeste(katalog, 12).map(kort)}</Produktrad>
+        <Produktrad tittel="Nytt i nisjeduft">
+          {nyttINisjeduft(katalog, 10).map((p) => kort(p, true))}
+        </Produktrad>
       </section>
 
-      <Kategoriinnganger innganger={innganger} />
-
-      <Nisjeduft merker={nisjemerker} />
+      <Kategoriinnganger innganger={innganger(katalog)} ovrige={ovrigeKategorier(katalog)} />
 
       <section className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28" aria-labelledby="best-tittel">
         <Seksjonstittel id="best-tittel" kicker="Mest kjøpt" tittel="Bestselgere" />
@@ -90,16 +90,18 @@ export default async function Forside() {
             navn: f.navn,
             innhold: (
               <Produktrad tittel={`Bestselgere – ${f.navn}`}>
-                {bestselgere(produkterIKategori(katalog, f.sti), 8).map(kort)}
+                {bestselgere(produkterIKategori(katalog, f.sti), 8).map((p) => kort(p))}
               </Produktrad>
             ),
           }))}
         />
       </section>
 
+      <Nisjeduft produkter={utstilling(katalog).map(tilVisning)} />
+      <Nisjemerker merker={nisjemerker(katalog)} />
+      <Veiledning />
       <Historien />
       <Behandlinger />
-      <Kundeklubb />
       <BesokButikken info={info} />
     </>
   )

@@ -94,31 +94,38 @@ Ingen av valgene krever framer-motion. `motion` fra heroen skal skrives om til C
 
 ## Status i koden (27.10.2026)
 
-Ingen 21st.dev-komponent er installert ennå: dagskvoten (2 per døgn på gratisnivået) var brukt opp da byggingen
-startet. Hver seksjon er derfor bygget med shadcn/ui-primitiver fra det offisielle registeret og Tailwind-tokens,
-slik at nettbutikken virker nå. Når en 21st.dev-komponent installeres (rekkefølgen under), erstatter den bare
-markupen i filen som står her. Data, tilgjengelighet og regler (lenker som virker uten JavaScript, multiply på
-produktbilder, pauseknapper, nb-NO) skal beholdes, og e2e-testene i `test/e2e/` må fortsatt være grønne.
+Ingen 21st.dev-komponent er installert ennå. Første forsøk ble stoppet av dagskvoten. Det andre, 27.10.2026 kl.
+12 UTC med `API_KEY_21ST` fra miljøet, ble avvist av registeret med **«Marketplace membership required»**
+(både `ziegfiroyt/ecommerce4` og `ibrandify/editorial-service-list --dry-run`). Kontoen bak nøkkelen mangler
+medlemskap på markedsplassen. Det må ordnes på 21st.dev-kontoen før køen under kan kjøres. Det er altså ikke bare
+et kvotespørsmål.
 
-| #   | Seksjon             | Bygget nå i                                                   | Primitiver / teknikk                            | Merknad før 21st.dev-installasjon                                                               |
-| --- | ------------------- | ------------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| 1   | Navbar og mega-meny | `src/components/layout/megameny.tsx`, `mobilmeny.tsx`         | Radix NavigationMenu, Sheet, Accordion          | Tastatur og Esc testet (`tilgjengelighet.spec.ts`)                                              |
-| 2   | Hero / video-hero   | `src/components/forside/hero.tsx`                             | `<video>` med pause, plakatbilde                | **Plassholder:** bare plakatbilde (fasaden) til Regina leverer film                             |
-| 3   | Produktkort         | `src/components/produkt/produktkort.tsx`                      | Badge, Button                                   | Hurtigkjøp bare når valget er entydig                                                           |
-| 4   | Produktkarusell     | `src/components/produkt/produktrad.tsx`                       | CSS scroll-snap + pilknapper                    | Valgt bevisst framfor Embla: raden kan rulles uten JavaScript. Gallery 6 krever lisensavklaring |
-| 5   | Merkekarusell       | `src/components/forside/merkebaand.tsx`                       | CSS-animasjon (transform), pauseknapp           | Merkenavn i Playfair – vi har ikke merkenes logoer med bruksrett                                |
-| 6   | Kategori-grid       | `src/components/forside/seksjoner.tsx` (`Kategoriinnganger`)  | Produktbilde på papirflate                      | Bildet er den mest solgte varen på lager i kategorien                                           |
-| 7   | Filtre/facets       | `src/components/katalog/filterpanel.tsx`, `filterskuff.tsx`   | `<details>`, lenker, Sheet på mobil             | Filtrene er lenker i adressen og virker uten JavaScript                                         |
-| 8   | Søkedialog          | `src/components/layout/sokedialog.tsx`                        | Command (cmdk) i Dialog                         | Åpnes med «/» og Ctrl/Cmd+K                                                                     |
-| 9   | Drawer-handlekurv   | `src/components/kurv/handlekurv.tsx`                          | Sheet                                           | «Gå til kassen» er et POST-skjema (se architecture.md §5.2)                                     |
-| 10  | Produktgalleri      | `src/components/produkt/galleri.tsx`                          | scroll-snap på mobil, rutenett på stor skjerm   | Opptil 8 bilder, multiply på papir                                                              |
-| 11  | Tabs og accordion   | `src/components/forside/bestselgere.tsx`, produktsiden        | Tabs (shadcn), `<details>` som accordion        | `<details>` er valgt på produktsiden så beskrivelsen er synlig uten JavaScript                  |
-| 12  | Nyhetsbrev          | – (`src/app/kundeklubb/page.tsx`)                             | –                                               | Ingen egen nyhetsbrevtjeneste; innmelding går i Diller. Avklares                                |
-| 13  | Footer              | `src/components/layout/footer.tsx`                            | –                                               | Åpningstider vises bare når de er bekreftet i WordPress                                         |
-| 14  | Sitat               | ikke bygget                                                   | –                                               | Anbefales å utgå (ingen ekte kundesitater)                                                      |
-| 15  | Timeline            | `src/components/forside/seksjoner.tsx` (`Historien`), om oss  | `<ol>` med linje                                | Bare årstall med kilde (`src/content/butikk.ts`)                                                |
-| 16  | Kart og kontakt     | `src/components/innhold/kart.tsx`, `src/app/kontakt/page.tsx` | OpenStreetMap-iframe som lastes først ved klikk | Lettere enn maplibre-gl; vurder om MapMarker er verdt avhengigheten                             |
-| 17  | Toast               | `src/components/ui/sonner.tsx`                                | Sonner (shadcn)                                 | Brukes for feil i kurven; bekreftelser leses opp med `aria-live`                                |
+Hver seksjon er derfor bygget med shadcn/ui-primitiver fra det offisielle registeret og Tailwind-tokens, så
+nettbutikken virker nå. Forsiden (v2) bygger i tillegg bevisst på mønstrene fra konkrete 21st.dev-komponenter,
+med egen kode og uten nye avhengigheter (se «Mønstre fra 21st.dev på forsiden»). Når en 21st.dev-komponent
+installeres (rekkefølgen under), erstatter den bare markupen i filen som står her. Data, tilgjengelighet og regler
+skal beholdes: lenker som virker uten JavaScript, multiply på produktbilder, pauseknapper og nb-NO. E2e-testene i
+`test/e2e/` må fortsatt være grønne.
+
+| #   | Seksjon             | Bygget nå i                                                   | Primitiver / teknikk                                              | Merknad før 21st.dev-installasjon                                                               |
+| --- | ------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 1   | Navbar og mega-meny | `src/components/layout/megameny.tsx`, `mobilmeny.tsx`         | Radix NavigationMenu, Sheet, Accordion                            | Tastatur og Esc testet (`tilgjengelighet.spec.ts`)                                              |
+| 2   | Hero / video-hero   | `src/components/forside/hero.tsx`                             | Kollasj: tittel, butikkfoto i ramme, flaske på papir over hjørnet | **Plassholder:** butikkfoto (disken) til Regina leverer film; `<video>` med pause er klar       |
+| 3   | Produktkort         | `src/components/produkt/produktkort.tsx`                      | Badge, Button, svak zoom på bildet ved peker                      | Hurtigkjøp bare når valget er entydig                                                           |
+| 4   | Produktkarusell     | `src/components/produkt/produktrad.tsx`                       | CSS scroll-snap + pilknapper                                      | Valgt bevisst framfor Embla: raden kan rulles uten JavaScript. Gallery 6 krever lisensavklaring |
+| 5   | Merkekarusell       | `src/components/forside/merkebaand.tsx`                       | CSS-animasjon (transform) på plum, pauseknapp                     | Merkenavn i Playfair – vi har ikke merkenes logoer med bruksrett                                |
+| 6   | Kategori-grid       | `src/components/forside/seksjoner.tsx` (`Kategoriinnganger`)  | Asymmetrisk rutenett, produkt på papirflate                       | Produktet er valgt i `src/content/forside.ts`, ellers kategoriens mest solgte vare              |
+| 7   | Filtre/facets       | `src/components/katalog/filterpanel.tsx`, `filterskuff.tsx`   | `<details>`, lenker, Sheet på mobil                               | Filtrene er lenker i adressen og virker uten JavaScript                                         |
+| 8   | Søkedialog          | `src/components/layout/sokedialog.tsx`                        | Command (cmdk) i Dialog                                           | Åpnes med «/» og Ctrl/Cmd+K                                                                     |
+| 9   | Drawer-handlekurv   | `src/components/kurv/handlekurv.tsx`                          | Sheet                                                             | «Gå til kassen» er et POST-skjema (se architecture.md §5.2)                                     |
+| 10  | Produktgalleri      | `src/components/produkt/galleri.tsx`                          | scroll-snap på mobil, rutenett på stor skjerm                     | Opptil 8 bilder, multiply på papir                                                              |
+| 11  | Tabs og accordion   | `src/components/forside/bestselgere.tsx`, produktsiden        | Tabs (shadcn), `<details>` som accordion                          | `<details>` er valgt på produktsiden så beskrivelsen er synlig uten JavaScript                  |
+| 12  | Nyhetsbrev          | – (`src/app/kundeklubb/page.tsx`)                             | –                                                                 | Ingen egen nyhetsbrevtjeneste; innmelding går i Diller. Avklares                                |
+| 13  | Footer              | `src/components/layout/footer.tsx`                            | –                                                                 | Åpningstider vises bare når de er bekreftet i WordPress                                         |
+| 14  | Sitat               | `src/components/forside/seksjoner.tsx` (`Veiledning`)         | Stort Playfair-sitat, lucide `Quote`                              | Reginas eget løfte om veiledning fra reginaparfymeri.no – ikke et kundesitat                    |
+| 15  | Timeline            | `src/components/forside/seksjoner.tsx` (`Historien`), om oss  | `<ol>` med store rosa årstall                                     | Bare årstall med kilde (`src/content/butikk.ts`)                                                |
+| 16  | Kart og kontakt     | `src/components/innhold/kart.tsx`, `src/app/kontakt/page.tsx` | OpenStreetMap-iframe som lastes først ved klikk                   | Lettere enn maplibre-gl; vurder om MapMarker er verdt avhengigheten                             |
+| 17  | Toast               | `src/components/ui/sonner.tsx`                                | Sonner (shadcn)                                                   | Brukes for feil i kurven; bekreftelser leses opp med `aria-live`                                |
 
 ---
 
@@ -699,9 +706,32 @@ mønsteret for «Lagt i handlekurven». Til den er installert, dekker ui/sonner 
 
 ---
 
+## Mønstre fra 21st.dev på forsiden
+
+Brukeren ba om mer 21st.dev-preg på forsiden mens installasjonene står fast. Forsiden er derfor bygget etter
+mønstrene i disse komponentene. Komponentsidene og de levende demoene er studert, men ingen kode er hentet eller
+limt inn (registeret ble ikke åpnet utover installasjonsforsøkene over). Alt er skrevet på nytt med tokens, bare
+opacity og transform, og uten gsap, motion eller framer-motion.
+
+| Seksjon på forsiden                   | Mønster fra                                                                                         | Lisens       | Hva er tatt med                                                                 |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------- |
+| Hero (`hero.tsx`)                     | Hero 04, felipemenezes098 – https://21st.dev/@felipemenezes098/components/hero-04                   | ikke oppgitt | Bare idéen: serif-tittel ved siden av en kollasj av to overlappende flater      |
+| Merkebånd (`merkebaand.tsx`)          | Marquee, Magic UI – https://21st.dev/@dillionverma/components/marquee                               | MIT          | Uendelig bånd med to like rader, stopp ved peker; her med pauseknapp            |
+| Kategorier (`Kategoriinnganger`)      | Shop by Category Grid, ziegfiroyt – https://21st.dev/@ziegfiroyt/components/ecommerce4              | MIT          | Store fliser med navn, antall og pil, zoom ved peker; her som asymmetrisk bento |
+| Utstillingsvindu (`utstillingsvindu`) | Elegant Carousel, dev.yadhakim – https://21st.dev/@dev.yadhakim/components/elegant-carousel         | ikke oppgitt | Bare idéen: delt flate med tekst og bilde, nummererte faner med merkenavn       |
+| Nisjemerkene (`merkeliste.tsx`)       | Interactive List Preview, hyperiux – https://21st.dev/@hyperiux/components/interactive-list-preview | MIT          | Nummerert liste der peker/fokus viser bilde i en ramme ved siden av             |
+|                                       | Hover Image List, educalvolpz – https://21st.dev/@educalvolpz/components/hover-image-list           | MIT          | Bildet følger raden man står på (her i fast ramme, ikke etter markøren)         |
+| Rader med forskyvning ved peker       | Editorial Service List, ibrandify – https://21st.dev/@ibrandify/components/editorial-service-list   | MIT          | Nummer, stor tittel og liten forskyvning mot høyre ved peker                    |
+| Avdekking ved rulling (`.avdekk`)     | Scroll Reveal-familien, f.eks. https://21st.dev/@cnippet-dev/components/scroll-reveal               | –            | Bilder glir inn med CSS `animation-timeline: view()`; av ved redusert bevegelse |
+
+Når medlemskapet er på plass, er de tre MIT-komponentene uten tunge avhengigheter (ecommerce4,
+editorial-service-list og marquee) de første som bør installeres og sammenlignes med det som er bygget. Interactive
+List Preview krever gsap (ca. 70 kB). Den bør bare installeres hvis den gir mer enn CSS-versjonen.
+
 ## Installasjonsrekkefølge
 
-To per døgn fra kvoten nullstilles 28.10.2026 kl. 00:00 UTC. De mest synlige seksjonene står først. Feiler en
+Krever først medlemskap på markedsplassen for kontoen bak `API_KEY_21ST` (se «Status i koden»). Deretter gjelder
+gratiskvoten: to per døgn. Datoene under forutsetter at begge deler er på plass. De mest synlige seksjonene står først. Feiler en
 installasjon, eller er kvoten ikke nullstilt, flyttes resten av køen ett steg; registry-URL-ene hentes aldri
 manuelt.
 

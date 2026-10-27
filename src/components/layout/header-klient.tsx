@@ -50,7 +50,7 @@ export function HeaderKlient({
   const antall = kurv?.antall ?? 0
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50/95 backdrop-blur-[2px] supports-[backdrop-filter]:bg-sand-50/90">
+    <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50">
       <div className="mx-auto grid h-16 max-w-screen-2xl grid-cols-[1fr_auto_1fr] items-center px-4 md:px-6 lg:h-20">
         <div className="flex items-center gap-1">
           <Mobilmeny meny={meny} />
