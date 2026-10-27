@@ -1,3 +1,5 @@
+// Bygget etter «Vertical Cut Reveal» (danielpetho, MIT) på 21st.dev – https://21st.dev/@danielpetho/components/vertical-cut-reveal. Egen kode; ingen kode er kopiert.
+
 import { Fragment, type CSSProperties, type ElementType, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -5,8 +7,8 @@ import { cn } from '@/lib/utils'
 export type Tekstdel = string | { tekst: string; className?: string; som?: 'em' | 'span' }
 
 /**
- * Overskrift der ordene glir opp bak en maske, ett og ett, når den kommer til syne – mønsteret fra «Vertical Cut
- * Reveal» (danielpetho) på 21st.dev, bygget med CSS (globals.css, data-inn="ord"). Uten JavaScript eller ved
+ * Overskrift der ordene glir opp bak en maske, ett og ett, når den kommer til syne – bygget med CSS i stedet for
+ * framer-motion (globals.css, data-inn="ord"). Uten JavaScript eller ved
  * redusert bevegelse står teksten der som vanlig. Ordene ligger i vanlige spenn, så skjermlesere leser hele
  * setningen.
  */

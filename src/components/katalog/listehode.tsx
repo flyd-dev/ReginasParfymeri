@@ -36,8 +36,14 @@ export function Listehode({
         deler={typeof tittel === 'string' ? [tittel] : tittel}
         className="mt-3 max-w-4xl text-4xl md:text-6xl"
       />
+      {/* Ingressen kan bli LCP på mobil: den glir på plass uten å tones inn, så den males fra første bilde. */}
       {ingress && (
-        <Inn som="p" i={3} className="mt-4 max-w-2xl leading-relaxed text-sand-ink md:mt-5 md:text-lg">
+        <Inn
+          som="p"
+          variant="glid"
+          i={3}
+          className="mt-4 max-w-2xl leading-relaxed text-sand-ink md:mt-5 md:text-lg"
+        >
           {ingress}
         </Inn>
       )}

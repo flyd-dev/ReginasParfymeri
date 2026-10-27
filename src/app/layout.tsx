@@ -42,6 +42,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: '#f4ede4',
+  // Kjøpslinjen nederst på produktsiden bruker env(safe-area-inset-bottom) over hjemlinjen på iPhone.
+  viewportFit: 'cover',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

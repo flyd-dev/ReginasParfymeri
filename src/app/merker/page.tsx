@@ -43,7 +43,7 @@ export default async function Merker() {
       </header>
       <nav
         aria-label="Hopp til bokstav"
-        className="sticky top-16 z-10 -mx-4 mt-8 border-y border-sand-200 bg-sand-50 px-4 py-2 lg:top-32"
+        className="sticky top-16 z-10 -mx-4 mt-8 border-y border-sand-200 bg-sand-50 px-4 py-2 transition-transform duration-(--dur-slow) ease-ut lg:top-32 [:root[data-topp-skjult]_&]:-translate-y-16 lg:[:root[data-topp-skjult]_&]:-translate-y-20"
       >
         <ul className="flex flex-wrap gap-1">
           {bokstaver.map((b) => (

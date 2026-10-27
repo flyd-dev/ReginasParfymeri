@@ -785,6 +785,39 @@ bevegelse på `--dur-slow`; samme id per type, så varsler ikke stables.
 
 ---
 
+## Bevegelse (R-30, 27.10.2026)
+
+Flyd syntes siden var flat: for lite animasjon og for lite 21st.dev-preg. Bevegelsen er bygget etter disse
+komponentene, med egen kode, CSS og små React-hooks (ingen motion, framer-motion eller gsap). Grunnlaget
+(`src/components/bevegelse/`, «Inngang» i `globals.css`) styres av et lite skript i `<head>` med
+IntersectionObserver, så det virker likt i Safari på iPhone. Alt står stille ved redusert bevegelse, og innhold er
+synlig uten JavaScript. Mobil først (R-31).
+
+| Effekt                                  | Bygget etter                                                                                                               | Lisens | Fil                                                          |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------ |
+| Overskrifter ord for ord                | Vertical Cut Reveal (danielpetho) – https://21st.dev/@danielpetho/components/vertical-cut-reveal                           | MIT    | `src/components/bevegelse/avdekk-tekst.tsx`                  |
+| Roterende ord i heroen (stopper < 5 s)  | Text Rotate (danielpetho) – https://21st.dev/@danielpetho/components/text-rotate                                           | MIT    | `src/components/forside/ordskifte.tsx`                       |
+| Tall som teller opp (1863, nisjedufter) | Number Ticker (Magic UI) – https://21st.dev/@dillionverma/components/number-ticker                                         | MIT    | `src/components/forside/tallteller.tsx`                      |
+| Sitatet lyser opp ved rulling           | Text Reveal (Magic UI) – https://21st.dev/@dillionverma/components/text-reveal                                             | MIT    | `src/components/forside/tekstavsloring.tsx`                  |
+| Bildebytte i merkelisten                | Animated Slideshow (YoucefBnm) – https://21st.dev/@youcefbnm/components/animated-slideshow                                 | MIT    | `src/components/forside/merkeliste.tsx`                      |
+| Knapper med fyll og pil                 | Interactive Hover Button (Magic UI) – https://21st.dev/@dillionverma/components/interactive-hover-button                   | MIT    | `src/components/ui/button.tsx`                               |
+| Lenketekst som ruller                   | Text Roll (Motion Primitives) – https://21st.dev/@ibelick/components/text-roll; idé fra Flip Links (vaib215, ingen lisens) | MIT    | `src/components/layout/rulletekst.tsx`                       |
+| Fane-strek som glir                     | Vercel Tabs (Yadwinder Singh) – https://21st.dev/@yadwinder/components/vercel-tabs                                         | MIT    | `src/components/ui/tabs.tsx`                                 |
+| Header som gjemmer seg ved rulling      | Scroll Direction: Hide Header (Motion) – https://21st.dev/@motiondotdev/components/motion-scroll-hide-header               | MIT    | `src/components/layout/header-klient.tsx`                    |
+| Lister som glir inn (meny, søk, kurv)   | Animated List (Magic UI) – https://21st.dev/@dillionverma/components/animated-list                                         | MIT    | `src/components/layout/liste-inn.ts`                         |
+| Tall som ruller i kurven                | Number Flow (Maxwell Barvian) – https://21st.dev/@barvian/components/number-flow                                           | MIT    | `src/components/kurv/rulletall.tsx`                          |
+| Bildebytte på produktkort               | ProductCard (YoucefBnm) – https://21st.dev/@youcefbnm/components/product-card                                              | MIT    | `src/components/produkt/produktkort.tsx`, `produktbilde.tsx` |
+| Hurtigkjøp som blir hake                | Add to Cart Button (bidyut10) – https://21st.dev/@bidyut10/components/add-to-cart-button                                   | MIT    | `src/components/produkt/hurtigkjop.tsx`                      |
+| Fremdrift i galleriet på mobil          | Scroll Progress (ibelick) – https://21st.dev/@ibelick/components/scroll-progress                                           | MIT    | `src/components/produkt/galleri.tsx`                         |
+| Valgt variant glir                      | Segmented Control (halaska-studio) – https://21st.dev/@halaska-studio/components/segmented-control                         | MIT    | `src/components/produkt/kjopsboks.tsx`                       |
+| «Godt å vite» åpnes                     | Accordion (ibelick) – https://21st.dev/@ibelick/components/accordion                                                       | MIT    | `src/components/produkt/detaljer.tsx`                        |
+| Produktbildet glir fra kort til side    | Ingen 21st.dev-kilde: React `<ViewTransition>` (Next-guiden)                                                               | –      | `src/components/produkt/morf.tsx`, `overganger.css`          |
+| Fast kjøpslinje på mobil                | Ingen lisensiert kandidat (efferd «sticky-footer» uten lisens); eget mønster                                               | –      | `src/components/produkt/kjopslinje.tsx`                      |
+
+Ytelse (Lighthouse mobil, lokal `next start`, tre kjøringer): forside 88–89, kategori 82–91, produkt 89–93. Det
+som kan bli LCP (heroens bilde, kategoriens ingress) glir på plass uten å tones inn (`data-inn="glid"`), så det males
+fra første bilde.
+
 ## Mønstre fra 21st.dev på forsiden
 
 Brukeren ba om mer 21st.dev-preg på forsiden mens installasjonene står fast. Forsiden er derfor bygget etter
