@@ -1,4 +1,6 @@
 // Bygget etter «Command» (Origin UI, MIT) på 21st.dev – https://21st.dev/@originui/components/command. Egen kode; ingen kode er kopiert.
+// Treffene kommer inn én etter én når de vises (liste-inn.ts, etter «Animated List» – Dillion Verma, Magic UI, MIT).
+// Rader som står fra forrige søk, beholder plassen og blir stående i ro; bare nye treff glir inn.
 'use client'
 
 import { Command as Cmdk } from 'cmdk'
@@ -26,6 +28,7 @@ import {
 } from '@/components/ui/dialog'
 import { antallTekst } from '@/lib/format'
 import { kategoriUrl, merkeUrl, produktUrl, sokUrl } from '@/lib/lenker'
+import { listeInn, plass } from './liste-inn'
 
 /** Snarveier før kunden har skrevet noe – sider som alltid finnes. */
 const SNARVEIER = [
@@ -40,9 +43,9 @@ const SNARVEIER = [
 const gruppe =
   'p-2 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1.5 **:[[cmdk-group-heading]]:font-semibold **:[[cmdk-group-heading]]:tracking-[0.16em] **:[[cmdk-group-heading]]:text-sand-ink-deep **:[[cmdk-group-heading]]:uppercase'
 
-// Valgt rad: sandflate og en tynn rosa strek til venstre.
-const rad =
-  'relative gap-3 px-3 py-2.5 text-base before:absolute before:inset-y-1.5 before:left-0 before:w-0.5 before:bg-regina-pink-strong before:opacity-0 data-selected:bg-sand-100 data-selected:before:opacity-100'
+// Valgt rad: sandflate og en tynn rosa strek til venstre som vokser fra midten (bare transform). Ikonet glir
+// litt mot høyre på valgt rad. Hver rad kommer inn etter den forrige (listeInn, plass i style).
+const rad = `relative gap-3 px-3 py-2.5 text-base transition-colors duration-(--dur-fast) before:absolute before:inset-y-1.5 before:left-0 before:w-0.5 before:scale-y-0 before:bg-regina-pink-strong before:transition-transform before:duration-(--dur-base) before:ease-ut data-selected:bg-sand-100 data-selected:before:scale-y-100 [&>svg:first-child]:transition-transform [&>svg:first-child]:duration-(--dur-base) [&>svg:first-child]:ease-ut data-selected:[&>svg:first-child]:translate-x-0.5 ${listeInn}`
 
 const ikon = 'size-4 text-sand-ink-deep'
 
@@ -120,12 +123,13 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
                     Skriv minst to bokstaver, for eksempel «creed» eller «vanilje».
                   </p>
                   <CommandGroup heading="Snarveier" className={gruppe}>
-                    {SNARVEIER.map((s) => (
+                    {SNARVEIER.map((s, i) => (
                       <CommandItem
                         key={s.href}
                         value={`snarvei-${s.href}`}
                         onSelect={() => ga(s.href)}
                         className={rad}
+                        style={plass(i + 1)}
                       >
                         <ArrowUpRight className={ikon} aria-hidden />
                         {s.navn}
@@ -147,12 +151,13 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
               )}
               {svar && svar.merker.length > 0 && (
                 <CommandGroup heading="Merker" className={gruppe}>
-                  {svar.merker.map((m) => (
+                  {svar.merker.map((m, i) => (
                     <CommandItem
                       key={m.slug}
                       value={`merke-${m.slug}`}
                       onSelect={() => ga(merkeUrl(m.slug))}
                       className={rad}
+                      style={plass(i)}
                     >
                       <ArrowUpRight className={ikon} aria-hidden />
                       {m.navn}
@@ -165,12 +170,13 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
               )}
               {svar && svar.kategorier.length > 0 && (
                 <CommandGroup heading="Kategorier" className={gruppe}>
-                  {svar.kategorier.map((k) => (
+                  {svar.kategorier.map((k, i) => (
                     <CommandItem
                       key={k.sti.join('/')}
                       value={`kategori-${k.sti.join('/')}`}
                       onSelect={() => ga(kategoriUrl(k.sti))}
                       className={rad}
+                      style={plass(svar.merker.length + i)}
                     >
                       <ArrowUpRight className={ikon} aria-hidden />
                       {k.navn}
@@ -183,12 +189,13 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
               )}
               {svar && svar.produkter.length > 0 && (
                 <CommandGroup heading="Produkter" className={gruppe}>
-                  {svar.produkter.map((p) => (
+                  {svar.produkter.map((p, i) => (
                     <CommandItem
                       key={p.slug}
                       value={`produkt-${p.slug}`}
                       onSelect={() => ga(produktUrl(p.slug))}
                       className={`${rad} py-2`}
+                      style={plass(svar.merker.length + svar.kategorier.length + i)}
                     >
                       <Produktbilde
                         src={p.bilde}
@@ -215,7 +222,12 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
               {/* Linjen er en kant, ikke role=separator: listeboksen tillater bare grupper og valg. */}
               {harTreff ? (
                 <CommandGroup className="border-t border-sand-200 p-2">
-                  <CommandItem value="alle-treff" onSelect={() => ga(sokUrl(sok))} className={rad}>
+                  <CommandItem
+                    value="alle-treff"
+                    onSelect={() => ga(sokUrl(sok))}
+                    className={rad}
+                    style={plass(svar.merker.length + svar.kategorier.length + svar.produkter.length)}
+                  >
                     <Search className={ikon} aria-hidden />
                     Se alle {svar.totalt} treff for «{sok}»
                     <CommandShortcut className="tracking-normal text-regina-plum">

@@ -1,5 +1,7 @@
 // Bygget etter «Rich Navigation Menu» (shadcnui-blocks, MIT) på 21st.dev – https://21st.dev/@shadcnui-blocks/components/navigation-menu-06. Egen kode; ingen kode er kopiert.
 // Bildekolonnen er bare idéen fra «Shop Navigation Menu» (Bundui, lisens ikke oppgitt) – https://21st.dev/@bundui/components/navigation-menu4.
+// Menypunktene ruller ved peker (rulletekst.tsx, etter «Text Roll»), og radene i panelet kommer inn én etter én når
+// det åpnes (liste-inn.ts, etter «Animated List»).
 'use client'
 
 import { ArrowRight, ChevronDown } from 'lucide-react'
@@ -12,10 +14,12 @@ import { BILDER } from '@/content/bilder'
 import { BUTIKK } from '@/content/butikk'
 import { kategoriUrl, produktUrl } from '@/lib/lenker'
 import { menybeskrivelse, type Menyprodukt, type Menypunkt } from '@/lib/meny'
+import { listeInn, plass } from './liste-inn'
+import { Rulletekst } from './rulletekst'
 
 // Tynn rosa strek under punktet ved peker og når panelet er åpent – bare transform.
 const lenkeKlasse =
-  'relative inline-flex h-12 items-center gap-1 px-3 text-[0.9375rem] font-medium tracking-wide text-regina-plum transition-colors duration-(--dur-fast) after:absolute after:inset-x-3 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-regina-pink-strong after:transition-transform after:duration-(--dur-base) after:ease-out hover:text-regina-pink-strong hover:after:scale-x-100 data-[state=open]:text-regina-pink-strong data-[state=open]:after:scale-x-100'
+  'group/rull relative inline-flex h-12 items-center gap-1 px-3 text-[0.9375rem] font-medium tracking-wide text-regina-plum transition-colors duration-(--dur-fast) after:absolute after:inset-x-3 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-regina-pink-strong after:transition-transform after:duration-(--dur-base) after:ease-out hover:text-regina-pink-strong hover:after:scale-x-100 data-[state=open]:text-regina-pink-strong data-[state=open]:after:scale-x-100'
 
 const kolonneoverskrift =
   'flex h-6 items-center text-xs font-semibold tracking-[0.16em] text-sand-ink uppercase'
@@ -24,12 +28,13 @@ const kolonneoverskrift =
  * Ett menypunkt: navn og en andrelinje fra kategoritreet. Lenken omslutter bare navnet (synlig tekst = navn,
  * WCAG 2.5.3) og dekker hele raden med ::after; andrelinjen er lenkens beskrivelse. Fokusringen tegnes på raden.
  */
-function Rad({ punkt }: { punkt: Menypunkt }) {
+function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
   const id = useId()
   return (
     <li
       data-slot="megameny-rad"
-      className="group/rad relative h-full px-4 py-3 transition-colors duration-(--dur-fast) hover:bg-sand-50 has-[a:focus-visible]:bg-sand-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid"
+      style={plass(i)}
+      className={`group/rad relative h-full px-4 py-3 transition-colors duration-(--dur-fast) hover:bg-sand-50 has-[a:focus-visible]:bg-sand-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
     >
       <Nav.Link asChild>
         <Link
@@ -107,7 +112,7 @@ function Panel({ punkt, vare }: { punkt: Menypunkt; vare: Menyprodukt | undefine
   return (
     <div className="mx-auto grid max-w-screen-2xl grid-cols-[minmax(0,1fr)_16rem] px-6 py-9 xl:grid-cols-[minmax(0,1fr)_18rem] xl:px-10">
       <div className="pr-8 xl:pr-12">
-        <div className="flex h-6 items-center justify-between gap-6 px-4">
+        <div className={`flex h-6 items-center justify-between gap-6 px-4 ${listeInn}`} style={plass(0)}>
           <p className={kolonneoverskrift}>Kategorier</p>
           <Nav.Link asChild>
             <Link
@@ -123,12 +128,12 @@ function Panel({ punkt, vare }: { punkt: Menypunkt; vare: Menyprodukt | undefine
           </Nav.Link>
         </div>
         <ul className="mt-3 grid grid-cols-2 gap-x-2 gap-y-1 xl:grid-cols-3">
-          {punkt.barn.map((u) => (
-            <Rad key={u.sti.join('/')} punkt={u} />
+          {punkt.barn.map((u, i) => (
+            <Rad key={u.sti.join('/')} punkt={u} i={i + 1} />
           ))}
         </ul>
       </div>
-      <div className="border-l border-sand-200 pl-8 xl:pl-12">
+      <div className={`border-l border-sand-200 pl-8 xl:pl-12 ${listeInn}`} style={plass(3)}>
         <Bildekolonne punkt={punkt} vare={vare} />
       </div>
     </div>
@@ -143,7 +148,7 @@ export function Megameny({ meny, utvalg }: { meny: Menypunkt[]; utvalg: Record<s
         {meny.map((punkt) => (
           <Nav.Item key={punkt.sti.join('/')}>
             <Nav.Trigger className={`group ${lenkeKlasse}`}>
-              {punkt.navn}
+              <Rulletekst tekst={punkt.navn} />
               <ChevronDown
                 className="size-3.5 transition-transform duration-(--dur-base) group-data-[state=open]:rotate-180"
                 aria-hidden
@@ -157,14 +162,14 @@ export function Megameny({ meny, utvalg }: { meny: Menypunkt[]; utvalg: Record<s
         <Nav.Item>
           <Nav.Link asChild>
             <Link href="/merker/" className={lenkeKlasse}>
-              Merker
+              <Rulletekst tekst="Merker" />
             </Link>
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link asChild>
             <Link href="/behandlinger/" className={lenkeKlasse}>
-              Behandlinger
+              <Rulletekst tekst="Behandlinger" />
             </Link>
           </Nav.Link>
         </Nav.Item>

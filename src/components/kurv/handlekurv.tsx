@@ -3,11 +3,16 @@
 // Fra forbildet: skuff fra høyre med tittel og kort beskrivelse øverst, en lang midtdel som ruller for seg selv,
 // og en fast bunn med primærknapp over en sekundærknapp i full bredde. Her er midtdelen varelinjene og bunnen
 // delsum, fraktlinje, «Gå til kassen» (POST-skjema, se docs/architecture.md §5.2) og «Se handlekurven».
+//
+// Bevegelse: varelinjene kommer inn én etter én når skuffen åpnes (liste-inn.ts, etter «Animated List» – Dillion
+// Verma, Magic UI, MIT), og antall, linjesum og delsum ruller når de endres (rulletall.tsx, etter «Number Flow» –
+// Maxwell Barvian, MIT).
 
 'use client'
 
 import { ArrowRight, ShoppingBag, Store, Truck, X } from 'lucide-react'
 import Link from 'next/link'
+import { listeInn, plass } from '@/components/layout/liste-inn'
 import { Produktbilde } from '@/components/produkt/produktbilde'
 import { Button } from '@/components/ui/button'
 import {
@@ -26,14 +31,22 @@ import type { Kurv } from '@/lib/kurv/typer'
 import { Antallvelger } from './antallvelger'
 import { useKurv } from './kurv-provider'
 import { Kurvmeldinger } from './kurvmeldinger'
+import { Rulletall } from './rulletall'
 
-/** Varelinjene – i skuffen og på handlekurvsiden. */
-export function Kurvlinjer({ kurv, lukk }: { kurv: Kurv; lukk?: () => void }) {
+/**
+ * Varelinjene – i skuffen og på handlekurvsiden. Med `inngang` kommer linjene inn én etter én (skuffen); på siden
+ * står de der fra start.
+ */
+export function Kurvlinjer({ kurv, lukk, inngang }: { kurv: Kurv; lukk?: () => void; inngang?: boolean }) {
   const { endreAntall, fjern, opptatt } = useKurv()
   return (
     <ul className="divide-y divide-sand-200" aria-busy={opptatt || undefined}>
-      {kurv.linjer.map((l) => (
-        <li key={l.nokkel} className="flex gap-4 py-5">
+      {kurv.linjer.map((l, i) => (
+        <li
+          key={l.nokkel}
+          className={`flex gap-4 py-5 ${inngang ? listeInn : ''}`}
+          style={inngang ? plass(i + 2) : undefined}
+        >
           {/* Bildet er en ekstra vei til samme side som navnet, derfor skjult for skjermlesere og tastatur. */}
           <Link href={produktUrl(l.slug)} onClick={lukk} className="shrink-0" tabIndex={-1} aria-hidden>
             <Produktbilde
@@ -61,10 +74,11 @@ export function Kurvlinjer({ kurv, lukk }: { kurv: Kurv; lukk?: () => void }) {
                 {l.ordinaer && (
                   <span className="block text-sm text-sand-ink line-through">
                     <span className="sr-only">Før </span>
-                    {kroner(l.ordinaer * l.antall)}
+                    {/* Gjennomstrekingen følger ikke med inn i tallet av seg selv (inline-grid). */}
+                    <Rulletall verdi={l.ordinaer * l.antall} vis={kroner} className="line-through" />
                   </span>
                 )}
-                <span className="font-medium">{kroner(l.pris * l.antall)}</span>
+                <Rulletall verdi={l.pris * l.antall} vis={kroner} className="font-medium" />
               </p>
             </div>
             <div className="mt-auto flex items-center gap-4 pt-3">
@@ -79,7 +93,7 @@ export function Kurvlinjer({ kurv, lukk }: { kurv: Kurv; lukk?: () => void }) {
                 type="button"
                 onClick={() => void fjern(l.nokkel)}
                 disabled={opptatt}
-                className="inline-flex h-10 items-center px-1 text-sand-ink underline underline-offset-4 transition-colors duration-(--dur-fast) hover:text-regina-plum disabled:opacity-50"
+                className="inline-flex h-11 items-center px-1 text-sand-ink underline underline-offset-4 transition-[color,scale] duration-(--dur-fast) hover:text-regina-plum active:scale-95 disabled:opacity-50"
               >
                 Fjern<span className="sr-only"> {l.navn}</span>
               </button>
@@ -99,7 +113,9 @@ export function Kassedel({ kurv }: { kurv: Kurv }) {
         <dt>
           Delsum <span className="text-sand-ink">({antallTekst(kurv.antall, 'vare', 'varer')})</span>
         </dt>
-        <dd className="text-xl font-medium tabular-nums">{kroner(kurv.delsum)}</dd>
+        <dd className="text-xl font-medium tabular-nums">
+          <Rulletall verdi={kurv.delsum} vis={kroner} />
+        </dd>
       </dl>
       <ul className="mt-3 space-y-1.5 text-sm text-sand-ink">
         <li className="flex gap-2.5">
@@ -184,7 +200,7 @@ export function Handlekurv() {
               </div>
             </div>
           ) : (
-            <Kurvlinjer kurv={kurv} lukk={lukk} />
+            <Kurvlinjer kurv={kurv} lukk={lukk} inngang />
           )}
         </div>
 
