@@ -24,6 +24,14 @@ for (const v of visninger) {
   })
   for (const sti of sider) {
     await side.goto(base + sti, { waitUntil: 'load' })
+    // Rull gjennom siden så bilder som lastes når de kommer til syne, er med på helsidebildet.
+    await side.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y)
+        await new Promise((r) => setTimeout(r, 120))
+      }
+      window.scrollTo(0, 0)
+    })
     await side.waitForTimeout(1200)
     const navn = sti === '/' ? 'forside' : sti.split('/').filter(Boolean).slice(0, 2).join('-')
     const fil = `docs/screenshots/${fase}-${navn}-${v.navn}.jpg`

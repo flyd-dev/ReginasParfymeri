@@ -48,6 +48,8 @@ const PAR: [string, string, number, string][] = [
   ['regina-pink', 'sand-50', STOR, 'store rosa overskrifter og ikoner'],
   ['regina-pink', 'paper', STOR, 'rosa merker på produktbilder (stor/fet tekst)'],
   ['white', 'regina-pink', STOR, 'hvit stor tekst på ren rosa'],
+  ['regina-pink', 'regina-plum', STOR, 'rosa kursiv i store overskrifter på plum'],
+  ['regina-pink', 'sand-100', STOR, 'rosa kursiv i store overskrifter i seksjoner'],
   ['sand-ink', 'sand-50', STOR, 'kant på skjemafelt'],
   ['sand-ink', 'paper', STOR, 'kant på skjemafelt i skuffer'],
   ['regina-pink-strong', 'sand-50', STOR, 'fokusring'],

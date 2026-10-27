@@ -136,3 +136,13 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Merkebåndet: én halv bredde (to like rader), bare transform. */
+@keyframes merkebaand {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

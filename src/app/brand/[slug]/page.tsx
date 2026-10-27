@@ -1,0 +1,95 @@
+import { Phone } from 'lucide-react'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { Produktliste } from '@/components/katalog/produktliste'
+import { Brodsmuler } from '@/components/layout/brodsmuler'
+import { Button } from '@/components/ui/button'
+import { AVKLARES, BUTIKK, KUN_I_BUTIKKEN, KUN_I_BUTIKKEN_TEKST } from '@/content/butikk'
+import { finnMerke, lesListetilstand } from '@/lib/katalog/sporring'
+import { merkeUrl } from '@/lib/lenker'
+import { naa } from '@/lib/tid'
+import { hentKatalog } from '@/lib/woocommerce'
+
+type Props = PageProps<'/brand/[slug]'>
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const merke = finnMerke(await hentKatalog(), slug)
+  const butikkmerke = KUN_I_BUTIKKEN.find((m) => m.slug === slug)
+  if (merke) {
+    return {
+      title: merke.navn,
+      description: `${merke.navn} hos Regina Parfymeri i Haugesund – ${merke.antall} produkter i nettbutikken.`,
+      alternates: { canonical: merkeUrl(merke.slug) },
+    }
+  }
+  if (butikkmerke) {
+    return {
+      title: `${butikkmerke.navn} – kun i butikken`,
+      description: `${butikkmerke.navn} finner du i Regina Parfymeris butikk i Haraldsgata 138 i Haugesund.`,
+      alternates: { canonical: merkeUrl(butikkmerke.slug) },
+    }
+  }
+  return {}
+}
+
+export default async function Merkeside({ params, searchParams }: Props) {
+  const { slug } = await params
+  const katalog = await hentKatalog()
+  const merke = finnMerke(katalog, slug)
+  const butikkmerke = KUN_I_BUTIKKEN.find((m) => m.slug === slug)
+  if (!merke && !butikkmerke) notFound()
+
+  // Merker som bare selges i butikken: ingen kjøpsknapp, bare kontakt (oppdraget §7.4).
+  if (!merke && butikkmerke) {
+    return (
+      <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
+        <Brodsmuler smuler={[{ navn: 'Merker', href: '/merker/' }, { navn: butikkmerke.navn }]} />
+        <div className="mt-10 max-w-2xl">
+          <p className="text-sm tracking-[0.16em] text-sand-ink uppercase">Kun i butikken</p>
+          <h1 className="mt-3 text-5xl md:text-7xl">{butikkmerke.navn}</h1>
+          <p className="mt-6 text-lg">{KUN_I_BUTIKKEN_TEKST}</p>
+          <address className="mt-6 not-italic text-sand-ink">
+            {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
+          </address>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild size="lg">
+              <a href={BUTIKK.telefon.lenke}>
+                <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/kontakt/">Kontakt og veibeskrivelse</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!merke) notFound()
+  const avklares = AVKLARES.find((a) => a.merke === merke.slug)
+  return (
+    <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
+      <Brodsmuler smuler={[{ navn: 'Merker', href: '/merker/' }, { navn: merke.navn }]} />
+      <header className="mt-8 mb-10 max-w-3xl">
+        <h1 className="text-4xl md:text-6xl">{merke.navn}</h1>
+        {(butikkmerke || avklares) && (
+          <p className="mt-4 text-sand-ink">
+            Flere produkter fra {merke.navn} finner du i butikken i Haraldsgata.
+          </p>
+        )}
+      </header>
+      <Produktliste
+        katalog={katalog}
+        base={katalog.produkter.filter((p) => p.merke?.slug === merke.slug)}
+        tilstand={lesListetilstand(await searchParams)}
+        basis={merkeUrl(merke.slug)}
+        visMerke={false}
+        visKategori={false}
+        naa={naa()}
+      />
+    </div>
+  )
+}
