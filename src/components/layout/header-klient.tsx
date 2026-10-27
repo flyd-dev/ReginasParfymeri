@@ -4,7 +4,7 @@ import { Search, ShoppingBag, User } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { useKurv } from '@/components/kurv/kurv-provider'
-import type { Menypunkt } from '@/lib/meny'
+import type { Menyprodukt, Menypunkt } from '@/lib/meny'
 import { Megameny } from './megameny'
 import { Mobilmeny } from './mobilmeny'
 
@@ -19,10 +19,12 @@ const ikonknapp =
 
 export function HeaderKlient({
   meny,
+  utvalg,
   logo,
   kontoUrl,
 }: {
   meny: Menypunkt[]
+  utvalg: Record<string, Menyprodukt>
   logo: React.ReactNode
   kontoUrl: string
 }) {
@@ -97,7 +99,7 @@ export function HeaderKlient({
           </button>
         </div>
       </div>
-      <Megameny meny={meny} />
+      <Megameny meny={meny} utvalg={utvalg} />
       {sokBrukt && <Sokedialog apen={sokApen} setApen={setSokApen} />}
       {kurvBrukt && <Handlekurv />}
     </header>

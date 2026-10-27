@@ -123,22 +123,18 @@ export function Samtykke() {
   )
 }
 
-/** «Informasjonskapsler» i bunnteksten – åpner valget igjen. */
-export function Samtykkelenke() {
+/** «Informasjonskapsler» i bunnteksten – åpner valget igjen. Footeren velger farger som holder på sin flate. */
+export function Samtykkelenke({ className = 'hover:underline' }: { className?: string }) {
   const analyseId = process.env.NEXT_PUBLIC_GA4_ID
   if (!analyseId) {
     return (
-      <Link href="/personvern/#informasjonskapsler" className="hover:text-regina-pink-strong hover:underline">
+      <Link href="/personvern/#informasjonskapsler" className={className}>
         Informasjonskapsler
       </Link>
     )
   }
   return (
-    <button
-      type="button"
-      className="hover:text-regina-pink-strong hover:underline"
-      onClick={() => window.dispatchEvent(new Event(APNE))}
-    >
+    <button type="button" className={className} onClick={() => window.dispatchEvent(new Event(APNE))}>
       Informasjonskapsler
     </button>
   )

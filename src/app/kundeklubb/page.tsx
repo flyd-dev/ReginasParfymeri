@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Innholdsside } from '@/components/innhold/innholdsside'
@@ -36,26 +37,37 @@ export default function Kundeklubb() {
             eller spørre i butikken.
           </p>
         </div>
-        <div className="self-start border border-sand-200 bg-paper p-8">
-          <h2 className="text-2xl">Bli medlem</h2>
+        {/*
+          Innmeldingen – bygget etter «Newsletter» (kevingirelli, MIT) på 21st.dev –
+          https://21st.dev/@kevingirelli/components/newsletter. Egen kode; ingen kode er kopiert.
+          Et bånd med tittel til venstre og handlingen til høyre. Regina har ingen nyhetsbrevtjeneste, så det er
+          ingen e-postfelt: knappen går til Diller når lenken er satt, ellers skjer innmeldingen i kassen.
+        */}
+        <section
+          aria-labelledby="bli-medlem"
+          className="flex flex-col gap-6 border border-sand-200 bg-paper px-6 py-8 sm:px-10 md:flex-row md:items-center md:justify-between md:gap-12 md:py-10 lg:col-span-2"
+        >
+          <div>
+            <h2 id="bli-medlem" className="text-3xl md:text-4xl">
+              {KUNDEKLUBB.tittel}
+            </h2>
+            <p className="mt-3 text-lg text-sand-ink">
+              {innmelding ? KUNDEKLUBB.hosDiller : KUNDEKLUBB.kryssAv}
+            </p>
+          </div>
           {innmelding ? (
-            <>
-              <p className="mt-3 text-sand-ink">Innmeldingen skjer hos Diller.</p>
-              <Button asChild size="lg" className="mt-6">
-                <a href={innmelding} rel="noopener">
-                  Meld deg inn
-                </a>
-              </Button>
-            </>
+            <Button asChild size="lg" className="w-full shrink-0 md:w-auto">
+              <a href={innmelding} rel="noopener">
+                Meld deg inn
+                <ArrowUpRight data-icon="inline-end" aria-hidden />
+              </a>
+            </Button>
           ) : (
-            <>
-              <p className="mt-3 text-sand-ink">Kryss av for kundeklubben i kassen når du handler.</p>
-              <Button asChild size="lg" variant="outline" className="mt-6">
-                <Link href="/produktkategori/duft/nisjeduft/">Se nisjeduft</Link>
-              </Button>
-            </>
+            <Button asChild size="lg" variant="outline" className="w-full shrink-0 md:w-auto">
+              <Link href="/produktkategori/duft/nisjeduft/">Se nisjeduft</Link>
+            </Button>
           )}
-        </div>
+        </section>
       </div>
     </Innholdsside>
   )
