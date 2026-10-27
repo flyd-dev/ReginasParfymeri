@@ -33,12 +33,15 @@ større endringer.
 - **Produktbilder** står i kvadratiske flater på `--paper` med `mix-blend-mode: multiply` (oppdraget §4) – ingen
   andre filtre. `next/image` med riktige `sizes`.
 - **Farger og skrift** kommer bare fra `src/styles/tokens.css` (koblet til Tailwind i `src/app/globals.css`). Ingen
-  hardkodede farger i komponenter – heller ikke i komponenter fra 21st.dev etter installasjon. Nye par av
+  hardkodede farger i komponenter – heller ikke i komponenter bygget etter 21st.dev. Nye par av
   tekst/bakgrunn skal inn i `tokens.test.ts`. Ren rosa `#E9168C` bare til stor tekst, ikoner og dekor;
   `#C2106F` til rosa tekst, lenker og knapper. Playfair Display til overskrifter, Poppins til brødtekst og UI
   (minst 16px). Logoen er Reginas originalfil, uendret.
-- **Komponenter:** shadcn/ui (Radix) i `src/components/ui`, 21st.dev-komponenter installeres med kommandoen fra
-  komponentsiden (`npx shadcn@latest add "https://21st.dev/r/…"`) og logges i `docs/components.md`. lucide-react er
+- **Komponenter:** shadcn/ui (Radix) i `src/components/ui`. 21st.dev-registeret avviser installasjon for kontoen
+  («Marketplace membership required»), så de valgte 21st.dev-komponentene bygges selv etter komponentsiden og den
+  levende demoen (beslutning fra Flyd, R-29): egen kode, aldri kode hentet fra `https://21st.dev/r/…`, en kommentar
+  øverst i filen med komponentens navn, forfatter, lisens og URL, og logg i `docs/components.md`. Komponenter uten
+  oppgitt lisens brukes bare som idé. Blir installasjon mulig, brukes kommandoen fra komponentsiden. lucide-react er
   eneste ikonsett. Tynne linjer i stedet for skygger, hjørner 0–2px.
 - **Bevegelse:** diskret fade/slide (150–250 ms, tokens `--dur-*`), bare transform/opacity, ingenting ved
   `prefers-reduced-motion`. Innhold skal være synlig uten JavaScript.

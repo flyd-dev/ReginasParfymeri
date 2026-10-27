@@ -166,3 +166,12 @@ butikk.
 
 Kontaktsiden viser adresse og lenke til Google Maps. Kartet (OpenStreetMap) lastes først når kunden ber om det,
 så ingen tredjepart får IP-adressen uten et valg. Koordinatene er fra OpenStreetMap Nominatim.
+
+## R-29 21st.dev-komponentene bygges selv
+
+Registeret avviser installasjon med «Marketplace membership required» for kontoen bak `API_KEY_21ST` (testet
+27.10.2026). Flyd har bestemt at vi ikke venter på det: de valgte komponentene bygges selv etter komponentsiden og
+den levende demoen. Koden er vår egen, og ingenting hentes fra registeret. Hver fil har en kommentar øverst med
+komponentens navn, forfatter, lisens og URL, og hva som er tatt med står i `docs/components.md`. Komponenter uten
+oppgitt lisens brukes bare som idé. Ingen nye avhengigheter: gsap, motion og maplibre-gl erstattes med CSS og det
+vi har.
