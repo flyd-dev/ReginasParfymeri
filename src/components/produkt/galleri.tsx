@@ -24,6 +24,9 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
   const antall = liste.length
   const flere = antall > 1
   const [aktiv, setAktiv] = useState(0)
+  // Overtoningen slås på først når kunden blar. Ellers toner bildene bak ut rett etter hydrering, og tallmerket
+  // deres står halvgjennomsiktig et øyeblikk (axe måler kontrasten på det).
+  const [blaet, setBlaet] = useState(false)
   // Sann etter hydrering. Før det, og uten JavaScript, er galleriet bare raden med bilder og lenker.
   const klar = useSyncExternalStore(
     ingenAbonnement,
@@ -53,6 +56,7 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
 
   const gaaTil = (i: number) => {
     const neste = (i + antall) % antall
+    setBlaet(true)
     setAktiv(neste)
     // På mobil ruller raden; på stor skjerm er den ikke rullbar, og kallet gjør ingenting.
     const el = spor.current
@@ -95,7 +99,8 @@ export function Galleri({ bilder, navn }: { bilder: Bilde[]; navn: string }) {
               className={cn(
                 // scroll-mt: uten JavaScript hopper miniatyrlenken hit, og bildet skal ikke havne under toppen.
                 'w-full shrink-0 snap-center scroll-mt-28 md:scroll-mt-36',
-                klar && 'md:[grid-area:1/1] md:transition-opacity md:duration-(--dur-slow) md:ease-out',
+                klar && 'md:[grid-area:1/1]',
+                klar && blaet && 'md:transition-opacity md:duration-(--dur-slow) md:ease-out',
                 klar && (i === aktiv ? 'md:opacity-100' : 'md:pointer-events-none md:opacity-0'),
               )}
             >

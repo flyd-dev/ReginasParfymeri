@@ -60,6 +60,8 @@ const PAR: [string, string, number, string][] = [
   ['status-varsel', 'paper', TEKST, 'få igjen i kurven'],
   ['status-feil', 'sand-50', TEKST, 'utsolgt og feil'],
   ['status-feil', 'paper', TEKST, 'feil i skjema'],
+  ['white', 'status-feil', STOR, 'ikon i feilvarsel (handlekurven)'],
+  ['white', 'status-varsel', STOR, 'ikon i varsel om oppdatert handlekurv'],
 ]
 
 describe('kontrast i paletten', () => {
