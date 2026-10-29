@@ -1,27 +1,31 @@
 # Designretning
 
 Fra oppdraget §4: eksklusiv nisjeparfymeri – varm, redaksjonell og personlig, familiebedrift siden 1863. Rolig
-luksus, ikke høylytt. Kundens rosa og en dus sandfarget bakgrunn bærer identiteten.
+luksus, ikke høylytt. Siden R-32 (inspirert av flyd.no) er flaten lys og nesten hvit, hjørnene er runde, og Reginas
+rosa bærer identiteten sammen med plum.
 
 ## Farger
 
 Alle verdier står i `src/styles/tokens.css` og er koblet til Tailwind i `src/app/globals.css`
 (`bg-sand-50`, `text-regina-plum`, `border-sand-200` osv.). Kontrastene testes i `src/styles/tokens.test.ts`.
 
-| Token                  | Verdi     | Bruk                                                               |
-| ---------------------- | --------- | ------------------------------------------------------------------ |
-| `--regina-pink`        | `#E9168C` | Kundens rosa: kursiv aksent i store overskrifter, ikoner, dekor    |
-| `--regina-pink-strong` | `#C2106F` | Rosa tekst og lenker (på sand-50 og paper), rosa knapper, «Nyhet»  |
-| `--regina-plum`        | `#3F132E` | Tekst, primærknapp, toppstripe, nisjeduft-seksjonen                |
-| `--sand-50`            | `#F4EDE4` | Hovedbakgrunn                                                      |
-| `--sand-100`           | `#EADFD2` | Seksjoner, footer                                                  |
-| `--sand-200`           | `#D9CBB8` | Tynne linjer i stedet for skygger                                  |
-| `--sand-ink`           | `#7A6555` | Sekundærtekst på sand-50 og paper, kanter på skjemafelt            |
-| `--sand-ink-deep`      | `#6E5A4B` | Sekundærtekst på sand-100 (lagt til – sand-ink gir bare 4,2:1 der) |
-| `--paper`              | `#FBF8F4` | Flaten bak produktbilder, skuffer, dialoger                        |
-| `--status-*`           | –         | På lager / få igjen / utsolgt – bare fra WooCommerce, aldri pynt   |
+| Token                  | Verdi     | Bruk                                                                 |
+| ---------------------- | --------- | -------------------------------------------------------------------- |
+| `--regina-pink`        | `#E9168C` | Kundens rosa: store overskrifter, ikoner, dekor og rosa flater       |
+| `--regina-pink-strong` | `#C2106F` | Primærknapper (hvit tekst), rosa tekst og lenker, «Nyhet», rosa band |
+| `--regina-pink-50`     | `#FDF1F7` | Lys rosa seksjoner og flater (R-32)                                  |
+| `--regina-pink-100`    | `#F9DCEA` | Rosa brikker, valgt rad, hover på lys flate (R-32)                   |
+| `--regina-plum`        | `#3F132E` | Tekst og de mørke flatene (nisjeduft, footer, store fliser)          |
+| `--sand-50`            | `#FAF8F5` | Hovedbakgrunn – nesten hvit med varmt skjær (R-32)                   |
+| `--sand-100`           | `#F3EEE8` | Lyse seksjoner                                                       |
+| `--sand-200`           | `#E6DDD2` | Tynne linjer i stedet for skygger                                    |
+| `--sand-ink`           | `#7A6555` | Sekundærtekst, kanter på skjemafelt                                  |
+| `--sand-ink-deep`      | `#6E5A4B` | Sekundærtekst (shadcn «muted»)                                       |
+| `--paper`              | `#FFFFFF` | Kort, skuffer, dialoger og flaten bak produktbilder                  |
+| `--status-*`           | –         | På lager / få igjen / utsolgt – bare fra WooCommerce, aldri pynt     |
 
-Rosa er en aksent: kursive ord i overskrifter, «Nyhet», fokusring og hover. Resten er sand og plum.
+Reginas rosa skal synes (R-32): primærknappen er rosa, overlinjene har en rosa prikk, og enkelte flater er rosa
+eller lys rosa. Plum er tekstfarge og den mørke flaten. Kontrastparene står i `tokens.test.ts`.
 
 ### Dybde og rytme (27.10.2026)
 
@@ -48,10 +52,12 @@ Sand-50, paper og sand-100 ligger svært nær hverandre i lyshet. Brukt alene gi
 
 ## Form og flate
 
-- Hjørner 0–2 px (`--radius`), tynne `sand-200`-linjer, ingen skygger (fjernet fra shadcn-komponentene).
+- Runde hjørner (R-32, inspirert av flyd.no): knapper og brikker er piller, felt og menyer 12 px, kort og
+  produktbilder 16 px, store bilder, skuffer og dialoger 24 px, og mørke og rosa seksjoner er innfelte bokser med
+  32 px hjørner og luft rundt. Tynne `sand-200`-linjer, ingen skygger.
 - Mye luft: seksjoner 80–112 px, innhold maks 1536 px bredt.
-- Produktbilder i kvadratiske flater på `--paper` med `mix-blend-mode: multiply`, `object-contain` og luft rundt
-  pakken. Hvite pakkebilder smelter inn i papirflaten; ingen andre filtre.
+- Produktbilder i kvadratiske, avrundede flater på hvit `--paper` med `mix-blend-mode: multiply`,
+  `object-contain` og luft rundt pakken. Hvite pakkebilder smelter inn i flaten; ingen andre filtre.
 - Reginas egne butikkbilder (fasaden, disken, behandlingsrommet) i redaksjonelle seksjoner – ingen stockbilder.
 
 ## Bevegelse (R-30)
