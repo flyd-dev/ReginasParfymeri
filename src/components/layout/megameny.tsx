@@ -19,7 +19,7 @@ import { Rulletekst } from './rulletekst'
 
 // Tynn rosa strek under punktet ved peker og når panelet er åpent – bare transform.
 const lenkeKlasse =
-  'group/rull relative inline-flex h-12 items-center gap-1 px-3 text-[0.9375rem] font-medium tracking-wide text-regina-plum transition-colors duration-(--dur-fast) after:absolute after:inset-x-3 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-regina-pink-strong after:transition-transform after:duration-(--dur-base) after:ease-out hover:text-regina-pink-strong hover:after:scale-x-100 data-[state=open]:text-regina-pink-strong data-[state=open]:after:scale-x-100'
+  'group/rull relative inline-flex h-12 items-center gap-1 rounded-md px-3 text-[0.9375rem] font-medium tracking-wide text-regina-plum transition-colors duration-(--dur-fast) after:absolute after:inset-x-3 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-regina-pink-strong after:transition-transform after:duration-(--dur-base) after:ease-out hover:text-regina-pink-strong hover:after:scale-x-100 data-[state=open]:text-regina-pink-strong data-[state=open]:after:scale-x-100'
 
 const kolonneoverskrift =
   'flex h-6 items-center text-xs font-semibold tracking-[0.16em] text-sand-ink uppercase'
@@ -27,6 +27,8 @@ const kolonneoverskrift =
 /**
  * Ett menypunkt: navn og en andrelinje fra kategoritreet. Lenken omslutter bare navnet (synlig tekst = navn,
  * WCAG 2.5.3) og dekker hele raden med ::after; andrelinjen er lenkens beskrivelse. Fokusringen tegnes på raden.
+ * Raden har runde hjørner og lys rosa flate ved peker og fokus (R-32); andrelinjen er sand-ink-deep, som holder
+ * kontrasten både på papir og på regina-pink-50.
  */
 function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
   const id = useId()
@@ -34,7 +36,7 @@ function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
     <li
       data-slot="megameny-rad"
       style={plass(i)}
-      className={`group/rad relative h-full px-4 py-3 transition-colors duration-(--dur-fast) hover:bg-sand-50 has-[a:focus-visible]:bg-sand-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
+      className={`group/rad relative h-full rounded-lg px-4 py-3 transition-colors duration-(--dur-fast) hover:bg-regina-pink-50 has-[a:focus-visible]:bg-regina-pink-50 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
     >
       <Nav.Link asChild>
         <Link
@@ -45,7 +47,7 @@ function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
           {punkt.navn}
         </Link>
       </Nav.Link>
-      <p id={id} className="mt-0.5 line-clamp-2 text-sm leading-relaxed text-sand-ink">
+      <p id={id} className="mt-0.5 line-clamp-2 text-sm leading-relaxed text-sand-ink-deep">
         {menybeskrivelse(punkt)}
       </p>
     </li>
@@ -60,7 +62,7 @@ function Bildekolonne({ punkt, vare }: { punkt: Menypunkt; vare: Menyprodukt | u
         <p className={kolonneoverskrift}>Butikken</p>
         <Nav.Link asChild>
           <Link href="/kontakt/" className="group mt-4 block">
-            <span className="relative block aspect-square overflow-hidden bg-sand-100">
+            <span className="relative block aspect-square overflow-hidden rounded-xl bg-sand-100">
               <Image
                 src={BILDER.fasade.bilde}
                 alt=""
@@ -174,8 +176,10 @@ export function Megameny({ meny, utvalg }: { meny: Menypunkt[]; utvalg: Record<s
           </Nav.Link>
         </Nav.Item>
       </Nav.List>
-      <div className="absolute inset-x-0 top-full">
-        <Nav.Viewport className="relative h-(--radix-navigation-menu-viewport-height) w-full origin-top overflow-hidden border-b border-sand-200 bg-paper duration-(--dur-base) ease-out data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:slide-in-from-top-1" />
+      {/* Panelet er en avrundet flate med luft mot kantene og under toppen (R-32). Rammen rundt slipper pekeren
+          gjennom, så de 8 px under toppen ikke stjeler klikk fra siden. */}
+      <div className="pointer-events-none absolute inset-x-0 top-full mx-auto max-w-screen-2xl px-6 pt-2">
+        <Nav.Viewport className="pointer-events-auto relative h-(--radix-navigation-menu-viewport-height) w-full origin-top overflow-hidden rounded-2xl border border-sand-200 bg-paper duration-(--dur-base) ease-out data-[state=closed]:animate-out data-[state=closed]:fade-out data-[state=open]:animate-in data-[state=open]:fade-in data-[state=open]:slide-in-from-top-1" />
       </div>
     </Nav.Root>
   )

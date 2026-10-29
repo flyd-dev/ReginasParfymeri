@@ -80,7 +80,7 @@ export function Utstillingsvindu({ produkter }: { produkter: Visningsprodukt[] }
   return (
     <div className="relative">
       <div
-        className="grid touch-pan-y touch-pinch-zoom"
+        className="grid grid-cols-1 touch-pan-y touch-pinch-zoom"
         onPointerDown={ned}
         onPointerUp={opp}
         onPointerCancel={() => {
@@ -100,15 +100,20 @@ export function Utstillingsvindu({ produkter }: { produkter: Visningsprodukt[] }
             <article
               key={p.slug}
               className={cn(
-                'col-start-1 row-start-1 grid gap-8 md:grid-cols-12 md:items-center',
+                // grid-cols-1 (minmax(0, 1fr)): de skjulte duftene skal ikke gjøre kolonnen bredere enn boksen på mobil.
+                'col-start-1 row-start-1 grid grid-cols-1 gap-8 md:grid-cols-12 md:items-center',
                 t === 'aktiv' ? 'z-10' : 'pointer-events-none',
                 t === 'av' && 'invisible',
               )}
               aria-hidden={t !== 'aktiv'}
               inert={t !== 'aktiv'}
             >
-              {/* Inngang når vinduet kommer til syne: hele flaten stiger opp bak et teppe. */}
-              <Inn variant="teppe" className="relative aspect-square md:col-span-6 lg:col-span-5">
+              {/* Inngang når vinduet kommer til syne: hele flaten stiger opp bak et teppe. Rammen har runde hjørner
+                  (R-32) og klipper både teppet og byttet mellom duftene. */}
+              <Inn
+                variant="teppe"
+                className="relative aspect-square rounded-2xl md:col-span-6 lg:col-span-5 lg:rounded-3xl"
+              >
                 <Link
                   href={produktUrl(p.slug)}
                   className="teppe group absolute inset-0 block"
@@ -206,7 +211,7 @@ export function Utstillingsvindu({ produkter }: { produkter: Visningsprodukt[] }
                 >
                   <span
                     className={cn(
-                      'absolute top-0 left-0 h-0.5 w-full origin-left bg-regina-pink transition-transform duration-(--dur-slow) ease-out',
+                      'absolute top-0 left-0 h-0.5 w-full origin-left rounded-full bg-regina-pink transition-transform duration-(--dur-slow) ease-out',
                       i === aktiv ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-25',
                     )}
                     aria-hidden
@@ -223,7 +228,7 @@ export function Utstillingsvindu({ produkter }: { produkter: Visningsprodukt[] }
             <button
               type="button"
               onClick={() => ga(-1)}
-              className="grid size-11 place-items-center border border-white/25 text-sand-50 hover:border-sand-50"
+              className="grid size-11 place-items-center rounded-full border border-white/25 text-sand-50 transition-colors duration-(--dur-fast) hover:border-sand-50"
               aria-label="Forrige duft"
             >
               <ChevronLeft className="size-4" aria-hidden />
@@ -231,7 +236,7 @@ export function Utstillingsvindu({ produkter }: { produkter: Visningsprodukt[] }
             <button
               type="button"
               onClick={() => ga(1)}
-              className="grid size-11 place-items-center border border-white/25 text-sand-50 hover:border-sand-50"
+              className="grid size-11 place-items-center rounded-full border border-white/25 text-sand-50 transition-colors duration-(--dur-fast) hover:border-sand-50"
               aria-label="Neste duft"
             >
               <ChevronRight className="size-4" aria-hidden />

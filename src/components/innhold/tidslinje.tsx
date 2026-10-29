@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import type { ReactNode } from 'react'
+import { Prikk } from '@/components/layout/prikk'
 import type { Fotografi } from '@/content/bilder'
 import { cn } from '@/lib/utils'
 import { Fremdriftslinje } from './fremdriftslinje'
@@ -16,11 +17,11 @@ export interface Tidspunkt {
 
 /**
  * Historien som tidslinje: tekst og bilde bytter side langs en tynn midtlinje, årstall i parentes over tittelen,
- * og en ramme av tynne linjer rundt hele seksjonen. Linjen fylles ved rulling (se fremdriftslinje.tsx). På mobil
+ * og en ramme av tynne linjer med runde hjørner rundt hele seksjonen (R-32). Linjen fylles ved rulling (se fremdriftslinje.tsx). På mobil
  * ligger linjen i venstre kant og punktene står under hverandre.
  *
  * Endret fra demoen: bare punkter med kilde (src/content/butikk.ts). Punkter uten arkivbilde får årstallet som
- * typografisk plate på papir i stedet for et bilde (bare dekor, skjult for skjermlesere; på mobil vises den
+ * typografisk plate på lys rosa i stedet for et bilde (bare dekor, skjult for skjermlesere; på mobil vises den
  * ikke). Teksten vises alltid – demoen toner punktene inn ved rulling; her glir bare fotografiene inn (`.avdekk`).
  */
 export function Tidslinje({
@@ -37,10 +38,13 @@ export function Tidslinje({
   id?: string
 }) {
   return (
-    <section className="border-x border-y border-sand-200" aria-labelledby={id}>
+    <section className="rounded-3xl border border-sand-200" aria-labelledby={id}>
       <div className="px-5 py-12 md:px-12 md:py-16 lg:px-16">
         {kicker && (
-          <p className="inline-block border border-sand-200 px-3 py-0.5 text-sm text-sand-ink">{kicker}</p>
+          <p className="inline-flex items-center gap-2 rounded-full border border-sand-200 bg-paper px-3.5 py-1 text-sm text-sand-ink">
+            <Prikk className="size-1.5" />
+            {kicker}
+          </p>
         )}
         <h2 id={id} className="mt-5 text-4xl md:text-5xl">
           {tittel}
@@ -48,7 +52,8 @@ export function Tidslinje({
         {ingress && <div className="mt-4 max-w-2xl text-lg text-sand-ink">{ingress}</div>}
       </div>
       <div className="relative border-t border-sand-200">
-        <Fremdriftslinje className="-left-px md:left-1/2" />
+        {/* På mobil ligger linjen i rammens venstre kant og stopper før det runde hjørnet nederst. */}
+        <Fremdriftslinje className="-left-px bottom-8 md:bottom-0 md:left-1/2" />
         <ol>
           {punkter.map((p, i) => {
             const venstre = i % 2 === 0
@@ -79,7 +84,7 @@ export function Tidslinje({
                   )}
                 >
                   {p.foto ? (
-                    <div className="avdekk relative aspect-[4/3] overflow-hidden bg-sand-100">
+                    <div className="avdekk relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand-100">
                       <Image
                         src={p.foto.bilde}
                         alt={p.foto.alt}
@@ -90,7 +95,7 @@ export function Tidslinje({
                     </div>
                   ) : (
                     <div
-                      className="grid aspect-[4/3] place-items-center border border-sand-200 bg-paper"
+                      className="grid aspect-[4/3] place-items-center rounded-2xl bg-regina-pink-50"
                       aria-hidden
                     >
                       <span className="font-heading text-[clamp(4rem,2rem+6vw,8.5rem)] leading-none text-regina-pink italic">

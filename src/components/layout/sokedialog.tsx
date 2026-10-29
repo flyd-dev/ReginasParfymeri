@@ -43,14 +43,15 @@ const SNARVEIER = [
 const gruppe =
   'p-2 **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1.5 **:[[cmdk-group-heading]]:font-semibold **:[[cmdk-group-heading]]:tracking-[0.16em] **:[[cmdk-group-heading]]:text-sand-ink-deep **:[[cmdk-group-heading]]:uppercase'
 
-// Valgt rad: sandflate og en tynn rosa strek til venstre som vokser fra midten (bare transform). Ikonet glir
-// litt mot høyre på valgt rad. Hver rad kommer inn etter den forrige (listeInn, plass i style).
-const rad = `relative gap-3 px-3 py-2.5 text-base transition-colors duration-(--dur-fast) before:absolute before:inset-y-1.5 before:left-0 before:w-0.5 before:scale-y-0 before:bg-regina-pink-strong before:transition-transform before:duration-(--dur-base) before:ease-ut data-selected:bg-sand-100 data-selected:before:scale-y-100 [&>svg:first-child]:transition-transform [&>svg:first-child]:duration-(--dur-base) [&>svg:first-child]:ease-ut data-selected:[&>svg:first-child]:translate-x-0.5 ${listeInn}`
+// Valgt rad: avrundet lys rosa flate (R-32) og en tynn rosa strek til venstre som vokser fra midten (bare
+// transform). All tekst i radene (plum og sand-ink-deep) holder kontrasten på regina-pink-50. Ikonet glir litt mot
+// høyre på valgt rad. Hver rad kommer inn etter den forrige (listeInn, plass i style).
+const rad = `relative gap-3 rounded-lg px-3 py-2.5 text-base transition-colors duration-(--dur-fast) before:absolute before:inset-y-2.5 before:left-1 before:w-0.5 before:scale-y-0 before:rounded-full before:bg-regina-pink-strong before:transition-transform before:duration-(--dur-base) before:ease-ut data-selected:bg-regina-pink-50 data-selected:before:scale-y-100 [&>svg:first-child]:transition-transform [&>svg:first-child]:duration-(--dur-base) [&>svg:first-child]:ease-ut data-selected:[&>svg:first-child]:translate-x-0.5 ${listeInn}`
 
 const ikon = 'size-4 text-sand-ink-deep'
 
 const tast =
-  'inline-flex h-6 min-w-6 items-center justify-center border border-sand-200 bg-paper px-1.5 font-sans text-xs font-medium text-regina-plum'
+  'inline-flex h-6 min-w-6 items-center justify-center rounded-sm border border-sand-200 bg-paper px-1.5 font-sans text-xs font-medium text-regina-plum'
 
 /** Hurtigsøk (kommandopalett): produkter, merker og kategorier. Åpnes med knappen, «/» eller Ctrl/Cmd+K (header-klient.tsx). */
 export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: boolean) => void }) {
@@ -91,7 +92,8 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
     <Dialog open={apen} onOpenChange={setApen}>
       <DialogPortal>
         <DialogOverlay className="bg-regina-plum/40 duration-(--dur-fast) supports-backdrop-filter:backdrop-blur-none" />
-        <DialogPrimitive.Content className="fixed inset-x-0 top-0 z-50 mx-auto flex max-h-[85dvh] w-full flex-col border-b border-sand-200 bg-paper text-regina-plum outline-none duration-(--dur-fast) ease-out data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 sm:top-[12vh] sm:max-h-[76vh] sm:w-[calc(100%-2rem)] sm:max-w-2xl sm:border">
+        {/* Runde hjørner (R-32): på mobil henger dialogen fra toppen med runde hjørner nederst, som skuffene. */}
+        <DialogPrimitive.Content className="fixed inset-x-0 top-0 z-50 mx-auto flex max-h-[85dvh] w-full flex-col overflow-hidden rounded-b-2xl border-b border-sand-200 bg-paper text-regina-plum outline-none duration-(--dur-fast) ease-out data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-2 data-closed:animate-out data-closed:fade-out-0 sm:top-[12vh] sm:max-h-[76vh] sm:w-[calc(100%-2rem)] sm:max-w-2xl sm:rounded-2xl sm:border">
           <DialogTitle className="sr-only">Søk i nettbutikken</DialogTitle>
           <DialogDescription className="sr-only">Søk etter produkter, merker og kategorier</DialogDescription>
           <Command
@@ -112,7 +114,7 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
                   Søker …
                 </span>
               )}
-              <DialogClose className="inline-flex h-11 shrink-0 items-center px-3 text-base font-medium sm:hidden">
+              <DialogClose className="inline-flex h-11 shrink-0 items-center rounded-full px-4 text-base font-medium transition-colors duration-(--dur-fast) active:bg-regina-pink-50 sm:hidden">
                 Lukk
               </DialogClose>
             </div>
@@ -201,7 +203,7 @@ export function Sokedialog({ apen, setApen }: { apen: boolean; setApen: (apen: b
                         src={p.bilde}
                         alt=""
                         sizes="48px"
-                        className="size-12 shrink-0 border border-sand-200"
+                        className="size-12 shrink-0 rounded-lg border border-sand-200"
                         luft={false}
                       />
                       <span className="min-w-0 flex-1">

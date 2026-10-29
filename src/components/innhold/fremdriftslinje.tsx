@@ -45,7 +45,10 @@ export function Fremdriftslinje({ className }: { className?: string }) {
     <span ref={ramme} className={cn('pointer-events-none absolute inset-y-0 w-px', className)} aria-hidden>
       <span className="absolute inset-0 bg-sand-200" />
       <span ref={linje} className="absolute inset-0 origin-top bg-regina-plum" />
-      <span ref={prikk} className="absolute top-0 left-1/2 -mt-1 -ml-1 size-2 bg-regina-pink opacity-0" />
+      <span
+        ref={prikk}
+        className="absolute top-0 left-1/2 -mt-1 -ml-1 size-2 rounded-full bg-regina-pink opacity-0"
+      />
     </span>
   )
 }

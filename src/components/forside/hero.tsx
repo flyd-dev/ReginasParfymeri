@@ -5,6 +5,7 @@ import Image, { type StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Inn } from '@/components/bevegelse/inn'
+import { Prikk } from '@/components/layout/prikk'
 import { Button } from '@/components/ui/button'
 import { HISTORIE, BUTIKK } from '@/content/butikk'
 import type { Visningsprodukt } from '@/lib/forside'
@@ -19,6 +20,9 @@ const TITTELORD = ['historie', 'karakter', 'dybde'] as const
 /** Plassen i inngangsrekken (× --stagger) for faktaraden under knappene. */
 const FAKTA_I = 5
 
+/** Fargen på streken over hvert tall i faktaraden, som tallene på flyd.no (R-32). Pynt. */
+const STREK = ['bg-regina-pink', 'bg-regina-plum'] as const
+
 /** Ett ord i tittelen bak en maske (samme mønster som AvdekkTekst, data-inn="ord" i globals.css). */
 function Ord({ j, loddrett = false, children }: { j: number; loddrett?: boolean; children: ReactNode }) {
   return (
@@ -32,13 +36,13 @@ function Ord({ j, loddrett = false, children }: { j: number; loddrett?: boolean;
 }
 
 /**
- * Hero som kollasj: stor tittel, butikkbildet i en høy ramme og en frilagt nisjeflaske på papirflate som ligger
- * over rammens hjørne. Lagene gir dybde uten skygger. Butikkbildene er små (1000 px), derfor ramme og ikke
- * fullbredde.
+ * Hero som kollasj: stor tittel, butikkbildet i en høy ramme med runde hjørner på en rosa flate, og en frilagt
+ * nisjeflaske på papirkort som ligger over rammens hjørne (R-32). Lagene gir dybde uten skygger. Butikkbildene er
+ * små (1000 px), derfor ramme og ikke fullbredde.
  *
- * Inngangen (R-30) er koreografert og drives av CSS og BevegelseSkript, ikke av React: plumflaten feies inn fra
- * kanten, butikkbildet glir opp bak et teppe, flaskekortet kommer etter, og tittelen avsløres ord for ord. Så
- * skifter det rosa ordet én runde (historie → karakter → dybde → historie, under 5 s), og faktaraden teller opp.
+ * Inngangen (R-30) er koreografert og drives av CSS og BevegelseSkript, ikke av React: den rosa flaten feies inn,
+ * butikkbildet glir opp, flaskekortet kommer etter, og tittelen avsløres ord for ord. Så skifter det rosa ordet
+ * én runde (historie → karakter → dybde → historie, under 5 s), og faktaraden får sine streker og teller opp.
  * Uten JavaScript og ved redusert bevegelse står alt der fra start. Bildet er forhåndslastet og venter aldri på
  * JavaScript-bunten.
  *
@@ -83,8 +87,12 @@ export function Hero({
 
   return (
     <section className="relative isolate overflow-hidden bg-sand-50" aria-labelledby="hero-tittel">
-      {/* Plumflaten går ut i kanten og bærer bildet: sand og plum i to plan gir dybde uten skygger. */}
-      <Flate className="absolute top-0 right-0 -z-10 h-[24rem] w-[58%] sm:h-[30rem] lg:inset-y-0 lg:h-auto lg:w-[36%]" />
+      {/* Den rosa flaten er en innfelt boks med runde hjørner (R-32) som bærer bildet: lys bakgrunn, rosa og foto i
+          tre plan gir dybde uten skygger. Hjørnene klipper flaten mens den feies inn. */}
+      <Flate
+        farge="bg-regina-pink"
+        className="absolute top-12 right-2 -z-10 h-[23rem] w-[56%] overflow-hidden rounded-3xl sm:top-14 sm:h-[29rem] md:right-4 lg:top-4 lg:bottom-4 lg:h-auto lg:w-[30%]"
+      />
       <div className="mx-auto grid max-w-screen-2xl gap-y-14 px-4 pt-8 pb-20 md:px-6 lg:min-h-[calc(100svh-9.5rem)] lg:grid-cols-12 lg:items-center lg:gap-x-8 lg:py-14">
         <div className="order-2 lg:order-1 lg:col-span-6 xl:col-span-6">
           <Inn
@@ -92,7 +100,7 @@ export function Hero({
             i={2}
             className="flex items-center gap-3 text-sm tracking-[0.24em] text-sand-ink uppercase"
           >
-            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            <Prikk />
             Haugesund · siden {HISTORIE.grunnlagt}
           </Inn>
           <h1
@@ -124,17 +132,19 @@ export function Hero({
               <Link href="/kontakt/">Besøk butikken</Link>
             </Button>
           </Inn>
-          <dl className="relative mt-14 grid max-w-xl grid-cols-2 gap-x-8 gap-y-5 pt-6 text-sm sm:grid-cols-[auto_auto_auto_1fr]">
-            {/* Streken over faktaraden tegnes inn fra venstre. */}
-            <Flate
-              className="absolute inset-x-0 top-0 h-px"
-              farge="bg-sand-200"
-              fra="venstre"
-              i={FAKTA_I - 1}
-            />
+          <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-6 gap-y-7 text-sm sm:grid-cols-[repeat(3,minmax(5.5rem,auto))_1fr] sm:gap-x-8">
             {fakta.map((f, n) => (
               <Inn key={f.navn} i={FAKTA_I + n}>
-                <dt className="text-sand-ink">{f.navn}</dt>
+                <dt className="relative pt-4 text-sand-ink">
+                  {/* Farget strek over hvert tall (rosa og plum om hverandre), tegnes inn fra venstre. */}
+                  <Flate
+                    className="absolute inset-x-0 top-0 h-0.5 overflow-hidden rounded-full"
+                    farge={STREK[n % STREK.length]}
+                    fra="venstre"
+                    i={FAKTA_I + n}
+                  />
+                  {f.navn}
+                </dt>
                 <dd className="mt-1 font-heading text-xl leading-tight md:text-2xl">{f.verdi}</dd>
               </Inn>
             ))}
@@ -142,11 +152,11 @@ export function Hero({
         </div>
 
         <div className="relative order-1 pb-16 lg:order-2 lg:col-span-6 lg:pb-0 xl:col-span-6">
-          <div className="parallakse-ut relative ml-auto aspect-[4/5] w-[78%] [--parallakse:3rem] sm:w-[64%] lg:w-[74%]">
+          <div className="parallakse-ut relative mr-6 ml-auto aspect-[4/5] w-[74%] [--parallakse:3rem] sm:mr-10 sm:w-[60%] lg:mr-16 lg:w-[72%]">
             {/* Bildet glir på plass og skaleres ned fra 1,08, men er synlig fra første bilde: det er stort nok til å
                 bli LCP, så det skal ikke skjules bak et teppe som venter på skriptet. */}
             <Inn variant="glid" y="2rem" i={1} className="absolute inset-0">
-              <div className="teppe absolute inset-0 bg-sand-100">
+              <div className="teppe absolute inset-0 overflow-hidden rounded-2xl bg-sand-100 lg:rounded-3xl">
                 {video ? (
                   <>
                     <video
@@ -171,7 +181,7 @@ export function Hero({
                           setSpiller(false)
                         }
                       }}
-                      className="absolute top-3 right-3 grid size-11 place-items-center bg-paper/90 text-regina-plum"
+                      className="absolute top-3 right-3 grid size-11 place-items-center rounded-full bg-paper/90 text-regina-plum"
                       aria-label={spiller ? 'Pause filmen' : 'Spill filmen'}
                     >
                       {spiller ? (
@@ -188,7 +198,7 @@ export function Hero({
                     fill
                     preload
                     placeholder="blur"
-                    sizes="(min-width: 1024px) 34vw, (min-width: 640px) 60vw, 78vw"
+                    sizes="(min-width: 1024px) 34vw, (min-width: 640px) 56vw, 70vw"
                     className="object-cover"
                   />
                 )}
@@ -204,7 +214,7 @@ export function Hero({
             >
               <Link
                 href={produktUrl(produkt.slug)}
-                className="parallakse-ut group block border border-sand-200 bg-paper [--parallakse:-1.5rem]"
+                className="parallakse-ut group block overflow-hidden rounded-xl border border-sand-200 bg-paper [--parallakse:-1.5rem] lg:rounded-2xl"
               >
                 {/* Papirflaten ligger på det som animeres: en flate med opacity/transform er en egen gruppe, og
                     multiply må ha papiret under seg i gruppen, ellers ses bildets hvite bakgrunn underveis. */}

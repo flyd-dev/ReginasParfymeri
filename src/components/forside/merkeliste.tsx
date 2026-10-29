@@ -94,7 +94,7 @@ export function Merkeliste({ merker }: { merker: Nisjemerke[] }) {
                   {m.produkt?.bilde && (
                     <span
                       className={cn(
-                        'relative isolate size-14 shrink-0 overflow-hidden border border-sand-200 bg-paper transition-transform duration-(--dur-slow) ease-out lg:hidden',
+                        'relative isolate size-14 shrink-0 overflow-hidden rounded-lg border border-sand-200 bg-paper transition-transform duration-(--dur-slow) ease-out lg:hidden',
                         pa && rullet ? '-translate-y-1 scale-105' : 'translate-y-0 scale-100',
                       )}
                     >
@@ -121,7 +121,7 @@ export function Merkeliste({ merker }: { merker: Nisjemerke[] }) {
       {/* Rammen er pynt for seende med peker: flaskene står også på merkesidene, så den skjules for skjermlesere. */}
       <div className="hidden lg:col-span-4 lg:col-start-9 lg:block" aria-hidden>
         <div className="sticky top-28">
-          <Inn variant="teppe" i={2} className="relative aspect-[4/5] border border-sand-200">
+          <Inn variant="teppe" i={2} className="relative aspect-[4/5] rounded-2xl border border-sand-200">
             <div className="teppe absolute inset-0 bg-paper">
               {merker.map((m, i) => {
                 if (!m.produkt?.bilde) return null

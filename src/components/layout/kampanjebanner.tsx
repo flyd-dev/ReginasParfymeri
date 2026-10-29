@@ -2,7 +2,8 @@
 
 // Kampanjebanner fra WordPress (tekst, lenke, start og slutt). Serveren sender aktive og kommende kampanjer;
 // her sjekkes klokken på nytt, så banneret forsvinner straks sluttdatoen passeres – også på en side som ble
-// bygget før (ISR). Uten JavaScript vises det serveren mente var aktivt da siden ble laget.
+// bygget før (ISR). Uten JavaScript vises det serveren mente var aktivt da siden ble laget. Banneret står på lys
+// rosa (R-32); plum tekst og rosa lenke ved peker holder kontrasten der.
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -34,7 +35,7 @@ export function Kampanjebanner({ kampanjer, bygget }: { kampanjer: Kampanje[]; b
   const k = kampanjer.find((x) => aktiv(x, naa))
   if (!k) return null
   return (
-    <div className="border-b border-sand-200 bg-sand-100">
+    <div className="bg-regina-pink-50">
       <p className="mx-auto max-w-screen-2xl px-4 py-2.5 text-center text-sm md:px-6">
         <span>{k.tekst}</span>
         {k.lenke && (

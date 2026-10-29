@@ -18,6 +18,9 @@ const tall = (n: number) => String(n).padStart(2, '0')
  *
  * Endret fra demoen: bare Reginas egne ord med kildelinje (src/content/sitater.ts) – ingen kundesitater,
  * avatarer med initialer eller merkelapper. Sitatet står i Playfair kursiv med rosa anførselstegn.
+ *
+ * Panelet er en lys rosa flate med runde hjørner, fanene er piller (R-32). Sekundærtekst er sand-ink-deep, som
+ * holder kontrasten på regina-pink-50 (tokens.test.ts).
  */
 export function Sitatpanel({
   sitater,
@@ -36,17 +39,17 @@ export function Sitatpanel({
   const ga = (steg: number) => setAktiv((i) => (i + steg + antall) % antall)
 
   return (
-    <section className="border border-sand-200 bg-paper p-6 md:p-10" aria-labelledby={id}>
+    <section className="rounded-3xl bg-regina-pink-50 p-6 md:p-10" aria-labelledby={id}>
       <div className="flex items-start justify-between gap-6">
         <div>
           <h2 id={id} className="text-3xl md:text-4xl">
             {tittel}
           </h2>
-          {ingress && <p className="mt-2 max-w-md text-sand-ink">{ingress}</p>}
+          {ingress && <p className="mt-2 max-w-md text-sand-ink-deep">{ingress}</p>}
         </div>
         <p className="shrink-0 pt-1 tabular-nums" aria-hidden>
           <span className="font-heading text-2xl">{tall(aktiv + 1)}</span>
-          <span className="ml-1.5 text-sand-ink">/ {tall(antall)}</span>
+          <span className="ml-1.5 text-sand-ink-deep">/ {tall(antall)}</span>
         </p>
       </div>
 
@@ -71,14 +74,14 @@ export function Sitatpanel({
                 </blockquote>
                 <figcaption className="mt-7 flex items-center gap-4">
                   <span
-                    className="grid size-11 shrink-0 place-items-center bg-regina-plum font-heading text-xl text-sand-50 italic"
+                    className="grid size-11 shrink-0 place-items-center rounded-full bg-regina-plum font-heading text-xl text-sand-50 italic"
                     aria-hidden
                   >
                     R
                   </span>
                   <span>
                     <span className="block font-medium">Regina Parfymeri</span>
-                    <span className="block text-sand-ink">
+                    <span className="block text-sand-ink-deep">
                       Fra <cite className="not-italic">{s.kilde}</cite>
                     </span>
                   </span>
@@ -88,13 +91,13 @@ export function Sitatpanel({
           ))}
         </div>
 
-        <div className="mt-9 flex items-center justify-between gap-4 border-t border-sand-200 pt-5">
+        <div className="mt-9 flex items-center justify-between gap-4 border-t border-regina-pink-100 pt-5">
           <Tabs.List aria-label="Velg sitat" className="flex flex-wrap gap-1">
             {sitater.map((s, i) => (
               <Tabs.Trigger
                 key={s.tema}
                 value={String(i)}
-                className="inline-flex min-h-11 items-center gap-2 px-3 text-sand-ink transition-colors duration-(--dur-fast) hover:text-regina-plum data-[state=active]:bg-sand-100 data-[state=active]:text-regina-plum"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sand-ink-deep transition-colors duration-(--dur-fast) hover:text-regina-plum data-[state=active]:bg-regina-pink-100 data-[state=active]:text-regina-plum"
               >
                 <span className="tabular-nums">{tall(i + 1)}</span>
                 <span className="hidden sm:inline">{s.tema}</span>
@@ -105,7 +108,7 @@ export function Sitatpanel({
             <button
               type="button"
               onClick={() => ga(-1)}
-              className="grid size-11 place-items-center border border-sand-200 transition-colors duration-(--dur-fast) hover:bg-sand-100"
+              className="grid size-11 place-items-center rounded-full border border-regina-pink-100 bg-paper transition-colors duration-(--dur-fast) hover:bg-regina-pink-100"
               aria-label="Forrige sitat"
             >
               <ChevronLeft className="size-5" strokeWidth={1.5} aria-hidden />
@@ -113,16 +116,16 @@ export function Sitatpanel({
             <button
               type="button"
               onClick={() => ga(1)}
-              className="grid size-11 place-items-center border border-sand-200 transition-colors duration-(--dur-fast) hover:bg-sand-100"
+              className="grid size-11 place-items-center rounded-full border border-regina-pink-100 bg-paper transition-colors duration-(--dur-fast) hover:bg-regina-pink-100"
               aria-label="Neste sitat"
             >
               <ChevronRight className="size-5" strokeWidth={1.5} aria-hidden />
             </button>
           </div>
         </div>
-        <div className="relative mt-4 h-px bg-sand-200" aria-hidden>
+        <div className="relative mt-4 h-px bg-regina-pink-100" aria-hidden>
           <span
-            className="absolute inset-x-0 -top-px h-0.5 origin-left bg-regina-plum transition-transform duration-(--dur-slow) ease-out"
+            className="absolute inset-x-0 -top-px h-0.5 origin-left rounded-full bg-regina-plum transition-transform duration-(--dur-slow) ease-out"
             style={{ transform: `scaleX(${(aktiv + 1) / antall})` }}
           />
         </div>

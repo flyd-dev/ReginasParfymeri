@@ -14,7 +14,10 @@ export const metadata: Metadata = {
   alternates: { canonical: '/behandlinger/' },
 }
 
-/** Behandlingslisten og prisene ligger i timebestillingen (ledigtime.no) – de skrives ikke av her. */
+/**
+ * Behandlingslisten og prisene ligger i timebestillingen (ledigtime.no) – de skrives ikke av her. Timebestillingen
+ * står i en lys rosa boks med runde hjørner, med bildet innenfor kanten (R-32), som på forsiden.
+ */
 export default function Behandlinger() {
   return (
     <Innholdsside
@@ -29,8 +32,11 @@ export default function Behandlinger() {
       ingress={<p>{BEHANDLINGER.tekst}</p>}
       media={<Mediebilde foto={BILDER.behandlingsrom} utsnitt="50% 62%" />}
     >
-      <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
-        <section className="lg:col-span-5 lg:self-center" aria-labelledby="timebestilling">
+      <div className="grid gap-2 rounded-3xl bg-regina-pink-50 p-2 lg:grid-cols-12">
+        <section
+          className="px-4 pt-8 pb-10 md:px-10 lg:col-span-5 lg:self-center lg:py-12"
+          aria-labelledby="timebestilling"
+        >
           <h2 id="timebestilling" className="text-3xl md:text-4xl">
             Bestill time
           </h2>
@@ -44,19 +50,19 @@ export default function Behandlinger() {
                 Bestill time
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="bg-paper">
               <a href={BUTIKK.telefon.lenke}>
                 <Phone aria-hidden /> {BUTIKK.telefon.visning}
               </a>
             </Button>
           </div>
         </section>
-        <div className="avdekk relative aspect-[3/2] overflow-hidden bg-sand-100 lg:col-span-6 lg:col-start-7">
+        <div className="avdekk relative aspect-[3/2] overflow-hidden rounded-2xl bg-sand-100 lg:col-span-7">
           <Image
             src={BILDER.salong.bilde}
             alt={BILDER.salong.alt}
             fill
-            sizes="(min-width: 1536px) 730px, (min-width: 1024px) 48vw, 100vw"
+            sizes="(min-width: 1536px) 850px, (min-width: 1024px) 56vw, 100vw"
             className="object-cover"
           />
         </div>

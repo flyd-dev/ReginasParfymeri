@@ -40,18 +40,18 @@ export default function Kundeklubb() {
         {/*
           Innmeldingen – bygget etter «Newsletter» (kevingirelli, MIT) på 21st.dev –
           https://21st.dev/@kevingirelli/components/newsletter. Egen kode; ingen kode er kopiert.
-          Et bånd med tittel til venstre og handlingen til høyre. Regina har ingen nyhetsbrevtjeneste, så det er
+          Et lys rosa bånd med runde hjørner (R-32), tittel til venstre og handlingen til høyre. Regina har ingen nyhetsbrevtjeneste, så det er
           ingen e-postfelt: knappen går til Diller når lenken er satt, ellers skjer innmeldingen i kassen.
         */}
         <section
           aria-labelledby="bli-medlem"
-          className="flex flex-col gap-6 border border-sand-200 bg-paper px-6 py-8 sm:px-10 md:flex-row md:items-center md:justify-between md:gap-12 md:py-10 lg:col-span-2"
+          className="flex flex-col gap-6 rounded-3xl bg-regina-pink-50 px-6 py-8 sm:px-10 md:flex-row md:items-center md:justify-between md:gap-12 md:py-12 lg:col-span-2"
         >
           <div>
             <h2 id="bli-medlem" className="text-3xl md:text-4xl">
               {KUNDEKLUBB.tittel}
             </h2>
-            <p className="mt-3 text-lg text-sand-ink">
+            <p className="mt-3 text-lg text-sand-ink-deep">
               {innmelding ? KUNDEKLUBB.hosDiller : KUNDEKLUBB.kryssAv}
             </p>
           </div>
@@ -63,7 +63,7 @@ export default function Kundeklubb() {
               </a>
             </Button>
           ) : (
-            <Button asChild size="lg" variant="outline" className="w-full shrink-0 md:w-auto">
+            <Button asChild size="lg" variant="outline" className="w-full shrink-0 bg-paper md:w-auto">
               <Link href="/produktkategori/duft/nisjeduft/">Se nisjeduft</Link>
             </Button>
           )}
