@@ -1,15 +1,17 @@
 /*
  * Designtokens for Regina Parfymeri. Alle farger, skrifter og bevegelser i flaten kommer herfra.
  *
- * Verdiene er fra oppdraget (§4): rosa er hentet direkte fra dagens to nettsider, sand er et forslag til
- * «dus sand» som må godkjennes av kunden. Endres en verdi, endres den bare her.
+ * Rosa er hentet direkte fra dagens to nettsider. Bakgrunnen er nesten hvit med et varmt skjær, og hjørnene er runde
+ * (R-32, inspirert av flyd.no) – Flyd syntes den dusere sandfargen fra oppdraget ble for tung. Endres en verdi,
+ * endres den bare her.
  *
  * Kontrastregler (WCAG 2.1 AA), målt i tokens.test.ts – et nytt par av tekst og bakgrunn skal inn der:
  * - --regina-pink bare til stor tekst (24px+, eller 19px+ fet), ikoner, flater og dekor.
  * - --regina-pink-strong til rosa lenker og tekst, og til rosa knapper med hvit tekst.
  * - --sand-ink (sekundærtekst) bare på --sand-50 og --paper, ikke på --sand-100 (4,2:1). Der brukes
  *   --sand-ink-deep, som også er shadcn sin «muted-foreground».
- * - Rosa er en aksent, ikke en flate: ca. 5–10 % rosa, resten sand og plum.
+ * - Reginas rosa skal synes (R-32): primærknapper, overlinjeprikker, merker og enkelte store flater er rosa;
+ *   --regina-pink-50/100 er en lys rosa tone til seksjoner og brikker. Plum er tekst og de mørke flatene.
  */
 
 :root {
@@ -18,13 +20,17 @@
   --regina-pink-strong: #c2106f; /* rosa tekst, lenker og rosa knapper med hvit tekst */
   --regina-plum: #3f132e; /* primær tekst og primærknapp (fra dagens butikk) */
 
-  /* --- Sand --- */
-  --sand-50: #f4ede4; /* hovedbakgrunn */
-  --sand-100: #eadfd2; /* seksjoner, kort, footer */
-  --sand-200: #d9cbb8; /* linjer, rammer, skillere */
-  --sand-ink: #7a6555; /* sekundærtekst, metadata – på sand-50 og paper */
-  --sand-ink-deep: #6e5a4b; /* sekundærtekst som også står på sand-100 (shadcn «muted») */
-  --paper: #fbf8f4; /* bakgrunn bak produktbilder */
+  /* --- Lys rosa (R-32): seksjoner, brikker, markering --- */
+  --regina-pink-50: #fdf1f7; /* lys rosa flate */
+  --regina-pink-100: #f9dcea; /* rosa brikke, valgt rad, hover på lys flate */
+
+  /* --- Sand: nesten hvitt med varmt skjær (R-32) --- */
+  --sand-50: #faf8f5; /* hovedbakgrunn */
+  --sand-100: #f3eee8; /* seksjoner */
+  --sand-200: #e6ddd2; /* linjer, rammer, skillere */
+  --sand-ink: #7a6555; /* sekundærtekst, metadata */
+  --sand-ink-deep: #6e5a4b; /* sekundærtekst på sand-100 og rosa flater (shadcn «muted») */
+  --paper: #ffffff; /* kort og flatene bak produktbilder (multiply gjør pakkebildenes hvite bakgrunn usynlig) */
 
   /* --- Tillegg som oppdraget ikke dekker (samme sted, samme regler) --- */
   --white: #ffffff; /* tekst på rosa og plum knapper */
@@ -36,8 +42,12 @@
   --font-display: var(--font-playfair), 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-ui: var(--font-poppins), Poppins, 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  /* --- Former: rette eller nesten rette hjørner (0–2px) --- */
-  --radius: 2px;
+  /* --- Former: runde hjørner (R-32, inspirert av flyd.no) --- */
+  --radius: 12px; /* standard: felt, menyer, små kort */
+  --radius-liten: 6px; /* avkrysning, kbd, små merker */
+  --radius-kort: 16px; /* produktkort, bildeflater, kort */
+  --radius-flate: 24px; /* store bilder, skuffer, dialoger */
+  --radius-seksjon: 32px; /* innfelte seksjoner (plum, rosa), heroens flater */
 
   /* --- Bevegelse (R-30): korte overganger til samspill, lengre inngang når innhold kommer til syne --- */
   --dur-fast: 150ms;

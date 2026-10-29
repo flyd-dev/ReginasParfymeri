@@ -41,7 +41,7 @@ export function Produktbilde({
   const medBytte = Boolean(src && bytte)
   return (
     <div
-      className={cn('relative isolate aspect-square overflow-hidden bg-paper', className)}
+      className={cn('relative isolate aspect-square overflow-hidden rounded-xl bg-paper', className)}
       data-morf={morf}
     >
       {src ? (

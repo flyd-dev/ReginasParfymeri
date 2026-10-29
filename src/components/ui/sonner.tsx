@@ -37,11 +37,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
           // Sonners egen CSS ligger utenfor Tailwind-lagene, derfor «!»: ingen skygge, 16 px tekst og bare
           // transform/opacity på 250 ms (tokens), slik som resten av flaten.
           toast:
-            'cn-toast font-sans shadow-none! text-base! gap-3! [transition-property:transform,opacity]! duration-(--dur-slow)! ease-out! min-[601px]:w-(--width)',
+            'cn-toast font-sans rounded-2xl! shadow-none! text-base! gap-3! [transition-property:transform,opacity]! duration-(--dur-slow)! ease-out! min-[601px]:w-(--width)',
           title: 'font-medium! leading-snug!',
           description: 'text-sand-ink! leading-snug!',
-          actionButton: 'h-9! rounded-(--radius)! px-3! text-base! font-medium! bg-regina-plum! text-white!',
-          cancelButton: 'h-9! rounded-(--radius)! px-3! text-base! bg-sand-100! text-regina-plum!',
+          actionButton: 'h-9! rounded-full! px-3! text-base! font-medium! bg-regina-plum! text-white!',
+          cancelButton: 'h-9! rounded-full! px-3! text-base! bg-sand-100! text-regina-plum!',
           closeButton: 'border-sand-200! bg-paper! text-regina-plum!',
         },
       }}

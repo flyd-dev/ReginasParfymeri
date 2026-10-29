@@ -190,3 +190,17 @@ synlig uten JavaScript, og axe-testene kjører med redusert bevegelse (siden sli
 De fleste av Reginas kunder handler sannsynligvis på mobil. Alt designes og sjekkes på 390 px først. Bevegelse og
 funksjoner kan ikke bare finnes ved hover, trykkflatene er minst 44 px, og ytelsen på mobil (Lighthouse ≥ 90) går
 foran effekter.
+
+## R-32 Runde hjørner, lysere bakgrunn og mer rosa
+
+Flyd ville ha runde hjørner inspirert av flyd.no, en bakgrunn som heller mer mot hvitt enn den duse sandfargen,
+og Reginas rosa tydeligere fram. Det erstatter tre punkter fra oppdraget §4 (hjørner 0–2 px, «dus sand» og rosa som
+5–10 % aksent):
+
+- Bakgrunnen er `#FAF8F5` (nesten hvit, varm), seksjoner `#F3EEE8`, linjer `#E6DCD2`, og `--paper` er hvit. Ny lys
+  rosa: `--regina-pink-50` `#FDF1F7` og `--regina-pink-100` `#F9DCEA`. Kontrastene står i `tokens.test.ts`.
+- Radius: piller for knapper og brikker, 12 px for felt, 16 px for kort og produktbilder, 24 px for store bilder,
+  skuffer og dialoger, 32 px for innfelte seksjoner. Mørke og rosa seksjoner er bokser med luft rundt, som på
+  flyd.no.
+- Primærknappen er Reginas rosa (`#C2106F`, hvit tekst) og fylles med plum ved peker. Overlinjer har en rosa prikk.
+  Plum er fortsatt tekstfarge og den mørke flaten.

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f4ede4',
+  themeColor: '#faf8f5',
   // Kjøpslinjen nederst på produktsiden bruker env(safe-area-inset-bottom) over hjemlinjen på iPhone.
   viewportFit: 'cover',
 }

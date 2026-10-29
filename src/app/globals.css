@@ -13,6 +13,8 @@
   --color-regina-pink: var(--regina-pink);
   --color-regina-pink-strong: var(--regina-pink-strong);
   --color-regina-plum: var(--regina-plum);
+  --color-regina-pink-50: var(--regina-pink-50);
+  --color-regina-pink-100: var(--regina-pink-100);
   --color-sand-50: var(--sand-50);
   --color-sand-100: var(--sand-100);
   --color-sand-200: var(--sand-200);
@@ -47,13 +49,14 @@
   --font-heading: var(--font-display);
   --font-serif: var(--font-display);
 
-  --radius-sm: var(--radius);
-  --radius-md: var(--radius);
+  /* Runde hjørner (R-32): rounded-sm 6, md 10, lg 12, xl 16 (kort), 2xl 24 (flater), 3xl 32 (seksjoner). */
+  --radius-sm: var(--radius-liten);
+  --radius-md: 10px;
   --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
-  --radius-2xl: var(--radius);
-  --radius-3xl: var(--radius);
-  --radius-4xl: var(--radius);
+  --radius-xl: var(--radius-kort);
+  --radius-2xl: var(--radius-flate);
+  --radius-3xl: var(--radius-seksjon);
+  --radius-4xl: 40px;
 
   --ease-out: var(--ease-out);
   --ease-in-out: var(--ease-in-out);

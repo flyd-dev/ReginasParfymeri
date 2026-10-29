@@ -62,6 +62,15 @@ const PAR: [string, string, number, string][] = [
   ['status-feil', 'paper', TEKST, 'feil i skjema'],
   ['white', 'status-feil', STOR, 'ikon i feilvarsel (handlekurven)'],
   ['white', 'status-varsel', STOR, 'ikon i varsel om oppdatert handlekurv'],
+  // R-32: lysere sand-100 og lys rosa flate
+  ['sand-ink', 'sand-100', TEKST, 'metadata i seksjoner'],
+  ['regina-pink-strong', 'sand-100', TEKST, 'rosa lenker i seksjoner'],
+  ['regina-plum', 'regina-pink-50', TEKST, 'tekst på lys rosa flate'],
+  ['regina-pink-strong', 'regina-pink-50', TEKST, 'rosa lenker på lys rosa flate'],
+  ['sand-ink-deep', 'regina-pink-50', TEKST, 'sekundærtekst på lys rosa flate'],
+  ['regina-plum', 'regina-pink-100', TEKST, 'tekst på rosa brikke'],
+  ['regina-pink-strong', 'regina-pink-100', TEKST, 'rosa tekst på rosa brikke'],
+  ['regina-pink', 'regina-pink-50', STOR, 'store rosa overskrifter på lys rosa flate'],
 ]
 
 describe('kontrast i paletten', () => {
@@ -69,12 +78,12 @@ describe('kontrast i paletten', () => {
     expect(kontrast(forgrunn, bakgrunn)).toBeGreaterThanOrEqual(krav)
   })
 
-  it('oppdragets målte verdier stemmer', () => {
-    expect(kontrast('regina-pink', 'sand-50')).toBeCloseTo(3.65, 1)
+  it('målte verdier for paletten (R-32: nesten hvit bakgrunn)', () => {
+    expect(kontrast('regina-pink', 'sand-50')).toBeCloseTo(4.0, 1)
     expect(kontrast('white', 'regina-pink')).toBeCloseTo(4.24, 1)
-    expect(kontrast('regina-pink-strong', 'sand-50')).toBeCloseTo(5.03, 1)
+    expect(kontrast('regina-pink-strong', 'sand-50')).toBeCloseTo(5.51, 1)
     expect(kontrast('white', 'regina-pink-strong')).toBeCloseTo(5.84, 1)
-    expect(kontrast('regina-plum', 'sand-50')).toBeCloseTo(13.45, 1)
+    expect(kontrast('regina-plum', 'sand-50')).toBeCloseTo(14.74, 1)
   })
 
   it('ren rosa holder ikke for brødtekst – derfor regina-pink-strong', () => {
@@ -82,8 +91,7 @@ describe('kontrast i paletten', () => {
     expect(kontrast('white', 'regina-pink')).toBeLessThan(TEKST)
   })
 
-  it('sand-ink og regina-pink-strong holder ikke på sand-100 – derfor sand-ink-deep og plum der', () => {
-    expect(kontrast('sand-ink', 'sand-100')).toBeLessThan(TEKST)
-    expect(kontrast('regina-pink-strong', 'sand-100')).toBeLessThan(TEKST)
+  it('ren rosa holder heller ikke for brødtekst på lys rosa flate', () => {
+    expect(kontrast('regina-pink', 'regina-pink-50')).toBeLessThan(TEKST)
   })
 })
