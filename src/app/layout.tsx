@@ -56,7 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="flex min-h-dvh flex-col">
         <a
           href="#innhold"
-          className="sr-only z-50 bg-regina-plum px-4 py-3 text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+          className="sr-only z-50 rounded-full bg-regina-plum px-5 py-3 text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
         >
           Hopp til innholdet
         </a>
