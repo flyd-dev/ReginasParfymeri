@@ -42,15 +42,16 @@ export function Filterskuff({
           Filtrer{antallAktive > 0 ? ` (${antallAktive})` : ''}
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom" className="max-h-[88dvh] gap-0 border-sand-200 bg-sand-50 p-0">
-        <SheetHeader className="gap-1 border-b border-sand-200 px-5 pt-5 pb-4">
+      {/* Hvitt ark med runde hjørner øverst (ui/sheet); bunnen holder seg over hjemmelinjen (safe area). */}
+      <SheetContent side="bottom" className="max-h-[88dvh] gap-0 border-sand-200 bg-paper p-0">
+        <SheetHeader className="gap-1 border-b border-sand-200 px-5 pt-6 pb-4">
           <SheetTitle className="text-2xl">Filtrer</SheetTitle>
           <SheetDescription className="text-base text-sand-ink">
             {antallTekst(treff, 'produkt', 'produkter')} – antallet oppdateres for hvert valg.
           </SheetDescription>
         </SheetHeader>
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5">{children}</div>
-        <div className="flex gap-3 border-t border-sand-200 bg-sand-50 p-4">
+        <div className="flex gap-3 border-t border-sand-200 bg-paper px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           {antallAktive > 0 && (
             <Button asChild variant="outline" size="lg" className="bg-paper">
               <Link href={nullstill} scroll={false} rel="nofollow">

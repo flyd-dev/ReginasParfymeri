@@ -51,7 +51,7 @@ export function VarsleSkjema({ produktId, variantId }: { produktId: number; vari
           placeholder="Din e-postadresse"
           className="h-11 flex-1 bg-paper text-base"
         />
-        <Button type="submit" variant="outline" disabled={sender}>
+        <Button type="submit" variant="outline" className="bg-paper" disabled={sender}>
           Varsle meg
         </Button>
       </div>

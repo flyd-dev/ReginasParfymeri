@@ -13,7 +13,8 @@ import { Kurvmeldinger } from './kurvmeldinger'
 
 /**
  * Handlekurven som egen side (også målet for skjemaer uten JavaScript og for /kassen/ i dagens butikk). Samme
- * varelinjer og samme sum som skuffen (handlekurv.tsx).
+ * varelinjer og samme sum som skuffen (handlekurv.tsx): linjene på et hvitt kort og summen i en lys rosa boks,
+ * begge med runde hjørner (R-32).
  */
 export function Kurvside({ feil, start }: { feil?: string; start?: Kurv }) {
   // Serveren sender kurven med, så siden viser varene også uten JavaScript.
@@ -24,7 +25,10 @@ export function Kurvside({ feil, start }: { feil?: string; start?: Kurv }) {
     <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
       <div className="min-w-0">
         {feil && (
-          <p role="alert" className="mb-6 border-l-2 border-status-feil bg-paper px-4 py-3 text-status-feil">
+          <p
+            role="alert"
+            className="mb-6 rounded-xl border border-status-feil bg-paper px-5 py-3 text-status-feil"
+          >
             {feil}
           </p>
         )}
@@ -35,7 +39,7 @@ export function Kurvside({ feil, start }: { feil?: string; start?: Kurv }) {
         )}
         {tom ? (
           <div className="flex flex-col items-start py-10">
-            <span className="grid size-16 place-items-center border border-sand-200 bg-paper" aria-hidden>
+            <span className="grid size-16 place-items-center rounded-full bg-regina-pink-50" aria-hidden>
               <ShoppingBag className="size-7 text-regina-pink" strokeWidth={1.5} />
             </span>
             <p className="mt-6 font-heading text-2xl">Handlekurven er tom</p>
@@ -50,14 +54,14 @@ export function Kurvside({ feil, start }: { feil?: string; start?: Kurv }) {
             </div>
           </div>
         ) : (
-          <div className="border-y border-sand-200">
+          <div className="rounded-2xl border border-sand-200 bg-paper px-5 md:px-6">
             <Kurvlinjer kurv={kurv} />
           </div>
         )}
       </div>
       {!tom && (
         <aside
-          className="self-start border border-sand-200 bg-paper p-6 lg:sticky lg:top-36"
+          className="self-start rounded-2xl bg-regina-pink-50 p-6 lg:sticky lg:top-36"
           aria-label="Oppsummering"
         >
           <Kassedel kurv={kurv} />

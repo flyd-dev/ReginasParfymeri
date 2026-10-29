@@ -14,7 +14,7 @@ const lenke = 'text-regina-pink-strong underline underline-offset-4 hover:text-r
 
 /**
  * Detaljene på produktsiden som en spørsmålsliste: til venstre overskrift, en kort invitasjon og kontakt; til
- * høyre rader med tynne linjer. Radene er <details>, så teksten kan leses og åpnes uten JavaScript. Innholdet
+ * høyre rader som hvite kort med runde hjørner og en rund pilknapp (R-32). Radene er <details>, så teksten kan leses og åpnes uten JavaScript. Innholdet
  * kommer bare fra produktdataene og src/content/butikk.ts.
  *
  * Bevegelse: overskriften avsløres ord for ord, radene glir inn etter hverandre, og når en rad åpnes, toner
@@ -28,7 +28,8 @@ export function Produktdetaljer({ produkt: p, kunIButikk }: { produkt: Produkt; 
     >
       <div className="md:sticky md:top-32 md:self-start">
         <Inn>
-          <p className="inline-flex border border-sand-200 px-2.5 py-1 text-xs tracking-[0.16em] text-sand-ink uppercase">
+          <p className="inline-flex items-center gap-2 rounded-full border border-sand-200 bg-paper px-3.5 py-1.5 text-xs tracking-[0.16em] text-sand-ink uppercase">
+            <span className="size-1.5 shrink-0 rounded-full bg-regina-pink" aria-hidden />
             Om produktet
           </p>
         </Inn>
@@ -54,7 +55,7 @@ export function Produktdetaljer({ produkt: p, kunIButikk }: { produkt: Produkt; 
         </Inn>
       </div>
 
-      <div>
+      <div className="space-y-3">
         <Rad tittel="Beskrivelse" apen i={0}>
           {p.beskrivelse ? (
             <Avsnitt tekst={p.beskrivelse} />
@@ -147,15 +148,21 @@ function Rad({
 }) {
   return (
     <Inn i={i}>
-      <details open={apen} className="group/rad border-b border-sand-200">
-        <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-4 text-lg font-medium transition-colors duration-(--dur-fast) hover:text-regina-pink-strong [&::-webkit-details-marker]:hidden">
+      <details
+        open={apen}
+        className="group/rad rounded-xl border border-sand-200 bg-paper px-5 transition-colors duration-(--dur-fast) hover:border-regina-pink-100 md:px-6"
+      >
+        <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 rounded-xl py-3 text-lg font-medium transition-colors duration-(--dur-fast) hover:text-regina-pink-strong [&::-webkit-details-marker]:hidden">
           {tittel}
-          <ChevronDown
-            className="size-5 shrink-0 text-sand-ink transition-transform duration-(--dur-base) ease-out group-open/rad:rotate-180"
+          {/* Rund knapp med pil: lys rosa når raden er lukket, Reginas rosa når den er åpen. */}
+          <span
+            className="grid size-9 shrink-0 place-items-center rounded-full bg-regina-pink-50 text-regina-plum transition-colors duration-(--dur-base) group-open/rad:bg-regina-pink-strong group-open/rad:text-white"
             aria-hidden
-          />
+          >
+            <ChevronDown className="size-4 transition-transform duration-(--dur-base) ease-out group-open/rad:rotate-180" />
+          </span>
         </summary>
-        <div className="max-w-prose pb-8 leading-relaxed group-open/rad:animate-in group-open/rad:fade-in group-open/rad:slide-in-from-top-2 group-open/rad:duration-(--dur-slow) group-open/rad:ease-(--ease-ut)">
+        <div className="max-w-prose pb-7 leading-relaxed group-open/rad:animate-in group-open/rad:fade-in group-open/rad:slide-in-from-top-2 group-open/rad:duration-(--dur-slow) group-open/rad:ease-(--ease-ut)">
           {children}
         </div>
       </details>

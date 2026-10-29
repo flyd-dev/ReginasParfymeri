@@ -53,15 +53,17 @@ export default async function Kategoriside({ params, searchParams }: Props) {
         ingress={INGRESSER[sti.join('/')]}
       >
         {underkategorier.length > 0 && (
+          // Piller på papir i den rosa boksen. På mobil ruller raden helt ut til kantene av boksen (px-5 er boksens
+          // egen marg), med luft over og under så fokusrammen ikke klippes.
           <ul
-            className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:px-0"
+            className="-mx-5 -my-1 flex gap-2 overflow-x-auto px-5 py-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:px-0 [&::-webkit-scrollbar]:hidden"
             aria-label="Underkategorier"
           >
             {underkategorier.map((u) => (
               <li key={u.slug} className="shrink-0">
                 <Link
                   href={kategoriUrl(u.sti)}
-                  className="inline-flex h-11 items-center gap-2.5 border border-sand-200 bg-paper px-4 transition-colors duration-(--dur-fast) hover:border-regina-plum"
+                  className="inline-flex h-11 items-center gap-2.5 rounded-full border border-sand-200 bg-paper px-5 transition-colors duration-(--dur-fast) hover:border-regina-pink-strong hover:text-regina-pink-strong"
                 >
                   {u.navn}
                   <span className="text-sm text-sand-ink tabular-nums">{u.antall}</span>

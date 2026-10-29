@@ -16,6 +16,9 @@ const TOPP = 64
  * valg, ruller den til variantvalget og setter fokus der (kunden velger selv). Linjen trekker seg unna når
  * kjøpsboksen eller bunnen av siden er i bildet.
  *
+ * Linjen er en flytende pille i lys rosa med luft til kantene og over hjemmelinjen (safe area), som knappene på
+ * flyd.no (R-32). Ingen skygge: en tynn rosa kant skiller den fra innholdet under.
+ *
  * Bare med JavaScript og bare under md; uten JavaScript er kjøpsboksen et vanlig skjema. Når linjen er ute av
  * bildet, er den aria-hidden og inert, så den ikke finnes for skjermlesere og tastatur (og ikke gir to knapper med
  * samme navn). Ingen 21st.dev-komponent med lisens passet; mønsteret er vanlig i nettbutikker og koden er vår egen.
@@ -70,16 +73,16 @@ export function Kjopslinje({
   return createPortal(
     <div
       className={cn(
-        'fixed inset-x-0 bottom-0 z-30 border-t border-sand-200 bg-paper pb-[env(safe-area-inset-bottom)] transition-transform duration-(--dur-slow) ease-(--ease-ut) md:hidden',
-        synlig ? 'translate-y-0' : 'translate-y-full',
+        'fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-30 rounded-full border border-regina-pink-100 bg-regina-pink-50 transition-transform duration-(--dur-slow) ease-(--ease-ut) md:hidden',
+        synlig ? 'translate-y-0' : 'translate-y-[calc(100%+1.5rem+env(safe-area-inset-bottom))]',
       )}
       aria-hidden={!synlig}
       inert={!synlig}
     >
-      <div className="flex items-center gap-3 px-4 py-3">
+      <div className="flex items-center gap-3 py-1.5 pr-1.5 pl-5">
         <div className="min-w-0 flex-1 leading-snug">
           <p className="truncate font-medium">{navn}</p>
-          <p className="truncate text-sand-ink tabular-nums">{prislinje}</p>
+          <p className="truncate text-sand-ink-deep tabular-nums">{prislinje}</p>
         </div>
         <Button type="button" size="lg" className="shrink-0 px-5" disabled={opptatt} onClick={knapp.handling}>
           {knapp.tekst}

@@ -49,27 +49,34 @@ export default async function Merkeside({ params, searchParams }: Props) {
     return (
       <div className="mx-auto max-w-screen-2xl px-4 pt-6 pb-10 md:px-6">
         <Brodsmuler smuler={[{ navn: 'Merker', href: '/merker/' }, { navn: butikkmerke.navn }]} />
-        <div className="mt-10 max-w-2xl">
-          <Inn som="p" className="text-sm tracking-[0.16em] text-sand-ink uppercase">
-            Kun i butikken
-          </Inn>
-          <AvdekkTekst som="h1" i={1} deler={[butikkmerke.navn]} className="mt-3 text-5xl md:text-7xl" />
-          <Inn som="p" i={3} className="mt-6 text-lg">
-            {KUN_I_BUTIKKEN_TEKST}
-          </Inn>
-          <Inn som="address" i={4} className="mt-6 not-italic text-sand-ink">
-            {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
-          </Inn>
-          <Inn i={5} className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <a href={BUTIKK.telefon.lenke}>
-                <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/kontakt/">Kontakt og veibeskrivelse</Link>
-            </Button>
-          </Inn>
+        {/* Samme lys rosa, innfelte boks som hodet over produktlistene (Listehode, R-32). */}
+        <div className="mt-6 rounded-3xl bg-regina-pink-50 px-5 py-10 md:mt-8 md:px-10 md:py-14 lg:px-14">
+          <div className="max-w-2xl">
+            <Inn
+              som="p"
+              className="flex items-center gap-2.5 text-sm tracking-[0.16em] text-sand-ink-deep uppercase"
+            >
+              <span className="size-1.5 shrink-0 rounded-full bg-regina-pink" aria-hidden />
+              Kun i butikken
+            </Inn>
+            <AvdekkTekst som="h1" i={1} deler={[butikkmerke.navn]} className="mt-4 text-5xl md:text-7xl" />
+            <Inn som="p" i={3} className="mt-6 text-lg">
+              {KUN_I_BUTIKKEN_TEKST}
+            </Inn>
+            <Inn som="address" i={4} className="mt-6 text-sand-ink-deep not-italic">
+              {BUTIKK.adresse.gate}, {BUTIKK.adresse.postnr} {BUTIKK.adresse.sted}
+            </Inn>
+            <Inn i={5} className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg">
+                <a href={BUTIKK.telefon.lenke}>
+                  <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="bg-paper">
+                <Link href="/kontakt/">Kontakt og veibeskrivelse</Link>
+              </Button>
+            </Inn>
+          </div>
         </div>
       </div>
     )

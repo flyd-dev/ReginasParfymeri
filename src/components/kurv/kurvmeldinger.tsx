@@ -4,7 +4,8 @@
 // metadata, og to handlinger side om side. Hos oss er «synkroniseringen» handlekurven mot nettbutikken: varselet
 // sier hva som ikke ble lagret, eller hva nettbutikken har rettet (pris, lager, antall). Statusmerket står i
 // metadatalinjen og ikke ved tittelen, så lange norske titler får plass. Statusfargen kommer fra tokens
-// (--status-feil / --status-varsel), uten skygge og med 2 px hjørner.
+// (--status-feil / --status-varsel), uten skygge. Runde hjørner (R-32): varselet 24 px som de andre flatene,
+// flisen 12 px som ikonflisene på flyd.no, og statusmerket er en pille.
 
 'use client'
 
@@ -60,7 +61,10 @@ const STATUS = {
 function Statusflis({ type, className }: { type: Kurvvarsel['type']; className?: string }) {
   const { ikon: Ikon, flis } = STATUS[type]
   return (
-    <span className={cn('grid shrink-0 place-items-center text-white', flis, className)} aria-hidden>
+    <span
+      className={cn('grid shrink-0 place-items-center rounded-lg text-white', flis, className)}
+      aria-hidden
+    >
       <Ikon className="size-[45%]" strokeWidth={2} />
     </span>
   )
@@ -79,7 +83,7 @@ export function Kurvtoast({ varsel, lukk }: { varsel: Kurvvarsel; lukk: () => vo
   // «Se handlekurven» bare når den ikke allerede er åpen eller er siden man står på.
   const visKurv = !apen && sti !== '/handlekurv/' && !!kurv && kurv.antall > 0
   return (
-    <div className="pointer-events-auto w-full border border-sand-200 bg-paper p-4 text-regina-plum">
+    <div className="pointer-events-auto w-full rounded-2xl border border-sand-200 bg-paper p-4 text-regina-plum">
       <div className="flex items-start gap-3.5">
         <Statusflis type={varsel.type} className="size-10" />
         <div className="min-w-0 flex-1">
@@ -91,11 +95,11 @@ export function Kurvtoast({ varsel, lukk }: { varsel: Kurvvarsel; lukk: () => vo
       <div className="mt-4 flex items-center justify-between gap-4 border-t border-sand-200 pt-3">
         <span
           className={cn(
-            'inline-flex items-center gap-1.5 border border-current px-1.5 py-1 text-xs leading-none font-semibold tracking-[0.12em] uppercase',
+            'inline-flex items-center gap-1.5 rounded-full border border-current px-2.5 py-1 text-xs leading-none font-semibold tracking-[0.12em] uppercase',
             s.merke,
           )}
         >
-          <span className="size-1.5 bg-current" aria-hidden />
+          <span className="size-1.5 rounded-full bg-current" aria-hidden />
           {s.merketekst}
         </span>
         {kurv && kurv.antall > 0 && (
@@ -107,13 +111,13 @@ export function Kurvtoast({ varsel, lukk }: { varsel: Kurvvarsel; lukk: () => vo
         )}
       </div>
       <div className="mt-3 flex gap-2">
-        <Button variant="outline" className={cn('h-10 bg-paper px-4', !visKurv && 'flex-1')} onClick={lukk}>
+        <Button variant="outline" className={cn('bg-paper px-4', !visKurv && 'flex-1')} onClick={lukk}>
           <X aria-hidden />
           Lukk
         </Button>
         {visKurv && (
           <Button
-            className="h-10 flex-1 px-4"
+            className="flex-1 px-4"
             onClick={() => {
               setApen(true)
               lukk()
@@ -132,7 +136,7 @@ export function Kurvtoast({ varsel, lukk }: { varsel: Kurvvarsel; lukk: () => vo
 export function Kurvmeldinger({ meldinger }: { meldinger: Kurvmelding[] }) {
   if (meldinger.length === 0) return null
   return (
-    <div className="flex gap-3.5 border border-sand-200 bg-sand-50 p-4" role="status">
+    <div className="flex gap-3.5 rounded-xl border border-sand-200 bg-sand-50 p-4" role="status">
       <Statusflis type="oppdatert" className="size-9" />
       <div className="min-w-0">
         <p className="leading-snug font-medium">Handlekurven er oppdatert</p>

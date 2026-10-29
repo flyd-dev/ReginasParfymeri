@@ -10,8 +10,9 @@ import { cn } from '@/lib/utils'
 const HAKE_MS = 2000
 
 /**
- * Raskt kjøp fra produktkortet – bare når valget er entydig (`hurtigkjop` i sporring.ts). Står over hjørnet av
- * bildebrønnen, derfor papirflate med tynn linje.
+ * Raskt kjøp fra produktkortet – bare når valget er entydig (`hurtigkjop` i sporring.ts). En rund knapp i lys rosa
+ * over hjørnet av bildebrønnen (R-32); ved peker fylles den med Reginas rosa, og når varen er lagt i kurven, står
+ * den plum med en hake – samme par som primærknappen (hvit på rosa, hvit på plum).
  *
  * Som i forbildet synker knappen litt når den trykkes, og når varen er lagt i kurven, vrir handleposen seg ut og
  * en hake inn (bare transform og opacity) før knappen går tilbake av seg selv. Navnet til knappen er det samme hele
@@ -60,10 +61,10 @@ export function Hurtigkjop({
         type="submit"
         disabled={opptatt}
         className={cn(
-          'relative inline-flex size-11 items-center justify-center border transition-[color,background-color,border-color,transform] duration-(--dur-fast) ease-out active:scale-90 disabled:opacity-50',
+          'relative inline-flex size-11 items-center justify-center rounded-full border transition-[color,background-color,border-color,transform] duration-(--dur-fast) ease-out active:scale-90 disabled:opacity-50',
           lagt
             ? 'border-regina-plum bg-regina-plum text-white'
-            : 'border-sand-200 bg-paper text-regina-plum hover:border-regina-plum hover:bg-regina-plum hover:text-white',
+            : 'border-regina-pink-100 bg-regina-pink-50 text-regina-plum hover:border-regina-pink-strong hover:bg-regina-pink-strong hover:text-white',
         )}
         aria-label={`Legg ${navn} i handlekurven`}
       >
