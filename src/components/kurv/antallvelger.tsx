@@ -3,10 +3,10 @@
 import { Minus, Plus } from 'lucide-react'
 import { Rulletall } from './rulletall'
 
-// Knappene er 44 px og gir et lite trykk (skalering) på telefon; tallet ruller opp eller ned når det endres
-// (Rulletall).
+// En pille (R-32) med to runde knapper på 44 px. De får lys rosa flate ved peker og et lite trykk (skalering) på
+// telefon; tallet ruller opp eller ned når det endres (Rulletall).
 const knapp =
-  'grid w-11 place-items-center transition-[color,scale] duration-(--dur-fast) ease-out hover:text-regina-pink-strong active:scale-90 disabled:opacity-40 disabled:hover:text-current'
+  'grid w-11 place-items-center rounded-full transition-[color,background-color,scale] duration-(--dur-fast) ease-out hover:bg-regina-pink-50 hover:text-regina-pink-strong active:scale-90 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-current'
 
 export function Antallvelger({
   antall,
@@ -23,7 +23,7 @@ export function Antallvelger({
 }) {
   return (
     <div
-      className="inline-flex h-11 items-stretch border border-input"
+      className="inline-flex h-11 items-stretch rounded-full border border-input bg-paper"
       role="group"
       aria-label={`Antall av ${navn}`}
     >

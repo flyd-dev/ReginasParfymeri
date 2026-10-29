@@ -76,13 +76,14 @@ export default async function Produktside({ params }: Props) {
         />
         {/* Kjøpskolonnen kommer inn i rekkefølge: merke, navn ord for ord, kjøpsboks og fordeler. Galleriet står
             utenfor, så bildet er der med en gang (og kan ta imot overgangen fra produktkortet). */}
-        <div className="md:sticky md:top-32 md:self-start">
+        <div className="min-w-0 md:sticky md:top-32 md:self-start">
           {p.merke && (
             <Inn>
               <Link
                 href={merkeUrl(p.merke.slug)}
-                className="text-sm tracking-[0.16em] text-sand-ink uppercase hover:text-regina-pink-strong"
+                className="inline-flex items-center gap-2.5 text-sm tracking-[0.16em] text-sand-ink uppercase hover:text-regina-pink-strong"
               >
+                <span className="size-1.5 shrink-0 rounded-full bg-regina-pink" aria-hidden />
                 {p.merke.navn}
               </Link>
             </Inn>
@@ -93,27 +94,33 @@ export default async function Produktside({ params }: Props) {
             deler={[p.visningsnavn]}
             className="mt-2 text-3xl md:text-4xl lg:text-5xl"
           />
-          <Inn i={3} className="mt-6">
-            {kunIButikk ? (
-              <div className="border border-sand-200 bg-paper p-5">
-                <p className="flex items-center gap-2 font-medium">
-                  <Store className="size-4" aria-hidden /> Kun i butikken
-                </p>
-                <p className="mt-2 text-sm text-sand-ink">{KUN_I_BUTIKKEN_TEKST}</p>
-                <Button asChild variant="outline" className="mt-4">
-                  <a href={BUTIKK.telefon.lenke}>
-                    <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
-                  </a>
-                </Button>
-              </div>
-            ) : (
-              <Kjopsboks produkt={p} />
-            )}
-          </Inn>
-          <Inn som="ul" i={4} className="mt-8 space-y-1.5 text-sm text-sand-ink">
-            {FORDELER.map((f) => (
-              <li key={f}>{f}</li>
-            ))}
+          {/* Kjøpsboksen på et hvitt kort med runde hjørner (R-32), og fordelene på en lys rosa stripe nederst. */}
+          <Inn i={3} className="mt-6 overflow-hidden rounded-2xl border border-sand-200 bg-paper">
+            <div className="p-5 md:p-7">
+              {kunIButikk ? (
+                <>
+                  <p className="flex items-center gap-2 font-medium">
+                    <Store className="size-4 text-regina-pink" aria-hidden /> Kun i butikken
+                  </p>
+                  <p className="mt-2 text-sm text-sand-ink">{KUN_I_BUTIKKEN_TEKST}</p>
+                  <Button asChild variant="outline" className="mt-4">
+                    <a href={BUTIKK.telefon.lenke}>
+                      <Phone aria-hidden /> Ring {BUTIKK.telefon.visning}
+                    </a>
+                  </Button>
+                </>
+              ) : (
+                <Kjopsboks produkt={p} />
+              )}
+            </div>
+            <ul className="space-y-1.5 border-t border-regina-pink-100 bg-regina-pink-50 px-5 py-4 text-sm text-sand-ink-deep md:px-7">
+              {FORDELER.map((f) => (
+                <li key={f} className="flex items-center gap-3">
+                  <span className="size-1.5 shrink-0 rounded-full bg-regina-pink" aria-hidden />
+                  {f}
+                </li>
+              ))}
+            </ul>
           </Inn>
         </div>
       </div>

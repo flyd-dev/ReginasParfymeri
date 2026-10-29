@@ -14,8 +14,8 @@ import { Pris } from './pris'
 import { Produktbilde } from './produktbilde'
 
 /**
- * Produktkort: kvadratisk bildebrønn med merke og hurtigkjøp over hjørnene, og under den en rad med navn til
- * venstre og pris til høyre. Er kortet smalt (to kolonner på mobil), legger prisen seg under navnet. Hele kortet
+ * Produktkort: kvadratisk bildebrønn med runde hjørner (R-32) og merke og et rundt hurtigkjøp over hjørnene, og
+ * under den en rad med navn til venstre og pris til høyre. Er kortet smalt (to kolonner på mobil), legger prisen seg under navnet. Hele kortet
  * er én lenke (navnet strekkes over kortet), så det blir ett tabulatorstopp per vare pluss hurtigkjøpet.
  *
  * Bevegelse: med mus toner bilde nummer to fram (som i «ProductCard», youcefbnm), og ved trykk glir bildet over i
@@ -58,7 +58,10 @@ export function Produktkort({
           morf={morfnavn(p.id)}
         />
         {merke && (
-          <Badge variant={merke.variant} className="pointer-events-none absolute top-2 left-2">
+          <Badge
+            variant={merke.variant}
+            className="pointer-events-none absolute top-2.5 left-2.5 md:top-3 md:left-3"
+          >
             {merke.tekst}
           </Badge>
         )}
@@ -72,7 +75,7 @@ export function Produktkort({
               href={produktUrl(p.slug)}
               transitionTypes={[TIL_PRODUKT]}
               aria-label={navn}
-              className="transition-colors duration-(--dur-fast) group-hover:text-regina-pink-strong after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-regina-pink-strong"
+              className="transition-colors duration-(--dur-fast) group-hover:text-regina-pink-strong after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-regina-pink-strong"
             >
               {p.visningsnavn}
             </Link>
@@ -94,7 +97,7 @@ export function Produktkort({
       {kjop && (
         // Øverst til høyre i bildebrønnen, over lenkeflaten og alltid synlig – virker uten peker og uten
         // JavaScript. Står sist i koden, så navnet kommer før knappen for tastatur og skjermleser.
-        <div className="absolute top-2 right-2 z-10">
+        <div className="absolute top-1.5 right-1.5 z-10 md:top-2 md:right-2">
           <Hurtigkjop produktId={p.id} variantId={kjop.variantId} navn={navn} />
         </div>
       )}

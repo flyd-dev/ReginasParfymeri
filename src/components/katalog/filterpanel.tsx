@@ -4,6 +4,10 @@
 // de andre filtrene, valg uten treff dempet, en bryter for «bare på lager» og aktive filtre som brikker. Hos oss
 // er hvert valg en lenke i adressen (virker uten JavaScript og kan deles), gruppene er <details>, og det er
 // ingen vurderinger/stjerner, fargeprikker eller prisglidebryter – vi har ikke data for dem.
+//
+// Runde hjørner og rosa (R-32): radene får en lys rosa flate med runde hjørner ved peker, avkrysning og bryter er
+// avrundet og fylles med Reginas rosa (#C2106F, hvit hake) når de er valgt, og aktive filtre er rosa piller.
+// Antallet står i sand-ink-deep, som holder kontrasten både på sand, papir og lys rosa.
 
 import { Check, ChevronDown, X } from 'lucide-react'
 import Link from 'next/link'
@@ -29,8 +33,9 @@ export function nullstillUrl(basis: string, tilstand: Listetilstand): string {
   return listeUrl(basis, { ...tilstand, filtre: TOMME_FILTRE }, { side: 1 })
 }
 
+// -mx-2.5/px-2.5: flaten ved peker går litt ut i margen, så teksten står på linje med overskriftene.
 const radklasse =
-  'group/valg flex min-h-10 items-center gap-3 py-1 transition-colors duration-(--dur-fast) hover:text-regina-pink-strong'
+  'group/valg -mx-2.5 flex min-h-11 items-center gap-3 rounded-lg px-2.5 py-1 transition-colors duration-(--dur-fast) hover:bg-regina-pink-50 hover:text-regina-pink-strong'
 
 /** Én filterverdi som lenke med avkrysningsboks: virker uten JavaScript, og filtrert liste kan deles. */
 function Valg({ href, verdi }: { href: string; verdi: Fasettverdi }) {
@@ -45,23 +50,23 @@ function Valg({ href, verdi }: { href: string; verdi: Fasettverdi }) {
     >
       <span
         className={cn(
-          'grid size-4.5 shrink-0 place-items-center border transition-colors duration-(--dur-fast)',
+          'grid size-4.5 shrink-0 place-items-center rounded-sm border transition-colors duration-(--dur-fast)',
           verdi.valgt
-            ? 'border-regina-plum bg-regina-plum text-white'
-            : 'border-input bg-paper group-hover/valg:border-regina-plum',
+            ? 'border-regina-pink-strong bg-regina-pink-strong text-white'
+            : 'border-input bg-paper group-hover/valg:border-regina-pink-strong',
         )}
         aria-hidden
       >
         {verdi.valgt && <Check className="size-3.5" strokeWidth={2.5} />}
       </span>
       <span className="min-w-0 flex-1">{verdi.navn}</span>
-      <span className="text-sm text-sand-ink tabular-nums">{verdi.antall}</span>
+      <span className="text-sm text-sand-ink-deep tabular-nums">{verdi.antall}</span>
       {verdi.valgt && <span className="sr-only">(valgt – trykk for å fjerne)</span>}
     </Link>
   )
 }
 
-/** Av/på som lenke, tegnet som en firkantet bryter (forbildets «In stock only»). */
+/** Av/på som lenke, tegnet som en rund bryter (forbildets «In stock only»). */
 function Bryter({
   href,
   navn,
@@ -82,19 +87,19 @@ function Bryter({
       aria-current={valgt ? 'true' : undefined}
     >
       <span className="min-w-0 flex-1">{navn}</span>
-      <span className="text-sm text-sand-ink tabular-nums">{antall}</span>
+      <span className="text-sm text-sand-ink-deep tabular-nums">{antall}</span>
       <span
         className={cn(
-          'relative h-5 w-9 shrink-0 border transition-colors duration-(--dur-fast)',
+          'relative h-6 w-10 shrink-0 rounded-full border transition-colors duration-(--dur-fast)',
           valgt
-            ? 'border-regina-plum bg-regina-plum'
-            : 'border-input bg-paper group-hover/valg:border-regina-plum',
+            ? 'border-regina-pink-strong bg-regina-pink-strong'
+            : 'border-input bg-paper group-hover/valg:border-regina-pink-strong',
         )}
         aria-hidden
       >
         <span
           className={cn(
-            'absolute top-0.5 left-0.5 size-3.5 transition-transform duration-(--dur-base) ease-out',
+            'absolute inset-y-0 left-[3px] my-auto size-4 rounded-full transition-transform duration-(--dur-base) ease-out',
             valgt ? 'translate-x-4 bg-white' : 'bg-sand-ink',
           )}
         />
@@ -116,11 +121,11 @@ function Gruppe({
   children: ReactNode
 }) {
   return (
-    <details open={apen || valgt > 0} className="group/gruppe border-b border-sand-200 py-2">
+    <details open={apen || valgt > 0} className="group/gruppe border-b border-sand-200 py-2 last:border-b-0">
       <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2 tracking-[0.08em] uppercase [&::-webkit-details-marker]:hidden">
         <span className="flex-1 font-medium">{tittel}</span>
         {valgt > 0 && (
-          <span className="grid h-5 min-w-5 place-items-center bg-regina-plum px-1 text-xs font-semibold tracking-normal text-white tabular-nums">
+          <span className="grid h-5 min-w-5 place-items-center rounded-full bg-regina-pink-strong px-1.5 text-xs font-semibold tracking-normal text-white tabular-nums">
             {valgt}
             <span className="sr-only"> valgt</span>
           </span>
@@ -292,10 +297,13 @@ export function AktiveFiltre({
             href={a.href}
             scroll={false}
             rel="nofollow"
-            className="inline-flex h-9 items-center gap-2 border border-sand-200 bg-paper pr-2.5 pl-3 transition-colors duration-(--dur-fast) hover:border-regina-plum"
+            className="group/brikke inline-flex h-11 items-center gap-2 rounded-full bg-regina-pink-100 pr-3.5 pl-4 text-regina-plum transition-colors duration-(--dur-fast) hover:bg-regina-pink-strong hover:text-white"
           >
             {a.tekst}
-            <X className="size-3.5 text-sand-ink" aria-hidden />
+            <X
+              className="size-3.5 text-regina-pink-strong transition-colors duration-(--dur-fast) group-hover/brikke:text-white"
+              aria-hidden
+            />
             <span className="sr-only">– fjern filteret</span>
           </Link>
         </li>
@@ -304,7 +312,7 @@ export function AktiveFiltre({
         <Link
           href={nullstillUrl(basis, tilstand)}
           scroll={false}
-          className="inline-flex h-9 items-center px-2 text-regina-pink-strong underline underline-offset-4 hover:text-regina-plum"
+          className="inline-flex h-11 items-center px-2 text-regina-pink-strong underline underline-offset-4 hover:text-regina-plum"
         >
           Nullstill
         </Link>

@@ -90,10 +90,10 @@ export function Produktliste({
     <div className="grid gap-8 lg:grid-cols-[15rem_1fr] lg:gap-12 xl:grid-cols-[16.5rem_1fr] xl:gap-16">
       {/* data-inn på selve kolonnen: en innpakning rundt den klebrige delen ville stoppet den fra å følge med. */}
       <Inn som="aside" i={3} aria-label="Filtre" className="hidden lg:block">
-        {/* Følger med ved rulling under den faste toppen; egen rulling når filtrene er høyere enn vinduet. */}
-        <div className="sticky top-36 max-h-[calc(100dvh-10rem)] overflow-y-auto overscroll-contain pr-2 pb-6 [scrollbar-width:thin]">
-          {/* Samme høyde som verktøylinjen til høyre, så de to linjene står likt. */}
-          <div className="border-b border-sand-200 pb-5">
+        {/* Følger med ved rulling under den faste toppen; egen rulling når filtrene er høyere enn vinduet. Et hvitt
+            kort med runde hjørner og tynn kant (R-32). */}
+        <div className="sticky top-36 max-h-[calc(100dvh-10rem)] overflow-y-auto overscroll-contain rounded-2xl border border-sand-200 bg-paper px-5 pb-2 [scrollbar-width:thin]">
+          <div className="border-b border-sand-200 pt-3 pb-3">
             <div className="flex min-h-11 items-center justify-between gap-4">
               <h2 className="text-2xl">Filtre</h2>
               {aktive > 0 && (
@@ -134,11 +134,14 @@ export function Produktliste({
         </Inn>
 
         {elementer.length === 0 ? (
-          <Inn key={visning} className="flex flex-col items-center py-20 text-center">
+          <Inn
+            key={visning}
+            className="mt-8 flex flex-col items-center rounded-3xl bg-regina-pink-50 px-6 py-16 text-center md:py-20"
+          >
             <p className="font-heading text-2xl md:text-3xl">
               {aktive > 0 ? 'Ingen produkter passer filtrene' : 'Ingen produkter her ennå'}
             </p>
-            <p className="mt-3 max-w-md text-sand-ink">
+            <p className="mt-3 max-w-md text-sand-ink-deep">
               {aktive > 0
                 ? 'Prøv å fjerne et filter – eller spør oss i butikken.'
                 : 'Spør oss gjerne – enkelte merker finnes bare i butikken i Haraldsgata.'}
@@ -168,10 +171,10 @@ export function Produktliste({
             <p className="text-sand-ink tabular-nums">
               Viser {elementer.length} av {filtrert.length}
             </p>
-            {/* Fremdrift som tynn linje – samme tall som teksten over. */}
-            <div className="h-px w-full bg-sand-200" aria-hidden>
+            {/* Fremdrift som tynn, rund linje i rosa (pynt) – samme tall som teksten over. */}
+            <div className="h-1 w-full overflow-hidden rounded-full bg-sand-200" aria-hidden>
               <div
-                className="h-px origin-left bg-regina-plum"
+                className="h-full origin-left rounded-full bg-regina-pink"
                 style={{ transform: `scaleX(${elementer.length / filtrert.length})` }}
               />
             </div>

@@ -4,6 +4,9 @@
 // og en fast bunn med primærknapp over en sekundærknapp i full bredde. Her er midtdelen varelinjene og bunnen
 // delsum, fraktlinje, «Gå til kassen» (POST-skjema, se docs/architecture.md §5.2) og «Se handlekurven».
 //
+// Runde hjørner og rosa (R-32): miniatyrene har runde hjørner, antallsvelgeren er en pille, og bunnen med delsum
+// og «Gå til kassen» står i en innfelt, lys rosa boks.
+//
 // Bevegelse: varelinjene kommer inn én etter én når skuffen åpnes (liste-inn.ts, etter «Animated List» – Dillion
 // Verma, Magic UI, MIT), og antall, linjesum og delsum ruller når de endres (rulletall.tsx, etter «Number Flow» –
 // Maxwell Barvian, MIT).
@@ -53,7 +56,7 @@ export function Kurvlinjer({ kurv, lukk, inngang }: { kurv: Kurv; lukk?: () => v
               src={l.bilde}
               alt=""
               sizes="96px"
-              className="w-20 border border-sand-200 sm:w-24"
+              className="w-20 rounded-lg border border-sand-200 sm:w-24 sm:rounded-xl"
               luft={false}
             />
           </Link>
@@ -105,19 +108,22 @@ export function Kurvlinjer({ kurv, lukk, inngang }: { kurv: Kurv; lukk?: () => v
   )
 }
 
-/** Delsum, frakt og «Gå til kassen» – bunnen i skuffen og oppsummeringen på handlekurvsiden. */
+/**
+ * Delsum, frakt og «Gå til kassen» – bunnen i skuffen og oppsummeringen på handlekurvsiden. Står på lys rosa flate
+ * (R-32), derfor sekundærtekst i sand-ink-deep.
+ */
 export function Kassedel({ kurv }: { kurv: Kurv }) {
   return (
     <div>
       <dl className="flex items-baseline justify-between gap-4">
         <dt>
-          Delsum <span className="text-sand-ink">({antallTekst(kurv.antall, 'vare', 'varer')})</span>
+          Delsum <span className="text-sand-ink-deep">({antallTekst(kurv.antall, 'vare', 'varer')})</span>
         </dt>
         <dd className="text-xl font-medium tabular-nums">
           <Rulletall verdi={kurv.delsum} vis={kroner} />
         </dd>
       </dl>
-      <ul className="mt-3 space-y-1.5 text-sm text-sand-ink">
+      <ul className="mt-3 space-y-1.5 text-sm text-sand-ink-deep">
         <li className="flex gap-2.5">
           <Truck className="mt-0.5 size-4 shrink-0" aria-hidden />
           {/* Fraktprisen settes av WooCommerce i kassen – den gjettes ikke her. */}
@@ -153,7 +159,8 @@ export function Handlekurv() {
       <SheetContent
         side="right"
         showCloseButton={false}
-        className="gap-0 bg-paper p-0 data-[side=right]:w-full data-[side=right]:sm:max-w-md"
+        // På mobil står en smal stripe av siden igjen til venstre, så de runde hjørnene (ui/sheet) ser tilsiktet ut.
+        className="gap-0 bg-paper p-0 data-[side=right]:w-[calc(100%-0.75rem)] data-[side=right]:sm:max-w-md"
         onInteractOutside={(e) => {
           if (erVarsel(e.target)) e.preventDefault()
         }}
@@ -185,7 +192,7 @@ export function Handlekurv() {
           )}
           {tom ? (
             <div className="flex flex-col items-center py-14 text-center">
-              <span className="grid size-16 place-items-center border border-sand-200 bg-sand-50" aria-hidden>
+              <span className="grid size-16 place-items-center rounded-full bg-regina-pink-50" aria-hidden>
                 <ShoppingBag className="size-7 text-regina-pink" strokeWidth={1.5} />
               </span>
               <p className="mt-6 font-heading text-2xl">Handlekurven er tom</p>
@@ -205,13 +212,15 @@ export function Handlekurv() {
         </div>
 
         {!tom && (
-          <SheetFooter className="gap-0 border-t border-sand-200 bg-paper px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-6">
-            <Kassedel kurv={kurv} />
-            <Button asChild variant="outline" size="lg" className="mt-3 w-full bg-paper">
-              <Link href="/handlekurv/" onClick={lukk}>
-                Se handlekurven
-              </Link>
-            </Button>
+          <SheetFooter className="gap-0 bg-paper px-3 pt-1 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-4">
+            <div className="rounded-2xl bg-regina-pink-50 p-4 sm:p-5">
+              <Kassedel kurv={kurv} />
+              <Button asChild variant="outline" size="lg" className="mt-3 w-full bg-paper">
+                <Link href="/handlekurv/" onClick={lukk}>
+                  Se handlekurven
+                </Link>
+              </Button>
+            </div>
           </SheetFooter>
         )}
       </SheetContent>

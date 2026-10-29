@@ -22,9 +22,17 @@ import { Produktbilde } from './produktbilde'
 const tosifret = (n: number) => String(n).padStart(2, '0')
 const ingenAbonnement = () => () => {}
 
+/** Avstanden fra ett bilde til det neste i raden: bredden pluss mellomrommet (mobil har luft mellom bildene). */
+function steg(rad: HTMLElement): number {
+  const [a, b] = rad.children
+  if (a instanceof HTMLElement && b instanceof HTMLElement) return b.offsetLeft - a.offsetLeft
+  return rad.clientWidth
+}
+
 /**
- * Produktgalleri (opptil 8 bilder): stort bilde på papirflate med teller «01 / 04», bildetekst, forrige/neste
- * over bildet og en nummerert miniatyrrad der valgt bilde har en tynn ramme.
+ * Produktgalleri (opptil 8 bilder): stort bilde på papirflate med runde hjørner (R-32), teller «01 / 04» som
+ * pille, bildetekst, runde forrige/neste-knapper over bildet og en nummerert miniatyrrad der valgt bilde har en
+ * rosa ring.
  *
  * Uten JavaScript er bildene en rad med scroll-snap, og miniatyrene er lenker til hvert bilde (#bilde-2 …), så
  * alle bildene kan nås. Teller og bildetekst hører til hvert bilde og stemmer derfor også da. Med JavaScript
@@ -63,7 +71,7 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
 
   if (antall === 0) {
     return (
-      <div className="grid aspect-square min-w-0 place-items-center bg-paper text-sand-ink">
+      <div className="grid aspect-square min-w-0 place-items-center rounded-2xl bg-paper text-sand-ink">
         Bilde mangler for {navn}
       </div>
     )
@@ -77,7 +85,7 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
     const el = spor.current
     if (!el) return
     const fart = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-    el.scrollTo({ left: neste * el.clientWidth, behavior: fart })
+    el.scrollTo({ left: neste * steg(el), behavior: fart })
   }
 
   const piltaster = (e: KeyboardEvent) => {
@@ -88,7 +96,7 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
 
   // Trykk gir et lite søkk (transform), og pilen dytter i retningen ved peker.
   const knapp =
-    'group/pil grid size-11 place-items-center border border-sand-200 bg-paper text-regina-plum transition-[border-color,transform] duration-(--dur-fast) ease-out hover:border-regina-plum active:scale-95'
+    'group/pil grid size-11 place-items-center rounded-full border border-sand-200 bg-paper text-regina-plum transition-[border-color,transform] duration-(--dur-fast) ease-out hover:border-regina-plum active:scale-95'
   const pil = 'size-4 transition-transform duration-(--dur-fast) ease-out'
 
   return (
@@ -103,14 +111,15 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
           onScroll={(e) => {
             const el = e.currentTarget
             if (el.clientWidth === 0) return
-            setAktiv(Math.min(antall - 1, Math.round(el.scrollLeft / el.clientWidth)))
+            setAktiv(Math.min(antall - 1, Math.round(el.scrollLeft / steg(el))))
             // Linjen følger fingeren direkte (ingen re-render): andelen av raden som er rullet.
             const andel = el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth)
             fremdrift.current?.style.setProperty('--andel', String(Math.min(1, Math.max(0, andel))))
           }}
           className={cn(
-            'flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-            klar && 'md:grid md:overflow-hidden',
+            // Luft mellom bildene, så de runde hjørnene synes når man sveiper.
+            'flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+            klar && 'md:grid md:gap-0 md:overflow-hidden',
           )}
         >
           {liste.map((b, i) => (
@@ -127,7 +136,7 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
             >
               <figure>
                 <Morfmal produktId={produktId} aktiv={i === 0}>
-                  <div className="relative isolate aspect-square overflow-hidden bg-paper">
+                  <div className="relative isolate aspect-square overflow-hidden rounded-2xl bg-paper">
                     <Image
                       src={b.src}
                       alt={i === 0 ? b.alt : `${b.alt} – bilde ${i + 1} av ${antall}`}
@@ -145,7 +154,7 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
                     />
                     {flere && (
                       <p
-                        className="absolute top-3 right-3 border border-sand-200 bg-paper px-2.5 py-1 text-sm leading-none tabular-nums"
+                        className="absolute top-3 right-3 rounded-full border border-sand-200 bg-paper px-3 py-1.5 text-sm leading-none tabular-nums"
                         aria-hidden
                       >
                         <span className="font-medium">{tosifret(i + 1)}</span>
@@ -191,14 +200,15 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
         )}
 
         {flere && klar && (
-          // Mobil: tynn linje i underkanten av bildet som følger sveipingen. Andelen (--andel) settes i onScroll.
+          // Mobil: en kort, rund linje nede til venstre i bildet, på høyde med pilene, som følger sveipingen.
+          // Andelen (--andel) settes i onScroll. Ren rosa er bare pynt her (aria-hidden).
           <span
-            className="pointer-events-none absolute inset-x-0 bottom-12 h-0.5 bg-sand-200 md:hidden"
+            className="pointer-events-none absolute bottom-20 left-4 h-1 w-16 overflow-hidden rounded-full bg-sand-200 md:hidden"
             aria-hidden
           >
             <span
               ref={fremdrift}
-              className="block h-full bg-regina-plum"
+              className="block h-full rounded-full bg-regina-pink"
               style={{
                 width: `${100 / antall}%`,
                 transform: `translateX(calc(var(--andel, 0) * ${antall - 1} * 100%))`,
@@ -223,14 +233,14 @@ export function Galleri({ bilder, navn, produktId }: { bilder: Bilde[]; navn: st
                   e.preventDefault()
                   gaaTil(i)
                 }}
-                className="group/miniatyr relative block size-16 after:pointer-events-none after:absolute after:-inset-[3px] after:border after:border-transparent after:transition-colors after:duration-(--dur-fast) hover:after:border-sand-200 aria-[current=true]:after:border-regina-plum md:size-auto"
+                className="group/miniatyr relative block size-16 rounded-lg after:pointer-events-none after:absolute after:-inset-1 after:rounded-xl after:border-2 after:border-transparent after:transition-colors after:duration-(--dur-fast) hover:after:border-sand-200 aria-[current=true]:after:border-regina-pink-strong md:size-auto"
               >
-                <Produktbilde src={b.src} alt="" sizes="80px" />
+                <Produktbilde src={b.src} alt="" sizes="80px" className="rounded-lg" />
                 <span className="sr-only">
                   Vis bilde {i + 1} av {antall}
                 </span>
                 <span
-                  className="absolute bottom-1 left-1.5 text-xs leading-none text-sand-ink tabular-nums group-aria-[current=true]/miniatyr:font-medium group-aria-[current=true]/miniatyr:text-regina-plum"
+                  className="absolute bottom-1.5 left-2 text-xs leading-none text-sand-ink tabular-nums group-aria-[current=true]/miniatyr:font-medium group-aria-[current=true]/miniatyr:text-regina-plum"
                   aria-hidden
                 >
                   {tosifret(i + 1)}

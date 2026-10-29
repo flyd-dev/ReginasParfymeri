@@ -54,7 +54,7 @@ export function Produktrad({ tittel, children }: { tittel: string; children: Rea
   }
 
   const knapp =
-    'group/pil grid size-11 place-items-center border border-sand-200 text-regina-plum transition-[border-color,opacity] duration-(--dur-fast) hover:border-regina-plum aria-disabled:cursor-default aria-disabled:opacity-40 aria-disabled:hover:border-sand-200'
+    'group/pil grid size-11 place-items-center rounded-full border border-sand-200 bg-paper text-regina-plum transition-[border-color,opacity] duration-(--dur-fast) hover:border-regina-plum aria-disabled:cursor-default aria-disabled:opacity-40 aria-disabled:hover:border-sand-200'
   const ikon = 'size-4 transition-transform duration-(--dur-fast) ease-out'
 
   return (

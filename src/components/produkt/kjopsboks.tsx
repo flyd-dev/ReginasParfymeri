@@ -19,9 +19,10 @@ import { VarsleSkjema } from './varsle-skjema'
  * for seg – unntatt når det bare finnes én. Doble variasjoner vises ikke (WooCommerce bruker den første).
  * Uten JavaScript er dette et vanlig skjema som poster til /api/kurv/.
  *
- * Valgt variant markeres med en plomflate som glir mellom valgene (som tommelen i forbildet). Uten JavaScript, og
- * til markøren har funnet plassen sin, er det valgte alternativet farget med CSS (:has(:checked)). På mobil kommer
- * en kjøpslinje opp nederst når kjøpsknappen er rullet forbi (kjopslinje.tsx).
+ * Alternativene er piller (R-32), og valgt variant markeres med en rosa pille (hvit tekst på #C2106F) som glir
+ * mellom valgene (som tommelen i forbildet). Uten JavaScript, og til markøren har funnet plassen sin, er det valgte
+ * alternativet farget med CSS (:has(:checked)). På mobil kommer en kjøpslinje opp nederst når kjøpsknappen er
+ * rullet forbi (kjopslinje.tsx).
  */
 export function Kjopsboks({ produkt: p }: { produkt: Produkt }) {
   const { leggTil, opptatt } = useKurv()
@@ -130,18 +131,18 @@ export function Kjopsboks({ produkt: p }: { produkt: Produkt }) {
             <div ref={valgliste} className="group/valg relative flex flex-wrap gap-2">
               <span
                 ref={markor}
-                className="pointer-events-none absolute top-0 left-0 size-px origin-top-left bg-regina-plum opacity-0 transition-[transform,opacity] duration-(--dur-slow) ease-(--ease-ut)"
+                className="pointer-events-none absolute top-0 left-0 origin-top-left rounded-full bg-regina-pink-strong opacity-0 transition-[transform,opacity] duration-(--dur-slow) ease-(--ease-ut)"
                 aria-hidden
               />
               {varianter.map((v, i) => (
                 <label
                   key={v.id}
                   className={cn(
-                    'relative inline-flex min-h-11 min-w-16 cursor-pointer items-center justify-center border border-input px-4 text-[0.9375rem] transition-[color,border-color,transform] duration-(--dur-slow) ease-out select-none active:scale-[0.97]',
+                    'relative inline-flex min-h-11 min-w-18 cursor-pointer items-center justify-center rounded-full border border-input px-5 text-[0.9375rem] transition-[color,border-color,transform] duration-(--dur-slow) ease-out select-none active:scale-[0.97]',
                     'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-regina-pink-strong',
-                    'hover:border-regina-plum has-checked:border-regina-plum has-checked:text-white',
+                    'hover:border-regina-pink-strong has-checked:border-regina-pink-strong has-checked:text-white',
                     // Før markøren er på plass (og uten JavaScript) bærer alternativet selv fargen.
-                    'has-checked:bg-regina-plum group-data-markor/valg:has-checked:bg-transparent',
+                    'has-checked:bg-regina-pink-strong group-data-markor/valg:has-checked:bg-transparent',
                     !v.kjopbar && 'text-sand-ink line-through decoration-1 has-checked:no-underline',
                   )}
                 >
@@ -172,17 +173,21 @@ export function Kjopsboks({ produkt: p }: { produkt: Produkt }) {
           </fieldset>
         )}
 
-        <Lagerstatus lager={lager} className="mt-6" />
+        {/* Lager og antall på samme rad, knappen i full bredde under: får plass på 390 px i kortet, og raden har
+            samme høyde før og etter at antallsvelgeren kommer til syne (ingen hopp når kunden velger variant). */}
+        <div className="mt-6 flex min-h-11 flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <Lagerstatus lager={lager} />
+          {kjopbar && maks > 1 && (!erVariabel || valgt) && (
+            <Antallvelger antall={antall} maks={maks} navn={p.visningsnavn} onEndre={setAntall} />
+          )}
+        </div>
 
         {kjopbar && (
-          <div className="mt-4 flex gap-3">
-            {maks > 1 && (!erVariabel || valgt) && (
-              <Antallvelger antall={antall} maks={maks} navn={p.visningsnavn} onEndre={setAntall} />
-            )}
+          <div className="mt-4">
             <Button
               type="submit"
               size="lg"
-              className="flex-1"
+              className="w-full"
               disabled={opptatt}
               onClick={(e) => {
                 // Før nettleserens egen «required»-melding: vår egen, på norsk, ved feltet.
@@ -216,8 +221,10 @@ export function Kjopsboks({ produkt: p }: { produkt: Produkt }) {
 }
 
 /**
- * Legger markøren over alternativ nr. `indeks` (-1: ingen). Bare transform og opacity – størrelsen er en
- * skalering av en flate på 1 × 1 px. Første gang, og når `gli` er av, hopper den rett på plass.
+ * Legger markøren over alternativ nr. `indeks` (-1: ingen). Markøren får målets størrelse med en gang (uten
+ * overgang), så pilleformen er nøyaktig når den står stille. Glidningen er FLIP: den starter der markøren står nå
+ * – også midt i en glidning – uttrykt som forskyvning og skalering av den nye størrelsen, og bare transformen har
+ * overgang (R-30: bare transform og opacity). Første gang, og når `gli` er av, hopper den rett på plass.
  */
 function plasserMarkor(liste: HTMLElement, m: HTMLElement, indeks: number, gli: boolean) {
   const mal = liste.querySelectorAll('label')[indeks]
@@ -226,13 +233,22 @@ function plasserMarkor(liste: HTMLElement, m: HTMLElement, indeks: number, gli: 
     delete liste.dataset.markor
     return
   }
+  const { offsetLeft: x, offsetTop: y, offsetWidth: bredde, offsetHeight: hoyde } = mal
   const hopp = !gli || !('markor' in liste.dataset)
-  if (hopp) m.style.transition = 'none'
-  m.style.transform = `translate(${mal.offsetLeft}px, ${mal.offsetTop}px) scale(${mal.offsetWidth}, ${mal.offsetHeight})`
-  if (hopp) {
-    void m.offsetWidth // Ta i bruk plasseringen før overgangen slås på igjen.
-    m.style.removeProperty('transition')
-  }
+  // Der markøren ses nå, med transformen den har akkurat nå.
+  const naa = new DOMMatrixReadOnly(getComputedStyle(m).transform)
+  const fraBredde = m.offsetWidth * naa.a
+  const fraHoyde = m.offsetHeight * naa.d
+  m.style.transition = 'none'
+  m.style.width = `${bredde}px`
+  m.style.height = `${hoyde}px`
+  m.style.transform =
+    hopp || fraBredde <= 0 || fraHoyde <= 0
+      ? `translate(${x}px, ${y}px)`
+      : `translate(${naa.e}px, ${naa.f}px) scale(${fraBredde / bredde}, ${fraHoyde / hoyde})`
+  void m.offsetWidth // Ta i bruk startpunktet før overgangen slås på igjen.
+  m.style.removeProperty('transition')
+  m.style.transform = `translate(${x}px, ${y}px)`
   m.style.opacity = '1'
   liste.dataset.markor = ''
 }
