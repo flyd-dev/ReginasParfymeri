@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AvdekkTekst } from '@/components/bevegelse/avdekk-tekst'
 import { Inn } from '@/components/bevegelse/inn'
+import { Prikk } from '@/components/layout/prikk'
 import { Button } from '@/components/ui/button'
 import { BILDER } from '@/content/bilder'
 import { BEHANDLINGER, BUTIKK, HISTORIE, NISJE } from '@/content/butikk'
@@ -18,19 +19,20 @@ import { Tallteller } from './tallteller'
 import { Tekstavsloring } from './tekstavsloring'
 import { Utstillingsvindu } from './utstillingsvindu'
 
+/**
+ * Overlinje med rosa prikk, overskrift og eventuelt en lenke til høyre. Rosa lenketekst (regina-pink-strong) holder
+ * kontrasten på alle de lyse flatene: sand-50, sand-100, paper og regina-pink-50 (tokens.test.ts).
+ */
 export function Seksjonstittel({
   kicker,
   tittel,
   lenke,
   id,
-  paSand100 = false,
 }: {
   kicker?: string
   tittel: React.ReactNode
   lenke?: { href: string; tekst: string }
   id: string
-  /** Rosa lenketekst holder ikke kontrast på sand-100; der blir lenken plum. */
-  paSand100?: boolean
 }) {
   return (
     <div className="mb-10 flex flex-wrap items-end justify-between gap-4 md:mb-14">
@@ -40,7 +42,7 @@ export function Seksjonstittel({
             som="p"
             className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase"
           >
-            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            <Prikk />
             {kicker}
           </Inn>
         )}
@@ -56,10 +58,7 @@ export function Seksjonstittel({
         <Inn i={3}>
           <Link
             href={lenke.href}
-            className={cn(
-              'inline-flex min-h-11 items-center gap-2 hover:underline md:mr-28',
-              paSand100 ? 'text-regina-plum' : 'text-regina-pink-strong',
-            )}
+            className="inline-flex min-h-11 items-center gap-2 text-regina-pink-strong hover:underline md:mr-28"
           >
             {lenke.tekst} <ArrowRight className="size-4" aria-hidden />
           </Link>
@@ -103,7 +102,8 @@ const FLIS = [
  * 21st.dev, med frilagte produkter på papir i stedet for fotografi under mørk toning. Bildet er en vare Flyd
  * har valgt (src/content/forside.ts), eller kategoriens mest solgte vare.
  *
- * Flisene glir inn forskjøvet når rutenettet kommer til syne. I den store plumflisen stiger papirflaten med
+ * Seksjonen er en innfelt lys rosa boks med runde hjørner (R-32); flisene er kort med runde hjørner, og «Også» er
+ * rosa piller. Flisene glir inn forskjøvet når rutenettet kommer til syne. I den store plumflisen stiger papirflaten med
  * flasken opp bak en maske (teppe); i de små tones flasken inn og skaleres ned (skala). Papiret ligger på
  * flaten som animeres, så multiply alltid har papir under seg.
  */
@@ -115,9 +115,9 @@ export function Kategoriinnganger({
   ovrige: { navn: string; sti: string[]; antall: number }[]
 }) {
   return (
-    <section className="bg-sand-100" aria-labelledby="kategorier-tittel">
-      <div className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28">
-        <Seksjonstittel id="kategorier-tittel" kicker="Utforsk" tittel="Hva leter du etter?" paSand100 />
+    <section className="mx-2 rounded-3xl bg-regina-pink-50 md:mx-4" aria-labelledby="kategorier-tittel">
+      <div className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 md:py-24">
+        <Seksjonstittel id="kategorier-tittel" kicker="Utforsk" tittel="Hva leter du etter?" />
         <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4 lg:grid-rows-[repeat(2,20rem)] xl:grid-rows-[repeat(2,23rem)]">
           {innganger.map((k, i) => {
             const flis = FLIS[i] ?? FLIS_LITEN
@@ -140,13 +140,15 @@ export function Kategoriinnganger({
                 <Link
                   href={kategoriUrl(k.sti)}
                   className={cn(
-                    'group absolute inset-0 flex flex-col overflow-hidden border',
-                    mork ? 'border-regina-plum bg-regina-plum text-sand-50' : 'border-sand-200 bg-paper',
+                    'group absolute inset-0 flex flex-col overflow-hidden rounded-2xl border',
+                    mork
+                      ? 'border-regina-plum bg-regina-plum text-sand-50'
+                      : 'border-regina-pink-100 bg-paper',
                   )}
                 >
                   <span
                     className={cn(
-                      'absolute top-4 left-5 z-10 text-sm tabular-nums md:left-6',
+                      'absolute top-4 left-4 z-10 text-sm tabular-nums md:left-6',
                       mork ? 'text-sand-100' : 'text-sand-ink',
                     )}
                   >
@@ -158,7 +160,7 @@ export function Kategoriinnganger({
                         som="span"
                         variant="teppe"
                         i={i + 4}
-                        className="relative isolate aspect-square h-full max-w-full"
+                        className="relative isolate aspect-square h-full max-w-full rounded-xl"
                       >
                         <span className="teppe absolute inset-0 bg-paper">{bilde}</span>
                       </Inn>
@@ -175,8 +177,8 @@ export function Kategoriinnganger({
                   )}
                   <span
                     className={cn(
-                      'flex items-end justify-between gap-4 border-t px-5 py-4 md:px-6 md:py-5',
-                      mork ? 'border-white/15' : 'border-sand-200',
+                      'flex items-end justify-between gap-2 border-t px-4 py-4 md:gap-4 md:px-6 md:py-5',
+                      mork ? 'border-white/15' : 'border-regina-pink-100',
                     )}
                   >
                     <span>
@@ -196,15 +198,16 @@ export function Kategoriinnganger({
           })}
         </ul>
         {ovrige.length > 0 && (
-          <nav aria-label="Flere kategorier" className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3">
-            <Inn som="span" className="text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
+          <nav aria-label="Flere kategorier" className="mt-10 flex flex-wrap items-center gap-2">
+            <Inn som="span" className="mr-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
               Også
             </Inn>
             {ovrige.map((k, n) => (
               <Inn som="span" key={k.sti.join('/')} i={n + 1}>
+                {/* Rosa pille; plum fyller ved peker og trykk (hvit på plum holder 4,5:1). */}
                 <Link
                   href={kategoriUrl(k.sti)}
-                  className="font-heading text-2xl underline-offset-4 hover:underline"
+                  className="inline-flex min-h-11 items-center rounded-full bg-regina-pink-100 px-5 font-heading text-xl transition-colors duration-(--dur-fast) hover:bg-regina-plum hover:text-white active:bg-regina-plum active:text-white"
                 >
                   {k.navn}
                 </Link>
@@ -217,17 +220,21 @@ export function Kategoriinnganger({
   )
 }
 
-/** Nisjeduft på plum: Reginas egen tekst og utstillingsvinduet med fem utvalgte dufter. */
+/**
+ * Nisjeduft på plum, som en innfelt boks med runde hjørner (R-32): Reginas egen tekst og utstillingsvinduet med
+ * fem utvalgte dufter.
+ */
 export function Nisjeduft({ produkter }: { produkter: Visningsprodukt[] }) {
   return (
     <section
-      className="bg-regina-plum text-sand-50 [&_:focus-visible]:outline-sand-50"
+      className="mx-2 rounded-3xl bg-regina-plum text-sand-50 md:mx-4 [&_:focus-visible]:outline-sand-50"
       aria-labelledby="nisje-tittel"
     >
-      <div className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28">
+      <div className="mx-auto max-w-screen-2xl px-4 py-16 md:px-8 md:py-24">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
-            <Inn som="p" className="text-sm tracking-[0.2em] text-sand-100 uppercase">
+            <Inn som="p" className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-100 uppercase">
+              <Prikk />
               Nisjeduft
             </Inn>
             <AvdekkTekst
@@ -273,18 +280,18 @@ export function Nisjemerker({ merker }: { merker: Nisjemerke[] }) {
 }
 
 /**
- * Reginas eget løfte om veiledning (reginaparfymeri.no) – ikke et kundesitat. Sidens ene flate i Reginas rosa
- * (regina-pink-strong, hvit tekst holder 5,8:1): et tydelig fargeløft midt i en ellers rolig side. Ordene går
+ * Reginas eget løfte om veiledning (reginaparfymeri.no) – ikke et kundesitat. Sidens sterkeste flate i Reginas
+ * rosa (regina-pink-strong, hvit tekst holder 5,8:1), som en innfelt boks med runde hjørner (R-32). Ordene går
  * fra svake til hvite mens kunden ruller gjennom (Tekstavsloring); uten JavaScript og ved redusert bevegelse er
  * alt hvitt.
  */
 export function Veiledning() {
   return (
     <section
-      className="bg-regina-pink-strong text-white [&_:focus-visible]:outline-white"
+      className="mx-2 rounded-3xl bg-regina-pink-strong text-white md:mx-4 [&_:focus-visible]:outline-white"
       aria-labelledby="veiledning-tittel"
     >
-      <div className="mx-auto grid max-w-screen-2xl gap-10 px-4 py-20 md:px-6 md:py-32 lg:grid-cols-12 lg:gap-8">
+      <div className="mx-auto grid max-w-screen-2xl gap-10 px-4 py-16 md:px-8 md:py-28 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-3">
           <Inn variant="skala">
             <Quote className="size-12 md:size-16" aria-hidden />
@@ -332,9 +339,13 @@ export function Historien() {
     >
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
         <div className="relative isolate pb-[22%] lg:col-span-6 lg:pb-[16%]">
-          {/* Tre plan: plumflate, butikkbildet og fasaden foran – dybde uten skygger. */}
-          <Flate className="absolute top-[24%] bottom-[6%] -left-4 -z-10 w-[52%] md:-left-8" fra="venstre" />
-          <Inn variant="teppe" i={1} className="relative aspect-[4/5] w-[80%]">
+          {/* Tre plan: plumflate, butikkbildet og fasaden foran – dybde uten skygger. Alle med runde hjørner (R-32);
+              fasaden har en kant i bakgrunnsfargen der den ligger over butikkbildet. */}
+          <Flate
+            className="absolute top-[24%] bottom-[6%] -left-2 -z-10 w-[52%] overflow-hidden rounded-3xl md:-left-4"
+            fra="venstre"
+          />
+          <Inn variant="teppe" i={1} className="relative aspect-[4/5] w-[80%] rounded-2xl lg:rounded-3xl">
             <div className="teppe absolute inset-0 bg-sand-100">
               <Image
                 src={BILDER.vedDisken.bilde}
@@ -346,8 +357,8 @@ export function Historien() {
             </div>
           </Inn>
           <Inn i={5} y="3rem" className="absolute right-0 bottom-0 aspect-square w-[50%]">
-            <div className="parallakse size-full border-[10px] border-sand-50 bg-sand-50 [--parallakse:2rem]">
-              <Inn variant="teppe" i={6} className="relative size-full">
+            <div className="parallakse size-full rounded-[calc(var(--radius-2xl)+10px)] border-[10px] border-sand-50 bg-sand-50 [--parallakse:2rem]">
+              <Inn variant="teppe" i={6} className="relative size-full rounded-2xl">
                 <div className="teppe absolute inset-0 bg-sand-100">
                   <Image
                     src={BILDER.fasade.bilde}
@@ -363,7 +374,7 @@ export function Historien() {
         </div>
         <div className="self-center lg:col-span-5 lg:col-start-8">
           <Inn som="p" className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink uppercase">
-            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            <Prikk />
             Familiebedrift
           </Inn>
           <AvdekkTekst
@@ -405,11 +416,17 @@ export function Historien() {
   )
 }
 
-/** Behandlinger: bildet går ut i kanten på den ene siden og trer fram bak et teppe. */
+/**
+ * Behandlinger i en innfelt lys rosa boks (R-32): bildet fyller den ene halvdelen med runde hjørner innenfor boksens
+ * kant og trer fram bak et teppe.
+ */
 export function Behandlinger() {
   return (
-    <section className="grid bg-sand-100 lg:grid-cols-2" aria-labelledby="behandling-tittel">
-      <Inn variant="teppe" className="relative min-h-[22rem] lg:min-h-[42rem]">
+    <section
+      className="mx-2 grid gap-2 rounded-3xl bg-regina-pink-50 p-2 md:mx-4 lg:grid-cols-2"
+      aria-labelledby="behandling-tittel"
+    >
+      <Inn variant="teppe" className="relative min-h-[22rem] rounded-2xl lg:min-h-[42rem]">
         <div className="teppe absolute inset-0">
           <Image
             src={BILDER.behandlingsrom.bilde}
@@ -420,8 +437,12 @@ export function Behandlinger() {
           />
         </div>
       </Inn>
-      <div className="self-center px-4 py-16 md:px-12 lg:px-16 xl:px-24">
-        <Inn som="p" className="text-sm tracking-[0.2em] text-sand-ink-deep uppercase">
+      <div className="self-center px-4 pt-8 pb-12 md:px-10 lg:px-14 lg:py-16 xl:px-20">
+        <Inn
+          som="p"
+          className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-ink-deep uppercase"
+        >
+          <Prikk />
           Hudpleieavdelingen · {BEHANDLINGER.etasje}
         </Inn>
         <AvdekkTekst
@@ -439,7 +460,7 @@ export function Behandlinger() {
               Bestill time
             </a>
           </Button>
-          <Button asChild size="lg" variant="outline" className="bg-transparent">
+          <Button asChild size="lg" variant="outline" className="bg-paper">
             <Link href="/behandlinger/">Om behandlingene</Link>
           </Button>
         </Inn>
@@ -457,7 +478,7 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
     <section className="mx-auto max-w-screen-2xl px-4 py-20 md:px-6 md:py-28" aria-labelledby="besok-tittel">
       <div className="grid lg:grid-cols-12">
         <div className="parallakse relative aspect-[4/3] [--parallakse:1.5rem] lg:col-span-8 lg:col-start-1 lg:row-start-1">
-          <Inn variant="teppe" className="absolute inset-0">
+          <Inn variant="teppe" className="absolute inset-0 rounded-2xl lg:rounded-3xl">
             <div className="teppe absolute inset-0 bg-sand-100">
               <Image
                 src={BILDER.interior.bilde}
@@ -473,10 +494,10 @@ export function BesokButikken({ info }: { info: Butikkinfo | null }) {
         <Inn
           i={4}
           y="3rem"
-          className="relative mx-4 -mt-16 bg-regina-plum p-8 text-sand-50 md:mx-12 md:p-12 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:mx-0 lg:mt-0 lg:self-center [&_:focus-visible]:outline-sand-50"
+          className="relative mx-4 -mt-16 rounded-2xl bg-regina-plum p-8 text-sand-50 md:mx-12 md:p-12 lg:rounded-3xl lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:mx-0 lg:mt-0 lg:self-center [&_:focus-visible]:outline-sand-50"
         >
           <p className="flex items-center gap-3 text-sm tracking-[0.2em] text-sand-100 uppercase">
-            <span className="h-px w-8 bg-regina-pink" aria-hidden />
+            <Prikk />
             Besøk oss
           </p>
           <AvdekkTekst

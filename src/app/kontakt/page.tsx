@@ -2,6 +2,7 @@ import { Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import { Innholdsside } from '@/components/innhold/innholdsside'
 import { Kart } from '@/components/innhold/kart'
+import { Prikk } from '@/components/layout/prikk'
 import { BUTIKK } from '@/content/butikk'
 import { hentButikkinfo } from '@/lib/woocommerce/innhold'
 
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/kontakt/' },
 }
 
-const SEKSJONSTITTEL = 'font-sans text-sm font-semibold tracking-[0.12em] uppercase'
+const SEKSJONSTITTEL = 'flex items-center gap-3 font-sans text-sm font-semibold tracking-[0.12em] uppercase'
+// Kort med runde hjørner på papir (R-32).
+const KORT = 'rounded-2xl border border-sand-200 bg-paper p-5 md:p-8'
 
 export default async function Kontakt() {
   const info = await hentButikkinfo()
@@ -28,9 +31,12 @@ export default async function Kontakt() {
       ingress={<p>{BUTIKK.beliggenhet}.</p>}
       media={<Kart className="lg:aspect-[21/9]" />}
     >
-      <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-12">
-        <section className="border-t border-sand-200 pt-6 lg:col-span-4">
-          <h2 className={SEKSJONSTITTEL}>Butikken</h2>
+      <div className="grid gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-12">
+        <section className={`${KORT} lg:col-span-4`}>
+          <h2 className={SEKSJONSTITTEL}>
+            <Prikk />
+            Butikken
+          </h2>
           <address className="mt-4 text-lg not-italic">
             {BUTIKK.navn}
             <br />
@@ -49,13 +55,16 @@ export default async function Kontakt() {
             </dl>
           ) : null}
         </section>
-        <section className="border-t border-sand-200 pt-6 lg:col-span-4">
-          <h2 className={SEKSJONSTITTEL}>Ring eller skriv</h2>
-          <ul className="mt-4 space-y-3 text-lg">
+        <section className={`${KORT} lg:col-span-4`}>
+          <h2 className={SEKSJONSTITTEL}>
+            <Prikk />
+            Ring eller skriv
+          </h2>
+          <ul className="mt-3 space-y-1 text-lg">
             <li>
               <a
                 href={BUTIKK.telefon.lenke}
-                className="inline-flex items-center gap-3 hover:text-regina-pink-strong"
+                className="inline-flex min-h-11 items-center gap-3 hover:text-regina-pink-strong"
               >
                 <Phone className="size-5" aria-hidden /> {BUTIKK.telefon.visning}
               </a>
@@ -63,15 +72,18 @@ export default async function Kontakt() {
             <li>
               <a
                 href={`mailto:${BUTIKK.epost}`}
-                className="inline-flex items-center gap-3 break-all hover:text-regina-pink-strong"
+                className="inline-flex min-h-11 items-center gap-3 text-base break-all hover:text-regina-pink-strong sm:text-lg"
               >
                 <Mail className="size-5" aria-hidden /> {BUTIKK.epost}
               </a>
             </li>
           </ul>
         </section>
-        <section className="border-t border-sand-200 pt-6 lg:col-span-4">
-          <h2 className={SEKSJONSTITTEL}>Firma</h2>
+        <section className={`${KORT} lg:col-span-4`}>
+          <h2 className={SEKSJONSTITTEL}>
+            <Prikk />
+            Firma
+          </h2>
           <p className="mt-4 text-lg">{BUTIKK.selskap}</p>
           <p className="text-sand-ink">Org.nr. {BUTIKK.orgnr}</p>
         </section>

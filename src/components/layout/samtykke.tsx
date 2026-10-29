@@ -96,9 +96,10 @@ export function Samtykke() {
       role="dialog"
       aria-modal="false"
       aria-labelledby="samtykke-tittel"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-sand-200 bg-paper animate-in fade-in slide-in-from-bottom-2"
+      className="fixed inset-x-2 bottom-2 z-50 mx-auto max-w-screen-2xl rounded-2xl border border-sand-200 bg-paper animate-in fade-in slide-in-from-bottom-2 md:inset-x-4 md:bottom-4"
     >
-      <div className="mx-auto flex max-w-screen-2xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:px-6">
+      {/* Et innfelt kort med runde hjørner (R-32), som samtykkevalget på flyd.no. */}
+      <div className="flex flex-col gap-4 px-5 py-5 md:flex-row md:items-center md:px-8">
         <div className="flex-1">
           <h2 id="samtykke-tittel" className="font-heading text-lg">
             Informasjonskapsler

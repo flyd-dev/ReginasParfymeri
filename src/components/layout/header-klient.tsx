@@ -21,8 +21,9 @@ const Handlekurv = dynamic(() => import('@/components/kurv/handlekurv').then((m)
   ssr: false,
 })
 
+// Runde ikonknapper (R-32) med lys rosa flate ved peker: rosa ikon på regina-pink-50 holder kontrasten.
 const ikonknapp =
-  'inline-flex size-11 items-center justify-center text-regina-plum transition-[color,scale] duration-(--dur-fast) ease-out hover:text-regina-pink-strong active:scale-90'
+  'inline-flex size-11 items-center justify-center rounded-full text-regina-plum transition-[color,background-color,scale] duration-(--dur-fast) ease-out hover:bg-regina-pink-50 hover:text-regina-pink-strong active:scale-90'
 
 /** Toppen står alltid fram over denne rullehøyden (kampanjebanner, toppstripe og selve toppen). */
 const FRI_SONE = 160
@@ -145,7 +146,7 @@ export function HeaderKlient({
           <button
             type="button"
             onClick={() => setSokApen(true)}
-            className="group/sok hidden h-11 w-full max-w-xs items-center gap-3 border-b border-input px-1 text-left text-sand-ink transition-colors duration-(--dur-fast) hover:border-regina-plum lg:flex"
+            className="group/sok hidden h-11 w-full max-w-xs items-center gap-3 rounded-full border border-sand-200 bg-paper pr-3 pl-4 text-left text-sand-ink transition-colors duration-(--dur-fast) hover:border-regina-plum lg:flex"
           >
             <Search
               className="size-4 shrink-0 transition-[color,scale] duration-(--dur-slow) ease-ut group-hover/sok:scale-110 group-hover/sok:text-regina-plum"
@@ -154,7 +155,7 @@ export function HeaderKlient({
             <span className="flex-1 truncate text-[0.9375rem] transition-transform duration-(--dur-slow) ease-ut group-hover/sok:translate-x-0.5">
               Søk etter duft eller merke
             </span>
-            <kbd className="hidden border border-sand-200 px-1.5 text-xs xl:inline">/</kbd>
+            <kbd className="hidden rounded-sm border border-sand-200 px-1.5 text-xs xl:inline">/</kbd>
           </button>
         </div>
         <div className="h-12 lg:h-16">{logo}</div>
@@ -182,7 +183,7 @@ export function HeaderKlient({
             {antall > 0 && (
               <span
                 key={merke.endringer}
-                className={`absolute top-1.5 right-1 grid min-w-4.5 place-items-center bg-regina-pink-strong px-1 text-[0.6875rem] leading-4.5 font-semibold text-white ${merke.endringer > 0 ? popKlasse : ''}`}
+                className={`absolute top-1.5 right-1 grid min-w-4.5 place-items-center rounded-full bg-regina-pink-strong px-1 text-[0.6875rem] leading-4.5 font-semibold text-white ${merke.endringer > 0 ? popKlasse : ''}`}
                 aria-hidden
               >
                 {antall}

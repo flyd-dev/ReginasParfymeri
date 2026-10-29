@@ -34,7 +34,7 @@ export function Kart({ className }: { className?: string }) {
   }, [vis])
 
   return (
-    <div className="border border-sand-200 bg-paper">
+    <div className="overflow-hidden rounded-2xl border border-sand-200 bg-paper md:rounded-3xl">
       <div
         className={cn(
           'relative isolate aspect-[4/5] overflow-hidden bg-sand-100 sm:aspect-[16/9]',
@@ -50,7 +50,7 @@ export function Kart({ className }: { className?: string }) {
               className="absolute inset-0 size-full"
               referrerPolicy="no-referrer"
             />
-            <Adressekort className="absolute bottom-4 left-4 hidden w-72 border sm:block" />
+            <Adressekort className="absolute bottom-4 left-4 hidden w-72 rounded-xl border sm:block" />
           </>
         ) : (
           <>
@@ -58,7 +58,7 @@ export function Kart({ className }: { className?: string }) {
             <Markor />
             {/* Adressekortet som popup over markøren, med en liten spiss ned mot den. */}
             <div className="absolute bottom-[calc(50%+1.75rem)] left-1/2 w-[min(18rem,calc(100%-2rem))] -translate-x-1/2">
-              <Adressekort className="border" />
+              <Adressekort className="rounded-xl border" />
               <span
                 className="absolute -bottom-[7px] left-1/2 -ml-1.5 size-3 rotate-45 border-r border-b border-sand-200 bg-paper"
                 aria-hidden
@@ -86,7 +86,7 @@ function Adressekort({ className }: { className?: string }) {
   return (
     <div className={cn('border-sand-200 bg-paper p-4', className)}>
       <div className="flex gap-4">
-        <div className="relative size-16 shrink-0 overflow-hidden bg-sand-100">
+        <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-sand-100">
           <Image src={BILDER.fasade.bilde} alt="" fill sizes="64px" className="object-cover" />
         </div>
         <div className="min-w-0">
@@ -108,13 +108,13 @@ function Adressekort({ className }: { className?: string }) {
   )
 }
 
-/** Markøren: plomme med rosa prikk og en svak rosa ring – kantene følger tokens (0–2 px), derfor rombe. */
+/** Markøren: rund plomme med rosa prikk og en svak rosa ring (runde hjørner, R-32). */
 function Markor() {
   return (
     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" aria-hidden>
-      <span className="absolute top-1/2 left-1/2 size-10 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-regina-pink/15" />
-      <span className="relative grid size-5 rotate-45 place-items-center border-2 border-paper bg-regina-plum">
-        <span className="size-1.5 bg-regina-pink" />
+      <span className="absolute top-1/2 left-1/2 size-11 -translate-x-1/2 -translate-y-1/2 rounded-full bg-regina-pink/15" />
+      <span className="relative grid size-5 place-items-center rounded-full border-2 border-paper bg-regina-plum">
+        <span className="size-1.5 rounded-full bg-regina-pink" />
       </span>
     </span>
   )

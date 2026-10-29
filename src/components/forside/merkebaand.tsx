@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 type Merke = { navn: string; slug: string }
 
 /**
- * Merkebåndet på plum: merkenavn i Playfair (annethvert kursivt) med rosa skilletegn, og under en roligere rad
+ * Merkebåndet på plum, som en innfelt boks med runde hjørner (R-32): merkenavn i Playfair (annethvert kursivt) med rosa skilletegn, og under en roligere rad
  * med de neste merkene – mindre, kursive og i motsatt retning, som de doble radene i «Marquee» (Magic UI, MIT).
  * Begge stopper ved peker, fokus og pauseknapp (WCAG 2.2.2), og står stille ved redusert bevegelse. Vi har ikke
  * merkenes logoer med bruksrett.
@@ -60,7 +60,7 @@ export function Merkebaand({ merker, merker2 = [] }: { merker: Merke[]; merker2?
     </div>
   )
   return (
-    <section aria-label="Merker" className="bg-regina-plum">
+    <section aria-label="Merker" className="mx-2 overflow-hidden rounded-3xl bg-regina-plum md:mx-4">
       <div className="group/baand">
         <div className="overflow-hidden pt-7 pb-5 motion-reduce:overflow-x-auto md:pt-9 md:pb-6">
           {spor(merker, false)}
@@ -72,11 +72,11 @@ export function Merkebaand({ merker, merker2 = [] }: { merker: Merke[]; merker2?
         )}
       </div>
       {/* Egen rad for knappen, så merkene som glir forbi aldri ligger over den (WCAG 2.5.8). Én knapp for begge. */}
-      <div className="mx-auto flex max-w-screen-2xl justify-end px-4 pb-2 motion-reduce:hidden md:px-6">
+      <div className="mx-auto flex max-w-screen-2xl justify-end px-4 pb-3 motion-reduce:hidden md:px-6">
         <button
           type="button"
           onClick={() => setPause((p) => !p)}
-          className="inline-flex h-11 items-center gap-2 px-2 text-sm text-sand-100 hover:text-white"
+          className="inline-flex h-11 items-center gap-2 rounded-full px-3 text-sm text-sand-100 hover:text-white"
           aria-label={pause ? 'Start merkebåndet' : 'Stopp merkebåndet'}
         >
           {pause ? <Play className="size-4" aria-hidden /> : <Pause className="size-4" aria-hidden />}

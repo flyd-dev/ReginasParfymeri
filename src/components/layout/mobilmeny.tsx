@@ -23,7 +23,7 @@ function Rad({ punkt, i }: { punkt: Menypunkt; i: number }) {
   return (
     <li
       style={plass(i)}
-      className={`relative py-2.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
+      className={`relative rounded-lg py-2.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-regina-pink-strong has-[a:focus-visible]:outline-solid ${listeInn}`}
     >
       <SheetClose asChild>
         <Link
@@ -45,7 +45,7 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
   return (
     <Sheet>
       <SheetTrigger
-        className="-ml-2 inline-flex size-11 items-center justify-center transition-[scale] duration-(--dur-fast) ease-out active:scale-90 lg:hidden"
+        className="-ml-2 inline-flex size-11 items-center justify-center rounded-full transition-[background-color,scale] duration-(--dur-fast) ease-out hover:bg-regina-pink-50 active:scale-90 lg:hidden"
         aria-label="Meny"
       >
         <Menu className="size-6" aria-hidden />
@@ -71,11 +71,12 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
                 </AccordionTrigger>
                 <AccordionContent className="[&_a]:no-underline">
                   <ul className="pb-3">
-                    <li className={listeInn} style={plass(0)}>
+                    {/* «Alt i …» som lys rosa pille (R-32); rosa tekst på regina-pink-50 holder 4,5:1. */}
+                    <li className={`pb-1 ${listeInn}`} style={plass(0)}>
                       <SheetClose asChild>
                         <Link
                           href={kategoriUrl(punkt.sti)}
-                          className="inline-flex items-center gap-1.5 py-2 text-base font-medium text-regina-pink-strong"
+                          className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-regina-pink-50 px-4 text-base font-medium text-regina-pink-strong"
                         >
                           Alt i {punkt.navn.toLocaleLowerCase('nb')} ({punkt.antall})
                           <ArrowRight className="size-4" aria-hidden />
@@ -93,13 +94,14 @@ export function Mobilmeny({ meny }: { meny: Menypunkt[] }) {
           <p className={`${kolonneoverskrift} mt-10 ${listeInnFraVenstre}`} style={plass(meny.length + 2)}>
             Regina
           </p>
-          <ul className="mt-2 divide-y divide-sand-200 border-y border-sand-200">
+          {/* Sekundærlenkene samlet i et kort med runde hjørner (R-32). */}
+          <ul className="mt-3 divide-y divide-sand-200 overflow-hidden rounded-xl border border-sand-200 bg-paper">
             {SEKUNDAERLENKER.map((l, i) => (
               <li key={l.href} className={listeInnFraVenstre} style={plass(meny.length + 3 + i)}>
                 <SheetClose asChild>
                   <Link
                     href={l.href}
-                    className="group/lenke flex items-center justify-between py-3.5 text-base transition-colors duration-(--dur-fast) active:text-regina-pink-strong"
+                    className="group/lenke flex items-center justify-between px-4 py-3.5 text-base transition-colors duration-(--dur-fast) active:text-regina-pink-strong"
                   >
                     {l.navn}
                     <ArrowRight

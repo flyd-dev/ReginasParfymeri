@@ -59,9 +59,10 @@ export default async function Personvern() {
           endre valget når som helst under «Informasjonskapsler» nederst på siden. Kassen og «Min konto»
           kjøres av WooCommerce, Vipps og Diller, som setter egne informasjonskapsler der.
         </p>
-        {/* Tabellen kan rulles sideveis på smal skjerm; området må da kunne nås med tastaturet. */}
+        {/* Tabellen kan rulles sideveis på smal skjerm; området må da kunne nås med tastaturet. Kort med runde
+            hjørner på papir (R-32). */}
         <div
-          className="mt-6 overflow-x-auto"
+          className="mt-6 overflow-x-auto rounded-xl border border-sand-200 bg-paper px-4"
           tabIndex={0}
           role="region"
           aria-label="Informasjonskapsler i nettbutikken"
@@ -69,19 +70,19 @@ export default async function Personvern() {
           <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-sand-200">
-                <th className="py-2 pr-4 font-semibold">Navn</th>
-                <th className="py-2 pr-4 font-semibold">Formål</th>
-                <th className="py-2 pr-4 font-semibold">Type</th>
-                <th className="py-2 font-semibold">Varighet</th>
+                <th className="py-3 pr-4 font-semibold">Navn</th>
+                <th className="py-3 pr-4 font-semibold">Formål</th>
+                <th className="py-3 pr-4 font-semibold">Type</th>
+                <th className="py-3 font-semibold">Varighet</th>
               </tr>
             </thead>
             <tbody>
               {kapsler.map((k) => (
-                <tr key={k.navn} className="border-b border-sand-200 align-top">
-                  <td className="py-2 pr-4 font-mono text-xs">{k.navn}</td>
-                  <td className="py-2 pr-4">{k.formaal}</td>
-                  <td className="py-2 pr-4">{k.type}</td>
-                  <td className="py-2">{k.varighet}</td>
+                <tr key={k.navn} className="border-b border-sand-200 align-top last:border-b-0">
+                  <td className="py-3 pr-4 font-mono text-xs">{k.navn}</td>
+                  <td className="py-3 pr-4">{k.formaal}</td>
+                  <td className="py-3 pr-4">{k.type}</td>
+                  <td className="py-3">{k.varighet}</td>
                 </tr>
               ))}
             </tbody>
