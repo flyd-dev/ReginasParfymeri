@@ -68,6 +68,7 @@ const PAR: [string, string, number, string][] = [
   ['regina-plum', 'regina-pink-50', TEKST, 'tekst på lys rosa flate'],
   ['regina-pink-strong', 'regina-pink-50', TEKST, 'rosa lenker på lys rosa flate'],
   ['sand-ink-deep', 'regina-pink-50', TEKST, 'sekundærtekst på lys rosa flate'],
+  ['sand-ink', 'regina-pink-50', TEKST, 'metadata på lys rosa flate'],
   ['regina-plum', 'regina-pink-100', TEKST, 'tekst på rosa brikke'],
   ['regina-pink-strong', 'regina-pink-100', TEKST, 'rosa tekst på rosa brikke'],
   ['regina-pink', 'regina-pink-50', STOR, 'store rosa overskrifter på lys rosa flate'],

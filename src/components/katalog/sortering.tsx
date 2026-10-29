@@ -41,7 +41,7 @@ export function Sortering({
             const url = valg.find((v) => v.id === e.target.value)?.url
             if (url) router.push(url, { scroll: false })
           }}
-          className="h-11 w-full appearance-none rounded-lg border border-input bg-paper pr-11 pl-4 transition-colors duration-(--dur-fast) hover:border-regina-pink-strong sm:w-60"
+          className="h-11 w-full appearance-none rounded-full border border-input bg-paper pr-11 pl-4 transition-colors duration-(--dur-fast) hover:border-regina-pink-strong sm:w-60"
         >
           {valg.map((v) => (
             <option key={v.id} value={v.id}>

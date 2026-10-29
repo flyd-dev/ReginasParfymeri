@@ -25,8 +25,8 @@ const buttonVariants = cva(
         default: `${fyll} bg-regina-pink-strong text-white before:bg-regina-plum`,
         // Som default, men med en tynn ren rosa kant ved peker, så formen holder på plum bakgrunn (footeren).
         rosa: `${fyll} bg-regina-pink-strong text-white before:bg-regina-plum hover:border-regina-pink`,
-        // Plum tekst på sand; sand-200 fyller og kanten mørkner.
-        outline: `${fyll} border-border bg-background before:bg-sand-200 hover:border-regina-plum hover:text-foreground aria-expanded:text-foreground dark:border-input dark:bg-input/30`,
+        // Plum tekst på hvit pille; sand-200 fyller og kanten mørkner.
+        outline: `${fyll} border-border bg-paper before:bg-sand-200 hover:border-regina-plum hover:text-foreground aria-expanded:text-foreground dark:border-input dark:bg-input/30`,
         secondary:
           'bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
         ghost:
